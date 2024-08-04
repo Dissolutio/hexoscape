@@ -1,10 +1,10 @@
 import { Origins, Server } from 'boardgame.io/server'
 import path from 'path'
 import serve from 'koa-static'
-import { Hexoscape } from './server/game'
+import { TicTacToe } from './server/game'
 
 const server = Server({
-  games: [Hexoscape],
+  games: [TicTacToe],
   origins: [
     // Allow your game site to connect.
     // 'https://www.mygame.domain',
@@ -15,7 +15,7 @@ const server = Server({
 const PORT = process.env.PORT || 8000
 
 // Build path relative to the server.js file
-const frontEndAppBuildPath = path.resolve(__dirname, './build')
+const frontEndAppBuildPath = path.resolve(__dirname, './dist')
 server.app.use(serve(frontEndAppBuildPath))
 
 server.run(PORT, () => {

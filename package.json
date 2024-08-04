@@ -2,11 +2,15 @@
   "name": "hexoscape",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "dev": "vite",
+    "server": "node -r esm server.js",
+    "devstart": "VITE_WITH_SEPARATE_SERVER=1 npm run dev",
+    "devserver": "run-p nodemon-devserver compile-game-files:watch",
+    "nodemon-devserver": "nodemon --delay 1 --watch ./server -r esm devserver.js",
     "compile-game-files": "tsc ./src/game/*.ts --outDir ./server --downlevelIteration true --skipLibCheck true",
-    "build": "tsc -b && vite build",
+    "compile-game-files:watch": "watch 'npm run compile-game-files' ./src/game",
+    "build": "tsc -b && npm run compile-game-files && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "format": "prettier --write 'src/**/*.js' '**/*.json' 'src/**/*.ts' 'src/**/*.tsx' 'server.js' 'devserver.js'",
     "preview": "vite preview"
