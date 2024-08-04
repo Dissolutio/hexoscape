@@ -6,8 +6,8 @@
  * https://opensource.org/licenses/MIT.
  */
 
-import { Game } from "boardgame.io"
-import { IsVictory } from "./isVictory"
+import { Game } from 'boardgame.io'
+import { IsVictory } from './isVictory'
 
 export const TicTacToe: Game = {
   name: 'tic-tac-toe',
