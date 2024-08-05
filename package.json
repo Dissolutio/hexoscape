@@ -6,10 +6,8 @@
     "dev": "vite",
     "server": "node -r esm server.js",
     "devstart": "VITE_WITH_SEPARATE_SERVER=1 npm run dev",
-    "devserver": "run-p nodemon-devserver compile-game-files:watch",
-    "nodemon-devserver": "nodemon --delay 1 --watch ./server -r esm devserver.js",
+    "devserver": "node -r esm devserver.js",
     "compile-game-files": "tsc ./src/game/*.ts --outDir ./server --downlevelIteration true --skipLibCheck true",
-    "compile-game-files:watch": "watch 'npm run compile-game-files' ./src/game",
     "build": "tsc -b && npm run compile-game-files && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "format": "prettier --write 'src/**/*.js' '**/*.json' 'src/**/*.ts' 'src/**/*.tsx' 'server.js' 'devserver.js'",
@@ -37,10 +35,7 @@
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",
-    "nodemon": "^3.1.4",
-    "npm-run-all": "^4.1.5",
     "typescript": "^5.2.2",
-    "vite": "^5.3.4",
-    "watch": "^1.0.2"
+    "vite": "^5.3.4"
   }
 }
