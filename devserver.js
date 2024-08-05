@@ -1,6 +1,5 @@
-const Server = require('boardgame.io/server').Server
-const Origins = require('boardgame.io/server').Origins
-const TicTacToe = require('./server/game').TicTacToe
+import { Origins, Server } from 'boardgame.io/server'
+import { TicTacToe } from './server/game'
 
 const server = Server({
   games: [TicTacToe],
