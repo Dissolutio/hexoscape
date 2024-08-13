@@ -20,7 +20,7 @@ const App = () => {
     return (
       <>
         <Helmet>
-          <title>Hexoscape</title>
+          <title>Hexoscape Online</title>
         </Helmet>
         <Routes>
           <Route
