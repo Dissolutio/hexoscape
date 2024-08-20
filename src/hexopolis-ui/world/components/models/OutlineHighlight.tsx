@@ -33,7 +33,8 @@ export const OutlineHighlight = ({
       color={new Color(highlightColor)}
       screenspace={false}
       opacity={1}
-      transparent={false}
+      // transparent={false}
+      transparent={true}
       angle={15}
     />
   ) : (

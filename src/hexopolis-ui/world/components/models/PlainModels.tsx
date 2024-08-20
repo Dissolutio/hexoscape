@@ -587,7 +587,7 @@ export function FinnPlainModel({
         receiveShadow
         geometry={nodes?.Finn_the_Viking_Champion_Scanned?.geometry}
       >
-        <meshLambertMaterial color={playerColor} />
+        <meshLambertMaterial opacity={0.1} color={playerColor} transparent />
         <OutlineHighlight gameUnit={gameUnit} isHovered={isHovered} />
       </mesh>
     </>
