@@ -28,7 +28,7 @@ import { selectIfGameArmyCardHasAbility } from './selector/card-selectors'
 import { scenarioNames } from './setup/scenarios'
 
 const isDevOverrideState =
-  import.meta.env.NODE_ENV === 'production'
+  import.meta.env.MODE === 'production'
     ? false
     : // toggle this one to test the game with pre-placed units
       true
@@ -47,7 +47,7 @@ export const Hexoscape: Game<GameState> = {
           return scenarioNames.cirdanGardenWithoutTrees
         }
         if (ctx.ctx.numPlayers === 2) {
-          if (import.meta.env.NODE_ENV === 'development') {
+          if (import.meta.env.MODE === 'development') {
             // DEV: change this to change 2 player local game
             // return scenarioNames.clashingFrontsAtTableOfTheGiants2
             return scenarioNames.forsakenWaters2
@@ -98,7 +98,7 @@ export const Hexoscape: Game<GameState> = {
         const playerIDs = Object.keys(G.players)
         const initiativeRoll = rollD20Initiative(playerIDs)
         // DEV: can make it so a certain player is first, etc.
-        // if (import.meta.env.NODE_ENV === 'test') {
+        // if (import.meta.env.MODE === 'test') {
         //   G.initiative = ['1', '0']
         // } else {
         //   G.initiative = initiativeRoll.initiative
@@ -337,7 +337,7 @@ export const Hexoscape: Game<GameState> = {
           playerID: '',
           initiativeRolls: initiativeRoll.rolls,
         })
-        if (import.meta.env.NODE_ENV === 'test') {
+        if (import.meta.env.MODE === 'test') {
           // enable pre-determined initiative in tests
           G.initiative = ['1', '0']
         } else {

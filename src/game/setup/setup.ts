@@ -28,7 +28,7 @@ export const gameSetupInitialGameState = ({
   const isDemoGame =
     numPlayers === 2 &&
     isLocalOrDemoGame &&
-    import.meta.env.NODE_ENV === 'production'
+    import.meta.env.MODE === 'production'
   if (scenarioName === scenarioNames.clashingFrontsAtTableOfTheGiants2) {
     return makeGiantsTable2PlayerScenario(numPlayers, withPrePlacedUnits)
   }
