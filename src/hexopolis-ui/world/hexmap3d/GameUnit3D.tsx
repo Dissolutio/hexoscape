@@ -12,7 +12,6 @@ import {
 } from '../../../hexopolis-ui/contexts'
 import { useBgioClientInfo, useBgioCtx, useBgioG } from '../../../bgio-contexts'
 import { selectHexForUnit, selectTailHexForUnit } from '../../../game/selectors'
-import { useThree } from '@react-three/fiber'
 import { UnitModelByID } from './UnitModelByID'
 
 export const GameUnit3D = ({
@@ -50,7 +49,6 @@ export const GameUnit3D = ({
     ? rotationToTail
     : playerAdjustedRotationForSingleHexFigures
   const [isHovered, setIsHovered] = useState(false)
-  const camera = useThree((state) => state.camera)
   const { playerID } = useBgioClientInfo()
   const randomEnemyUnit = Object.values(gameUnits).find(
     (u) => u.playerID !== playerID
@@ -69,7 +67,7 @@ export const GameUnit3D = ({
       onPointerLeave={() => {
         setIsHovered(false)
       }}
-      onClick={(e) => {
+      onClick={() => {
         // we will focus the react three camera on this unit
         const pos = boardHex ? getBoardHex3DCoords(boardHex) : undefined
         const posLookAt = hexForRandomEnemyUnit
