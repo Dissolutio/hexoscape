@@ -342,7 +342,7 @@ export type BaseGameOptions =
       orderMarkers?: OrderMarkers
       initiative?: string[]
       unitsMoved?: string[]
-      unitsAttacked?: {}
+      unitsAttacked?: Record<string, string[]>
       players?: PlayerState
     }
   | undefined
