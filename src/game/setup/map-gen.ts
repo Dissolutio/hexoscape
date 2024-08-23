@@ -336,7 +336,7 @@ export function makeHexagonShapedMap(mapOptions?: MapOptions): GameMap {
     mapSize
   )
   const startZones = getStartZonesFromBoardHexes(boardHexes)
-  let boardHexesWithPrePlacedUnits: BoardHexes =
+  const boardHexesWithPrePlacedUnits: BoardHexes =
     transformBoardHexesWithPrePlacedUnits(boardHexes, startZones, gameUnits)
   return {
     boardHexes: withPrePlacedUnits ? boardHexesWithPrePlacedUnits : boardHexes,
@@ -368,7 +368,7 @@ const transformBoardHexesToHaveStartZones = (
     `${mapSize},-${mapSize},0`,
   ]
   const maxSpreadToAvoidOverlapping = Math.floor(mapSize / 2)
-  let startZones: {
+  const startZones: {
     [key: string]: string[]
   } = {
     '0': [`0,-${mapSize},${mapSize}`],
@@ -407,7 +407,7 @@ const transformBoardHexesToHaveStartZones = (
   }, {})
 }
 const getStartZonesFromBoardHexes = (boardHexes: BoardHexes): StartZones => {
-  let result: StartZones = {}
+  const result: StartZones = {}
   for (const boardHex in boardHexes) {
     if (Object.prototype.hasOwnProperty.call(boardHexes, boardHex)) {
       boardHexes[boardHex].startzonePlayerIDs.forEach((id) => {

@@ -12,6 +12,7 @@ module.exports = {
   rules: {
     '@typescript-eslint/no-var-requires': 0,
     '@typescript-eslint/no-explicit-any': 0,
+    '@typescript-eslint/no-unused-vars': 0,
     'react-refresh/only-export-components': [
       'warn',
       { allowConstantExport: true },

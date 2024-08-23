@@ -223,7 +223,7 @@ export const Hexoscape: Game<GameState> = {
               // TODO: track the game card id that is Dropping, in case multiple cards with The Drop
             })
           )
-          let newStageQueue: StageQueueItem[] = [...playerDropStagesForQueue]
+          const newStageQueue: StageQueueItem[] = [...playerDropStagesForQueue]
           const nextStage = newStageQueue.shift()
           G.stageQueue = newStageQueue
           if (nextStage) {
@@ -436,7 +436,7 @@ export const Hexoscape: Game<GameState> = {
         // clear move-points,  update currentOrderMarker, end round after last turn (go to place order-markers)
         onEnd: ({ G, ctx, events }) => {
           // if any card threw grenades, mark them as used
-          ;[...new Set(G.grenadesThrown)].forEach((cardID) => {
+          [...new Set(G.grenadesThrown)].forEach((cardID) => {
             const indexToUpdate = G.gameArmyCards.findIndex(
               (card) => card.gameCardID === cardID
             )

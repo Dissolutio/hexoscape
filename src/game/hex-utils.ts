@@ -220,10 +220,10 @@ export const hexUtilsGetID = (hex: HexCoordinates): string => {
 }
 
 export const generateHexagonHexas = (mapRadius: number): HexCoordinates[] => {
-  let hexas: HexCoordinates[] = []
+  const hexas: HexCoordinates[] = []
   for (let q = -mapRadius; q <= mapRadius; q++) {
-    let r1 = Math.max(-mapRadius, -q - mapRadius)
-    let r2 = Math.min(mapRadius, -q + mapRadius)
+    const r1 = Math.max(-mapRadius, -q - mapRadius)
+    const r2 = Math.min(mapRadius, -q + mapRadius)
     for (let r = r1; r <= r2; r++) {
       hexas.push({ q, r, s: -q - r })
     }
@@ -234,9 +234,9 @@ export const generateRectangleHexas = (
   mapWidth: number,
   mapHeight: number
 ): HexCoordinates[] => {
-  let hexas: HexCoordinates[] = []
+  const hexas: HexCoordinates[] = []
   for (let r = 0; r < mapHeight; r++) {
-    let offset = Math.floor(r / 2) // or r>>1
+    const offset = Math.floor(r / 2) // or r>>1
     for (let q = -offset; q < mapWidth - offset; q++) {
       hexas.push({ q, r, s: -q - r })
     }
@@ -247,9 +247,9 @@ export const generateOrientedRectangleHexas = (
   mapWidth: number,
   mapHeight: number
 ): HexCoordinates[] => {
-  let hexas: HexCoordinates[] = []
+  const hexas: HexCoordinates[] = []
   for (let q = 0; q < mapWidth; q++) {
-    let offset = Math.floor(q / 2) // or q>>1
+    const offset = Math.floor(q / 2) // or q>>1
     for (let r = -offset; r < mapHeight - offset; r++) {
       hexas.push({ q, r, s: -q - r })
     }
@@ -263,7 +263,7 @@ export const generateParalellogramHexas = (
   r1: number,
   r2: number
 ): HexCoordinates[] => {
-  let hexas: HexCoordinates[] = []
+  const hexas: HexCoordinates[] = []
   for (let q = q1; q <= q2; q++) {
     for (let r = r1; r <= r2; r++) {
       hexas.push({ q, r, s: -q - r })

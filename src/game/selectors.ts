@@ -335,7 +335,7 @@ export const selectIsInRangeOfAttack = ({
     attackingUnit.gameCardID
   )
   // const unitRange = attackerGameCard?.range ?? 0
-  let unitRange = overrideUnitRange
+  const unitRange = overrideUnitRange
     ? overrideUnitRange
     : selectUnitRange({
         attackingUnit,

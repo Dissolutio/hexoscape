@@ -1,7 +1,5 @@
 import { Canvas } from '@react-three/fiber'
 import {
-  OrbitControls,
-  Stage,
   Stars,
   Stats,
   PerspectiveCamera,
@@ -13,12 +11,10 @@ import { Notifications } from '../../hexopolis-ui/notifications/Notifications'
 import { RoundCounter } from '../../hexopolis-ui/hexmap/RoundCounter'
 import { DraftCounter } from '../../hexopolis-ui/hexmap/DraftCounter'
 import { useBgioCtx } from '../../bgio-contexts'
-import { useUIContext } from '../../hexopolis-ui/contexts'
 import { useRef } from 'react'
 
 export const World = () => {
   const { isDraftPhase } = useBgioCtx()
-  const { setSelectedUnitID } = useUIContext()
   const cameraControlsRef = useRef(undefined!)
   return (
     <div

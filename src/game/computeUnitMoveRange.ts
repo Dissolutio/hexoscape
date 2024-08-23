@@ -226,7 +226,7 @@ function computeMovesForStartHex({
   if (movePoints <= 0) {
     return initialMoveRange
   }
-  let toBeChecked = [...initialToBeChecked]
+  const toBeChecked = [...initialToBeChecked]
   // early out if no move points!
   const isUnit2Hex = unit?.is2Hex
   const isUnitInitiallyEngaged = initialEngagements.length > 0
@@ -331,7 +331,7 @@ function computeMovesForStartHex({
     const isMovePointsLeftAfterMove = isFlying
       ? movePointsToBeChecked - 1 > 0
       : movePointsLeft > 0
-    const isEndHexUnoccupied = !Boolean(unitIDOnToHex)
+    const isEndHexUnoccupied = !unitIDOnToHex
     const isTooCostly = movePointsLeft < 0
     // TODO: teams :: isEndHexEnemyOccupied :: a unit that is not yours is not necessarily an enemy
     const isEndHexEnemyOccupied =
@@ -427,7 +427,7 @@ function computeMovesForStartHex({
     // BEGIN isVisitedAlready else block
     if (isVisitedAlready) {
       // TODO: Handle this
-      console.log("🚀 ~ isVisitedAlready-- previsited:", preVisitedEntry )
+      // console.log("🚀 ~ isVisitedAlready-- previsited:", preVisitedEntry )
     } else {
       // BREAK IF UNPASSABLE
       if (isUnpassable) {

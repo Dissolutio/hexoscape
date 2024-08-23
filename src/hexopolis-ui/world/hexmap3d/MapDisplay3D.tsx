@@ -46,27 +46,27 @@ const Hex3D = ({
   const { playerID } = useBgioClientInfo()
   const {
     boardHexes,
-    hexMap: { hexSize, glyphs },
+    // hexMap: { hexSize, glyphs },
     gameArmyCards,
-    startZones,
+    // startZones,
     gameUnits,
-    unitsMoved,
+    // unitsMoved,
   } = useBgioG()
   const boardHex = boardHexes[boardHexID]
   const { selectedUnitID } = useUIContext()
-  const selectedUnitIs2Hex = gameUnits[selectedUnitID]?.is2Hex
-  const { selectedMapHex } = useMapContext()
+  // const selectedUnitIs2Hex = gameUnits[selectedUnitID]?.is2Hex
+  // const { selectedMapHex } = useMapContext()
   const {
-    isMyTurn,
-    isDraftPhase,
+    // isMyTurn,
+    // isDraftPhase,
     isPlacementPhase,
-    isOrderMarkerPhase,
+    // isOrderMarkerPhase,
     isTheDropStage,
-    isIdleTheDropStage,
+    // isIdleTheDropStage,
     isRoundOfPlayPhase,
-    isAttackingStage,
-    isMovementStage,
-    isWaterCloneStage,
+    // isAttackingStage,
+    // isMovementStage,
+    // isWaterCloneStage,
     isChompStage,
     isMindShackleStage,
     isFireLineSAStage,
@@ -76,34 +76,34 @@ const Hex3D = ({
   const {
     onClickPlacementHex,
     editingBoardHexes,
-    activeTailPlacementUnitID,
-    tailPlaceables,
-    startZoneForMy2HexUnits,
+    // activeTailPlacementUnitID,
+    // tailPlaceables,
+    // startZoneForMy2HexUnits,
   } = usePlacementContext()
   const {
-    selectedUnitMoveRange,
-    selectedUnitAttackRange,
+    // selectedUnitMoveRange,
+    // selectedUnitAttackRange,
     onClickTurnHex,
-    revealedGameCardUnits,
-    revealedGameCardUnitIDs,
+    // revealedGameCardUnits,
+    // revealedGameCardUnitIDs,
     currentTurnGameCardID,
-    clonerHexIDs,
-    clonePlaceableHexIDs,
-    theDropPlaceableHexIDs,
+    // clonerHexIDs,
+    // clonePlaceableHexIDs,
+    // theDropPlaceableHexIDs,
   } = usePlayContext()
   const {
     selectSpecialAttack,
     fireLineTargetableHexIDs,
-    fireLineAffectedHexIDs,
-    fireLineSelectedHexIDs,
+    // fireLineAffectedHexIDs,
+    // fireLineSelectedHexIDs,
     explosionTargetableHexIDs,
-    explosionAffectedHexIDs,
-    explosionAffectedUnitIDs,
-    explosionSelectedUnitIDs,
+    // explosionAffectedHexIDs,
+    // explosionAffectedUnitIDs,
+    // explosionSelectedUnitIDs,
     chompableHexIDs,
-    chompSelectedHexIDs,
+    // chompSelectedHexIDs,
     mindShackleTargetableHexIDs,
-    mindShackleSelectedHexIDs,
+    // mindShackleSelectedHexIDs,
   } = useSpecialAttackContext()
 
   const onClick = (event: ThreeEvent<MouseEvent>, sourceHex: BoardHex) => {
@@ -163,21 +163,21 @@ const Hex3D = ({
     : boardHex.isUnitTail
   const editingBoardHexUnitID = isUnitTail
     ? ''
-    : editingBoardHexes?.[boardHex.id]?.occupyingUnitID ?? ''
+    : (editingBoardHexes?.[boardHex.id]?.occupyingUnitID ?? '')
   const unitIdToShowOnHex =
     // order matters here
     isTheDropStage
       ? //The Drop: uses the same editing state as placement phase, and player needs to see their Dropped units
         boardHex.occupyingUnitID || editingBoardHexUnitID
       : isPlacementPhase
-      ? // in placement phase, we only show each player their editing state
-        editingBoardHexUnitID
-      : isUnitTail
-      ? ''
-      : boardHex.occupyingUnitID
+        ? // in placement phase, we only show each player their editing state
+          editingBoardHexUnitID
+        : isUnitTail
+          ? ''
+          : boardHex.occupyingUnitID
   const gameUnit = gameUnits?.[unitIdToShowOnHex]
   const gameUnitCard = selectGameCardByID(gameArmyCards, gameUnit?.gameCardID)
-  const unitName = gameUnitCard?.name ?? ''
+  // const unitName = gameUnitCard?.name ?? ''
 
   // we only show players their own units during placement phase
   const isShowableUnit = !isPlacementPhase || gameUnit?.playerID === playerID
@@ -195,7 +195,7 @@ const Hex3D = ({
     y: positionZ,
     z: positionY,
   } = getBoardHex3DCoords(boardHex)
-  const positionYHexText = positionY + 0.2
+  // const positionYHexText = positionY + 0.2
   return (
     <>
       <MapHex3D

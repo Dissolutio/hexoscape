@@ -8,12 +8,11 @@ import {
   isFluidTerrainHex,
 } from '../../../game/constants'
 import { HeightRings } from './HeightRings'
-import { useBgioClientInfo, useBgioCtx, useBgioG } from '../../../bgio-contexts'
+import { useBgioCtx, useBgioG } from '../../../bgio-contexts'
 import {
   usePlacementContext,
   useUIContext,
 } from '../../../hexopolis-ui/contexts'
-import { playerColors } from '../../../hexopolis-ui/theme'
 import { selectGlyphForHex } from '../../../game/selectors'
 import { powerGlyphs } from '../../../game/glyphs'
 
@@ -40,17 +39,17 @@ export const MapHex3D = ({
   onClick?: (e: ThreeEvent<MouseEvent>, hex: BoardHex) => void
 }) => {
   const {
-    startZones,
+    // startZones,
     hexMap: { glyphs },
   } = useBgioG()
   const { isPlacementPhase } = useBgioCtx()
-  const { playerID } = useBgioClientInfo()
+  // const { playerID } = useBgioClientInfo()
   const { editingBoardHexes } = usePlacementContext()
   const unitID = boardHex?.occupyingUnitID ?? ''
   const editingHexUnitID = editingBoardHexes[boardHex.id]?.occupyingUnitID ?? ''
   const { selectedUnitID } = useUIContext()
-  const occupyingPlacementUnitId =
-    editingBoardHexes?.[boardHex.id]?.occupyingUnitID ?? ''
+  // const occupyingPlacementUnitId =
+  //   editingBoardHexes?.[boardHex.id]?.occupyingUnitID ?? ''
   const altitude = boardHex.altitude
   const hexYPosition = altitude / 4
   const isFluidHex = isFluidTerrainHex(boardHex.terrain)
@@ -82,11 +81,11 @@ export const MapHex3D = ({
 
   const whiteColor = new Color('white')
   const terrainColor = new Color(hexTerrainColor[boardHex.terrain])
-  const playerColor = new Color(playerColors[playerID])
+  // const playerColor = new Color(playerColors[playerID])
 
-  const isMyStartZoneHex = Boolean(
-    startZones?.[playerID]?.includes(boardHex.id)
-  )
+  // const isMyStartZoneHex = Boolean(
+  //   startZones?.[playerID]?.includes(boardHex.id)
+  // )
   const isSelectedUnitHex =
     selectedUnitID &&
     (isPlacementPhase ? editingHexUnitID : unitID) &&
@@ -99,7 +98,7 @@ export const MapHex3D = ({
   const capEmissiveColor =
     isHovered || isSelectedUnitHex ? whiteColor : terrainColor
   // there was a time when the base emissivity was non-zero, but fps improved with removing <Stage>, and <Stage> is where it looked good
-  const baseEmissivity = 0
+  const baseEmissivity = 1
   const capFluidOpacity = 0.85
   const fluidEmissivity = 2 * baseEmissivity
   const capEmissiveIntensity = isHovered ? 1 : baseEmissivity
