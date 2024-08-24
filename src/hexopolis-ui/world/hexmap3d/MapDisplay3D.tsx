@@ -190,6 +190,7 @@ const Hex3D = ({
   //   gameUnitCard?.type.includes('hero') || (gameUnitCard?.life ?? 0) > 1
   // const unitLifePosition: Point = { x: hexSize * -0.6, y: 0 }
 
+  // DEV NOTE: THIS IS WHERE WE SWITCH Y AND Z (And I am not 100% certain I did it to maintain "y" as altitude, I may have just goofed up and covered it up with this)
   const {
     x: positionX,
     y: positionZ,
