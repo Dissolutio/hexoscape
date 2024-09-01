@@ -132,11 +132,12 @@ const HEX_SPACING = 1.05
 export const cubeToPixel = (hex: HexCoordinates) => {
   const x = HEX_RADIUS * (Math.sqrt(3) * hex.q + (Math.sqrt(3) / 2) * hex.r)
   const y = HEX_RADIUS * ((3 / 2) * hex.r)
-  return { x: x * HEX_SPACING, y: y * HEX_SPACING }
+  return { x: x, y: y }
 }
 export const getBoardHex3DCoords = (hex: BoardHex) => {
   const { x, y } = cubeToPixel(hex)
-  return { x, y, z: hex.altitude / 2 }
+  // DEV NOTE: THIS IS WHERE WE SWITCH Y AND Z (And I am not 100% certain I did it to maintain "y" as altitude, I may have just goofed up and covered it up with this)
+  return { x: x * HEX_SPACING, z: y * HEX_SPACING, y: hex.altitude / 2 }
 }
 
 export const getDirectionOfNeighbor = (

@@ -1,19 +1,30 @@
 import { ThreeEvent } from '@react-three/fiber'
-import { Billboard, CameraControls, Text } from '@react-three/drei'
+import { CameraControls } from '@react-three/drei'
 import { BoardHex } from '../../../game/types'
 import { useBgioClientInfo, useBgioCtx, useBgioG } from '../../../bgio-contexts'
 import { MapHex3D } from './MapHex3D'
 import { useSpecialAttackContext } from '../../../hexopolis-ui/contexts/special-attack-context'
 import {
-  useMapContext,
   usePlacementContext,
   usePlayContext,
   useUIContext,
 } from '../../../hexopolis-ui/contexts'
 import { selectGameCardByID } from '../../../game/selectors'
 import { GameUnit3D } from './GameUnit3D'
-import { cubeToPixel, getBoardHex3DCoords } from '../../../game/hex-utils'
+import { getBoardHex3DCoords } from '../../../game/hex-utils'
 
+/**
+ * React component that renders the 3D hexmap.
+ *
+ * Takes a `cameraControlsRef` as a prop, which is a mutable ref to a
+ * `react-three-fiber` `CameraControls` component.
+ *
+ * The component renders a collection of `Hex3D` components, one for each hex
+ * in the game's `boardHexes` object. Each `Hex3D` is given the `cameraControlsRef`
+ * and the `boardHexID` of the corresponding hex in the `boardHexes` object.
+ *
+ * The component returns a fragment containing all the `Hex3D` components.
+ */
 export function MapDisplay3D({
   cameraControlsRef,
 }: {
@@ -36,6 +47,22 @@ export function MapDisplay3D({
   )
 }
 
+/**
+ * React component that renders a single 3D hex in the game world.
+ *
+ * Given a `boardHexID` prop, renders a `MapHex3D` component with the
+ * corresponding hex's 3D coordinates, and a `GameUnit3D` component if the hex
+ * is occupied by a unit that is visible to the current player.
+ *
+ * The component also handles clicks on the hex, and is responsible for
+ * selecting special attacks and units during various stages of the game.
+ *
+ * The component takes a `cameraControlsRef` prop, which is a mutable ref to a
+ * `react-three-fiber` `CameraControls` component.
+ *
+ * Returns a fragment containing a `MapHex3D` component and a `GameUnit3D`
+ * component if the hex is occupied by a visible unit.
+ */
 const Hex3D = ({
   boardHexID,
   cameraControlsRef,
@@ -44,68 +71,43 @@ const Hex3D = ({
   cameraControlsRef: React.MutableRefObject<CameraControls>
 }) => {
   const { playerID } = useBgioClientInfo()
-  const {
-    boardHexes,
-    // hexMap: { hexSize, glyphs },
-    gameArmyCards,
-    // startZones,
-    gameUnits,
-    // unitsMoved,
-  } = useBgioG()
+  const { boardHexes, gameArmyCards, gameUnits } = useBgioG()
   const boardHex = boardHexes[boardHexID]
   const { selectedUnitID } = useUIContext()
   // const selectedUnitIs2Hex = gameUnits[selectedUnitID]?.is2Hex
   // const { selectedMapHex } = useMapContext()
   const {
-    // isMyTurn,
-    // isDraftPhase,
     isPlacementPhase,
-    // isOrderMarkerPhase,
     isTheDropStage,
-    // isIdleTheDropStage,
     isRoundOfPlayPhase,
-    // isAttackingStage,
-    // isMovementStage,
-    // isWaterCloneStage,
     isChompStage,
     isMindShackleStage,
     isFireLineSAStage,
     isExplosionSAStage,
     isGrenadeSAStage,
   } = useBgioCtx()
-  const {
-    onClickPlacementHex,
-    editingBoardHexes,
-    // activeTailPlacementUnitID,
-    // tailPlaceables,
-    // startZoneForMy2HexUnits,
-  } = usePlacementContext()
-  const {
-    // selectedUnitMoveRange,
-    // selectedUnitAttackRange,
-    onClickTurnHex,
-    // revealedGameCardUnits,
-    // revealedGameCardUnitIDs,
-    currentTurnGameCardID,
-    // clonerHexIDs,
-    // clonePlaceableHexIDs,
-    // theDropPlaceableHexIDs,
-  } = usePlayContext()
+  const { onClickPlacementHex, editingBoardHexes } = usePlacementContext()
+  const { onClickTurnHex, currentTurnGameCardID } = usePlayContext()
   const {
     selectSpecialAttack,
     fireLineTargetableHexIDs,
-    // fireLineAffectedHexIDs,
-    // fireLineSelectedHexIDs,
     explosionTargetableHexIDs,
-    // explosionAffectedHexIDs,
-    // explosionAffectedUnitIDs,
-    // explosionSelectedUnitIDs,
     chompableHexIDs,
-    // chompSelectedHexIDs,
     mindShackleTargetableHexIDs,
-    // mindShackleSelectedHexIDs,
   } = useSpecialAttackContext()
 
+  /**
+   * Handles clicks on a hex in the 3D map.
+   *
+   * Depending on the current game state, the click may:
+   * - Select a unit for placement in the placement phase.
+   * - Select a unit for movement in the round of play phase.
+   * - Select a target for a special attack in the round of play phase.
+   * - Deselect a previously selected unit or attack in the round of play phase.
+   *
+   * @param event The three.js event for the click.
+   * @param sourceHex The hex that was clicked.
+   */
   const onClick = (event: ThreeEvent<MouseEvent>, sourceHex: BoardHex) => {
     // if (isDraftPhase) {
     // TODO: Select Units: should be able to click around units on map as ppl draft them
@@ -190,13 +192,12 @@ const Hex3D = ({
   //   gameUnitCard?.type.includes('hero') || (gameUnitCard?.life ?? 0) > 1
   // const unitLifePosition: Point = { x: hexSize * -0.6, y: 0 }
 
-  // DEV NOTE: THIS IS WHERE WE SWITCH Y AND Z (And I am not 100% certain I did it to maintain "y" as altitude, I may have just goofed up and covered it up with this)
   const {
     x: positionX,
-    y: positionZ,
-    z: positionY,
+    y: positionY,
+    z: positionZ,
   } = getBoardHex3DCoords(boardHex)
-  // const positionYHexText = positionY + 0.2
+  // const positionZHexText = positionZ + 0.2
   return (
     <>
       <MapHex3D
