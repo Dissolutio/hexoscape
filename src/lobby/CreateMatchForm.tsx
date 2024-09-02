@@ -41,21 +41,6 @@ export function CreateMatchForm() {
         <option value={scenarioNames.cirdanGardenWithoutTrees}>
           3 players: Cirdan Garden
         </option>
-        {/* <option value={scenarioNames.theBigHexagon2}>
-          2 players: The Big Hexagon
-        </option>
-        <option value={scenarioNames.theBigHexagon3}>
-          3 players: The Big Hexagon
-        </option>
-        <option value={scenarioNames.theBigHexagon4}>
-          4 players: The Big Hexagon
-        </option>
-        <option value={scenarioNames.theBigHexagon5}>
-          5 players: The Big Hexagon
-        </option>
-        <option value={scenarioNames.theBigHexagon6}>
-          6 players: The Big Hexagon
-        </option> */}
       </select>
       <button type="submit">Create Match</button>
     </form>

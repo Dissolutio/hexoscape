@@ -52,7 +52,6 @@ export const Hexoscape: Game<GameState> = {
             // return scenarioNames.clashingFrontsAtTableOfTheGiants2
             return scenarioNames.forsakenWaters2
             // return scenarioNames.cirdanGardenWithoutTrees
-            // return scenarioNames.theBigHexagon2
             // return scenarioNames.makeMoveRange1HexWalkScenario
             // return scenarioNames.makeMoveRange2HexWalkScenario
             // return scenarioNames.makeMoveRangePassThruScenario
