@@ -1,6 +1,6 @@
 import { BoardHexes, HexCoordinates, HexTerrain } from '../types'
 import { generateHexID } from '../constants'
-import { generateHexagonHexas } from '../hex-utils'
+import { generateHexagonHexas, generateRectangleHexas } from '../hex-utils'
 
 export const generateHexagon = (mapSize: number): BoardHexes => {
   const hexgridHexes = generateHexagonHexas(mapSize)
@@ -28,14 +28,16 @@ function hexesToBoardHexes(hexgridHexes: HexCoordinates[]): BoardHexes {
     {}
   )
 }
+export function generateRectangle(mapWidth: number, mapHeight: number): BoardHexes {
+  // why do i have +1 here?
+  // const hexgridHexes = generateRectangleHexas(mapSize + 1, mapSize + 1)
+  const hexgridHexes = generateRectangleHexas(mapWidth, mapHeight)
+  const boardHexes = hexesToBoardHexes(hexgridHexes)
+  return boardHexes
+}
 
 // function generateOrientedRectangle(mapSize: number): BoardHexes {
 //   const hexgridHexes = generateOrientedRectangleHexas(mapSize, mapSize)
-//   const boardHexes = hexesToBoardHexes(hexgridHexes)
-//   return boardHexes
-// }
-// function generateRectangle(mapSize: number): BoardHexes {
-//   const hexgridHexes = generateRectangleHexas(mapSize + 1, mapSize + 1)
 //   const boardHexes = hexesToBoardHexes(hexgridHexes)
 //   return boardHexes
 // }
