@@ -275,7 +275,7 @@ const PlacementContextProvider = ({
             entry[1].occupyingUnitID === selectedUnitID && !entry[1].isUnitTail
         )?.[0]
       : ''
-    let selectedUnitOldTail = is2HexUnit
+    const selectedUnitOldTail = is2HexUnit
       ? editingBoardHexes
         ? Object.entries(editingBoardHexes).find(
             (entry) =>

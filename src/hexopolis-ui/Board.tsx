@@ -44,7 +44,9 @@ export const Board = ({
   sendChatMessage,
   chatMessages = [],
   // ALSO ON BOARD PROPS
-  playerID = 'observer',
+  // TODO: implement the observer playerID
+  // playerID = 'observer',
+  playerID = '0',
   log,
   matchID,
   matchData,
@@ -95,6 +97,7 @@ export const Board = ({
                                   localOrDemoGameNumPlayers={
                                     localOrDemoGameNumPlayers
                                   }
+                                  playerID={playerID ?? '0'}
                                 />
                                 <World />
                                 <TabsComponent />

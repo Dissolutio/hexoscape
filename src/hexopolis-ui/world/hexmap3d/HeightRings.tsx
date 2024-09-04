@@ -62,6 +62,7 @@ export const HeightRings = ({
 // So, following advice found in issue: https://github.com/pmndrs/react-three-fiber/discussions/1387
 extend({ Line_: Line })
 declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace JSX {
     interface IntrinsicElements {
       line_: ReactThreeFiber.Object3DNode<Line, typeof Line>
