@@ -1,6 +1,4 @@
 import { useBgioClientInfo, useBgioCtx, useBgioG } from '../../bgio-contexts'
-import { StyledControlsHeaderH2 } from '../../hexopolis-ui/layout/Typography'
-import React from 'react'
 import { DraftControls, IdleDraftControls } from './DraftControls'
 import { DropControls, IdleDropControls } from './DropControls'
 import { PlacementControls } from './PlacementControls'
