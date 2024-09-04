@@ -370,13 +370,15 @@ const RopDisengagementSwipeControls = () => {
     gameArmyCards,
     unitAttempting?.gameCardID ?? ''
   )
-  if (!disengagesAttempting || !unitAttempting || !unitAttemptingCard) {
-    ;<>
-      <StyledControlsHeaderH2>
-        Disengagement swipe loading...
-      </StyledControlsHeaderH2>
-    </>
-  }
+  // if (!disengagesAttempting || !unitAttempting || !unitAttemptingCard) {
+  //   return (
+  //     <>
+  //       <StyledControlsHeaderH2>
+  //         Disengagement swipe loading...
+  //       </StyledControlsHeaderH2>
+  //     </>
+  //   )
+  // }
   const unitAttemptingPlayerID = unitAttempting?.playerID ?? ''
   const myFiguresThatGetASwipe = defendersToDisengage.filter(
     (u) => u.playerID === playerID
