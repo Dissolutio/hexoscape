@@ -1,14 +1,14 @@
 import { ThreeEvent } from '@react-three/fiber'
 import { CameraControls } from '@react-three/drei'
-import { BoardHex } from '../../../game/types'
+import { BoardHex, BoardHexes } from '../../../game/types'
 import { useBgioClientInfo, useBgioCtx, useBgioG } from '../../../bgio-contexts'
 import { MapHex3D } from './MapHex3D'
-import { useSpecialAttackContext } from '../../../hexopolis-ui/contexts/special-attack-context'
+import { useSpecialAttackContext } from '../../contexts/special-attack-context'
 import {
   usePlacementContext,
   usePlayContext,
   useUIContext,
-} from '../../../hexopolis-ui/contexts'
+} from '../../contexts'
 import { selectGameCardByID } from '../../../game/selectors'
 import { GameUnit3D } from './GameUnit3D'
 import { getBoardHex3DCoords } from '../../../game/hex-utils'
@@ -25,12 +25,13 @@ import { getBoardHex3DCoords } from '../../../game/hex-utils'
  *
  * The component returns a fragment containing all the `Hex3D` components.
  */
-export function MapDisplay3D({
+export function HexopolisMapDisplay3D({
   cameraControlsRef,
+  boardHexes,
 }: {
   cameraControlsRef: React.MutableRefObject<CameraControls>
+  boardHexes: BoardHexes
 }) {
-  const { boardHexes } = useBgioG()
   const hexArray = Object.values(boardHexes)
   return (
     <>
@@ -48,7 +49,7 @@ export function MapDisplay3D({
 }
 
 /**
- * React component that renders a single 3D hex in the game world.
+ * React component that renders a single 3D hex in the Hexopolis game world.
  *
  * Given a `boardHexID` prop, renders a `MapHex3D` component with the
  * corresponding hex's 3D coordinates, and a `GameUnit3D` component if the hex
@@ -74,8 +75,6 @@ const Hex3D = ({
   const { boardHexes, gameArmyCards, gameUnits } = useBgioG()
   const boardHex = boardHexes[boardHexID]
   const { selectedUnitID } = useUIContext()
-  // const selectedUnitIs2Hex = gameUnits[selectedUnitID]?.is2Hex
-  // const { selectedMapHex } = useMapContext()
   const {
     isPlacementPhase,
     isTheDropStage,
@@ -178,13 +177,10 @@ const Hex3D = ({
           ? ''
           : boardHex.occupyingUnitID
   const gameUnit = gameUnits?.[unitIdToShowOnHex]
-  const gameUnitCard = selectGameCardByID(gameArmyCards, gameUnit?.gameCardID)
-  // const unitName = gameUnitCard?.name ?? ''
 
   // we only show players their own units during placement phase
   const isShowableUnit = !isPlacementPhase || gameUnit?.playerID === playerID
 
-  // const isGlyph = !!glyphs[hex.id]?.glyphID
   // computed
   // we only show players their own units during placement phase
 

@@ -4,12 +4,20 @@ import {
   Stats,
   PerspectiveCamera,
   CameraControls,
+  Grid,
 } from '@react-three/drei'
 
-import { MapDisplay3D } from './hexmap3d/MapDisplay3D'
+import { HexopolisMapDisplay3D } from './hexmap3d/HexopolisMapDisplay3D'
 import { useRef } from 'react'
+import { BoardHexes } from '../../game/types'
 
-export const World = () => {
+export const World = ({
+  boardHexes,
+  isEditor,
+}: {
+  boardHexes: BoardHexes
+  isEditor?: boolean
+}) => {
   const cameraControlsRef = useRef(undefined!)
   return (
     <Canvas>
@@ -33,9 +41,17 @@ export const World = () => {
       <directionalLight position={[-50, 0, -50]} intensity={0.65} />
       <directionalLight position={[0, 0, 0]} intensity={0.65} />
       <directionalLight position={[0, 0, -50]} intensity={0.65} />
+      {/* Stats displays the fps */}
       <Stats />
-      <MapDisplay3D cameraControlsRef={cameraControlsRef} />
-      {/* <Grid infiniteGrid /> */}
+      {isEditor ? (
+        <></>
+      ) : (
+        <HexopolisMapDisplay3D
+          boardHexes={boardHexes}
+          cameraControlsRef={cameraControlsRef}
+        />
+      )}
+      <Grid infiniteGrid />
       <PerspectiveCamera makeDefault position={[30, 30, 50]} fov={65} />
       <axesHelper scale={[100, 100, 100]} />
       <CameraControls

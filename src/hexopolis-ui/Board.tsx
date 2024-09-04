@@ -99,7 +99,7 @@ export const Board = ({
                                   playerID={playerID ?? '0'}
                                 />
                                 <HexopolisWorldWrapper>
-                                  <World />
+                                  <World boardHexes={G.boardHexes} />
                                 </HexopolisWorldWrapper>
                                 <TabsComponent />
                               </Layout>

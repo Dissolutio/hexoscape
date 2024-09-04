@@ -1,6 +1,6 @@
 import { useBgioClientInfo } from '../../bgio-contexts'
 import { modalStates, useUIContext } from '../../hexopolis-ui/contexts'
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 import styled from 'styled-components'
 import { LayoutContainer } from './LayoutContainerBrokenLint'
 import { ModalDisplay } from './ModalDisplay'
