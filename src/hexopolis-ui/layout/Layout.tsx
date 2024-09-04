@@ -49,5 +49,5 @@ const LayoutBottom = styled.div`
   margin: 0;
   box-sizing: border-box;
   background: var(--black);
-  overflow: scroll;
+  overflow: auto;
 `
