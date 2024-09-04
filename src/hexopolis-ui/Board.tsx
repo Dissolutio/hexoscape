@@ -23,6 +23,7 @@ import { TabsComponent } from './controls/TabsComponent'
 import { SpecialAttackContextProvider } from './contexts/special-attack-context'
 import { specialMatchIdToTellHeaderNavThisMatchIsLocal } from '../app/constants'
 import { World } from './world/World'
+import { HexopolisWorldWrapper } from './world/HexopolisWorldWrapper'
 
 interface MyGameProps extends BoardProps<GameState> {
   chatMessages: ChatMessage[]
@@ -99,7 +100,9 @@ export const Board = ({
                                   }
                                   playerID={playerID ?? '0'}
                                 />
-                                <World />
+                                <HexopolisWorldWrapper>
+                                  <World />
+                                </HexopolisWorldWrapper>
                                 <TabsComponent />
                               </Layout>
                             </SpecialAttackContextProvider>
