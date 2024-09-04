@@ -36,11 +36,10 @@ export function HexxaformBoard(props: MyBoardProps) {
     isConnected,
     credentials,
   } = props
-  const printRef = React.useRef<HTMLDivElement>(null)
   return (
     <MapContextProvider>
-      <HexxaformLayout printRef={printRef}>
-        <div ref={printRef}></div>
+      <HexxaformLayout>
+        <div></div>
         <HexxaformControls
           moves={moves}
           boardHexes={G.boardHexes}

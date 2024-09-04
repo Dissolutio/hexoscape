@@ -1,15 +1,9 @@
 import { ReactNode } from 'react'
 import styled from 'styled-components'
-export const HexxaformLayout = ({
-  children,
-  printRef,
-}: {
-  children: ReactNode[]
-  printRef: React.RefObject<HTMLDivElement>
-}) => {
+export const HexxaformLayout = ({ children }: { children: ReactNode[] }) => {
   return (
     <LayoutContainer>
-      <LayoutMiddle ref={printRef}>{children[0]}</LayoutMiddle>
+      <LayoutMiddle>{children[0]}</LayoutMiddle>
       <LayoutBottom>{children[1]}</LayoutBottom>
     </LayoutContainer>
   )
