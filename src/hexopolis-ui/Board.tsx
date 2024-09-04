@@ -82,7 +82,7 @@ export const Board = ({
                     sendChatMessage={sendChatMessage}
                   >
                     {/* GAME CONTEXT BELOW */}
-                    <MapContextProvider hexMap={G.hexMap}>
+                    <MapContextProvider>
                       {/* UI Context is consumed by PlacementContext and PlayContext */}
                       <UIContextProvider>
                         {/* Placement Context is consumed by Play Context  */}

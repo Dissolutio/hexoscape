@@ -89,15 +89,15 @@ export type GameMap = {
   hexMap: HexMap
 }
 export type HexMap = {
-  mapShape: string // 'hexagon' | 'rectangle'
-  mapName: string
-  mapSize: number // for hexagon shaped maps
-  mapHeight: number // for rectangle shaped maps
-  mapWidth: number // for rectangle shaped maps
-  hexSize: number
-  flat: boolean
   mapId: string
+  mapName: string
+  mapShape: string // 'hexagon' | 'rectangle'
   glyphs: Glyphs
+  mapSize?: number // for hexagon shaped maps
+  mapHeight?: number // for rectangle shaped maps
+  mapWidth?: number // for rectangle shaped maps
+  hexSize?: number
+  flat?: boolean
 }
 export type Glyphs = {
   [boardHexID: string]: Glyph
