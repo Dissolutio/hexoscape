@@ -1,11 +1,12 @@
 import { Route, Link, Routes } from 'react-router-dom'
 import { Client } from 'boardgame.io/react'
 import { Local } from 'boardgame.io/multiplayer'
-import { Debug } from 'boardgame.io/debug'
 import { Helmet } from 'react-helmet'
 import { Hexoscape } from '../game/game'
 import { Board } from '../hexopolis-ui/Board'
 import { specialMatchIdToTellHeaderNavThisMatchIsLocal } from './constants'
+import { Hexxaform } from '../game/hexxaform/hexxaform-game'
+import { HexxaformBoard } from '../hexxaform-ui/HexxaformBoard'
 
 const reduxDevTools =
   window &&
@@ -28,6 +29,7 @@ export const LocalApp = () => {
             </>
           }
         />
+        <Route path="/local1" element={<LocalDemoClients numPlayers={1} />} />
         <Route path="/local2" element={<LocalDemoClients numPlayers={2} />} />
         <Route path="/local3" element={<LocalDemoClients numPlayers={3} />} />
         <Route path="/local4" element={<LocalDemoClients numPlayers={4} />} />
@@ -43,6 +45,11 @@ export const DemoLocalGameLinks = () => (
   // NOTE ^^ this bug may be caused by mapGen, which may have mutated some unforeseen shared state
   <>
     <ul>
+      <li>
+        <Link reloadDocument to="/local1">
+          Map Editor
+        </Link>
+      </li>
       <li>
         <Link reloadDocument to="/local2">
           2-Player Game
@@ -72,7 +79,7 @@ export const DemoLocalGameLinks = () => (
   </>
 )
 
-const bgioLocalClientParams = {
+const hexoscapeLocalClientParams = {
   game: Hexoscape,
   board: Board,
   multiplayer: Local(),
@@ -80,28 +87,50 @@ const bgioLocalClientParams = {
   // debug: { impl: Debug },
   debug: false,
 }
+const Local1PlayerMapEditorClient = Client({
+  game: Hexxaform,
+  board: HexxaformBoard,
+  multiplayer: Local(),
+  enhancer: reduxDevTools,
+  // debug: { impl: Debug },
+  debug: false,
+  numPlayers: 1,
+})
 const Local2PlayerClient = Client({
-  ...bgioLocalClientParams,
+  ...hexoscapeLocalClientParams,
   numPlayers: 2,
 })
 const Local3PlayerClient = Client({
-  ...bgioLocalClientParams,
+  ...hexoscapeLocalClientParams,
   numPlayers: 3,
 })
 const Local4PlayerClient = Client({
-  ...bgioLocalClientParams,
+  ...hexoscapeLocalClientParams,
   numPlayers: 4,
 })
 const Local5PlayerClient = Client({
-  ...bgioLocalClientParams,
+  ...hexoscapeLocalClientParams,
   numPlayers: 5,
 })
 const Local6PlayerClient = Client({
-  ...bgioLocalClientParams,
+  ...hexoscapeLocalClientParams,
   numPlayers: 6,
 })
 export const LocalDemoClients = ({ numPlayers }: { numPlayers: number }) => {
   const matchID = `${specialMatchIdToTellHeaderNavThisMatchIsLocal}:${numPlayers}`
+  if (numPlayers === 1)
+    return (
+      <>
+        <Local1PlayerMapEditorClient playerID={'0'} matchID={matchID} />
+      </>
+    )
+  if (numPlayers === 2)
+    return (
+      <>
+        <Local2PlayerClient playerID={'0'} matchID={matchID} />
+        <Local2PlayerClient playerID={'1'} matchID={matchID} />
+      </>
+    )
   if (numPlayers === 2)
     return (
       <>

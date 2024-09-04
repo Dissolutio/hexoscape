@@ -1,14 +1,10 @@
+import React from 'react'
 import { BoardProps } from 'boardgame.io/react'
 import { ChatMessage } from 'boardgame.io'
-import {
-  BgioChatProvider,
-  BgioClientInfoProvider,
-  BgioCtxProvider,
-  BgioEventsProvider,
-  BgioGProvider,
-  BgioMovesProvider,
-} from '../bgio-contexts'
 import { GType } from '../game/hexxaform/types'
+import { HexxaformLayout } from './HexxaformLayout'
+import { HexxaformControls } from './HexxaformControls'
+import { MapContextProvider } from './useMapContext'
 
 // import { GType } from "./game/types";
 
@@ -40,32 +36,17 @@ export function HexxaformBoard(props: MyBoardProps) {
     isConnected,
     credentials,
   } = props
+  const printRef = React.useRef<HTMLDivElement>(null)
   return (
-    <BgioClientInfoProvider
-      isLocalOrDemoGame={true}
-      log={log}
-      playerID={playerID || ''}
-      matchID={matchID}
-      matchData={matchData}
-      credentials={credentials || ''}
-      isMultiplayer={isMultiplayer}
-      isConnected={isConnected}
-      isActive={isActive}
-    >
-      <BgioGProvider G={G}>
-        <BgioCtxProvider isLocalOrDemoGame={true} ctx={ctx}>
-          <BgioMovesProvider moves={moves} undo={undo} redo={redo}>
-            <BgioEventsProvider reset={reset} events={events}>
-              <BgioChatProvider
-                chatMessages={chatMessages}
-                sendChatMessage={sendChatMessage}
-              >
-                {/* <HexxaformUI mapSize={G.hexMap.mapSize} /> */}
-              </BgioChatProvider>
-            </BgioEventsProvider>
-          </BgioMovesProvider>
-        </BgioCtxProvider>
-      </BgioGProvider>
-    </BgioClientInfoProvider>
+    <MapContextProvider>
+      <HexxaformLayout printRef={printRef}>
+        <div ref={printRef}></div>
+        <HexxaformControls
+          moves={moves}
+          boardHexes={G.boardHexes}
+          hexMap={G.hexMap}
+        />
+      </HexxaformLayout>
+    </MapContextProvider>
   )
 }

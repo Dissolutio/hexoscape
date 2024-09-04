@@ -5,16 +5,6 @@ export type GType = {
   boardHexes: BoardHexes;
 };
 
-// export type HexMap = {
-//   mapShape: string;
-//   mapId: string;
-//   mapSize: number;
-//   flat: boolean;
-//   hexHeight: number;
-//   hexWidth: number;
-//   hexSize: number;
-// };
-
 export enum HexTerrain {
   void = "void",
   water = "water",
@@ -23,8 +13,20 @@ export enum HexTerrain {
   rock = "rock",
 }
 
-export enum MapShapes {
-  hexagon = "hexagon",
-  orientedRectangle = "orientedRectangle", // rectangle tilted 45 degrees
-  rectangle = "rectangle",
+export enum PenMode {
+  none = 'none',
+  eraser = 'void',
+  eraserStartZone = 'eraserStartZone',
+  water = 'water',
+  grass = 'grass',
+  sand = 'sand',
+  rock = 'rock',
+  incAltitude = 'incAltitude',
+  decAltitude = 'decAltitude',
+  startZone0 = 'startZone0',
+  startZone1 = 'startZone1',
+  startZone2 = 'startZone2',
+  startZone3 = 'startZone3',
+  startZone4 = 'startZone4',
+  startZone5 = 'startZone5',
 }
