@@ -1,4 +1,3 @@
-import React from 'react'
 import { ThemeProvider } from 'styled-components'
 import { BoardProps } from 'boardgame.io/react'
 import {
@@ -60,7 +59,6 @@ export const Board = ({
     specialMatchIdToTellHeaderNavThisMatchIsLocal
   )
   const localOrDemoGameNumPlayers = parseInt(matchID.split(':')[1])
-  const mapWrapperRef = React.useRef<HTMLDivElement>(null)
   return (
     <>
       <ThemeProvider theme={theme(playerID ?? '')}>
@@ -92,7 +90,7 @@ export const Board = ({
                         <PlacementContextProvider>
                           <PlayContextProvider>
                             <SpecialAttackContextProvider>
-                              <Layout mapWrapperRef={mapWrapperRef}>
+                              <Layout>
                                 <HeaderNav
                                   isLocalOrDemoGame={isLocalOrDemoGame}
                                   localOrDemoGameNumPlayers={

@@ -5,13 +5,7 @@ import styled from 'styled-components'
 import { LayoutContainer } from './LayoutContainerBrokenLint'
 import { ModalDisplay } from './ModalDisplay'
 
-export const Layout = ({
-  children,
-  mapWrapperRef,
-}: {
-  children: ReactNode[]
-  mapWrapperRef: React.RefObject<HTMLDivElement>
-}) => {
+export const Layout = ({ children }: { children: ReactNode[] }) => {
   const { playerID } = useBgioClientInfo()
   const { modalState } = useUIContext()
   return (
@@ -22,7 +16,7 @@ export const Layout = ({
         playerID={playerID}
       >
         <LayoutTop>{children[0]}</LayoutTop>
-        <LayoutMiddle ref={mapWrapperRef}>{children[1]}</LayoutMiddle>
+        <LayoutMiddle>{children[1]}</LayoutMiddle>
         <LayoutBottom>{children[2]}</LayoutBottom>
       </LayoutContainer>
     </>
