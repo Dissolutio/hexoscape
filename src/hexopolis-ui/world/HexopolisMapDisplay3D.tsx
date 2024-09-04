@@ -1,17 +1,12 @@
 import { ThreeEvent } from '@react-three/fiber'
 import { CameraControls } from '@react-three/drei'
-import { BoardHex, BoardHexes } from '../../../game/types'
-import { useBgioClientInfo, useBgioCtx, useBgioG } from '../../../bgio-contexts'
-import { MapHex3D } from './MapHex3D'
-import { useSpecialAttackContext } from '../../contexts/special-attack-context'
-import {
-  usePlacementContext,
-  usePlayContext,
-  useUIContext,
-} from '../../contexts'
-import { selectGameCardByID } from '../../../game/selectors'
-import { GameUnit3D } from './GameUnit3D'
-import { getBoardHex3DCoords } from '../../../game/hex-utils'
+import { MapHex3D } from './components/MapHex3D'
+import { BoardHex, BoardHexes } from '../../game/types'
+import { useBgioClientInfo, useBgioCtx, useBgioG } from '../../bgio-contexts'
+import { usePlacementContext, usePlayContext, useUIContext } from '../contexts'
+import { useSpecialAttackContext } from '../contexts/special-attack-context'
+import { getBoardHex3DCoords } from '../../game/hex-utils'
+import { GameUnit3D } from './components/GameUnit3D'
 
 /**
  * React component that renders the 3D hexmap.
@@ -37,7 +32,7 @@ export function HexopolisMapDisplay3D({
     <>
       {hexArray.map((bh: any) => {
         return (
-          <Hex3D
+          <HexopolisHex3D
             cameraControlsRef={cameraControlsRef}
             key={`${bh.id}-${bh.altitude}`}
             boardHexID={bh.id}
@@ -64,7 +59,7 @@ export function HexopolisMapDisplay3D({
  * Returns a fragment containing a `MapHex3D` component and a `GameUnit3D`
  * component if the hex is occupied by a visible unit.
  */
-const Hex3D = ({
+const HexopolisHex3D = ({
   boardHexID,
   cameraControlsRef,
 }: {
@@ -72,7 +67,7 @@ const Hex3D = ({
   cameraControlsRef: React.MutableRefObject<CameraControls>
 }) => {
   const { playerID } = useBgioClientInfo()
-  const { boardHexes, gameArmyCards, gameUnits } = useBgioG()
+  const { boardHexes, gameUnits, hexMap } = useBgioG()
   const boardHex = boardHexes[boardHexID]
   const { selectedUnitID } = useUIContext()
   const {
@@ -86,7 +81,8 @@ const Hex3D = ({
     isGrenadeSAStage,
   } = useBgioCtx()
   const { onClickPlacementHex, editingBoardHexes } = usePlacementContext()
-  const { onClickTurnHex, currentTurnGameCardID } = usePlayContext()
+  const { onClickTurnHex, currentTurnGameCardID, selectedUnitMoveRange } =
+    usePlayContext()
   const {
     selectSpecialAttack,
     fireLineTargetableHexIDs,
@@ -200,7 +196,13 @@ const Hex3D = ({
         x={positionX}
         z={positionZ}
         boardHex={boardHex}
+        playerID={playerID}
         onClick={onClick}
+        glyphs={hexMap.glyphs}
+        isPlacementPhase={isPlacementPhase}
+        editingBoardHexes={editingBoardHexes}
+        selectedUnitID={selectedUnitID}
+        selectedUnitMoveRange={selectedUnitMoveRange}
       />
 
       {/* <Billboard position={[positionX, positionYHexText, positionZ]}>

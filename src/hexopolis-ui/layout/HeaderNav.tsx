@@ -1,6 +1,4 @@
 import styled from 'styled-components'
-
-import { useBgioClientInfo } from '../../bgio-contexts'
 import { playerIDDisplay } from '../../game/transformers'
 
 export const HeaderNav = ({
@@ -12,7 +10,6 @@ export const HeaderNav = ({
   localOrDemoGameNumPlayers: number
   playerID: string
 }) => {
-  // const { playerID } = useBgioClientInfo()
   return (
     <StyledNavbar>
       <PlayerTeamLogo

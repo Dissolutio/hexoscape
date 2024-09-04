@@ -1,6 +1,5 @@
 import { Outlines } from '@react-three/drei'
 import { Color } from 'three'
-import React from 'react'
 import { GameUnit } from '../../../../game/types'
 import { useUIContext } from '../../../../hexopolis-ui/contexts'
 import { playerColors } from '../../../../hexopolis-ui/theme'
@@ -13,6 +12,7 @@ export const OutlineHighlight = ({
   isHovered: boolean
 }) => {
   const { unitID } = gameUnit
+  // This component cannot be moved off of context, it would require updating its usage in a BUNCH of places for each model file, EEK!
   const { selectedUnitID } = useUIContext()
 
   const isSelectedUnitHex =

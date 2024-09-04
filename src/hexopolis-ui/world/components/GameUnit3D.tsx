@@ -6,10 +6,7 @@ import {
   getBoardHex3DCoords,
   getDirectionOfNeighbor,
 } from '../../../game/hex-utils'
-import {
-  usePlacementContext,
-  useUIContext,
-} from '../../../hexopolis-ui/contexts'
+import { usePlacementContext, useUIContext } from '../../contexts'
 import { useBgioClientInfo, useBgioCtx, useBgioG } from '../../../bgio-contexts'
 import { selectHexForUnit, selectTailHexForUnit } from '../../../game/selectors'
 import { UnitModelByID } from './UnitModelByID'

@@ -2,17 +2,18 @@ import { useState } from 'react'
 import { Vector3, Color } from 'three'
 import { ThreeEvent } from '@react-three/fiber'
 import { Billboard, Text } from '@react-three/drei'
-import { BoardHex, StringKeyedObj } from '../../../game/types'
+import {
+  BoardHex,
+  EditingBoardHexes,
+  Glyphs,
+  MoveRange,
+  StringKeyedObj,
+} from '../../../game/types'
 import {
   getDefaultSubTerrainForTerrain,
   isFluidTerrainHex,
 } from '../../../game/constants'
 import { HeightRings } from './HeightRings'
-import { useBgioCtx, useBgioG } from '../../../bgio-contexts'
-import {
-  usePlacementContext,
-  useUIContext,
-} from '../../../hexopolis-ui/contexts'
 import { selectGlyphForHex } from '../../../game/selectors'
 import { powerGlyphs } from '../../../game/glyphs'
 
@@ -20,7 +21,7 @@ export const ONE_HEIGHT_LEVEL = 0.5
 const halfLevel = 0.25
 const quarterLevel = 0.125
 
-export const hexTerrainColor: StringKeyedObj = {
+const hexTerrainColor: StringKeyedObj = {
   grass: '#60840d',
   water: '#3794fd',
   rock: '#475776',
@@ -45,26 +46,36 @@ export const hexTerrainColor: StringKeyedObj = {
 export const MapHex3D = ({
   x,
   z,
+  playerID,
   boardHex,
   onClick,
+  glyphs,
+  isPlacementPhase,
+  editingBoardHexes,
+  selectedUnitID,
+  selectedUnitMoveRange,
 }: {
   x: number
   z: number
+  playerID: string
   boardHex: BoardHex
   onClick?: (e: ThreeEvent<MouseEvent>, hex: BoardHex) => void
+  glyphs: Glyphs
+  isPlacementPhase: boolean
+  editingBoardHexes: EditingBoardHexes
+  selectedUnitID: string
+  selectedUnitMoveRange: MoveRange
 }) => {
-  const {
-    // startZones,
-    hexMap: { glyphs },
-  } = useBgioG()
-  const { isPlacementPhase } = useBgioCtx()
-  // const { playerID } = useBgioClientInfo()
-  const { editingBoardHexes } = usePlacementContext()
+  // HOVERED STATE
+  const [isHovered, setIsHovered] = useState(false)
+
   const unitID = boardHex?.occupyingUnitID ?? ''
   const editingHexUnitID = editingBoardHexes[boardHex.id]?.occupyingUnitID ?? ''
-  const { selectedUnitID } = useUIContext()
-  // const occupyingPlacementUnitId =
-  //   editingBoardHexes?.[boardHex.id]?.occupyingUnitID ?? ''
+  const isSelectedUnitHex =
+    selectedUnitID &&
+    (isPlacementPhase ? editingHexUnitID : unitID) &&
+    selectedUnitID === (isPlacementPhase ? editingHexUnitID : unitID)
+
   const altitude = boardHex.altitude
   const hexYPosition = altitude / 4
   const isFluidHex = isFluidTerrainHex(boardHex.terrain)
@@ -92,19 +103,9 @@ export const MapHex3D = ({
     boardHex?.subTerrain ?? getDefaultSubTerrainForTerrain(boardHex.terrain)
   const subTerrainYAdjust = (altitude - quarterLevel) / 4
   const subTerrainPosition = new Vector3(x, subTerrainYAdjust, z)
-  const [isHovered, setIsHovered] = useState(false)
 
   const whiteColor = new Color('white')
   const terrainColor = new Color(hexTerrainColor[boardHex.terrain])
-  // const playerColor = new Color(playerColors[playerID])
-
-  // const isMyStartZoneHex = Boolean(
-  //   startZones?.[playerID]?.includes(boardHex.id)
-  // )
-  const isSelectedUnitHex =
-    selectedUnitID &&
-    (isPlacementPhase ? editingHexUnitID : unitID) &&
-    selectedUnitID === (isPlacementPhase ? editingHexUnitID : unitID)
   // const isPlaceableOccupiedPlacementHex =
   //   isMyStartZoneHex &&
   //   occupyingPlacementUnitId &&
@@ -162,11 +163,12 @@ export const MapHex3D = ({
       {/* These rings around the hex cylinder convey height levels to the user, so they can visually see how many levels of height between 2 adjacent hexes */}
       {/* The top ring will be highlighted when we hover the cap-terrain mesh, and also for all sorts of game reasons */}
       <HeightRings
+        boardHexID={boardHex.id}
+        playerID={playerID}
+        selectedUnitMoveRange={selectedUnitMoveRange}
         bottomRingYPos={bottomRingYPosition}
         topRingYPos={topRingYPosition}
         position={hexPosition}
-        terrainForColor={subTerrain} // the subterrain is the color for the interior rings (they'll fall in the subterrain mesh area)
-        boardHexID={boardHex.id}
         isHighlighted={isHovered}
       />
       {/* This is the big sub-terrain mesh from the floor to the cap mesh */}
@@ -193,10 +195,10 @@ export const MapHex3D = ({
           <mesh position={capPosition} scale={[1, scaleToUseForCap, 1]}>
             <meshLambertMaterial
               color={terrainColor}
-              transparent
-              opacity={capFluidOpacity}
               emissive={terrainColor}
               emissiveIntensity={capFluidEmissiveIntensity}
+              transparent
+              opacity={capFluidOpacity}
             />
             <cylinderGeometry args={[1, 1, halfLevel, 6]} />
           </mesh>

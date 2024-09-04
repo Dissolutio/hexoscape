@@ -7,15 +7,20 @@ import {
   Grid,
 } from '@react-three/drei'
 
-import { HexopolisMapDisplay3D } from './hexmap3d/HexopolisMapDisplay3D'
 import { useRef } from 'react'
-import { BoardHexes } from '../../game/types'
+import { BoardHexes, Glyphs } from '../../game/types'
+import { HexopolisMapDisplay3D } from './HexopolisMapDisplay3D'
+import { HexxaformMapDisplay3D } from '../../hexxaform-ui/world/HexxaformMapDisplay3D'
 
 export const World = ({
   boardHexes,
+  glyphs,
+  playerID,
   isEditor,
 }: {
   boardHexes: BoardHexes
+  glyphs: Glyphs
+  playerID: string
   isEditor?: boolean
 }) => {
   const cameraControlsRef = useRef(undefined!)
@@ -44,7 +49,12 @@ export const World = ({
       {/* Stats displays the fps */}
       <Stats />
       {isEditor ? (
-        <></>
+        <HexxaformMapDisplay3D
+          playerID={playerID}
+          boardHexes={boardHexes}
+          glyphs={glyphs}
+          cameraControlsRef={cameraControlsRef}
+        />
       ) : (
         <HexopolisMapDisplay3D
           boardHexes={boardHexes}

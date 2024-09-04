@@ -5,29 +5,31 @@ import {
   usePlacementContext,
   usePlayContext,
   useUIContext,
-} from '../../../hexopolis-ui/contexts'
+} from '../../contexts'
+import { useBgioCtx, useBgioG } from '../../../bgio-contexts'
+import { useSpecialAttackContext } from '../../contexts/special-attack-context'
 import { transformMoveRangeToArraysOfIds } from '../../../game/constants'
-import { useBgioClientInfo, useBgioCtx, useBgioG } from '../../../bgio-contexts'
-import { playerColors } from '../../../hexopolis-ui/theme'
-import { useSpecialAttackContext } from '../../../hexopolis-ui/contexts/special-attack-context'
+import { playerColors } from '../../theme'
 import { selectAttackerHasAttacksAllowed } from '../../../game/selectors'
+import { MoveRange } from '../../../game/types'
 
 export const HeightRings = ({
+  boardHexID,
+  playerID,
+  selectedUnitMoveRange,
   bottomRingYPos,
   topRingYPos,
   position,
-  terrainForColor,
-  boardHexID,
   isHighlighted,
 }: {
+  boardHexID: string
+  playerID: string
+  selectedUnitMoveRange: MoveRange
   bottomRingYPos: number
   topRingYPos: number
   position: Vector3
-  terrainForColor: string
-  boardHexID: string
   isHighlighted: boolean
 }) => {
-  const { selectedUnitMoveRange } = usePlayContext()
   const {
     safeMoves,
     engageMoves,
@@ -45,8 +47,8 @@ export const HeightRings = ({
           position={position}
           height={height}
           top={topRingYPos}
-          terrainForColor={terrainForColor}
           boardHexID={boardHexID}
+          playerID={playerID}
           isHighlighted={isHighlighted}
           isInSafeMoveRange={isInSafeMoveRange}
           isInEngageMoveRange={isInEngageMoveRange}
@@ -75,7 +77,7 @@ const HeightRing = ({
   top,
   position,
   boardHexID,
-  terrainForColor,
+  playerID,
   isHighlighted,
   isInSafeMoveRange,
   isInEngageMoveRange,
@@ -85,7 +87,7 @@ const HeightRing = ({
   top: number
   position: Vector3
   boardHexID: string
-  terrainForColor: string
+  playerID: string
   isHighlighted: boolean
   isInSafeMoveRange: boolean
   isInEngageMoveRange: boolean
@@ -119,7 +121,6 @@ const HeightRing = ({
   const lineGeometry = new BufferGeometry().setFromPoints(points)
 
   const { selectedUnitID } = useUIContext()
-  const { playerID } = useBgioClientInfo()
   const {
     theDropPlaceableHexIDs,
     revealedGameCardUnits,
@@ -171,18 +172,25 @@ const HeightRing = ({
   // const yellowStyle = { color: new Color('#eac334'), opacity: 1, lineWidth: 5 }
   const orangeStyle = { color: new Color('#e09628'), opacity: 1, lineWidth: 5 }
   const redStyle = { color: new Color('#e25328'), opacity: 1, lineWidth: 5 }
+  const highlightWhiteStyle = { color: 'white', opacity: 1, lineWidth: 2 }
+  const nonTopRingGrayStyle = {
+    color: new Color('#686868'),
+    opacity: 1,
+    lineWidth: 1,
+  }
+  const basicGrayTopRingStyle = {
+    color: new Color('b4b4b4'),
+    opacity: 1,
+    lineWidth: 1,
+  }
   const getLineStyle = () => {
     // all non-top rings are as below:
     if (height !== top) {
-      return {
-        color: new Color('#686868'),
-        opacity: 1,
-        lineWidth: 1,
-      }
+      return nonTopRingGrayStyle
     }
     // top ring styles below:
     if (isHighlighted) {
-      return { color: 'white', opacity: 1, lineWidth: 2 }
+      return highlightWhiteStyle
     }
     // if we've placed a 2-hex unit and now need to place its tail
     if (isPlacementPhase && activeTailPlacementUnitID) {
@@ -422,7 +430,7 @@ const HeightRing = ({
       return getUnitStyle(unitOnHex.playerID)
     }
     // FINALLY: top rings, if not modified, are gray to highlight the edge between hexes
-    return { color: new Color('#b4b4b4'), opacity: 1, lineWidth: 1 }
+    return basicGrayTopRingStyle
   }
 
   const { color, opacity, lineWidth } = getLineStyle()
@@ -460,7 +468,7 @@ const genPointsForHeightRing = (height: number) => {
 }
 
 const genHeightRings = (top: number, bottom: number) => {
-  const rings: number[] = [top] // no need to show bottom/top rings
+  const rings: number[] = [top] // no need to show bottom rings
   for (
     let index = bottom + ONE_HEIGHT_LEVEL;
     index < top;
