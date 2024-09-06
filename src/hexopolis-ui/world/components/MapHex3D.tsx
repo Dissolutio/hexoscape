@@ -54,6 +54,7 @@ export const MapHex3D = ({
   editingBoardHexes,
   selectedUnitID,
   selectedUnitMoveRange,
+  isEditor,
 }: {
   x: number
   z: number
@@ -65,6 +66,7 @@ export const MapHex3D = ({
   editingBoardHexes: EditingBoardHexes
   selectedUnitID: string
   selectedUnitMoveRange: MoveRange
+  isEditor: boolean
 }) => {
   // HOVERED STATE
   const [isHovered, setIsHovered] = useState(false)
@@ -170,6 +172,7 @@ export const MapHex3D = ({
         topRingYPos={topRingYPosition}
         position={hexPosition}
         isHighlighted={isHovered}
+        isEditor={isEditor}
       />
       {/* This is the big sub-terrain mesh from the floor to the cap mesh */}
       <mesh position={subTerrainPosition} scale={[1, heightScaleSubTerrain, 1]}>

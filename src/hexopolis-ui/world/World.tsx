@@ -50,7 +50,6 @@ export const World = ({
       <Stats />
       {isEditor ? (
         <HexxaformMapDisplay3D
-          playerID={playerID}
           boardHexes={boardHexes}
           glyphs={glyphs}
           cameraControlsRef={cameraControlsRef}

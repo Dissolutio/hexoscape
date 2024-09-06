@@ -12,6 +12,7 @@ import { transformMoveRangeToArraysOfIds } from '../../../game/constants'
 import { playerColors } from '../../theme'
 import { selectAttackerHasAttacksAllowed } from '../../../game/selectors'
 import { MoveRange } from '../../../game/types'
+import { getLineStyle } from '../../../hexxaform-ui/getLineStyle'
 
 export const HeightRings = ({
   boardHexID,
@@ -21,6 +22,7 @@ export const HeightRings = ({
   topRingYPos,
   position,
   isHighlighted,
+  isEditor,
 }: {
   boardHexID: string
   playerID: string
@@ -29,6 +31,7 @@ export const HeightRings = ({
   topRingYPos: number
   position: Vector3
   isHighlighted: boolean
+  isEditor: boolean
 }) => {
   const {
     safeMoves,
@@ -42,18 +45,32 @@ export const HeightRings = ({
   return (
     <>
       {heightRingsForThisHex.map((height) => (
-        <HeightRing
-          key={`${boardHexID}${height}`}
-          position={position}
-          height={height}
-          top={topRingYPos}
-          boardHexID={boardHexID}
-          playerID={playerID}
-          isHighlighted={isHighlighted}
-          isInSafeMoveRange={isInSafeMoveRange}
-          isInEngageMoveRange={isInEngageMoveRange}
-          isInDisengageMoveRange={isInDisengageMoveRange}
-        />
+        <>
+          {isEditor ? (
+            <>
+              <HexxaformHeightRing
+                key={`${boardHexID}${height}`}
+                position={position}
+                height={height}
+                top={topRingYPos}
+                isHighlighted={isHighlighted}
+              />
+            </>
+          ) : (
+            <HeightRing
+              key={`${boardHexID}${height}`}
+              position={position}
+              height={height}
+              top={topRingYPos}
+              boardHexID={boardHexID}
+              playerID={playerID}
+              isHighlighted={isHighlighted}
+              isInSafeMoveRange={isInSafeMoveRange}
+              isInEngageMoveRange={isInEngageMoveRange}
+              isInDisengageMoveRange={isInDisengageMoveRange}
+            />
+          )}
+        </>
       ))}
     </>
   )
@@ -433,7 +450,11 @@ const HeightRing = ({
     return basicGrayTopRingStyle
   }
 
-  const { color, opacity, lineWidth } = getLineStyle()
+  const {
+    color,
+    // opacity,
+    lineWidth,
+  } = getLineStyle()
   return (
     <line_
       geometry={lineGeometry}
@@ -453,7 +474,43 @@ const HeightRing = ({
     </line_>
   )
 }
-
+const HexxaformHeightRing = ({
+  height,
+  top,
+  position,
+  isHighlighted,
+}: {
+  height: number
+  top: number
+  position: Vector3
+  isHighlighted: boolean
+}) => {
+  const points = genPointsForHeightRing(height)
+  const lineGeometry = new BufferGeometry().setFromPoints(points)
+  const {
+    color,
+    //  opacity,
+    lineWidth,
+  } = getLineStyle(top === height, isHighlighted)
+  return (
+    <line_
+      geometry={lineGeometry}
+      position={position}
+      rotation={[0, Math.PI / 6, 0]}
+    >
+      <lineBasicMaterial
+        attach="material"
+        // warning, opacity can be a bit fps expensive
+        // transparent
+        // opacity={opacity}
+        color={color}
+        linewidth={lineWidth}
+        linecap={'round'}
+        linejoin={'round'}
+      />
+    </line_>
+  )
+}
 const genPointsForHeightRing = (height: number) => {
   // our World renders where the map is flat along the X,Z axes, and the negative-Y is out of the screen
   return [

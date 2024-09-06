@@ -3,8 +3,6 @@ import { CameraControls } from '@react-three/drei'
 import { BoardHex, BoardHexes, Glyphs } from '../../game/types'
 import { getBoardHex3DCoords } from '../../game/hex-utils'
 import { MapHex3D } from '../../hexopolis-ui/world/components/MapHex3D'
-// import { BoardHex, BoardHexes } from '../../../game/types'
-// import { getBoardHex3DCoords } from '../../../game/hex-utils'
 
 /**
  * React component that renders the 3D hexmap.
@@ -86,6 +84,7 @@ const HexxaformHex3D = ({
     y: positionY,
     z: positionZ,
   } = getBoardHex3DCoords(boardHex)
+
   return (
     <>
       <MapHex3D
@@ -99,6 +98,7 @@ const HexxaformHex3D = ({
         editingBoardHexes={{}}
         selectedUnitID={''}
         selectedUnitMoveRange={{}}
+        isEditor={true}
       />
     </>
   )

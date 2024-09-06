@@ -193,6 +193,7 @@ const HexopolisHex3D = ({
   return (
     <>
       <MapHex3D
+        isEditor={false}
         x={positionX}
         z={positionZ}
         boardHex={boardHex}
