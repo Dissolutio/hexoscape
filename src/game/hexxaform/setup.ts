@@ -8,8 +8,8 @@ type RectangleScenarioOptions = {
   mapLength?: number;
 };
 export const rectangleScenario = makeRectangleScenario({
-  mapLength: 26,
-  mapWidth: 15,
+  mapLength: 3,
+  mapWidth: 3,
 });
 export function makeRectangleScenario(
   options?: RectangleScenarioOptions
@@ -18,7 +18,7 @@ export function makeRectangleScenario(
   const mapWidth = options?.mapWidth ?? 1;
   const hexMap = {
     mapId: nanoid(),
-    mapName: '',
+    mapName: 'default rectangle map',
     mapShape: 'rectangle',
     flat: false,
     mapSize: Math.max(mapHeight, mapWidth),
@@ -38,7 +38,7 @@ type HexagonScenarioOptions = {
   mapSize?: number;
 };
 export const hexagonScenario = makeHexagonScenario({
-  mapSize: 5,
+  mapSize: 1,
 });
 export function makeHexagonScenario(
   options?: HexagonScenarioOptions
@@ -46,7 +46,7 @@ export function makeHexagonScenario(
   const mapSize = options?.mapSize ?? 3;
   const hexMap = {
     mapId: nanoid(),
-    mapName: '',
+    mapName: 'default hexagon map',
     mapShape: 'hexagon',
     mapSize,
     glyphs: {},

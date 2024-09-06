@@ -4,7 +4,15 @@ import { generateHexagonHexas, generateRectangleHexas } from '../hex-utils'
 
 export const generateHexagon = (mapSize: number): BoardHexes => {
   const hexgridHexes = generateHexagonHexas(mapSize)
-  const boardHexes = hexesToBoardHexes(hexgridHexes)
+  // in order to keep our hex grid within the same quadrant of the XY plane, we need to move it "to the right and down" according to the map size
+  const translatedHexes = hexgridHexes.map((hex: HexCoordinates) => {
+    return {
+      ...hex,
+      q: hex.q + mapSize,
+      r: hex.r + mapSize,
+    }
+  })
+  const boardHexes = hexesToBoardHexes(translatedHexes)
   return boardHexes
 }
 
