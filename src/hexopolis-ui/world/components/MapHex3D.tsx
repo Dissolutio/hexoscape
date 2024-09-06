@@ -179,6 +179,11 @@ export const MapHex3D = ({
         <cylinderGeometry args={[1, 1, ONE_HEIGHT_LEVEL, 6]} />
         <meshBasicMaterial color={subTerrainColor} />
       </mesh>
+      <Billboard position={glyphPosition}>
+        <Text fontSize={0.3} color={new Color('black')}>
+          {boardHex.id}
+        </Text>
+      </Billboard>
       {/* This group wraps the cap-terrain, and triggers the hover for this hex's top height ring */}
       <group
         onClick={(e) => {
