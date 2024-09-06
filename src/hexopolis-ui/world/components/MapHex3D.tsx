@@ -138,7 +138,7 @@ export const MapHex3D = ({
   const sleightOffsetFromCenterOfHex = 0.2
   const glyphPosition = new Vector3(
     x,
-    glyphYAdjust,
+    glyphYAdjust + 0.15,
     z - sleightOffsetFromCenterOfHex
   )
 
@@ -179,6 +179,13 @@ export const MapHex3D = ({
         <cylinderGeometry args={[1, 1, ONE_HEIGHT_LEVEL, 6]} />
         <meshBasicMaterial color={subTerrainColor} />
       </mesh>
+      <group position={glyphPosition}>
+        <Billboard>
+          <Text fontSize={0.3} color={new Color('black')}>
+            {boardHex.id}
+          </Text>
+        </Billboard>
+      </group>
       {/* This group wraps the cap-terrain, and triggers the hover for this hex's top height ring */}
       <group
         onClick={(e) => {
