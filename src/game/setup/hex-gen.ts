@@ -8,7 +8,7 @@ export const generateHexagon = (mapSize: number): BoardHexes => {
   const translatedHexes = hexgridHexes.map((hex: HexCoordinates) => {
     return {
       ...hex,
-      q: hex.q + mapSize,
+      q: hex.q + mapSize / 2, // why does dividing by 2 work?
       r: hex.r + mapSize,
     }
   })
