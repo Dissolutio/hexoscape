@@ -20,11 +20,7 @@ export function makeRectangleScenario(
     mapId: nanoid(),
     mapName: 'default rectangle map',
     mapShape: 'rectangle',
-    flat: false,
     mapSize: Math.max(mapHeight, mapWidth),
-    mapHeight,
-    mapWidth,
-    hexSize: 10,
     glyphs: {},
   };
   
