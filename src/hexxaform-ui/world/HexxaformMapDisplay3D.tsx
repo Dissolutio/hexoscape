@@ -3,6 +3,7 @@ import { CameraControls } from '@react-three/drei'
 import { BoardHex, BoardHexes, Glyphs } from '../../game/types'
 import { getBoardHex3DCoords } from '../../game/hex-utils'
 import { MapHex3D } from '../../hexopolis-ui/world/components/MapHex3D'
+import { useEffect } from 'react'
 
 /**
  * React component that renders the 3D hexmap.
@@ -25,10 +26,33 @@ export function HexxaformMapDisplay3D({
   boardHexes: BoardHexes
   glyphs: Glyphs
 }) {
-  const hexArray = Object.values(boardHexes)
+  useEffect(() => {
+    const from = {
+      x: 10,
+      y: 10,
+      z: 10,
+    }
+    const initialLookAt = {
+      x: 10,
+      y: 0,
+      z: 10,
+    }
+    cameraControlsRef.current.setLookAt(
+      // from
+      from.x,
+      from.y,
+      from.z,
+      // at
+      initialLookAt.x,
+      initialLookAt.y,
+      initialLookAt.z,
+
+      true
+    )
+  })
   return (
     <>
-      {hexArray.map((bh: any) => {
+      {Object.values(boardHexes).map((bh: any) => {
         return (
           <HexxaformHex3D
             playerID="0"
