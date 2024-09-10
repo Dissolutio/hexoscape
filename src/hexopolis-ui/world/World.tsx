@@ -15,12 +15,12 @@ import { HexxaformMapDisplay3D } from '../../hexxaform-ui/world/HexxaformMapDisp
 export const World = ({
   boardHexes,
   glyphs,
-  playerID,
+  // playerID,
   isEditor,
 }: {
   boardHexes: BoardHexes
   glyphs: Glyphs
-  playerID: string
+  // playerID: string
   isEditor?: boolean
 }) => {
   const cameraControlsRef = useRef(undefined!)
@@ -53,7 +53,7 @@ export const World = ({
         />
       )}
       <Grid infiniteGrid />
-      <PerspectiveCamera makeDefault position={[30, 30, 50]} fov={65} />
+      <PerspectiveCamera fov={65} />
       <axesHelper scale={[100, 100, 100]} />
       <CameraControls
         maxPolarAngle={Math.PI / 2}
