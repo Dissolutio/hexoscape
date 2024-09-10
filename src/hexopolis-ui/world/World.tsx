@@ -35,17 +35,9 @@ export const World = ({
         fade
         speed={1}
       />
-      {/* <ambientLight intensity={1} /> */}
-      {/* 4 in rectangle over top, shop-light style */}
-      <directionalLight position={[50, 50, 50]} intensity={0.65} />
-      <directionalLight position={[50, 50, -50]} intensity={0.65} />
-      <directionalLight position={[-50, 50, 50]} intensity={0.65} />
-      <directionalLight position={[-50, 50, -50]} intensity={0.65} />
-      {/* 4 on sides, picture-day style */}
-      <directionalLight position={[-50, 0, 0]} intensity={0.65} />
-      <directionalLight position={[-50, 0, -50]} intensity={0.65} />
-      <directionalLight position={[0, 0, 0]} intensity={0.65} />
-      <directionalLight position={[0, 0, -50]} intensity={0.65} />
+
+      <WorldOverheadLights />
+
       {/* Stats displays the fps */}
       <Stats />
       {isEditor ? (
@@ -76,5 +68,22 @@ export const World = ({
         // infinityDolly={infinityDolly}
       />
     </Canvas>
+  )
+}
+
+const WorldOverheadLights = () => {
+  return (
+    <>
+      {/* 4 in rectangle over top, shop-light style */}
+      <directionalLight position={[50, 50, 50]} intensity={0.65} />
+      <directionalLight position={[50, 50, -50]} intensity={0.65} />
+      <directionalLight position={[-50, 50, 50]} intensity={0.65} />
+      <directionalLight position={[-50, 50, -50]} intensity={0.65} />
+      {/* 4 on sides, picture-day style */}
+      <directionalLight position={[-50, 0, 0]} intensity={0.65} />
+      <directionalLight position={[-50, 0, -50]} intensity={0.65} />
+      <directionalLight position={[0, 0, 0]} intensity={0.65} />
+      <directionalLight position={[0, 0, -50]} intensity={0.65} />
+    </>
   )
 }
