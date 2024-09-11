@@ -51,7 +51,7 @@ export const MAJOR_FALL_DAMAGE = 3
 export function generateBlankOrderMarkersForNumPlayers(
   numPlayers: number
 ): OrderMarkers {
-  let result: { [key: string]: any } = {}
+  const result: { [key: string]: any } = {}
   for (let index = 0; index < numPlayers; index++) {
     result[index] = blankOrderMarkers
   }
@@ -60,7 +60,7 @@ export function generateBlankOrderMarkersForNumPlayers(
 export function generateBlankPlayersStateForNumPlayers(
   numPlayers: number
 ): PlayerState {
-  let result: { [key: string]: any } = {}
+  const result: { [key: string]: any } = {}
   for (let index = 0; index < numPlayers; index++) {
     result[index] = { orderMarkers: generateBlankPlayersOrderMarkers() }
   }
@@ -125,7 +125,7 @@ export function generateReadyStateForNumPlayers(
   numPlayers: number,
   defaultValue: boolean
 ): PlayerStateToggle {
-  let rdyState: { [key: string]: boolean } = {}
+  const rdyState: { [key: string]: boolean } = {}
   for (let index = 0; index < numPlayers; index++) {
     rdyState[index] = defaultValue
   }

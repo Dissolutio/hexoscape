@@ -44,34 +44,30 @@ export const HeightRings = ({
   const heightRingsForThisHex = genHeightRings(topRingYPos, bottomRingYPos)
   return (
     <>
-      {heightRingsForThisHex.map((height) => (
-        <>
-          {isEditor ? (
-            <>
-              <HexxaformHeightRing
-                key={`${boardHexID}${height}`}
-                position={position}
-                height={height}
-                top={topRingYPos}
-                isHighlighted={isHighlighted}
-              />
-            </>
-          ) : (
-            <HeightRing
-              key={`${boardHexID}${height}`}
-              position={position}
-              height={height}
-              top={topRingYPos}
-              boardHexID={boardHexID}
-              playerID={playerID}
-              isHighlighted={isHighlighted}
-              isInSafeMoveRange={isInSafeMoveRange}
-              isInEngageMoveRange={isInEngageMoveRange}
-              isInDisengageMoveRange={isInDisengageMoveRange}
-            />
-          )}
-        </>
-      ))}
+      {heightRingsForThisHex.map((height) =>
+        isEditor ? (
+          <HexxaformHeightRing
+            key={`${boardHexID}${height}`}
+            position={position}
+            height={height}
+            top={topRingYPos}
+            isHighlighted={isHighlighted}
+          />
+        ) : (
+          <HeightRing
+            key={`${boardHexID}${height}`}
+            position={position}
+            height={height}
+            top={topRingYPos}
+            boardHexID={boardHexID}
+            playerID={playerID}
+            isHighlighted={isHighlighted}
+            isInSafeMoveRange={isInSafeMoveRange}
+            isInEngageMoveRange={isInEngageMoveRange}
+            isInDisengageMoveRange={isInDisengageMoveRange}
+          />
+        )
+      )}
     </>
   )
 }
