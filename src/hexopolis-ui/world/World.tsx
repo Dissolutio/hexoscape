@@ -15,12 +15,10 @@ import { HexxaformMapDisplay3D } from '../../hexxaform-ui/world/HexxaformMapDisp
 export const World = ({
   boardHexes,
   glyphs,
-  // playerID,
   isEditor,
 }: {
   boardHexes: BoardHexes
   glyphs: Glyphs
-  // playerID: string
   isEditor?: boolean
 }) => {
   const cameraControlsRef = useRef(undefined!)

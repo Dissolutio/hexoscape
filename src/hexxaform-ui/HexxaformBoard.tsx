@@ -41,7 +41,6 @@ export function HexxaformBoard(props: MyBoardProps) {
         <EditorWorldWrapper>
           <World
             isEditor={true}
-            playerID={playerID ?? '0'}
             boardHexes={G.boardHexes}
             glyphs={G.hexMap.glyphs}
           />
