@@ -18,6 +18,7 @@ import { cirdanGardenMap } from '../game/setup/maps/cirdanGarden'
 import { useMapContext } from './useMapContext'
 import { PenMode } from '../game/hexxaform/types'
 import { useLocalMapMemory } from './useLocalMapMemory'
+import { translateHexagonBoardHexesToNormal } from '../game/setup/hex-gen'
 
 type BgioProps = {
   boardHexes: BoardHexes
@@ -311,12 +312,16 @@ export const HexxaformControls = ({ boardHexes, hexMap, moves }: BgioProps) => {
           Load The Forsaken Waters Map
         </button>
         <button
-          onClick={() =>
+          onClick={() => {
+            const translatedBoardHexes = translateHexagonBoardHexesToNormal(
+              cirdanGardenMap.boardHexes,
+              cirdanGardenMap.hexMap.mapSize
+            )
             moves.loadMap({
-              boardHexes: cirdanGardenMap.boardHexes,
+              boardHexes: translatedBoardHexes,
               hexMap: cirdanGardenMap.hexMap,
             })
-          }
+          }}
         >
           Load Cirdan Gardens Map
         </button>
