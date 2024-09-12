@@ -120,7 +120,7 @@ export const MapHex3D = ({
   const capFluidOpacity = 0.85
   const fluidEmissivity = 2 * baseEmissivity
   const capEmissiveIntensity = isHovered ? 1 : baseEmissivity
-  const capFluidEmissiveIntensity = isHovered ? 2 : fluidEmissivity
+  const capFluidEmissiveIntensity = isHovered ? 8 : fluidEmissivity
   const subTerrainColor = new Color(hexTerrainColor[subTerrain])
 
   /* 
