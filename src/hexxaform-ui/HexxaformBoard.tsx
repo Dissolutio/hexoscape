@@ -7,9 +7,11 @@ import { MapContextProvider } from './useMapContext'
 import { EditorWorldWrapper } from './world/EditorWorldWrapper'
 import { World } from '../hexopolis-ui/world/World'
 
-type MyBoardProps = BoardProps<GType> & { chatMessages?: ChatMessage[] }
+type HexxaformBoardProps = BoardProps<GType> & {
+  chatMessages?: ChatMessage[]
+}
 
-export function HexxaformBoard(props: MyBoardProps) {
+export function HexxaformBoard(props: HexxaformBoardProps) {
   const {
     // G
     G,
