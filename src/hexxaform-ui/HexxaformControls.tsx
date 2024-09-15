@@ -372,22 +372,40 @@ export const StyledButton = styled.button`
 const LoadSaveMapButtons = ({ boardHexes, hexMap, moves }: BgioProps) => {
   const currentSaveableMap = { boardHexes, hexMap }
   const { map1, setMap1, map2, setMap2, map3, setMap3 } = useLocalMapMemory()
-  const handleLoadMap1 = () =>
-    moves.loadMap({ boardHexes: map1.boardHexes, hexMap: map1.hexMap })
-  const handleLoadMap2 = () =>
-    moves.loadMap({ boardHexes: map2.boardHexes, hexMap: map2.hexMap })
-  const handleLoadMap3 = () =>
-    moves.loadMap({ boardHexes: map3.boardHexes, hexMap: map3.hexMap })
+  const isMap1 = Object.keys(map1?.boardHexes ?? {})?.length > 0 && map1?.hexMap
+  const isMap2 = Object.keys(map2?.boardHexes ?? {})?.length > 0 && map2?.hexMap
+  const isMap3 = Object.keys(map3?.boardHexes ?? {})?.length > 0 && map3?.hexMap
+  const handleLoadMap1 = () => {
+    if (isMap1) {
+      moves.loadMap({ boardHexes: map1.boardHexes, hexMap: map1.hexMap })
+    }
+  }
+  const handleLoadMap2 = () => {
+    if (isMap2) {
+      moves.loadMap({ boardHexes: map2.boardHexes, hexMap: map2.hexMap })
+    }
+  }
+  const handleLoadMap3 = () => {
+    if (isMap3) {
+      moves.loadMap({ boardHexes: map3.boardHexes, hexMap: map3.hexMap })
+    }
+  }
   const handleSaveMap1 = () => setMap1(currentSaveableMap)
   const handleSaveMap2 = () => setMap2(currentSaveableMap)
   const handleSaveMap3 = () => setMap3(currentSaveableMap)
   return (
     <>
-      <button onClick={handleLoadMap1}>Load Map 1</button>
+      <button onClick={handleLoadMap1} disabled={!isMap1}>
+        Load Map 1
+      </button>
       <button onClick={handleSaveMap1}>Save Map 1</button>
-      <button onClick={handleLoadMap2}>Load Map 2</button>
+      <button onClick={handleLoadMap2} disabled={!isMap2}>
+        Load Map 2
+      </button>
       <button onClick={handleSaveMap2}>Save Map 2</button>
-      <button onClick={handleLoadMap3}>Load Map 3</button>
+      <button onClick={handleLoadMap3} disabled={!isMap3}>
+        Load Map 3
+      </button>
       <button onClick={handleSaveMap3}>Save Map 3</button>
     </>
   )
