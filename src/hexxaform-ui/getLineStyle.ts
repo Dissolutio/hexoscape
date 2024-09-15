@@ -7,7 +7,7 @@ const nonTopRingGrayStyle = {
   lineWidth: 1,
 }
 const basicGrayTopRingStyle = {
-  color: new Color('b4b4b4'),
+  color: new Color('#b4b4b4'),
   opacity: 1,
   lineWidth: 1,
 }

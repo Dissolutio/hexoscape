@@ -4,7 +4,6 @@ import {
   Stats,
   PerspectiveCamera,
   CameraControls,
-  Grid,
 } from '@react-three/drei'
 
 import { useRef } from 'react'
@@ -23,6 +22,12 @@ export const World = ({
 }) => {
   const cameraControlsRef = useRef(undefined!)
   return (
+    /* 
+    frameloop="demand"
+    Since our app does not have any animations, it uses static elements, we only need
+    to run frames when something is changing, like during mouse movement or camera motion.
+    https://r3f.docs.pmnd.rs/advanced/scaling-performance#on-demand-rendering
+    */
     <Canvas frameloop="demand">
       <Stars
         radius={100}
@@ -33,9 +38,7 @@ export const World = ({
         fade
         speed={1}
       />
-
       <WorldOverheadLights />
-
       {/* Stats displays the fps */}
       <Stats />
       {isEditor ? (
@@ -50,20 +53,13 @@ export const World = ({
           cameraControlsRef={cameraControlsRef}
         />
       )}
-      <Grid infiniteGrid />
       <PerspectiveCamera fov={65} />
-      <axesHelper scale={[100, 100, 100]} />
+      {/* <axesHelper scale={[100, 100, 100]} /> */}
       <CameraControls
         maxPolarAngle={Math.PI / 2}
         ref={cameraControlsRef}
-        // minDistance={0.1}
         makeDefault
         smoothTime={1}
-        // dollySpeed={0.5}
-        // enabled
-        // verticalDragToForward={verticalDragToForward}
-        // dollyToCursor={dollyToCursor}
-        // infinityDolly={infinityDolly}
       />
     </Canvas>
   )
