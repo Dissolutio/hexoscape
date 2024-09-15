@@ -1,4 +1,4 @@
-import { HEXGRID_HEX_APOTHEM } from '../app/constants'
+import { CAMERA_FOV, HEXGRID_HEX_APOTHEM } from '../app/constants'
 import {
   BoardHex,
   BoardHexes,
@@ -277,7 +277,7 @@ export const generateParalellogramHexas = (
 type MapDimensions = {
   width: number
   height: number
-  maxAltitude: number
+  heightCameraFitMapInFov: number
 }
 export const getBoardHexesRectangularMapDimensions = (boardHexes: BoardHexes): MapDimensions => {
   // Gets the top-most, bottom-most, left-most, and right-most hexes, then calculates the difference for the map width and height
@@ -289,7 +289,13 @@ export const getBoardHexesRectangularMapDimensions = (boardHexes: BoardHexes): M
   const height = hexHeight * 1.5 * HEX_SPACING
   const hexWidth = sMinusQMax - sMinusQMin
   const width = hexWidth * 0.866 * HEX_SPACING
-  return { height, width, maxAltitude: getBoardHexesMaxAltitude(boardHexes) }
+  const maxAltitude = getBoardHexesMaxAltitude(boardHexes)
+  // for camera height, we know our FOV, and we know the width and height
+  const alpha = CAMERA_FOV / 2
+  const beta = 90 - alpha
+  const heightCameraFitMapInFov = (width / 2) * Math.tan(beta)
+  // const heightCameraFitMapInFov = 10
+  return { height, width, heightCameraFitMapInFov }
 }
 const getBoardHexesMaxAltitude = (boardHexes: BoardHexes): number => {
   return Math.max(...Object.keys(boardHexes).map((hexID) => boardHexes[hexID].altitude))

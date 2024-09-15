@@ -19,6 +19,7 @@ export function HexopolisMapDisplay3D({
   useZoomToMapCenterOnMapRender({
     cameraControlsRef,
     boardHexes,
+    mapID: 'hexopolis', // currently, hexopolis does not switch maps, thus mapID does not need to trigger re-zoom to middle
   })
 
   return (

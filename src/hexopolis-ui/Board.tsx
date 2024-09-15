@@ -101,6 +101,7 @@ export const Board = ({
                                 <HexopolisWorldWrapper>
                                   <World
                                     boardHexes={G.boardHexes}
+                                    hexMap={G.hexMap}
                                     glyphs={G.hexMap.glyphs}
                                   />
                                 </HexopolisWorldWrapper>

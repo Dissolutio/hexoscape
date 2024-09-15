@@ -1,6 +1,6 @@
 import { ThreeEvent } from '@react-three/fiber'
 import { CameraControls } from '@react-three/drei'
-import { BoardHex, BoardHexes, Glyphs } from '../../game/types'
+import { BoardHex, BoardHexes, Glyphs, HexMap } from '../../game/types'
 import { getBoardHex3DCoords } from '../../game/hex-utils'
 import { MapHex3D } from '../../hexopolis-ui/world/components/MapHex3D'
 import { useZoomToMapCenterOnMapRender } from '../../hooks/useZoomToMapCenterOnMapRender'
@@ -21,14 +21,17 @@ export function HexxaformMapDisplay3D({
   cameraControlsRef,
   boardHexes,
   glyphs,
+  hexMap,
 }: {
   cameraControlsRef: React.MutableRefObject<CameraControls>
   boardHexes: BoardHexes
   glyphs: Glyphs
+  hexMap: HexMap
 }) {
   useZoomToMapCenterOnMapRender({
     cameraControlsRef,
     boardHexes,
+    mapID: hexMap.mapId,
   })
   return (
     <>

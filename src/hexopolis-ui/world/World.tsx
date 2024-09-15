@@ -7,16 +7,19 @@ import {
 } from '@react-three/drei'
 
 import { useRef } from 'react'
-import { BoardHexes, Glyphs } from '../../game/types'
+import { BoardHexes, Glyphs, HexMap } from '../../game/types'
 import { HexopolisMapDisplay3D } from './HexopolisMapDisplay3D'
 import { HexxaformMapDisplay3D } from '../../hexxaform-ui/world/HexxaformMapDisplay3D'
+import { CAMERA_FOV } from '../../app/constants'
 
 export const World = ({
   boardHexes,
+  hexMap,
   glyphs,
   isEditor,
 }: {
   boardHexes: BoardHexes
+  hexMap: HexMap
   glyphs: Glyphs
   isEditor?: boolean
 }) => {
@@ -44,6 +47,7 @@ export const World = ({
       {isEditor ? (
         <HexxaformMapDisplay3D
           boardHexes={boardHexes}
+          hexMap={hexMap}
           glyphs={glyphs}
           cameraControlsRef={cameraControlsRef}
         />
@@ -53,7 +57,7 @@ export const World = ({
           cameraControlsRef={cameraControlsRef}
         />
       )}
-      <PerspectiveCamera fov={65} />
+      <PerspectiveCamera fov={CAMERA_FOV} />
       {/* <axesHelper scale={[100, 100, 100]} /> */}
       <CameraControls
         maxPolarAngle={Math.PI / 2}
