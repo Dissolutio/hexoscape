@@ -115,8 +115,7 @@ export const MapHex3D = ({
 
   const capEmissiveColor =
     isHovered || isSelectedUnitHex ? whiteColor : terrainColor
-  // there was a time when the base emissivity was non-zero, but fps improved with removing <Stage>, and <Stage> is where it looked good
-  const baseEmissivity = 1
+  const baseEmissivity = 0.2
   const capFluidOpacity = 0.85
   const fluidEmissivity = 2 * baseEmissivity
   const capEmissiveIntensity = isHovered ? 1 : baseEmissivity
