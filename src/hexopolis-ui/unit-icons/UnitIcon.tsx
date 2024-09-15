@@ -49,7 +49,7 @@ import {
 
 type Props = IconBaseProps & {
   armyCardID: string
-  iconPlayerID?: String
+  iconPlayerID?: string
   hexSize?: number
   iconProps?: {
     x: string

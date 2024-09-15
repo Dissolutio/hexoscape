@@ -1,13 +1,11 @@
-import { GameArmyCard } from '../../game/types'
 import { modalStates, useUIContext } from '../../hexopolis-ui/contexts'
 import { OpenAbilityModalButton } from '../../hexopolis-ui/OpenAbilityModalButton'
 import { UnitIcon } from '../../hexopolis-ui/unit-icons'
 import React from 'react'
 import styled from 'styled-components'
 import { CardGridStyle } from './CardGridStyle'
-type Props = {}
 
-export const ModalDisplay = (props: Props) => {
+export const ModalDisplay = () => {
   const { modalAbility, modalState, modalCard, closeModal, backModal } =
     useUIContext()
   React.useEffect(() => {
