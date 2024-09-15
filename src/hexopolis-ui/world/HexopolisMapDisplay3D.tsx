@@ -7,19 +7,8 @@ import { usePlacementContext, usePlayContext, useUIContext } from '../contexts'
 import { useSpecialAttackContext } from '../contexts/special-attack-context'
 import { getBoardHex3DCoords } from '../../game/hex-utils'
 import { GameUnit3D } from './components/GameUnit3D'
+import { useZoomToMapCenterOnMapRender } from '../../hooks/useZoomToMapCenterOnMapRender'
 
-/**
- * React component that renders the 3D hexmap.
- *
- * Takes a `cameraControlsRef` as a prop, which is a mutable ref to a
- * `react-three-fiber` `CameraControls` component.
- *
- * The component renders a collection of `Hex3D` components, one for each hex
- * in the game's `boardHexes` object. Each `Hex3D` is given the `cameraControlsRef`
- * and the `boardHexID` of the corresponding hex in the `boardHexes` object.
- *
- * The component returns a fragment containing all the `Hex3D` components.
- */
 export function HexopolisMapDisplay3D({
   cameraControlsRef,
   boardHexes,
@@ -27,10 +16,14 @@ export function HexopolisMapDisplay3D({
   cameraControlsRef: React.MutableRefObject<CameraControls>
   boardHexes: BoardHexes
 }) {
-  const hexArray = Object.values(boardHexes)
+  useZoomToMapCenterOnMapRender({
+    cameraControlsRef,
+    boardHexes,
+  })
+
   return (
     <>
-      {hexArray.map((bh: any) => {
+      {Object.values(boardHexes).map((bh: any) => {
         return (
           <HexopolisHex3D
             cameraControlsRef={cameraControlsRef}
@@ -189,7 +182,6 @@ const HexopolisHex3D = ({
     y: positionY,
     z: positionZ,
   } = getBoardHex3DCoords(boardHex)
-  // const positionZHexText = positionZ + 0.2
   return (
     <>
       <MapHex3D
@@ -205,11 +197,6 @@ const HexopolisHex3D = ({
         selectedUnitID={selectedUnitID}
         selectedUnitMoveRange={selectedUnitMoveRange}
       />
-
-      {/* <Billboard position={[positionX, positionYHexText, positionZ]}>
-        <Text fontSize={0.1}>{boardHex.id}</Text>
-      </Billboard> */}
-
       {gameUnit && isShowableUnit && !isUnitTail ? (
         <GameUnit3D
           cameraControlsRef={cameraControlsRef}
