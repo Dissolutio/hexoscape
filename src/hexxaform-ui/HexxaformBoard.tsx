@@ -5,7 +5,7 @@ import { HexxaformLayout } from './HexxaformLayout'
 import { HexxaformControls } from './HexxaformControls'
 import { MapContextProvider } from './useMapContext'
 import { EditorWorldWrapper } from './world/EditorWorldWrapper'
-import { World } from '../hexopolis-ui/world/World'
+import { World } from '../shared/World'
 
 type HexxaformBoardProps = BoardProps<GType> & {
   chatMessages?: ChatMessage[]

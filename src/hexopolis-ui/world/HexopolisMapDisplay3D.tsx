@@ -1,12 +1,12 @@
 import { ThreeEvent } from '@react-three/fiber'
 import { CameraControls } from '@react-three/drei'
-import { MapHex3D } from './components/MapHex3D'
+import { MapHex3D } from '../../shared/MapHex3D'
 import { BoardHex, BoardHexes } from '../../game/types'
 import { useBgioClientInfo, useBgioCtx, useBgioG } from '../../bgio-contexts'
 import { usePlacementContext, usePlayContext, useUIContext } from '../contexts'
 import { useSpecialAttackContext } from '../contexts/special-attack-context'
 import { getBoardHex3DCoords } from '../../game/hex-utils'
-import { GameUnit3D } from './components/GameUnit3D'
+import { GameUnit3D } from './GameUnit3D'
 import { useZoomToMapCenterOnMapRender } from '../../hooks/useZoomToMapCenterOnMapRender'
 
 export function HexopolisMapDisplay3D({

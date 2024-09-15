@@ -21,7 +21,7 @@ import { GameState } from '../game/types'
 import { TabsComponent } from './controls/TabsComponent'
 import { SpecialAttackContextProvider } from './contexts/special-attack-context'
 import { specialMatchIdToTellHeaderNavThisMatchIsLocal } from '../app/constants'
-import { World } from './world/World'
+import { World } from '../shared/World'
 import { HexopolisWorldWrapper } from './world/HexopolisWorldWrapper'
 
 interface MyGameProps extends BoardProps<GameState> {

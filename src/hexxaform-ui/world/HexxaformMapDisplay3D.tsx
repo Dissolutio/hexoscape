@@ -2,7 +2,7 @@ import { ThreeEvent } from '@react-three/fiber'
 import { CameraControls } from '@react-three/drei'
 import { BoardHex, BoardHexes, Glyphs, HexMap } from '../../game/types'
 import { getBoardHex3DCoords } from '../../game/hex-utils'
-import { MapHex3D } from '../../hexopolis-ui/world/components/MapHex3D'
+import { MapHex3D } from '../../shared/MapHex3D'
 import { useZoomToMapCenterOnMapRender } from '../../hooks/useZoomToMapCenterOnMapRender'
 
 /**
