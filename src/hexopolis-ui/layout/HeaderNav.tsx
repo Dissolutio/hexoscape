@@ -1,22 +1,19 @@
-import React from 'react'
 import styled from 'styled-components'
-
-import { useBgioClientInfo } from '../../bgio-contexts'
 import { playerIDDisplay } from '../../game/transformers'
-import { Link } from 'react-router-dom'
 
 export const HeaderNav = ({
   isLocalOrDemoGame,
   localOrDemoGameNumPlayers,
+  playerID,
 }: {
   isLocalOrDemoGame: boolean
   localOrDemoGameNumPlayers: number
+  playerID: string
 }) => {
-  const { playerID } = useBgioClientInfo()
   return (
     <StyledNavbar>
       <PlayerTeamLogo
-        playerID={playerID}
+        playerID={playerID ?? '0'}
         isLocalOrDemoGame={isLocalOrDemoGame}
         localOrDemoGameNumPlayers={localOrDemoGameNumPlayers}
       />
@@ -62,12 +59,8 @@ const PlayerTeamLogo = ({
       </a>
     )
   }
-  // for multiplayer, it will be a link back to the lobby
-  const lobbyLink = `/`
   return (
-    // <Link to={lobbyLink}>
     <PlayerTeamLogoH1>Hexoscape: {playerIDDisplay(playerID)}</PlayerTeamLogoH1>
-    // </Link>
   )
 }
 

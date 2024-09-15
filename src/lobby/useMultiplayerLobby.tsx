@@ -155,7 +155,7 @@ export function MultiplayerLobbyProvider({
 
   // effect - verify currently joined match once games list is received (and first is auto-selected)
   React.useEffect(() => {
-    if (Boolean(storedCredentials.matchID)) {
+    if (storedCredentials.matchID) {
       handleVerifyJoinedMatch()
     }
   }, [storedCredentials, handleVerifyJoinedMatch])

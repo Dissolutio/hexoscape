@@ -33,7 +33,7 @@ export const rollForExplosionSpecialAttack: Move<GameState> = (
   const affectedHexIDs = chosenExplosionAttack?.affectedHexIDs
   const isGrenadesInsteadOfExplosion = !!grenadeThrowingGameCardID
   // 0. get ready
-  let newStageQueue: StageQueueItem[] = []
+  const newStageQueue: StageQueueItem[] = []
   const attackRolled = isGrenadesInsteadOfExplosion ? 2 : 3 // D9000 explosion is 3, airborne grenade is 2
   const unitsAttacked = { ...G.unitsAttacked }
   const attackerHex = selectHexForUnit(attackerUnitID, G.boardHexes)

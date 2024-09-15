@@ -3,9 +3,7 @@ import { decodeGameLogMessage } from '../../game/gamelog'
 import { GameLogMsg } from './GameLogMsg'
 import styled from 'styled-components'
 
-type Props = {}
-
-export const GameLog = (props: Props) => {
+export const GameLog = () => {
   const { gameLog } = useBgioG()
   const gameLogMsgArray = gameLog.map((msg) => decodeGameLogMessage(msg))
   // const { type, playerID } = gameLogMessage

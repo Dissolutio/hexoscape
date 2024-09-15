@@ -1,10 +1,8 @@
-import { keyBy } from 'lodash'
 import { selectValidTailHexes } from './selectors'
 import {
   ArmyCard,
   BoardHexes,
   GameArmyCard,
-  GameUnit,
   GameUnits,
   ICoreHeroscapeCard,
   StartZones,

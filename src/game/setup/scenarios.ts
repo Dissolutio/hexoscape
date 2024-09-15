@@ -546,11 +546,6 @@ export const scenarioNames = {
   forsakenWaters2: 'forsakenWaters2',
   cirdanGardenWithoutTrees: 'cirdanGardenWithoutTrees',
   clashingFrontsAtTableOfTheGiants4: 'clashingFrontsAtTableOfTheGiants4',
-  theBigHexagon2: 'theBigHexagon2',
-  theBigHexagon3: 'theBigHexagon3',
-  theBigHexagon4: 'theBigHexagon4',
-  theBigHexagon5: 'theBigHexagon5',
-  theBigHexagon6: 'theBigHexagon6',
   makeMoveRange1HexWalkScenario: 'makeMoveRange1HexWalkScenario',
   makeMoveRange2HexWalkScenario: 'makeMoveRange2HexWalkScenario',
   makeMoveRangePassThruScenario: 'makeMoveRangePassThruScenario',
@@ -589,25 +584,5 @@ export const hexoscapeScenarios = {
     description: `For centuries, the Dark Lakes separated the Regions of Laur and Nastralund. When the search for wellsprings began, the lakes became a source of dispute between the Archkyries on each side. They each built a fort on their shore, but dozens of skirmishes quickly reduced the area to ruins.`,
     armyPoints: 300,
     maxRounds: 12,
-  },
-  [scenarioNames.theBigHexagon2]: {
-    numPlayers: 2,
-    description: `This map is pretty boring.`,
-  },
-  [scenarioNames.theBigHexagon3]: {
-    numPlayers: 3,
-    description: `This map is pretty boring.`,
-  },
-  [scenarioNames.theBigHexagon4]: {
-    numPlayers: 4,
-    description: `This map is pretty boring.`,
-  },
-  [scenarioNames.theBigHexagon5]: {
-    numPlayers: 5,
-    description: `This map is pretty boring.`,
-  },
-  [scenarioNames.theBigHexagon6]: {
-    numPlayers: 6,
-    description: `This map is pretty boring.`,
   },
 }

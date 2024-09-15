@@ -1,17 +1,10 @@
 import { useBgioClientInfo } from '../../bgio-contexts'
 import { modalStates, useUIContext } from '../../hexopolis-ui/contexts'
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 import styled from 'styled-components'
-import { LayoutContainer } from './LayoutContainerBrokenLint'
 import { ModalDisplay } from './ModalDisplay'
 
-export const Layout = ({
-  children,
-  mapWrapperRef,
-}: {
-  children: ReactNode[]
-  mapWrapperRef: React.RefObject<HTMLDivElement>
-}) => {
+export const Layout = ({ children }: { children: ReactNode[] }) => {
   const { playerID } = useBgioClientInfo()
   const { modalState } = useUIContext()
   return (
@@ -19,16 +12,32 @@ export const Layout = ({
       {modalState !== modalStates.off && <ModalDisplay />}
       <LayoutContainer
         id={`player${playerID}`} // for linking to this player view (useful in local dev, implemented in HeaderNav logo link)
-        playerID={playerID}
       >
         <LayoutTop>{children[0]}</LayoutTop>
-        <LayoutMiddle ref={mapWrapperRef}>{children[1]}</LayoutMiddle>
+        <LayoutMiddle>{children[1]}</LayoutMiddle>
         <LayoutBottom>{children[2]}</LayoutBottom>
       </LayoutContainer>
     </>
   )
 }
-
+const LayoutContainer = styled.div`
+  // SET CSS VARS
+  --player-color: ${(props) => props.theme.playerColor};
+  --navbar-height: 30px;
+  --middle-size: 70vh;
+  @media screen and (max-width: 1100px) {
+    --middle-size: 60vh;
+  }
+  --muted-text: ${(props) => props.theme.colors.gray};
+  /* position: relative; */
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+  color: var(--player-color);
+`
 const LayoutTop = styled.div`
   width: 100%;
   height: var(--navbar-height);
@@ -49,5 +58,5 @@ const LayoutBottom = styled.div`
   margin: 0;
   box-sizing: border-box;
   background: var(--black);
-  overflow: scroll;
+  overflow: auto;
 `

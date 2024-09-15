@@ -197,7 +197,7 @@ export const selectUnitAttackDiceForAttack = ({
   gameUnits: GameUnits
   unitsAttacked: Record<string, string[]>
 }): number => {
-  let dice = attackerArmyCard.attack
+  const dice = attackerArmyCard.attack
   const heightBonus = attackerHex.altitude > defenderHex.altitude ? 1 : 0
   const glyphBonus = () => {
     const glyph = Object.values(glyphs).find(
@@ -317,7 +317,7 @@ export const selectUnitDefenseDiceForAttack = ({
   gameUnits: GameUnits
   glyphs: Glyphs
 }): number => {
-  let dice = defenderArmyCard.defense
+  const dice = defenderArmyCard.defense
   const heightBonus = defenderHex.altitude > attackerHex.altitude ? 1 : 0
   const glyphBonus = () => {
     const glyph = Object.values(glyphs).find(
@@ -446,7 +446,7 @@ export const selectUnitMoveValue = ({
   gameUnits: GameUnits
   glyphs: Glyphs
 }): number => {
-  let movePoints = gameArmyCard.move
+  const movePoints = gameArmyCard.move
   const glyphBonus = () => {
     const moveGlyph = Object.values(glyphs).find(
       (g) => g.glyphID === glyphIDs.move

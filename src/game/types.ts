@@ -89,15 +89,15 @@ export type GameMap = {
   hexMap: HexMap
 }
 export type HexMap = {
-  mapShape: string // 'hexagon' | 'rectangle'
-  mapName: string
-  mapSize: number // for hexagon shaped maps
-  mapHeight: number // for rectangle shaped maps
-  mapWidth: number // for rectangle shaped maps
-  hexSize: number
-  flat: boolean
   mapId: string
+  mapName: string
+  mapShape: string // 'hexagon' | 'rectangle'
   glyphs: Glyphs
+  mapSize?: number // for hexagon shaped maps
+  mapHeight?: number // for rectangle shaped maps
+  mapWidth?: number // for rectangle shaped maps
+  hexSize?: number
+  flat?: boolean
 }
 export type Glyphs = {
   [boardHexID: string]: Glyph
@@ -139,6 +139,7 @@ export type BoardHex = HexCoordinates & {
   altitude: number
   startzonePlayerIDs: string[]
   terrain: string
+  // NOTE: subTerrain will require that when building maps, if we add a fluid hex to the map, we need to note its subterrain at that time. Also, will this affect virtualscape maps somehow, parsing this?
   subTerrain?: string // this is the same as terrain for solid terrain (grass, rock, sand) but separate for fluid terrains (water, lava, shadow)
 }
 export type BoardHexes = {

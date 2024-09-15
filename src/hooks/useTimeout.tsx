@@ -22,7 +22,6 @@ export function useTimeout(
   }, [callback])
 
   // Set up the timeout:
-  // eslint-disable-next-line consistent-return
   useEffect(() => {
     if (typeof delay === 'number') {
       timeoutRef.current = window.setTimeout(() => callbackRef.current(), delay)

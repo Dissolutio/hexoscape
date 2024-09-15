@@ -8,7 +8,7 @@ export const placeAttackSpirit: Move<GameState> = (
   { gameCardID }
 ) => {
   // this stage may have been entered in a long line of similar stages
-  let newStageQueue = [...G.stageQueue]
+  const newStageQueue = [...G.stageQueue]
   const indexToUpdate = G.gameArmyCards.findIndex(
     (gc) => gc.gameCardID === gameCardID
   )
@@ -73,7 +73,7 @@ export const placeArmorSpirit: Move<GameState> = (
   { gameCardID }
 ) => {
   // this stage may have been entered in a long line of similar stages
-  let newStageQueue = [...G.stageQueue]
+  const newStageQueue = [...G.stageQueue]
   const indexToUpdate = G.gameArmyCards.findIndex(
     (gc) => gc.gameCardID === gameCardID
   )

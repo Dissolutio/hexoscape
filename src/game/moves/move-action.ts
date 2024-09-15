@@ -66,7 +66,7 @@ export const moveAction: Move<GameState> = (
   const newUnitsMoved = [...G.unitsMoved, unitID]
   const unitSingleName = `${unitGameCard.singleName}`
   const unitPlayerID = `${unitGameCard.playerID}`
-  let newStageQueue: StageQueueItem[] = []
+  const newStageQueue: StageQueueItem[] = []
 
   // update unit position
   moveUnit_G({

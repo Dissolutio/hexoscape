@@ -32,7 +32,7 @@ export const attackAction: Move<GameState> = {
       isStillAttacksLeft: boolean
     }
   ) => {
-    let newStageQueue: StageQueueItem[] = []
+    const newStageQueue: StageQueueItem[] = []
     const { unitID: attackerUnitID } = attackingUnit
     const attackerGameCard = selectGameCardByID(
       G.gameArmyCards,

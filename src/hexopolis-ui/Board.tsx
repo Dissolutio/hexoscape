@@ -1,4 +1,3 @@
-import React from 'react'
 import { ThemeProvider } from 'styled-components'
 import { BoardProps } from 'boardgame.io/react'
 import {
@@ -22,7 +21,8 @@ import { GameState } from '../game/types'
 import { TabsComponent } from './controls/TabsComponent'
 import { SpecialAttackContextProvider } from './contexts/special-attack-context'
 import { specialMatchIdToTellHeaderNavThisMatchIsLocal } from '../app/constants'
-import { World } from './world/World'
+import { World } from '../shared/World'
+import { HexopolisWorldWrapper } from './world/HexopolisWorldWrapper'
 
 interface MyGameProps extends BoardProps<GameState> {
   chatMessages: ChatMessage[]
@@ -44,7 +44,9 @@ export const Board = ({
   sendChatMessage,
   chatMessages = [],
   // ALSO ON BOARD PROPS
-  playerID = 'observer',
+  // TODO: implement the observer playerID
+  // playerID = 'observer',
+  playerID = '0',
   log,
   matchID,
   matchData,
@@ -57,7 +59,6 @@ export const Board = ({
     specialMatchIdToTellHeaderNavThisMatchIsLocal
   )
   const localOrDemoGameNumPlayers = parseInt(matchID.split(':')[1])
-  const mapWrapperRef = React.useRef<HTMLDivElement>(null)
   return (
     <>
       <ThemeProvider theme={theme(playerID ?? '')}>
@@ -82,21 +83,28 @@ export const Board = ({
                     sendChatMessage={sendChatMessage}
                   >
                     {/* GAME CONTEXT BELOW */}
-                    <MapContextProvider hexMap={G.hexMap}>
+                    <MapContextProvider>
                       {/* UI Context is consumed by PlacementContext and PlayContext */}
                       <UIContextProvider>
                         {/* Placement Context is consumed by Play Context  */}
                         <PlacementContextProvider>
                           <PlayContextProvider>
                             <SpecialAttackContextProvider>
-                              <Layout mapWrapperRef={mapWrapperRef}>
+                              <Layout>
                                 <HeaderNav
                                   isLocalOrDemoGame={isLocalOrDemoGame}
                                   localOrDemoGameNumPlayers={
                                     localOrDemoGameNumPlayers
                                   }
+                                  playerID={playerID ?? '0'}
                                 />
-                                <World />
+                                <HexopolisWorldWrapper>
+                                  <World
+                                    boardHexes={G.boardHexes}
+                                    hexMap={G.hexMap}
+                                    glyphs={G.hexMap.glyphs}
+                                  />
+                                </HexopolisWorldWrapper>
                                 <TabsComponent />
                               </Layout>
                             </SpecialAttackContextProvider>

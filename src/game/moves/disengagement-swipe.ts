@@ -80,10 +80,10 @@ export const takeDisengagementSwipe: Move<GameState> = {
 
     // ALLOWED
     // copied state will be mutated
-    let newBoardHexes: BoardHexes = { ...G.boardHexes }
-    let newGameUnits: GameUnits = { ...G.gameUnits }
-    let newUnitsMoved = [...G.unitsMoved]
-    let newStageQueue: StageQueueItem[] = []
+    const newBoardHexes: BoardHexes = { ...G.boardHexes }
+    const newGameUnits: GameUnits = { ...G.gameUnits }
+    const newUnitsMoved = [...G.unitsMoved]
+    const newStageQueue: StageQueueItem[] = []
     /* 
       Here's the flow:
       1. swipe => wounds => maybe Move
