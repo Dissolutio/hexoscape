@@ -126,7 +126,7 @@ export const MapHex3D = ({
     GLYPHS
      */
   const glyphOnHex = selectGlyphForHex({ hexID: boardHex.id, glyphs })
-  const isGlyphRevealed = glyphOnHex?.isRevealed
+  const isGlyphRevealed = Boolean(glyphOnHex?.isRevealed)
   const canonicalGlyph = powerGlyphs[glyphOnHex?.glyphID ?? '']
   const glyphShortName = canonicalGlyph?.shortName || ''
   const glyphText = isGlyphRevealed ? glyphShortName : '?'
@@ -143,24 +143,15 @@ export const MapHex3D = ({
 
   return (
     <group>
-      {glyphOnHex ? (
-        <group position={glyphPosition}>
-          <Billboard position={[isGlyphRevealed ? -1 : -0.5, 0.4, 0]}>
-            <Text
-              fontSize={isGlyphRevealed ? 0.3 : 0.6}
-              color={new Color('black')}
-            >
-              {glyphText}
-            </Text>
-          </Billboard>
-          <mesh>
-            <cylinderGeometry args={[0.5, 0.5, 0.1, 6]} />
-            <meshBasicMaterial color={new Color('maroon')} />
-          </mesh>
-        </group>
-      ) : (
-        <></>
-      )}
+      {/* <MapHexIDDisplay boardHexID={boardHex.id} glyphPosition={glyphPosition} /> */}
+
+      <MapHexGlyph
+        glyphOnHex={Boolean(glyphOnHex)}
+        glyphText={glyphText}
+        glyphPosition={glyphPosition}
+        isGlyphRevealed={isGlyphRevealed}
+      />
+
       {/* These rings around the hex cylinder convey height levels to the user, so they can visually see how many levels of height between 2 adjacent hexes */}
       {/* The top ring will be highlighted when we hover the cap-terrain mesh, and also for all sorts of game reasons */}
       <HeightRings
@@ -173,18 +164,13 @@ export const MapHex3D = ({
         isHighlighted={isHovered}
         isEditor={isEditor}
       />
+
       {/* This is the big sub-terrain mesh from the floor to the cap mesh */}
       <mesh position={subTerrainPosition} scale={[1, heightScaleSubTerrain, 1]}>
         <cylinderGeometry args={[1, 1, ONE_HEIGHT_LEVEL, 6]} />
         <meshBasicMaterial color={subTerrainColor} />
       </mesh>
-      <group position={glyphPosition}>
-        <Billboard>
-          <Text fontSize={0.3} color={new Color('black')}>
-            {boardHex.id}
-          </Text>
-        </Billboard>
-      </group>
+
       {/* This group wraps the cap-terrain, and triggers the hover for this hex's top height ring */}
       <group
         onClick={(e) => {
@@ -224,4 +210,49 @@ export const MapHex3D = ({
       </group>
     </group>
   )
+}
+
+/* 
+  MapHexIDDisplay
+  This component is expensive to render if there are a lot of hexes
+ */
+const MapHexIDDisplay = ({
+  boardHexID,
+  glyphPosition,
+}: {
+  boardHexID: string
+  glyphPosition: Vector3
+}) => {
+  return (
+    <Billboard position={glyphPosition}>
+      <Text fontSize={0.3} color={new Color('black')}>
+        {boardHexID}
+      </Text>
+    </Billboard>
+  )
+}
+const MapHexGlyph = ({
+  glyphText,
+  glyphPosition,
+  isGlyphRevealed,
+  glyphOnHex,
+}: {
+  glyphText: string
+  glyphPosition: Vector3
+  isGlyphRevealed: boolean
+  glyphOnHex: boolean
+}) => {
+  return glyphOnHex ? (
+    <group position={glyphPosition}>
+      <Billboard position={[isGlyphRevealed ? -1 : -0.5, 0.4, 0]}>
+        <Text fontSize={isGlyphRevealed ? 0.3 : 0.6} color={new Color('black')}>
+          {glyphText}
+        </Text>
+      </Billboard>
+      <mesh>
+        <cylinderGeometry args={[0.5, 0.5, 0.1, 6]} />
+        <meshBasicMaterial color={new Color('maroon')} />
+      </mesh>
+    </group>
+  ) : null
 }
