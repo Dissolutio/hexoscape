@@ -51,7 +51,7 @@ export const RopMoveControls = () => {
   } = usePlayContext()
   // on mount, set selected unit id
   useEffect(() => {
-    if (Boolean(revealedGameCardUnitIDs?.[0])) {
+    if (revealedGameCardUnitIDs?.[0]) {
       setSelectedUnitID(revealedGameCardUnitIDs?.[0])
     }
   }, [])
@@ -114,7 +114,7 @@ export const RopMoveControls = () => {
               ? movedUnitsCount > 0
                 ? '0'
                 : '1'
-              : selectedUnit?.movePoints ?? '-'}
+              : (selectedUnit?.movePoints ?? '-')}
           </StyledControlsP>
           <StyledControlsP>
             {movedUnitsCount} / {allowedMoveCount} units moved

@@ -57,14 +57,15 @@ export const GameLogMsg = ({
     ? powerGlyphs?.[reclaimedGlyphID]?.effect
     : ''
   switch (type) {
-    case gameLogTypes.glyphReveal:
+    case gameLogTypes.glyphReveal: {
       const glyphRevealMsg = revealedGlyphID
         ? `${unitSingleName} has revealed the ${revealedGlyphName}! (${revealedGlyphEffect})`
         : ''
       return (
         <span style={{ color: playerColors[playerID] }}>{glyphRevealMsg}</span>
       )
-    case gameLogTypes.disengageSwipeFatal:
+    }
+    case gameLogTypes.disengageSwipeFatal: {
       const disengageSwipeFatalMsgText = `${defenderSingleName} was defeated while disengaging from `
       return (
         <>
@@ -77,7 +78,8 @@ export const GameLogMsg = ({
           </span>
         </>
       )
-    case gameLogTypes.disengageSwipeNonFatal:
+    }
+    case gameLogTypes.disengageSwipeNonFatal: {
       const disengageSwipeNonFatalMsgText = `${unitSingleName} took a swipe at `
       return (
         <>
@@ -90,7 +92,8 @@ export const GameLogMsg = ({
           </span>
         </>
       )
-    case gameLogTypes.move:
+    }
+    case gameLogTypes.move: {
       const revealedGlyphMsg = revealedGlyphID
         ? `${unitSingleName} has revealed the ${revealedGlyphName}! (${revealedGlyphEffect})`
         : ''
@@ -105,10 +108,10 @@ export const GameLogMsg = ({
       const fallingDamageMsg = isFatal
         ? diedFallingMsg
         : (wounds ?? 0) > 0
-        ? woundedFallMsg
-        : (fallDamage ?? 0) > 0 && wounds === 0
-        ? unwoundedFallMsg
-        : ''
+          ? woundedFallMsg
+          : (fallDamage ?? 0) > 0 && wounds === 0
+            ? unwoundedFallMsg
+            : ''
       const moveMsg = isGrappleGun ? grappleGunMoveMsg : moveMsgText
       return (
         <span style={{ color: playerColors[playerID] }}>
@@ -118,7 +121,8 @@ export const GameLogMsg = ({
           {reclaimedGlyphMsg && <div>{reclaimedGlyphMsg}</div>}
         </span>
       )
-    case gameLogTypes.theDropRoll:
+    }
+    case gameLogTypes.theDropRoll: {
       const theDropRollMsg = isRollSuccessful ? (
         <span style={{ color: playerColors[playerID] }}>
           {playerIDDisplay(playerID)} rolled for The Drop and succeeded! ({roll}{' '}
@@ -131,7 +135,8 @@ export const GameLogMsg = ({
         </span>
       )
       return theDropRollMsg
-    case gameLogTypes.mindShackle:
+    }
+    case gameLogTypes.mindShackle: {
       const msgMindShackle = isRollSuccessful ? (
         <span style={{ color: playerColors[playerID] }}>
           {unitName} has Mind Shackled{' '}
@@ -150,7 +155,8 @@ export const GameLogMsg = ({
         </span>
       )
       return msgMindShackle
-    case gameLogTypes.chomp:
+    }
+    case gameLogTypes.chomp: {
       const chompMsg = isChompSuccessful ? (
         <span style={{ color: playerColors[playerID] }}>
           Grimnak Chomped{' '}
@@ -169,7 +175,8 @@ export const GameLogMsg = ({
         </span>
       )
       return chompMsg
-    case gameLogTypes.attack:
+    }
+    case gameLogTypes.attack: {
       const isCounterStrike = (counterStrikeWounds ?? 0) > 0
       const counterStrikeMsg = isFatalCounterStrike ? (
         <span style={{ color: playerColors[playerID] }}>
@@ -223,9 +230,10 @@ export const GameLogMsg = ({
       const attackToast = isCounterStrike
         ? counterStrikeMsg
         : isStealthDodge
-        ? stealthDodgeMsgText
-        : attackMsgText
+          ? stealthDodgeMsgText
+          : attackMsgText
       return attackToast
+    }
     default:
       return <span style={{ color: colors.gray }}>{`${msg}`}</span>
   }

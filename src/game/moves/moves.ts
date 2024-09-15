@@ -45,7 +45,7 @@ const deployUnits: Move<GameState> = (
 ) => {
   const myStartZone = G.startZones?.[playerID]
   const propositions = Object.entries(deploymentProposition)
-  let newBoardHexes = {
+  const newBoardHexes = {
     ...G.boardHexes,
   }
   // clear off all units and then apply proposition
@@ -80,7 +80,7 @@ const dropInUnits: Move<GameState> = (
     toBeDroppedUnitIDs?: string[]
   }
 ) => {
-  let newBoardHexes = {
+  const newBoardHexes = {
     ...G.boardHexes,
   }
   // if they accept, then they are also passing their placement
@@ -129,7 +129,7 @@ const dropInUnits: Move<GameState> = (
   }
   // All below is done even if the player is not accepting the drop in
   // TODO: add gamelog that player did not drop in units
-  let newStageQueue: StageQueueItem[] = [...G.stageQueue]
+  const newStageQueue: StageQueueItem[] = [...G.stageQueue]
   const nextStage = newStageQueue.shift()
   G.stageQueue = newStageQueue
   G.boardHexes = newBoardHexes

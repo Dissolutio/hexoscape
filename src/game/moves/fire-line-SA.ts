@@ -28,7 +28,7 @@ export const rollForFireLineSpecialAttack: Move<GameState> = (
   }
 ) => {
   // 0. get ready
-  let newStageQueue: StageQueueItem[] = []
+  const newStageQueue: StageQueueItem[] = []
   const attackRolled = 4
   const unitsAttacked = { ...G.unitsAttacked }
   const attackerHex = selectHexForUnit(attackerUnitID, G.boardHexes)

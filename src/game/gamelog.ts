@@ -152,13 +152,13 @@ export const decodeGameLogMessage = (
         return {
           ...gameLog,
         }
-      case gameLogTypes.roundBegin:
+      case gameLogTypes.roundBegin:{
         // TODO display initiative rolls
         const roundBeginMsgText = `Round ${id} has begun!`
         return {
           ...basic,
           msg: roundBeginMsgText,
-        }
+        }}
       case gameLogTypes.placeAttackSpirit:
         return {
           ...basic,
@@ -170,7 +170,7 @@ export const decodeGameLogMessage = (
         return {
           ...gameLog,
         }
-      case gameLogTypes.waterClone:
+      case gameLogTypes.waterClone:{
         const isWaterCloneSuccessful = cloneCount > 0
         const maxPossibleClones = Math.min(possibleRevivals, cloneCount)
         const waterCloneSuccessMsg = `${unitName} succeeded their Water Clone roll ${cloneCount} time${
@@ -188,8 +188,8 @@ export const decodeGameLogMessage = (
           msg: isWaterCloneSuccessful
             ? waterCloneSuccessMsg
             : waterCloneFailureMsg,
-        }
-      case gameLogTypes.berserkerCharge:
+        }}
+      case gameLogTypes.berserkerCharge:{
         const msgBerserkerChargeSuccess = `${unitName} move again with Berserker Charge! (rolled ${roll}/${rollThreshold})`
         const msgBerserkerChargeFailure = `${unitName} have failed their Berserker Charge roll (rolled ${roll}/${rollThreshold})`
         return {
@@ -197,8 +197,8 @@ export const decodeGameLogMessage = (
           msg: isRollSuccessful
             ? msgBerserkerChargeSuccess
             : msgBerserkerChargeFailure,
-        }
-      case gameLogTypes.noUnitsOnTurn:
+        }}
+      case gameLogTypes.noUnitsOnTurn:{
         const msgNoUnitsOnTurn = isNoCard
           ? `${playerIDDisplay(
               playerID
@@ -211,7 +211,7 @@ export const decodeGameLogMessage = (
         return {
           ...basic,
           msg: msgNoUnitsOnTurn,
-        }
+        }}
       case gameLogTypes.chomp:
         return {
           ...gameLog,
@@ -224,14 +224,14 @@ export const decodeGameLogMessage = (
         return {
           ...gameLog,
         }
-      case gameLogTypes.disengageAttempt:
+      case gameLogTypes.disengageAttempt:{
         const disengageAttemptMsgText = `${unitSingleName} is attempting to disengage from ${
           unitIdsToAttemptToDisengage.length
         } unit${unitIdsToAttemptToDisengage.length === 1 ? '' : 's'}`
         return {
           ...basic,
           msg: disengageAttemptMsgText,
-        }
+        }}
       case gameLogTypes.disengageSwipeFatal:
         return {
           ...gameLog,
@@ -240,18 +240,18 @@ export const decodeGameLogMessage = (
         return {
           ...gameLog,
         }
-      case gameLogTypes.disengageSwipeDenied:
+      case gameLogTypes.disengageSwipeDenied:{
         const disengageSwipeDeniedMsgText = `${unitSingleName} denied their disengagement swipe!`
         return {
           ...basic,
           msg: disengageSwipeDeniedMsgText,
-        }
-      case gameLogTypes.disengageSwipeMiss:
+        }}
+      case gameLogTypes.disengageSwipeMiss:{
         const disengageSwipeMissMsgText = `${unitSingleName} missed their disengagement swipe!`
         return {
           ...basic,
           msg: disengageSwipeMissMsgText,
-        }
+        }}
       default:
         break
     }

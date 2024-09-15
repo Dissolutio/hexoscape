@@ -81,7 +81,7 @@ export const noUndoMoveAction: Move<GameState> = {
     const unitSingleName = `${unitGameCard.singleName}`
     const unitPlayerID = `${unitGameCard.playerID}`
     const unitLife = unitGameCard.life - unit.wounds
-    let newStageQueue: StageQueueItem[] = []
+    const newStageQueue: StageQueueItem[] = []
     // falling wounds initializes as 0, but may be more, so these get mutated
     let fallingDamageWounds = 0
     let isFatal = false

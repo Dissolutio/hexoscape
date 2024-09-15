@@ -79,7 +79,7 @@ export const chompAction: Move<GameState> = {
     const isArmorSpirit =
       isSuccessfulAndNecessaryRoll &&
       selectIfGameArmyCardHasAbility("Warrior's Armor Spirit 1", targetGameCard)
-    let newStageQueue: StageQueueItem[] = []
+      const newStageQueue: StageQueueItem[] = []
     if (isWarriorSpirit) {
       // mark this so after placing spirit we can get back to moving Grimnak
       newStageQueue.push({
