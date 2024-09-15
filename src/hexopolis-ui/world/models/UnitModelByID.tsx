@@ -56,19 +56,20 @@ export const UnitModelByID = ({
   gameUnit: GameUnit
   isHovered: boolean
 }) => {
-  switch (gameUnit.armyCardID) {
+  const { armyCardID, modelIndex } = gameUnit
+  switch (armyCardID) {
     case 'hs1000':
       // marro warriors
-      if (gameUnit.modelIndex === 0)
+      if (modelIndex === 0)
         // return <MarroWarriors1PlainModel gameUnit={gameUnit} isHovered={isHovered} />
         return <MarroWarrior1 gameUnit={gameUnit} isHovered={isHovered} />
-      if (gameUnit.modelIndex === 1)
+      if (modelIndex === 1)
         // return <MarroWarriors2PlainModel gameUnit={gameUnit} isHovered={isHovered} />
         return <MarroWarrior2 gameUnit={gameUnit} isHovered={isHovered} />
-      if (gameUnit.modelIndex === 2)
+      if (modelIndex === 2)
         // return <MarroWarriors3PlainModel gameUnit={gameUnit} isHovered={isHovered} />
         return <MarroWarrior3 gameUnit={gameUnit} isHovered={isHovered} />
-      if (gameUnit.modelIndex === 3)
+      if (modelIndex === 3)
         // return <MarroWarriors4PlainModel gameUnit={gameUnit} isHovered={isHovered} />
         return <MarroWarrior4 gameUnit={gameUnit} isHovered={isHovered} />
       return <MarroWarrior1 gameUnit={gameUnit} isHovered={isHovered} />
@@ -78,11 +79,11 @@ export const UnitModelByID = ({
       return <Deathwalker9000Model gameUnit={gameUnit} isHovered={isHovered} />
     case 'hs1002':
       // izumi
-      if (gameUnit.modelIndex === 0)
+      if (modelIndex === 0)
         return <Izumi1PlainModel gameUnit={gameUnit} isHovered={isHovered} />
-      if (gameUnit.modelIndex === 1)
+      if (modelIndex === 1)
         return <Izumi2PlainModel gameUnit={gameUnit} isHovered={isHovered} />
-      if (gameUnit.modelIndex === 2)
+      if (modelIndex === 2)
         return <Izumi3PlainModel gameUnit={gameUnit} isHovered={isHovered} />
       return <Izumi1PlainModel gameUnit={gameUnit} isHovered={isHovered} />
     case 'hs1003':
@@ -94,24 +95,24 @@ export const UnitModelByID = ({
       // return <SyvarrisPlainModel gameUnit={gameUnit} isHovered={isHovered} />
       return <SyvarrisModel gameUnit={gameUnit} isHovered={isHovered} />
     case 'hs1005':
-      if (gameUnit.modelIndex === 0)
+      if (modelIndex === 0)
         // return <Krav1PlainModel gameUnit={gameUnit} isHovered={isHovered} />
         return <Krav1Model gameUnit={gameUnit} isHovered={isHovered} />
-      if (gameUnit.modelIndex === 1)
+      if (modelIndex === 1)
         // return <Krav2PlainModel gameUnit={gameUnit} isHovered={isHovered} />
         return <Krav2Model gameUnit={gameUnit} isHovered={isHovered} />
-      if (gameUnit.modelIndex === 2)
+      if (modelIndex === 2)
         // return <Krav3PlainModel gameUnit={gameUnit} isHovered={isHovered} />
         return <Krav3Model gameUnit={gameUnit} isHovered={isHovered} />
       return <Krav1Model gameUnit={gameUnit} isHovered={isHovered} />
     case 'hs1006':
-      if (gameUnit.modelIndex === 0)
+      if (modelIndex === 0)
         return <Tarn1PlainModel gameUnit={gameUnit} isHovered={isHovered} />
-      if (gameUnit.modelIndex === 1)
+      if (modelIndex === 1)
         return <Tarn2PlainModel gameUnit={gameUnit} isHovered={isHovered} />
-      if (gameUnit.modelIndex === 2)
+      if (modelIndex === 2)
         return <Tarn3PlainModel gameUnit={gameUnit} isHovered={isHovered} />
-      if (gameUnit.modelIndex === 3)
+      if (modelIndex === 3)
         return <Tarn4PlainModel gameUnit={gameUnit} isHovered={isHovered} />
       return <Tarn1PlainModel gameUnit={gameUnit} isHovered={isHovered} />
     case 'hs1007':
@@ -120,22 +121,22 @@ export const UnitModelByID = ({
       return <AgentCarrModel gameUnit={gameUnit} isHovered={isHovered} />
     case 'hs1008':
       // zettian guards
-      if (gameUnit.modelIndex === 0)
+      if (modelIndex === 0)
         return <Zettian1PlainModel gameUnit={gameUnit} isHovered={isHovered} />
-      if (gameUnit.modelIndex === 1)
+      if (modelIndex === 1)
         return <Zettian2PlainModel gameUnit={gameUnit} isHovered={isHovered} />
       return <Zettian1PlainModel gameUnit={gameUnit} isHovered={isHovered} />
     case 'hs1009':
-      if (gameUnit.modelIndex === 0)
+      if (modelIndex === 0)
         // return <Airborn1PlainModel gameUnit={gameUnit} isHovered={isHovered} />
         return <AirbornElite1 gameUnit={gameUnit} isHovered={isHovered} />
-      if (gameUnit.modelIndex === 1)
+      if (modelIndex === 1)
         // return <Airborn2PlainModel gameUnit={gameUnit} isHovered={isHovered} />
         return <AirbornElite2 gameUnit={gameUnit} isHovered={isHovered} />
-      if (gameUnit.modelIndex === 2)
+      if (modelIndex === 2)
         // return <Airborn3PlainModel gameUnit={gameUnit} isHovered={isHovered} />
         return <AirbornElite3 gameUnit={gameUnit} isHovered={isHovered} />
-      if (gameUnit.modelIndex === 3)
+      if (modelIndex === 3)
         // return <Airborn4PlainModel gameUnit={gameUnit} isHovered={isHovered} />
         return <AirbornElite4 gameUnit={gameUnit} isHovered={isHovered} />
       // return <Airborn1PlainModel gameUnit={gameUnit} isHovered={isHovered} />
