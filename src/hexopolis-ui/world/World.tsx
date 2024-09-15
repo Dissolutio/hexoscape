@@ -23,7 +23,7 @@ export const World = ({
 }) => {
   const cameraControlsRef = useRef(undefined!)
   return (
-    <Canvas>
+    <Canvas frameloop="demand">
       <Stars
         radius={100}
         depth={50}
