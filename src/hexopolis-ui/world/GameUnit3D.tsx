@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import { CameraControls, Float } from '@react-three/drei'
+import { CameraControls } from '@react-three/drei'
 
 import { BoardHex, GameUnit } from '../../game/types'
 import {
   getBoardHex3DCoords,
   getDirectionOfNeighbor,
 } from '../../game/hex-utils'
-import { usePlacementContext, useUIContext } from '../contexts'
+import { usePlacementContext } from '../contexts'
 import { useBgioClientInfo, useBgioCtx, useBgioG } from '../../bgio-contexts'
 import { selectHexForUnit, selectTailHexForUnit } from '../../game/selectors'
 import { UnitModelByID } from './models/UnitModelByID'
@@ -96,33 +96,7 @@ export const GameUnit3D = ({
       position={[positionX, positionY, positionZ]}
       rotation={[0, rotationY, 0]}
     >
-      <FloatSelectedWrapper unitID={gameUnit.unitID}>
-        <UnitModelByID gameUnit={gameUnit} isHovered={isHovered} />
-      </FloatSelectedWrapper>
+      <UnitModelByID gameUnit={gameUnit} isHovered={isHovered} />
     </group>
   )
-}
-
-const FloatSelectedWrapper = ({
-  unitID,
-  children,
-}: {
-  unitID: string
-  children: React.ReactNode
-}) => {
-  const { selectedUnitID } = useUIContext()
-  if (unitID === selectedUnitID) {
-    return (
-      <Float
-        speed={10} // Animation speed, defaults to 1
-        rotationIntensity={0.1} // XYZ rotation intensity, defaults to 1
-        floatIntensity={1} // Up/down float intensity, works like a multiplier with floatingRange,defaults to 1
-        floatingRange={[0.1, 0.3]} // Range of y-axis values the object will float within, defaults to [-0.1,0.1]
-      >
-        {children}
-      </Float>
-    )
-  } else {
-    return <>{children}</>
-  }
 }
