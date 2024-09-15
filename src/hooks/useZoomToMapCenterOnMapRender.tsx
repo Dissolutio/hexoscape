@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { getBoardHexesRectangularMapDimensions } from '../game/hex-utils'
 import { CameraControls } from '@react-three/drei'
 import { BoardHexes } from '../game/types'
+import { getMapCenterCameraLookAt } from '../shared/camera-utils'
 
 export const useZoomToMapCenterOnMapRender = ({
   cameraControlsRef,
@@ -13,31 +14,9 @@ export const useZoomToMapCenterOnMapRender = ({
   mapID: string
 }) => {
   useEffect(() => {
-    // Set the camera position to the center of the map
-
-    const { width, height, heightCameraFitMapInFov } =
-      getBoardHexesRectangularMapDimensions(boardHexes)
-    const centerOfMapCamera = {
-      x: width / 2,
-      z: height / 2,
-      y: heightCameraFitMapInFov,
-    }
-    const centerOfMapLookAt = {
-      x: width / 2,
-      z: height / 2,
-      y: 0,
-    }
-    cameraControlsRef.current.setLookAt(
-      // from
-      centerOfMapCamera.x,
-      centerOfMapCamera.y,
-      centerOfMapCamera.z,
-      // at
-      centerOfMapLookAt.x,
-      centerOfMapLookAt.y,
-      centerOfMapLookAt.z,
-      true
-    )
+    const { width, height } = getBoardHexesRectangularMapDimensions(boardHexes)
+    const cameraArgs = getMapCenterCameraLookAt(width, height)
+    cameraControlsRef.current.setLookAt(...cameraArgs)
     // only run on render and load-new-map
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mapID])
