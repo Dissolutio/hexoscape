@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "server": "node -r esm server.js",
     "devstart": "VITE_WITH_SEPARATE_SERVER=1 npm run dev",
     "devserver": "node -r esm devserver.js",
