@@ -1,4 +1,4 @@
-import { CAMERA_FOV, HEXGRID_HEX_APOTHEM } from '../app/constants'
+import { CAMERA_FOV, HEXGRID_HEX_APOTHEM, HEXGRID_HEX_RADIUS } from '../app/constants'
 import {
   BoardHex,
   BoardHexes,
@@ -139,7 +139,12 @@ export const cubeToPixel = (hex: HexCoordinates) => {
 export const getBoardHex3DCoords = (hex: BoardHex) => {
   const { x, y } = cubeToPixel(hex)
   // DEV NOTE: THIS IS WHERE WE SWITCH Y AND Z (And I am not 100% certain I did it to maintain "y" as altitude, I may have just goofed up and covered it up with this)
-  return { x: x * HEX_SPACING, z: y * HEX_SPACING, y: hex.altitude / 2 }
+  // I think I did it so that in our quadrant, all axes are positive in handy directions
+
+  // ALSO: We scootch the map to the right one apothem so that X=0 aligns with the left edge of hexes, not the center. This makes width calculation easier, keeps things neat
+  // ALSO: We scootch the map down one radius so that Y=0 aligns with the top edge of hexes, not the center. This makes height calculation easier, keeps things neat
+
+  return { x: (x + HEXGRID_HEX_APOTHEM) * HEX_SPACING, z: (y + HEXGRID_HEX_RADIUS) * HEX_SPACING, y: hex.altitude / 2 }
 }
 
 export const getDirectionOfNeighbor = (
@@ -286,14 +291,14 @@ export const getBoardHexesRectangularMapDimensions = (boardHexes: BoardHexes): M
   const sMinusQMax = Math.max(...Object.keys(boardHexes).map((hexID) => boardHexes[hexID].s - boardHexes[hexID].q))
   const sMinusQMin = Math.min(...Object.keys(boardHexes).map((hexID) => boardHexes[hexID].s - boardHexes[hexID].q))
   const hexHeight = qPlusSMax - qPlusSMin
-  const height = hexHeight * 1.5 * HEX_SPACING
+  const height = (hexHeight * 1.5 + (2* HEXGRID_HEX_RADIUS)) * HEX_SPACING
   const hexWidth = sMinusQMax - sMinusQMin
-  const width = hexWidth * 0.866 * HEX_SPACING
+  const width = ((hexWidth * HEXGRID_HEX_APOTHEM) + (2* HEXGRID_HEX_APOTHEM)) * HEX_SPACING
   const maxAltitude = getBoardHexesMaxAltitude(boardHexes)
   // for camera height, we know our FOV, and we know the width and height
   const alpha = CAMERA_FOV / 2
   const beta = 90 - alpha
-  const heightCameraFitMapInFov = (width / 2) * Math.tan(beta)
+  const heightCameraFitMapInFov = ((width / 2) * Math.tan(beta)) * 1.1 // zooms out to 1.1 to give a little space
   // const heightCameraFitMapInFov = 10
   return { height, width, heightCameraFitMapInFov }
 }
