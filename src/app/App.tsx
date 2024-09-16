@@ -9,7 +9,12 @@ import { MultiplayerNav } from './MultiplayerNav'
 import { Hexoscape } from '../game/game'
 import { isLocalApp, SERVER } from './constants'
 import { Board } from '../hexopolis-ui/Board'
-import { DemoLocalGameLinks, LocalApp, LocalDemoClients } from './LocalApp'
+import {
+  DemoLocalGameLinks,
+  LocalApp,
+  LocalDemoClients,
+  localRoutes,
+} from './LocalApp'
 
 const MultiplayerGameClient = Client({
   game: Hexoscape,
@@ -31,53 +36,10 @@ export const App = () => {
               <title>Hexoscape</title>
             </Helmet>
             <Routes>
-              <Route
-                path="/"
-                element={
-                  <>
-                    <MultiplayerNav />
-                    <MultiplayerLobby />
-                  </>
-                }
-              />
-              <Route
-                path="/play"
-                element={
-                  <>
-                    <PlayPage />
-                  </>
-                }
-              />
-              <Route
-                path="/demo"
-                element={
-                  <>
-                    <MultiplayerNav />
-                    <DemoLocalGameLinks />
-                  </>
-                }
-              />
-              {/* Copied from Local App, because Routes can't handle a non-Route child */}
-              <Route
-                path="/local2"
-                element={<LocalDemoClients numPlayers={2} />}
-              />
-              <Route
-                path="/local3"
-                element={<LocalDemoClients numPlayers={3} />}
-              />
-              <Route
-                path="/local4"
-                element={<LocalDemoClients numPlayers={4} />}
-              />
-              <Route
-                path="/local5"
-                element={<LocalDemoClients numPlayers={5} />}
-              />
-              <Route
-                path="/local6"
-                element={<LocalDemoClients numPlayers={6} />}
-              />
+              <Route path="/" element={<MultiplayerLobbyPage />} />
+              <Route path="/play" element={<PlayPage />} />
+              <Route path="/demo" element={<DemoLocalGamePage />} />
+              {localRoutes()}
             </Routes>
           </MultiplayerLobbyProvider>
         </BgioLobbyApiProvider>
@@ -103,5 +65,21 @@ const PlayPage = () => {
       playerID={playerID}
       credentials={playerCredentials}
     />
+  )
+}
+const DemoLocalGamePage = () => {
+  return (
+    <>
+      <MultiplayerNav />
+      <DemoLocalGameLinks />
+    </>
+  )
+}
+const MultiplayerLobbyPage = () => {
+  return (
+    <>
+      <MultiplayerNav />
+      <MultiplayerLobby />
+    </>
   )
 }

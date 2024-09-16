@@ -5,7 +5,7 @@ import { Helmet } from 'react-helmet'
 import { Hexoscape } from '../game/game'
 import { Board } from '../hexopolis-ui/Board'
 import { specialMatchIdToTellHeaderNavThisMatchIsLocal } from './constants'
-import { Hexxaform } from '../game/hexxaform/hexxaform-game'
+import { Hexxaform } from '../game/hexxaform/hexxaform'
 import { HexxaformBoard } from '../hexxaform-ui/HexxaformBoard'
 
 const reduxDevTools =
@@ -29,16 +29,23 @@ export const LocalApp = () => {
             </>
           }
         />
-        <Route path="/local1" element={<LocalDemoClients numPlayers={1} />} />
-        <Route path="/local2" element={<LocalDemoClients numPlayers={2} />} />
-        <Route path="/local3" element={<LocalDemoClients numPlayers={3} />} />
-        <Route path="/local4" element={<LocalDemoClients numPlayers={4} />} />
-        <Route path="/local5" element={<LocalDemoClients numPlayers={5} />} />
-        <Route path="/local6" element={<LocalDemoClients numPlayers={6} />} />
+        {localRoutes()}
       </Routes>
     </>
   )
 }
+export const localRoutes = () => (
+  <>
+    {/* Route local1 is special, it's the Map Editor */}
+    <Route path="/local1" element={<LocalDemoClients numPlayers={1} />} />
+    {/* The rest of the routes are for the local-multiplayer games */}
+    <Route path="/local2" element={<LocalDemoClients numPlayers={2} />} />
+    <Route path="/local3" element={<LocalDemoClients numPlayers={3} />} />
+    <Route path="/local4" element={<LocalDemoClients numPlayers={4} />} />
+    <Route path="/local5" element={<LocalDemoClients numPlayers={5} />} />
+    <Route path="/local6" element={<LocalDemoClients numPlayers={6} />} />
+  </>
+)
 export const DemoLocalGameLinks = () => (
   // if we don't use the reloadDocument prop, then some state seems to be shared or reused between the different games, resulting in crashes
   // magically, and wonderfully, this prop fixes the problem so a user can demo the different multiplayer games in rapid (enough) succession by clicking the links back to back
