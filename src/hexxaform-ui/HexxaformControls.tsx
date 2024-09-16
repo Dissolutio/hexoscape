@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import Button from '@mui/material/Button'
 import { FaEraser } from 'react-icons/fa'
 import {
   GiUpCard,
@@ -395,18 +396,24 @@ const LoadSaveMapButtons = ({ boardHexes, hexMap, moves }: BgioProps) => {
   const handleSaveMap3 = () => setMap3(currentSaveableMap)
   return (
     <>
-      <button onClick={handleLoadMap1} disabled={!isMap1}>
+      <Button onClick={handleLoadMap1} variant="contained" disabled={!isMap1}>
         Load Map 1
-      </button>
-      <button onClick={handleSaveMap1}>Save Map 1</button>
-      <button onClick={handleLoadMap2} disabled={!isMap2}>
+      </Button>
+      <Button onClick={handleSaveMap1} variant="contained">
+        Save Map 1
+      </Button>
+      <Button onClick={handleLoadMap2} variant="contained" disabled={!isMap2}>
         Load Map 2
-      </button>
-      <button onClick={handleSaveMap2}>Save Map 2</button>
-      <button onClick={handleLoadMap3} disabled={!isMap3}>
+      </Button>
+      <Button onClick={handleSaveMap2} variant="contained">
+        Save Map 2
+      </Button>
+      <Button onClick={handleLoadMap3} variant="contained" disabled={!isMap3}>
         Load Map 3
-      </button>
-      <button onClick={handleSaveMap3}>Save Map 3</button>
+      </Button>
+      <Button onClick={handleSaveMap3} variant="contained">
+        Save Map 3
+      </Button>
     </>
   )
 }
