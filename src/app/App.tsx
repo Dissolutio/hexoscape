@@ -7,14 +7,9 @@ import { AuthProvider, useAuth } from '../hooks/useAuth'
 import { MultiplayerLobby, MultiplayerLobbyProvider } from '../lobby'
 import { MultiplayerNav } from './MultiplayerNav'
 import { Hexoscape } from '../game/game'
-import { isLocalApp, SERVER } from './constants'
+import { SERVER } from './constants'
 import { Board } from '../hexopolis-ui/Board'
-import {
-  DemoLocalGameLinks,
-  LocalApp,
-  LocalDemoClients,
-  localRoutes,
-} from './LocalApp'
+import { DemoLocalGameLinks, LocalApp, localRoutes } from './LocalApp'
 
 const MultiplayerGameClient = Client({
   game: Hexoscape,
@@ -25,7 +20,10 @@ const MultiplayerGameClient = Client({
 })
 
 export const App = () => {
-  if (isLocalApp) {
+  // ! Two Options:
+  // * A local game (for game development) `npm run start`
+  // * Run a production server that serves up the client on localhost:8000: `npm run build` THEN `npm run server`
+  if (import.meta.env.MODE === 'development') {
     return <LocalApp />
   } else {
     return (
