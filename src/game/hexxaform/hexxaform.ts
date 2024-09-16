@@ -1,5 +1,5 @@
 import { moves } from "./moves";
-import { hexagonScenario, rectangleScenario } from "./setup";
+import { hexagonScenario } from "./setup";
 
 export const Hexxaform = {
   name: "Hexxaform",
