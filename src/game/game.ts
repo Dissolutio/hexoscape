@@ -322,8 +322,9 @@ export const Hexoscape: Game<GameState> = {
           */
         //   G.initiative = ['1', '0']
         // } else {
-        //   G.initiative = initiativeRoll.initiative
-        // }
+          // G.initiative = initiativeRoll.initiative
+          // }
+        G.initiative = initiativeRoll.initiative
         G.currentOrderMarker = 0
         G.gameLog = [...G.gameLog, roundBeginGameLog]
       },
