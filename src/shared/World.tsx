@@ -10,7 +10,7 @@ import { useRef } from 'react'
 import { BoardHexes, Glyphs, HexMap } from '../game/types'
 import { HexopolisMapDisplay3D } from '../hexopolis-ui/world/HexopolisMapDisplay3D'
 import { HexxaformMapDisplay3D } from '../hexxaform-ui/world/HexxaformMapDisplay3D'
-import { CAMERA_FOV } from '../app/constants'
+import { CAMERA_FOV } from '../game/constants'
 
 export const World = ({
   boardHexes,

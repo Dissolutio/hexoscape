@@ -18,7 +18,6 @@ import {
   stageNames,
   OM_COUNT,
   generateBlankOrderMarkersForNumPlayers,
-  generateBlankPlayersOrderMarkers,
   generateReadyStateForNumPlayers,
   getActivePlayersIdleStage,
   generateBlankPlayersStateForNumPlayers,
@@ -27,11 +26,8 @@ import { assignCardMovePointsToUnit_G } from './moves/G-mutators'
 import { selectIfGameArmyCardHasAbility } from './selector/card-selectors'
 import { scenarioNames } from './setup/scenarios'
 
-const isDevOverrideState =
-  import.meta.env.MODE === 'production'
-    ? false
-    : // toggle this one to test the game with pre-placed units
-      true
+// toggle this one to test the game with pre-placed units
+const isDevOverrideState = true
 
 export const Hexoscape: Game<GameState> = {
   name: 'Hexoscape',
@@ -47,23 +43,9 @@ export const Hexoscape: Game<GameState> = {
           return scenarioNames.cirdanGardenWithoutTrees
         }
         if (ctx.ctx.numPlayers === 2) {
-          if (import.meta.env.MODE === 'development') {
-            // DEV: change this to change 2 player local game
-            // return scenarioNames.clashingFrontsAtTableOfTheGiants2
+            // DEV: change 2 player local game
             return scenarioNames.forsakenWaters2
-            // return scenarioNames.cirdanGardenWithoutTrees
-            // return scenarioNames.makeMoveRange1HexWalkScenario
-            // return scenarioNames.makeMoveRange2HexWalkScenario
-            // return scenarioNames.makeMoveRangePassThruScenario
-            // return scenarioNames.makeMoveRange1HexFlyEngagedScenario
-            // return scenarioNames.makeMoveRange1HexFlyEngagedStealthScenario
-            // return scenarioNames.makeMoveRange1HexFlyScenario
-            // return scenarioNames.makeMoveRange2HexFlyScenario
-            // return scenarioNames.makeMoveRange2HexFlyEngagedScenario
-          } else {
-            // the online 2 player demo scenario:
-            return scenarioNames.clashingFrontsAtTableOfTheGiants2
-          }
+            // return scenarioNames.clashingFrontsAtTableOfTheGiants2
         }
         // gameSetupInitialGameState will return a default setup if we return empty string here
         return ''
@@ -76,7 +58,6 @@ export const Hexoscape: Game<GameState> = {
       numPlayers: setupData?.numPlayers || ctx.ctx.numPlayers,
       scenarioName,
       withPrePlacedUnits: isDevOverrideState,
-      isLocalOrDemoGame,
     })
   },
   /*  validateSetupData -- Optional function to validate the setupData before matches are created. If this returns a value, an error will be reported to the user and match creation is aborted:
@@ -92,16 +73,11 @@ export const Hexoscape: Game<GameState> = {
     //PHASE: DRAFT AND PLACE UNITS
     [phaseNames.draft]: {
       start: true,
-      // all players may make moves and place their units
       onBegin: ({ G, ctx }) => {
         const playerIDs = Object.keys(G.players)
         const initiativeRoll = rollD20Initiative(playerIDs)
         // DEV: can make it so a certain player is first, etc.
-        // if (import.meta.env.MODE === 'test') {
         //   G.initiative = ['1', '0']
-        // } else {
-        //   G.initiative = initiativeRoll.initiative
-        // }
         G.initiative = initiativeRoll.initiative
         // TODO: add gamelog of draft begin
         // const draftBeginGameLog = encodeGameLogMessage({
@@ -336,12 +312,18 @@ export const Hexoscape: Game<GameState> = {
           playerID: '',
           initiativeRolls: initiativeRoll.rolls,
         })
-        if (import.meta.env.MODE === 'test') {
-          // enable pre-determined initiative in tests
-          G.initiative = ['1', '0']
-        } else {
-          G.initiative = initiativeRoll.initiative
-        }
+        // if ((process?.env?.NODE_ENV === 'test') || (import.meta?.env?.MODE === 'test')) {
+          //   // enable pre-determined initiative in tests
+          /* 
+            TODO: This was commented out because of the Vite/Node/process.env/import.meta problems. 
+            And tests are broken now from the switch to Vite.
+            But once tests are up and running, this will need to be accounted for, 
+            because those tests have hard data assuming player 1 goes first.
+          */
+        //   G.initiative = ['1', '0']
+        // } else {
+        //   G.initiative = initiativeRoll.initiative
+        // }
         G.currentOrderMarker = 0
         G.gameLog = [...G.gameLog, roundBeginGameLog]
       },

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { PenMode } from '../game/hexxaform/types'
+import { PenMode } from '../game/hexxaform/hexxaform-types'
 
 type MapContextProviderProps = {
   children: React.ReactNode

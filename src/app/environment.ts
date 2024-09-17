@@ -15,8 +15,3 @@ const port = window?.location?.port ?? ''
 const deploymentServerAddr = `${protocol}//${hostname}${port ? `:${port}` : ``}`
 const localServerAddr = `http://localhost:8000`
 export const SERVER = isDeploymentEnv ? deploymentServerAddr : localServerAddr
-
-export const HEXGRID_SPACING = 1.05
-export const HEXGRID_HEX_RADIUS = 1
-export const HEXGRID_HEX_APOTHEM = 0.866
-export const CAMERA_FOV = 65

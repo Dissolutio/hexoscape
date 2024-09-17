@@ -8,6 +8,11 @@ import {
   PlayerStateToggle,
 } from './types'
 
+export const HEXGRID_SPACING = 1.05
+export const HEXGRID_HEX_RADIUS = 1
+export const HEXGRID_HEX_APOTHEM = 0.866
+export const CAMERA_FOV = 65
+
 export const phaseNames = {
   draft: 'draft',
   placement: 'placement',

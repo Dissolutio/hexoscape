@@ -1,4 +1,4 @@
-import { CAMERA_FOV } from "../app/constants"
+import { CAMERA_FOV } from "../game/constants"
 
 export const getMapCenterCameraLookAt = (width: number, height: number): [number, number, number, number, number, number, boolean] => {
     const alpha = CAMERA_FOV / 2

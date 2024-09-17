@@ -1,7 +1,6 @@
-import { nanoid } from "nanoid";
 import { BoardHexes } from "../types";
 import { generateHexagon, generateRectangle } from "../setup/hex-gen";
-import { GType } from "./types";
+import { GType } from "./hexxaform-types";
 // import { BoardHexes, GType, MapShapes } from "./types";
 type RectangleScenarioOptions = {
   mapWidth?: number;
@@ -17,7 +16,7 @@ export function makeRectangleScenario(
   const mapHeight = options?.mapLength ?? 1;
   const mapWidth = options?.mapWidth ?? 1;
   const hexMap = {
-    mapId: nanoid(),
+    mapId: new Date().getTime().toString(),
     mapName: 'default rectangle map',
     mapShape: 'rectangle',
     mapSize: Math.max(mapHeight, mapWidth),
@@ -41,7 +40,7 @@ export function makeHexagonScenario(
 ): GType {
   const mapSize = options?.mapSize ?? 3;
   const hexMap = {
-    mapId: nanoid(),
+    mapId: new Date().getTime().toString(),
     mapName: 'default hexagon map',
     mapShape: 'hexagon',
     mapSize,

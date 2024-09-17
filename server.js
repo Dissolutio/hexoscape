@@ -1,10 +1,11 @@
 import { Origins, Server } from 'boardgame.io/server'
 import path from 'path'
 import serve from 'koa-static'
-import { TicTacToe } from './server/game'
+import { Hexoscape } from './server/game'
+import { Hexxaform } from './server/hexxaform/hexxaform-game'
 
 const server = Server({
-  games: [TicTacToe],
+  games: [Hexoscape, Hexxaform],
   origins: [
     // Allow your game site to connect.
     // 'https://www.mygame.domain',

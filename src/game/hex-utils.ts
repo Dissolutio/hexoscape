@@ -1,4 +1,4 @@
-import { HEXGRID_HEX_APOTHEM, HEXGRID_HEX_RADIUS } from '../app/constants'
+import { HEXGRID_HEX_APOTHEM, HEXGRID_HEX_RADIUS, HEXGRID_SPACING } from './constants'
 import {
   BoardHex,
   BoardHexes,
@@ -129,11 +129,9 @@ export const hexUtilsHexToPixel = (
   return { x: x + layout.origin.x, y: y + layout.origin.y }
 }
 // a simplified version of above
-const HEX_RADIUS = 1
-const HEX_SPACING = 1.05
 export const cubeToPixel = (hex: HexCoordinates) => {
-  const x = HEX_RADIUS * (Math.sqrt(3) * hex.q + (Math.sqrt(3) / 2) * hex.r)
-  const y = HEX_RADIUS * ((3 / 2) * hex.r)
+  const x = HEXGRID_HEX_RADIUS * (Math.sqrt(3) * hex.q + (Math.sqrt(3) / 2) * hex.r)
+  const y = HEXGRID_HEX_RADIUS * ((3 / 2) * hex.r)
   return { x: x, y: y }
 }
 export const getBoardHex3DCoords = (hex: BoardHex) => {
@@ -144,7 +142,7 @@ export const getBoardHex3DCoords = (hex: BoardHex) => {
   // ALSO: We scootch the map to the right one apothem so that X=0 aligns with the left edge of hexes, not the center. This makes width calculation easier, keeps things neat
   // ALSO: We scootch the map down one radius so that Y=0 aligns with the top edge of hexes, not the center. This makes height calculation easier, keeps things neat
 
-  return { x: (x + HEXGRID_HEX_APOTHEM) * HEX_SPACING, z: (y + HEXGRID_HEX_RADIUS) * HEX_SPACING, y: hex.altitude / 2 }
+  return { x: (x + HEXGRID_HEX_APOTHEM) * HEXGRID_SPACING, z: (y + HEXGRID_HEX_RADIUS) * HEXGRID_SPACING, y: hex.altitude / 2 }
 }
 
 export const getDirectionOfNeighbor = (
@@ -290,9 +288,9 @@ export const getBoardHexesRectangularMapDimensions = (boardHexes: BoardHexes): M
   const sMinusQMax = Math.max(...Object.keys(boardHexes).map((hexID) => boardHexes[hexID].s - boardHexes[hexID].q))
   const sMinusQMin = Math.min(...Object.keys(boardHexes).map((hexID) => boardHexes[hexID].s - boardHexes[hexID].q))
   const hexHeight = qPlusSMax - qPlusSMin
-  const height = (hexHeight * 1.5 + (2* HEXGRID_HEX_RADIUS)) * HEX_SPACING
+  const height = (hexHeight * 1.5 + (2* HEXGRID_HEX_RADIUS)) * HEXGRID_SPACING
   const hexWidth = sMinusQMax - sMinusQMin
-  const width = ((hexWidth * HEXGRID_HEX_APOTHEM) + (2* HEXGRID_HEX_APOTHEM)) * HEX_SPACING
+  const width = ((hexWidth * HEXGRID_HEX_APOTHEM) + (2* HEXGRID_HEX_APOTHEM)) * HEXGRID_SPACING
   // const maxAltitude = Math.max(...Object.keys(boardHexes).map((hexID) => boardHexes[hexID].altitude))
   return { height, width }
 }

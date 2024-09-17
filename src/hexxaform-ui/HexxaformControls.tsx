@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import Button from '@mui/material/Button'
 import { FaEraser } from 'react-icons/fa'
 import {
   GiUpCard,
@@ -13,10 +14,13 @@ import { ChangeEvent } from 'react'
 import { giantsTable } from '../game/setup/maps/giantsTable'
 import { forsakenWaters } from '../game/setup/maps/forsakenWaters'
 import { BoardHexes, HexMap } from '../game/types'
-import { hexagonScenario, rectangleScenario } from '../game/hexxaform/setup'
+import {
+  hexagonScenario,
+  rectangleScenario,
+} from '../game/hexxaform/hexxaform-setup'
 import { cirdanGardenMap } from '../game/setup/maps/cirdanGarden'
 import { useMapContext } from './useMapContext'
-import { PenMode } from '../game/hexxaform/types'
+import { PenMode } from '../game/hexxaform/hexxaform-types'
 import { useLocalMapMemory } from './useLocalMapMemory'
 import { translateHexagonBoardHexesToNormal } from '../game/setup/hex-gen'
 
@@ -395,18 +399,24 @@ const LoadSaveMapButtons = ({ boardHexes, hexMap, moves }: BgioProps) => {
   const handleSaveMap3 = () => setMap3(currentSaveableMap)
   return (
     <>
-      <button onClick={handleLoadMap1} disabled={!isMap1}>
+      <Button onClick={handleLoadMap1} variant="contained" disabled={!isMap1}>
         Load Map 1
-      </button>
-      <button onClick={handleSaveMap1}>Save Map 1</button>
-      <button onClick={handleLoadMap2} disabled={!isMap2}>
+      </Button>
+      <Button onClick={handleSaveMap1} variant="contained">
+        Save Map 1
+      </Button>
+      <Button onClick={handleLoadMap2} variant="contained" disabled={!isMap2}>
         Load Map 2
-      </button>
-      <button onClick={handleSaveMap2}>Save Map 2</button>
-      <button onClick={handleLoadMap3} disabled={!isMap3}>
+      </Button>
+      <Button onClick={handleSaveMap2} variant="contained">
+        Save Map 2
+      </Button>
+      <Button onClick={handleLoadMap3} variant="contained" disabled={!isMap3}>
         Load Map 3
-      </button>
-      <button onClick={handleSaveMap3}>Save Map 3</button>
+      </Button>
+      <Button onClick={handleSaveMap3} variant="contained">
+        Save Map 3
+      </Button>
     </>
   )
 }

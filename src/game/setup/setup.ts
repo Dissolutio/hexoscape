@@ -16,19 +16,13 @@ import {
 //!! TEST SCENARIO
 export const gameSetupInitialGameState = ({
   numPlayers,
-  isLocalOrDemoGame,
   scenarioName,
   withPrePlacedUnits,
 }: {
   numPlayers: number
-  isLocalOrDemoGame: boolean
   scenarioName?: string
   withPrePlacedUnits?: boolean
 }) => {
-  const isDemoGame =
-    numPlayers === 2 &&
-    isLocalOrDemoGame &&
-    import.meta.env.MODE === 'production'
   if (scenarioName === scenarioNames.clashingFrontsAtTableOfTheGiants2) {
     return makeGiantsTable2PlayerScenario(numPlayers, withPrePlacedUnits)
   }
@@ -83,9 +77,6 @@ export const gameSetupInitialGameState = ({
   }
   if (scenarioName === scenarioNames.makeMoveRange2HexFlyScenario) {
     return makeMoveRange2HexFlyScenario(numPlayers, withPrePlacedUnits)
-  }
-  if (isDemoGame) {
-    return makeGiantsTable2PlayerScenario(numPlayers, withPrePlacedUnits)
   }
   // DEFAULT RETURN BELOW::
   return makeDefaultScenario(numPlayers, withPrePlacedUnits)

@@ -1,7 +1,6 @@
 import type { Move } from "boardgame.io";
-import { nanoid } from "nanoid";
 import { BoardHexes, HexMap, HexTerrain } from "../types";
-import { GType } from "./types";
+import { GType } from "./hexxaform-types";
 // import { BoardHexes, GType, HexMap, HexTerrain } from "./types";
 const voidHex: Move<GType> = ({ G, ctx }, { hexID }: { hexID: string }) => {
   G.boardHexes[hexID].terrain = HexTerrain.void;
@@ -70,7 +69,7 @@ const loadMap: Move<GType> = (
   }
 ) => {
   if (!hexMap.mapId) {
-    hexMap.mapId = nanoid();
+    hexMap.mapId = new Date().getTime().toString();
   }
   G.boardHexes = boardHexes;
   G.hexMap = hexMap;
