@@ -67,7 +67,7 @@ export const DemoLocalGameLinks = () => (
           3-Player Game
         </Link>
       </li>
-      <li>
+      {/* <li>
         <Link reloadDocument to="/local4">
           4-Player Game
         </Link>
@@ -81,7 +81,7 @@ export const DemoLocalGameLinks = () => (
         <Link reloadDocument to="/local6">
           6-Player Game
         </Link>
-      </li>
+      </li> */}
     </ul>
   </>
 )

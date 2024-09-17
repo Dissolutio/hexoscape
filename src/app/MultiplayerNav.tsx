@@ -11,7 +11,10 @@ export const MultiplayerNav = () => {
           <NavLink to="/">Multiplayer Lobby</NavLink>
         </li>
         <li>
-          <NavLink to="/demo">Demo Game</NavLink>
+          <NavLink to="/demo"> 2-3 Player Demo Games</NavLink>
+        </li>
+        <li>
+          <NavLink to="/local1">{`Map Editor (Under Construction)`}</NavLink>
         </li>
         {isJoinedInMatch ? (
           <li>

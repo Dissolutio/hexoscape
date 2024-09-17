@@ -9,12 +9,7 @@ import { MultiplayerNav } from './MultiplayerNav'
 import { Hexoscape } from '../game/game'
 import { isLocalApp, SERVER } from './environment'
 import { Board } from '../hexopolis-ui/Board'
-import {
-  DemoLocalGameLinks,
-  LocalApp,
-  LocalDemoClients,
-  localRoutes,
-} from './LocalApp'
+import { DemoLocalGameLinks, LocalApp, localRoutes } from './LocalApp'
 
 const MultiplayerGameClient = Client({
   game: Hexoscape,
