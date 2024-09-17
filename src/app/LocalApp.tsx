@@ -3,9 +3,9 @@ import { Client } from 'boardgame.io/react'
 import { Local } from 'boardgame.io/multiplayer'
 import { Helmet } from 'react-helmet'
 import { Hexoscape } from '../game/game'
+import { Hexxaform } from '../game/hexxaform/hexxaform-game'
 import { Board } from '../hexopolis-ui/Board'
-import { specialMatchIdToTellHeaderNavThisMatchIsLocal } from './constants'
-import { Hexxaform } from '../game/hexxaform/hexxaform'
+import { specialMatchIdToTellHeaderNavThisMatchIsLocal } from './environment'
 import { HexxaformBoard } from '../hexxaform-ui/HexxaformBoard'
 
 const reduxDevTools =

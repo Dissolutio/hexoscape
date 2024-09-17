@@ -14,10 +14,13 @@ import { ChangeEvent } from 'react'
 import { giantsTable } from '../game/setup/maps/giantsTable'
 import { forsakenWaters } from '../game/setup/maps/forsakenWaters'
 import { BoardHexes, HexMap } from '../game/types'
-import { hexagonScenario, rectangleScenario } from '../game/hexxaform/setup'
+import {
+  hexagonScenario,
+  rectangleScenario,
+} from '../game/hexxaform/hexxaform-setup'
 import { cirdanGardenMap } from '../game/setup/maps/cirdanGarden'
 import { useMapContext } from './useMapContext'
-import { PenMode } from '../game/hexxaform/types'
+import { PenMode } from '../game/hexxaform/hexxaform-types'
 import { useLocalMapMemory } from './useLocalMapMemory'
 import { translateHexagonBoardHexesToNormal } from '../game/setup/hex-gen'
 

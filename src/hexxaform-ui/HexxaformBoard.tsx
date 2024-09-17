@@ -1,6 +1,6 @@
 import { BoardProps } from 'boardgame.io/react'
 import { ChatMessage } from 'boardgame.io'
-import { GType } from '../game/hexxaform/types'
+import { GType } from '../game/hexxaform/hexxaform-types'
 import { HexxaformLayout } from './HexxaformLayout'
 import { HexxaformControls } from './HexxaformControls'
 import { MapContextProvider } from './useMapContext'

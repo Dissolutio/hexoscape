@@ -1,5 +1,5 @@
 import React from 'react';
-import { GType } from '../game/hexxaform/types'
+import { GType } from '../game/hexxaform/hexxaform-types'
 
 export const HexxaformGContext = React.createContext<
   | (GType)
