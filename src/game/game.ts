@@ -27,22 +27,34 @@ import { selectIfGameArmyCardHasAbility } from './selector/card-selectors'
 import { scenarioNames } from './setup/scenarios'
 
 // toggle this one to test the game with pre-placed units
-const isDevOverrideState = true
+/* 
+  isDevOverrideState initializes as false, but later is set to true.
+  FOR DEV ONLY: At the later point, set it to true if you want to test the game with pre-placed units
+  ** DO NOT SET IT TO TRUE IN PRODUCTION **
+ */
+let isDevOverrideState = false
 
 export const Hexoscape: Game<GameState> = {
   name: 'Hexoscape',
   // setup: Function that returns the initial value of G.
   // setupData is an optional custom object that is
   // passed through the Game Creation API, currently in useMultiplayerLobby.tsx.handleCreateMatch()
-  setup: (ctx, setupData) => {
+  setup: ({
+    ctx, 
+    // ...plugins
+  }, setupData) => {
     const isLocalOrDemoGame = setupData === undefined
     const computeScenarioName = () => {
       // scenario-name can be passed from multiplayer lobby, otherwise we determine here which scenario-name to pass
       if (isLocalOrDemoGame) {
-        if (ctx.ctx.numPlayers === 3) {
+        /* 
+        ** DEV ONLY: set `isDevOverrideState` to true if you want to test local/demo game with pre-placed units 
+        */
+        isDevOverrideState = true
+        if (ctx.numPlayers === 3) {
           return scenarioNames.cirdanGardenWithoutTrees
         }
-        if (ctx.ctx.numPlayers === 2) {
+        if (ctx.numPlayers === 2) {
             // DEV: change 2 player local game
             return scenarioNames.forsakenWaters2
             // return scenarioNames.clashingFrontsAtTableOfTheGiants2
@@ -55,7 +67,7 @@ export const Hexoscape: Game<GameState> = {
     const scenarioName = computeScenarioName()
     return gameSetupInitialGameState({
       // numPlayers is decided either by createMatch, or what was passed to Bgio-Client (for local and demo games)
-      numPlayers: setupData?.numPlayers || ctx.ctx.numPlayers,
+      numPlayers: setupData?.numPlayers || ctx.numPlayers,
       scenarioName,
       withPrePlacedUnits: isDevOverrideState,
     })
