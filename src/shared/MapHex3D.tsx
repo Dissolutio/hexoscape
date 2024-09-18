@@ -11,13 +11,13 @@ import {
 } from '../game/types'
 import {
   getDefaultSubTerrainForTerrain,
+  HEXGRID_HEX_HEIGHT,
   isFluidTerrainHex,
 } from '../game/constants'
 import { selectGlyphForHex } from '../game/selectors'
 import { powerGlyphs } from '../game/glyphs'
 import { HeightRings } from './HeightRings'
 
-export const ONE_HEIGHT_LEVEL = 0.5
 const halfLevel = 0.25
 const quarterLevel = 0.125
 
@@ -167,7 +167,7 @@ export const MapHex3D = ({
 
       {/* This is the big sub-terrain mesh from the floor to the cap mesh */}
       <mesh position={subTerrainPosition} scale={[1, heightScaleSubTerrain, 1]}>
-        <cylinderGeometry args={[1, 1, ONE_HEIGHT_LEVEL, 6]} />
+        <cylinderGeometry args={[1, 1, HEXGRID_HEX_HEIGHT, 6]} />
         <meshBasicMaterial color={subTerrainColor} />
       </mesh>
 

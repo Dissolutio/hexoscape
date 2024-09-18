@@ -1,10 +1,12 @@
 import { Line, Vector3 } from 'three'
 import { MoveRange } from '../game/types'
-import { transformMoveRangeToArraysOfIds } from '../game/constants'
+import {
+  HEXGRID_HEX_HEIGHT,
+  transformMoveRangeToArraysOfIds,
+} from '../game/constants'
 import { HexxaformHeightRing } from '../hexxaform-ui/world/HexxaformHeightRing'
 import { HexopolisHeightRing } from '../hexopolis-ui/world/HexopolisHeightRing'
 import { extend, ReactThreeFiber } from '@react-three/fiber'
-import { ONE_HEIGHT_LEVEL } from './MapHex3D'
 
 export const HeightRings = ({
   boardHexID,
@@ -94,9 +96,9 @@ const genPointsForHeightRing = (height: number) => {
 const genHeightRings = (top: number, bottom: number) => {
   const rings: number[] = [top] // no need to show bottom rings
   for (
-    let index = bottom + ONE_HEIGHT_LEVEL;
+    let index = bottom + HEXGRID_HEX_HEIGHT;
     index < top;
-    index += ONE_HEIGHT_LEVEL
+    index += HEXGRID_HEX_HEIGHT
   ) {
     rings.push(index)
   }
