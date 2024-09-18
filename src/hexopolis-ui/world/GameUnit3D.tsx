@@ -10,6 +10,7 @@ import { usePlacementContext } from '../contexts'
 import { useBgioClientInfo, useBgioCtx, useBgioG } from '../../bgio-contexts'
 import { selectHexForUnit, selectTailHexForUnit } from '../../game/selectors'
 import { UnitModelByID } from './models/UnitModelByID'
+import { getUnitDefaultCameraLookAt } from '../../shared/camera-utils'
 
 export const GameUnit3D = ({
   gameUnit,
@@ -65,33 +66,8 @@ export const GameUnit3D = ({
         setIsHovered(false)
       }}
       onClick={() => {
-        // we will focus the react three camera on this unit
-        const pos = boardHex ? getBoardHex3DCoords(boardHex) : undefined
-        const posLookAt = hexForRandomEnemyUnit
-          ? getBoardHex3DCoords(hexForRandomEnemyUnit)
-          : undefined
-        if (pos && posLookAt) {
-          // so, we pick the first enemy unit, to look in their direction
-          // then, we kick the camera back on the X & Z axes, and kick the look-at similarly towards the target
-          // the result is we are looking from a spot a little behind and above our unit, at a spot a little in front of and below our unit, towards the enemy
-          const cameraOutKick = 0
-          const cameraFromAbove = 10
-          const cameraLookBelow = 2
-          const dX = pos.x - posLookAt.x > 0 ? cameraOutKick : -cameraOutKick
-          const dZ = pos.z - posLookAt.z > 0 ? cameraOutKick : -cameraOutKick
-          cameraControlsRef.current.setLookAt(
-            // from
-            pos.x + dX,
-            pos.y + cameraFromAbove,
-            pos.z + dZ,
-            // at
-            pos.x - dX,
-            pos.y - cameraLookBelow,
-            pos.z - dZ,
-
-            true
-          )
-        }
+        const args = getUnitDefaultCameraLookAt(boardHex, boardHexes)
+        cameraControlsRef.current.setLookAt(...args)
       }}
       position={[positionX, positionY, positionZ]}
       rotation={[0, rotationY, 0]}
