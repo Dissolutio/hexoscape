@@ -68,6 +68,14 @@ export const GameUnit3D = ({
       onClick={() => {
         const args = getUnitDefaultCameraLookAt(boardHex, boardHexes)
         cameraControlsRef.current.setLookAt(...args)
+        cameraControlsRef.current.truck(0, 20, true)
+        // cameraControlsRef.current.azimuthAngle = 0
+        // cameraControlsRef.current.polarAngle = Math.PI / 8
+        // cameraControlsRef.current.zoom(10, true) // Zoom is crazy
+        // console.log(
+        //   '🚀 ~ cameraControlsRef.current.zoom:',
+        //   cameraControlsRef.current.zoom(0.1, false)
+        // )
       }}
       position={[positionX, positionY, positionZ]}
       rotation={[0, rotationY, 0]}

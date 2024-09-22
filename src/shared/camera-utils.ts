@@ -61,9 +61,9 @@ export const getMapCenterCameraLookAt = (boardHexes: BoardHexes): CameraLookAtAr
       unitOverheadCamera.y,
       unitOverheadCamera.z,
       // at
-      midpointOfUnitAndCenterOfMap.x,
-      midpointOfUnitAndCenterOfMap.y,
-      midpointOfUnitAndCenterOfMap.z,
+      centerOfMapLookAt.x,
+      centerOfMapLookAt.y,
+      centerOfMapLookAt.z,
       true
     ]
   }

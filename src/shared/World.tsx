@@ -53,7 +53,7 @@ export const World = ({
         />
       )}
       <PerspectiveCamera fov={CAMERA_FOV} />
-      {/* <axesHelper scale={[100, 100, 100]} /> */}
+      <axesHelper scale={[100, 100, 100]} />
       <CameraControls
         maxPolarAngle={Math.PI / 2}
         ref={cameraControlsRef}
