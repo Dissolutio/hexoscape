@@ -1,8 +1,9 @@
-import { generateHexagon } from './hex-gen'
+import { generateHexagon, translateHexagonBoardHexesToNormal } from './hex-gen'
 import {
   BoardHexes,
   GameMap,
   GameUnits,
+  HexTerrain,
   MapOptions,
   StartZones,
 } from '../types'
@@ -63,14 +64,15 @@ export function makeCirdanGardenMap(
   withPrePlacedUnits?: boolean,
   gameUnitsToPrePlace?: GameUnits
 ): GameMap {
-  const boardHexes = cirdanGardenMap.boardHexes as unknown as BoardHexes
-  if (!boardHexes) {
+  const preNormalizedBoardHexes = cirdanGardenMap.boardHexes as unknown as BoardHexes
+  if (!preNormalizedBoardHexes) {
     throw new Error('cirdanGardenMap.boardHexes is not defined')
   }
+  const boardHexes =  translateHexagonBoardHexesToNormal(preNormalizedBoardHexes, cirdanGardenMap.hexMap.mapSize)
   for (const hex in boardHexes) {
     if (Object.prototype.hasOwnProperty.call(boardHexes, hex)) {
       const element = boardHexes[hex]
-      if (element.terrain === 'void') {
+      if (element.terrain === HexTerrain.void) {
         delete boardHexes[hex]
       }
     }
@@ -84,7 +86,7 @@ export function makeCirdanGardenMap(
     )
   }
   return {
-    boardHexes: cirdanGardenMap.boardHexes as unknown as BoardHexes,
+    boardHexes,
     hexMap: cirdanGardenMap.hexMap,
     startZones: getStartZonesFromBoardHexes(boardHexes),
   }

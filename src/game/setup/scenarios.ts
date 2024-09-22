@@ -214,7 +214,7 @@ export function makeCirdanGarden3PlayerScenario(
     ...generatePlayerAndReadyAndOMStates({
       numPlayers,
       isDevOverrideState: withPrePlacedUnits,
-      startingArmies: startingArmiesForForsakenWaters2Player,
+      startingArmies: startingArmiesFor3Player,
     }),
     maxArmyValue: 300,
     maxRounds: 12,
