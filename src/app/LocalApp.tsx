@@ -17,7 +17,7 @@ export const LocalApp = () => {
   return (
     <>
       <Helmet>
-        <title>Hexoscape - Local Game</title>
+        <title>Hexoscape - Local - Home</title>
       </Helmet>
       <Routes>
         <Route
@@ -128,15 +128,18 @@ export const LocalDemoClients = ({ numPlayers }: { numPlayers: number }) => {
   if (numPlayers === 1)
     return (
       <>
+        <Helmet>
+          <title>Hexoscape - Map Editor</title>
+        </Helmet>
         <Local1PlayerMapEditorClient playerID={'0'} matchID={matchID} />
       </>
     )
   if (numPlayers === 2)
     return (
       <>
-        <Local2PlayerClient playerID={'0'} matchID={matchID} />
-        <Local2PlayerClient playerID={'1'} matchID={matchID} />
-      </>
+        <Helmet>
+          <title>Hexoscape - Local - 2 Player</title>
+        </Helmet>
     )
   if (numPlayers === 2)
     return (
@@ -148,6 +151,9 @@ export const LocalDemoClients = ({ numPlayers }: { numPlayers: number }) => {
   if (numPlayers === 3)
     return (
       <>
+        <Helmet>
+          <title>Hexoscape - Local - 3 Player</title>
+        </Helmet>
         <Local3PlayerClient playerID={'0'} matchID={matchID} />
         <Local3PlayerClient playerID={'1'} matchID={matchID} />
         <Local3PlayerClient playerID={'2'} matchID={matchID} />

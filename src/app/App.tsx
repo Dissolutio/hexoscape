@@ -55,16 +55,24 @@ const PlayPage = () => {
     )
   }
   return (
-    <MultiplayerGameClient
-      matchID={matchID}
-      playerID={playerID}
-      credentials={playerCredentials}
-    />
+    <>
+      <Helmet>
+        <title>Hexoscape - Play</title>
+      </Helmet>
+      <MultiplayerGameClient
+        matchID={matchID}
+        playerID={playerID}
+        credentials={playerCredentials}
+      />
+    </>
   )
 }
 const DemoLocalGamePage = () => {
   return (
     <>
+      <Helmet>
+        <title>Hexoscape - Demo</title>
+      </Helmet>
       <MultiplayerNav />
       <DemoLocalGameLinks />
     </>
@@ -73,6 +81,9 @@ const DemoLocalGamePage = () => {
 const MultiplayerLobbyPage = () => {
   return (
     <>
+      <Helmet>
+        <title>Hexoscape - Lobby</title>
+      </Helmet>
       <MultiplayerNav />
       <MultiplayerLobby />
     </>
