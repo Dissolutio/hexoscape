@@ -82,7 +82,6 @@ declare global {
 }
 
 const genPointsForHeightRing = (height: number) => {
-  // our World renders where the map is flat along the X,Z axes, and the negative-Y is out of the screen
   return [
     new Vector3(1.0, height, 0),
     new Vector3(0.5, height, Math.sqrt(3) / 2),

@@ -58,7 +58,7 @@ export const Board = ({
   const isLocalOrDemoGame = matchID.includes(
     specialMatchIdToTellHeaderNavThisMatchIsLocal
   )
-  const localOrDemoGameNumPlayers = parseInt(matchID.split(':')[1])
+  const localOrDemoGameNumPlayers = parseInt(matchID?.split(':')?.[1])
   return (
     <>
       <ThemeProvider theme={theme(playerID ?? '')}>

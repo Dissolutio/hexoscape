@@ -41,31 +41,9 @@ html {
   margin: 0;
   max-width: 100vw;
   min-height: 100vh;
-  /* mobile viewport bug fix */
-  /* min-height: -webkit-fill-available; */
-  /* max-width: -webkit-fill-available; */
   background-color: var(--black);
   color: var(--white);
-  /* font-weight: 600; */
-  /* font-family: Gill Sans, Gill Sans MT, Calibri, sans-serif; */
 }
-
-/* style multiplayer lobby / nav */
-
-/* nav ul {
-  list-style-type: none;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-} */
-
-/* nav ul li a {
-  padding: 14px 16px;
-  text-decoration: none;
-}
-a.active {
-  text-decoration: underline;
-} */
 
 /* This gets the debug panel looking normal again, the water.css styles were messing with the button sizes, some colors */
 /* 40px overrides the 20px that the panel currently has */

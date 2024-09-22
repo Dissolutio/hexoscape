@@ -33,7 +33,7 @@ type HexagonScenarioOptions = {
   mapSize?: number;
 };
 export const hexagonScenario = makeHexagonScenario({
-  mapSize: 10,
+  mapSize: 9,
 });
 export function makeHexagonScenario(
   options?: HexagonScenarioOptions

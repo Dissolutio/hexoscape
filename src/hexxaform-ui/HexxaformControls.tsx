@@ -1,14 +1,5 @@
 import styled from 'styled-components'
 import Button from '@mui/material/Button'
-import { FaEraser } from 'react-icons/fa'
-import {
-  GiUpCard,
-  GiWaterSplash,
-  GiGrass,
-  GiIsland,
-  GiFallingRocks,
-  GiArrowCursor,
-} from 'react-icons/gi'
 
 import { ChangeEvent } from 'react'
 import { giantsTable } from '../game/setup/maps/giantsTable'
@@ -19,8 +10,6 @@ import {
   rectangleScenario,
 } from '../game/hexxaform/hexxaform-setup'
 import { cirdanGardenMap } from '../game/setup/maps/cirdanGarden'
-import { useMapContext } from './useMapContext'
-import { PenMode } from '../game/hexxaform/hexxaform-types'
 import { useLocalMapMemory } from './useLocalMapMemory'
 import { translateHexagonBoardHexesToNormal } from '../game/setup/hex-gen'
 
@@ -31,49 +20,6 @@ type BgioProps = {
 }
 
 export const HexxaformControls = ({ boardHexes, hexMap, moves }: BgioProps) => {
-  const {
-    showStartzones,
-    toggleShowStartzones,
-    showTerrain,
-    toggleShowTerrain,
-    toggleSelectHexMode,
-    toggleEraserPen,
-    toggleEraserStartZonePen,
-    toggleIncAltitudePen,
-    toggleDecAltitudePen,
-    toggleWaterPen,
-    toggleGrassPen,
-    toggleSandPen,
-    toggleRockPen,
-    toggleStartZonePen,
-    penMode,
-    penThickness,
-    togglePenThickness,
-  } = useMapContext()
-  //   const { moves } = useBgioMoves();
-  //   const {
-  //     G: { boardHexes, hexMap },
-  //   } = useBgioG();
-  //   const { loadMap } = moves;
-  const greenOnRedOff = (state: boolean) => {
-    return state
-      ? {
-          boxShadow: `0 0 2px var(--white)`,
-          border: `1px solid var(--white)`,
-          backgroundColor: `var(--selected-green)`,
-        }
-      : {}
-  }
-  const flipOverStyle = { transform: 'translateY(0.2em) rotate(180deg)' }
-  const activeStyle = (mode: string) => {
-    return mode === penMode
-      ? {
-          boxShadow: `0 0 2px var(--white)`,
-          border: `1px solid var(--white)`,
-          backgroundColor: `var(--selected-green)`,
-        }
-      : {}
-  }
   const handleClickExportJson = () => {
     const filename = `MyHexMap.json`
     const data = {
@@ -134,14 +80,14 @@ export const HexxaformControls = ({ boardHexes, hexMap, moves }: BgioProps) => {
         <UndoRedo />
       </StyledSection> */}
 
-      <StyledSection>
+      {/* <StyledSection>
         <h4>Toggle pen thickness:</h4>
         <button onClick={togglePenThickness}>
           Toggle Pen Thickness (current {penThickness})
         </button>
-      </StyledSection>
+      </StyledSection> */}
 
-      <StyledSection>
+      {/* <StyledSection>
         <h4>Set Pen Mode:</h4>
         <StyledButton
           aria-label="Select Mode"
@@ -215,9 +161,9 @@ export const HexxaformControls = ({ boardHexes, hexMap, moves }: BgioProps) => {
           <GiFallingRocks />
           <span>Rock</span>
         </StyledButton>
-      </StyledSection>
+      </StyledSection> */}
 
-      <StyledSection>
+      {/* <StyledSection>
         <h4>Set Pen Mode to Player StartZone:</h4>
         <StyledButton
           aria-label="Start Zone 0"
@@ -261,9 +207,9 @@ export const HexxaformControls = ({ boardHexes, hexMap, moves }: BgioProps) => {
         >
           Erase Start Zones
         </StyledButton>
-      </StyledSection>
+      </StyledSection> */}
 
-      <StyledSection>
+      {/* <StyledSection>
         <h4>Toggle Lenses:</h4>
         <StyledButton
           style={greenOnRedOff(showStartzones)}
@@ -277,7 +223,7 @@ export const HexxaformControls = ({ boardHexes, hexMap, moves }: BgioProps) => {
         >
           TERRAIN
         </StyledButton>
-      </StyledSection>
+      </StyledSection> */}
 
       <StyledSection>
         <h4>Load/Save Maps:</h4>

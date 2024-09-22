@@ -28,6 +28,7 @@ const LayoutContainer = styled.div`
   @media screen and (max-width: 1100px) {
     --middle-size: 60vh;
   }
+  --bottom-size: calc(100vh - var(--middle-size) - var(--navbar-height));
   --muted-text: ${(props) => props.theme.colors.gray};
   /* position: relative; */
   display: flex;
@@ -46,17 +47,15 @@ const LayoutTop = styled.div`
 const LayoutMiddle = styled.div`
   width: 100%;
   height: var(--middle-size);
-  /* position: relative; */
-  /* overflow: auto; */
 `
 const LayoutBottom = styled.div`
+  box-sizing: border-box;
   display: flex;
   flex-flow: column nowrap;
   width: 100%;
-  height: calc(100vh - var(--middle-size) - var(--navbar-height));
+  height: var(--bottom-size);
   padding: 4px 16px;
   margin: 0;
-  box-sizing: border-box;
   background: var(--black);
   overflow: auto;
 `

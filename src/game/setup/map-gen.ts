@@ -359,14 +359,6 @@ const transformBoardHexesToHaveStartZones = (
   boardHexes: BoardHexes,
   mapSize: number
 ): BoardHexes => {
-  const cornersIDs = [
-    `0,-${mapSize},${mapSize}`,
-    `0,${mapSize},-${mapSize}`,
-    `-${mapSize},0,${mapSize}`,
-    `${mapSize},0,-${mapSize}`,
-    `-${mapSize},${mapSize},0`,
-    `${mapSize},-${mapSize},0`,
-  ]
   const maxSpreadToAvoidOverlapping = Math.floor(mapSize / 2)
   const startZones: {
     [key: string]: string[]

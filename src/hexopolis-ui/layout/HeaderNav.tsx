@@ -45,12 +45,12 @@ const PlayerTeamLogo = ({
 }) => {
   if (isLocalOrDemoGame) {
     // for pass-and-play / development, making the logo a link to the other players screens is helpful (see Layout.tsx for the html-id we link to)
-    // this will make it so player 0-4 will link to player 1-5, and player 5 will link to player 0 (or for however many players you have)
-    const localLink = `#player${
-      parseInt(playerID) === localOrDemoGameNumPlayers - 1
-        ? 0
-        : parseInt(playerID) + 1
-    }`
+    // So rapidly clicking on the logo should cycle you through the other players' screens
+    const maxPlayerID = localOrDemoGameNumPlayers - 1
+    const isLastPlayer = parseInt(playerID) === maxPlayerID
+    const nextPlayerID = parseInt(playerID) + 1
+    const firstPlayerID = 0
+    const localLink = `#player${isLastPlayer ? firstPlayerID : nextPlayerID}`
     return (
       <a href={localLink}>
         <PlayerTeamLogoH1>

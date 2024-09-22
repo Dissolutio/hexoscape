@@ -33,7 +33,6 @@ export const App = () => {
             <Routes>
               <Route path="/" element={<MultiplayerLobbyPage />} />
               <Route path="/play" element={<PlayPage />} />
-              <Route path="/demo" element={<DemoLocalGamePage />} />
               {localRoutes()}
             </Routes>
           </MultiplayerLobbyProvider>
@@ -67,17 +66,7 @@ const PlayPage = () => {
     </>
   )
 }
-const DemoLocalGamePage = () => {
-  return (
-    <>
-      <Helmet>
-        <title>Hexoscape - Demo</title>
-      </Helmet>
-      <MultiplayerNav />
-      <DemoLocalGameLinks />
-    </>
-  )
-}
+
 const MultiplayerLobbyPage = () => {
   return (
     <>

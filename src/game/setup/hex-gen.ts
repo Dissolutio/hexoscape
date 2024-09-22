@@ -18,9 +18,6 @@ export const translateHexagonHexesToNormal = (hexes: HexCoordinates[], mapSize: 
     }
   })
 }
-/* translateHexagonBoardHexesToNormal
-    This function is for "updating" an old hexagon map that is centered around (0,0), to one that stays in the same XY quadrant as rectangular maps
-*/
 export const translateHexagonBoardHexesToNormal = (boardhexes: BoardHexes, mapSize: number): BoardHexes => {
   const hexArray = Object.values(boardhexes)
   return hexArray.reduce((prev: BoardHexes, curr: BoardHex) => {

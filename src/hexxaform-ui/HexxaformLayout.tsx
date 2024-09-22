@@ -22,7 +22,6 @@ const LayoutContainer = styled.div`
   padding: 0;
   margin: 0 auto;
   color: var(--player-color);
-  background-image: url('${(props) => props.theme.bgContourLinesUrl}');
 `
 const LayoutMiddle = styled.div`
   /* width: 100%; */

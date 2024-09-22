@@ -13,8 +13,8 @@ export const RoundCounter = () => {
       {isOrderMarkerPhase && <>Phase: Place Order Markers</>}
       {isRoundOfPlayPhase && (
         <>
-          <>Round: {currentRoundText}</>
-          <>Order marker: {currentOrderMarker + 1}</>
+          <div>Round: {currentRoundText}</div>
+          <div>Order marker: {currentOrderMarker + 1}</div>
         </>
       )}
     </StyledRoundCounter>
