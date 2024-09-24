@@ -11,7 +11,7 @@ export const HexxaformLayout = ({ children }: { children: ReactNode[] }) => {
 
 const LayoutContainer = styled.div`
   // SET CSS VARS
-  --player-color: ${(props) => props.theme.playerColor};
+  --player-color: #fff;
   // Perspective makes this element the parent for position sticky children
   // see: https://developer.mozilla.org/en-US/docs/Web/CSS/position#fixed
   perspective: 1000px;

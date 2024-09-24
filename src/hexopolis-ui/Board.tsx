@@ -61,35 +61,32 @@ export const Board = ({
   const localOrDemoGameNumPlayers = parseInt(matchID?.split(':')?.[1])
   return (
     <>
-      <ThemeProvider theme={theme(playerID ?? '')}>
-        {/* BGIO CONTEXT BELOW */}
-        <BgioClientInfoProvider
-          isLocalOrDemoGame={isLocalOrDemoGame}
-          log={log}
-          playerID={playerID || ''}
-          matchID={matchID}
-          matchData={matchData}
-          credentials={credentials || ''}
-          isMultiplayer={isMultiplayer}
-          isConnected={isConnected}
-          isActive={isActive}
-        >
-          <BgioGProvider G={G}>
-            <BgioCtxProvider isLocalOrDemoGame={isLocalOrDemoGame} ctx={ctx}>
-              <BgioMovesProvider moves={moves} undo={undo} redo={redo}>
-                <BgioEventsProvider reset={reset} events={events}>
-                  <BgioChatProvider
-                    chatMessages={chatMessages}
-                    sendChatMessage={sendChatMessage}
-                  >
-                    {/* GAME CONTEXT BELOW */}
-                    <MapContextProvider>
-                      {/* UI Context is consumed by PlacementContext and PlayContext */}
-                      <UIContextProvider>
-                        {/* Placement Context is consumed by Play Context  */}
-                        <PlacementContextProvider>
-                          <PlayContextProvider>
-                            <SpecialAttackContextProvider>
+      {/* BGIO CONTEXT BELOW */}
+      <BgioClientInfoProvider
+        isLocalOrDemoGame={isLocalOrDemoGame}
+        log={log}
+        playerID={playerID || ''}
+        matchID={matchID}
+        matchData={matchData}
+        credentials={credentials || ''}
+        isMultiplayer={isMultiplayer}
+        isConnected={isConnected}
+        isActive={isActive}
+      >
+        <BgioGProvider G={G}>
+          <BgioCtxProvider isLocalOrDemoGame={isLocalOrDemoGame} ctx={ctx}>
+            <BgioMovesProvider moves={moves} undo={undo} redo={redo}>
+              <BgioEventsProvider reset={reset} events={events}>
+                <BgioChatProvider
+                  chatMessages={chatMessages}
+                  sendChatMessage={sendChatMessage}
+                >
+                  {/* GAME CONTEXT BELOW */}
+                  <MapContextProvider>
+                    {/* Placement Context is consumed by Play Context  */}
+                    <PlacementContextProvider>
+                      <PlayContextProvider>
+                        <SpecialAttackContextProvider>
                               <Layout>
                                 <HeaderNav
                                   isLocalOrDemoGame={isLocalOrDemoGame}
@@ -104,21 +101,19 @@ export const Board = ({
                                     hexMap={G.hexMap}
                                     glyphs={G.hexMap.glyphs}
                                   />
-                                </HexopolisWorldWrapper>
-                                <TabsComponent />
-                              </Layout>
-                            </SpecialAttackContextProvider>
-                          </PlayContextProvider>
-                        </PlacementContextProvider>
-                      </UIContextProvider>
-                    </MapContextProvider>
-                  </BgioChatProvider>
-                </BgioEventsProvider>
-              </BgioMovesProvider>
-            </BgioCtxProvider>
-          </BgioGProvider>
-        </BgioClientInfoProvider>
-      </ThemeProvider>
+                            </HexopolisWorldWrapper>
+                            <TabsComponent />
+                          </Layout>
+                        </SpecialAttackContextProvider>
+                      </PlayContextProvider>
+                    </PlacementContextProvider>
+                  </MapContextProvider>
+                </BgioChatProvider>
+              </BgioEventsProvider>
+            </BgioMovesProvider>
+          </BgioCtxProvider>
+        </BgioGProvider>
+      </BgioClientInfoProvider>
     </>
   )
 }
