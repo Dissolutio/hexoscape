@@ -269,6 +269,7 @@ export const HexxaformControls = ({ boardHexes, hexMap, moves }: BgioProps) => {
             )
             moves.loadMap({
               boardHexes: translatedBoardHexes,
+              // boardHexes: cirdanGardenMap.boardHexes,
               hexMap: cirdanGardenMap.hexMap,
             })
           }}
