@@ -25,6 +25,8 @@ const UIContext = React.createContext<
       setSelectedGameCardID: React.Dispatch<React.SetStateAction<string>>
       indexOfLastShownToast: number
       setIndexOfLastShownToast: React.Dispatch<React.SetStateAction<number>>
+      isNavOpen: boolean
+      toggleIsNavOpen: (s: boolean) => void
     })
   | undefined
 >(undefined)
@@ -33,6 +35,11 @@ export function UIContextProvider({ children }: UIContextProviderProps) {
   const [indexOfLastShownToast, setIndexOfLastShownToast] = React.useState(0)
   const [selectedUnitID, setSelectedUnitID] = React.useState('')
   const [selectedGameCardID, setSelectedGameCardID] = React.useState('')
+  // navigation drawer state
+  const [isNavOpen, setIsNavOpen] = React.useState(false)
+  const toggleIsNavOpen = (s: boolean) => {
+    setIsNavOpen(s)
+  }
   // modal state
   const initialModalState: ModalState = {
     modalState: modalStates.off,
@@ -80,6 +87,8 @@ export function UIContextProvider({ children }: UIContextProviderProps) {
         backModal,
         openModalAbility,
         openModalCard,
+        isNavOpen,
+        toggleIsNavOpen,
       }}
     >
       {children}

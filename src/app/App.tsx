@@ -10,6 +10,8 @@ import { Hexoscape } from '../game/game'
 import { isLocalApp, SERVER } from './environment'
 import { Board } from '../hexopolis-ui/Board'
 import { DemoLocalGameLinks, LocalApp, localRoutes } from './LocalApp'
+import { Layout } from '../hexopolis-ui/layout'
+import HeaderNav from '../hexopolis-ui/layout/HeaderNav'
 
 const MultiplayerGameClient = Client({
   game: Hexoscape,
@@ -73,8 +75,18 @@ const MultiplayerLobbyPage = () => {
       <Helmet>
         <title>Hexoscape - Lobby</title>
       </Helmet>
-      <MultiplayerNav />
-      <MultiplayerLobby />
+      <Layout playerID={''}>
+        <HeaderNav
+          linkProps={{
+            isLocalOrDemoGame: false,
+            localOrDemoGameNumPlayers: 0,
+            playerID: '',
+          }}
+        />
+        <MultiplayerLobby />
+        {/* <BottomNav /> */}
+        <MultiplayerNav />
+      </Layout>
     </>
   )
 }

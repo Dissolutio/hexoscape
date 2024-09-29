@@ -7,6 +7,9 @@ import { Hexxaform } from '../game/hexxaform/hexxaform-game'
 import { Board } from '../hexopolis-ui/Board'
 import { specialMatchIdToTellHeaderNavThisMatchIsLocal } from './environment'
 import { HexxaformBoard } from '../hexxaform-ui/HexxaformBoard'
+import BottomNav from './BottomNav'
+import { Layout } from '../hexopolis-ui/layout'
+import HeaderNav from '../hexopolis-ui/layout/HeaderNav'
 
 const reduxDevTools =
   window &&
@@ -23,10 +26,17 @@ export const LocalApp = () => {
         <Route
           path="/"
           element={
-            <>
-              <h1>Choose a game:</h1>
+            <Layout playerID={''}>
+              <HeaderNav
+                linkProps={{
+                  isLocalOrDemoGame: false,
+                  localOrDemoGameNumPlayers: 0,
+                  playerID: '',
+                }}
+              />
               <DemoLocalGameLinks />
-            </>
+              <BottomNav />
+            </Layout>
           }
         />
         {localRoutes()}

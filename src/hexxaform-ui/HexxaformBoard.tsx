@@ -1,11 +1,13 @@
 import { BoardProps } from 'boardgame.io/react'
 import { ChatMessage } from 'boardgame.io'
 import { GType } from '../game/hexxaform/hexxaform-types'
-import { HexxaformLayout } from './HexxaformLayout'
 import { HexxaformControls } from './HexxaformControls'
 import { MapContextProvider } from './useMapContext'
 import { EditorWorldWrapper } from './world/EditorWorldWrapper'
 import { World } from '../shared/World'
+import HeaderNav from '../hexopolis-ui/layout/HeaderNav'
+import { Layout } from '../hexopolis-ui/layout'
+import BottomNav from '../app/BottomNav'
 
 type HexxaformBoardProps = BoardProps<GType> & {
   chatMessages?: ChatMessage[]
@@ -39,7 +41,14 @@ export function HexxaformBoard(props: HexxaformBoardProps) {
   } = props
   return (
     <MapContextProvider>
-      <HexxaformLayout>
+      <Layout playerID={''}>
+        <HeaderNav
+          linkProps={{
+            isLocalOrDemoGame: false,
+            localOrDemoGameNumPlayers: 0,
+            playerID: '',
+          }}
+        />
         <EditorWorldWrapper>
           <World
             isEditor={true}
@@ -48,12 +57,13 @@ export function HexxaformBoard(props: HexxaformBoardProps) {
             glyphs={G.hexMap.glyphs}
           />
         </EditorWorldWrapper>
-        <HexxaformControls
+        {/* <HexxaformControls
           moves={moves}
           boardHexes={G.boardHexes}
           hexMap={G.hexMap}
-        />
-      </HexxaformLayout>
+        /> */}
+        <BottomNav />
+      </Layout>
     </MapContextProvider>
   )
 }

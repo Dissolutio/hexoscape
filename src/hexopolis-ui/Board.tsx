@@ -6,7 +6,7 @@ import {
   PlacementContextProvider,
   PlayContextProvider,
 } from './contexts'
-import { Layout, HeaderNav } from './layout'
+import { Layout } from './layout'
 import { theme } from './theme'
 import {
   BgioClientInfoProvider,
@@ -23,6 +23,8 @@ import { SpecialAttackContextProvider } from './contexts/special-attack-context'
 import { specialMatchIdToTellHeaderNavThisMatchIsLocal } from '../app/environment'
 import { World } from '../shared/World'
 import { HexopolisWorldWrapper } from './world/HexopolisWorldWrapper'
+import HeaderNav from './layout/HeaderNav'
+import BottomNav from '../app/BottomNav'
 
 interface MyGameProps extends BoardProps<GameState> {
   chatMessages: ChatMessage[]
@@ -87,20 +89,20 @@ export const Board = ({
                     <PlacementContextProvider>
                       <PlayContextProvider>
                         <SpecialAttackContextProvider>
-                              <Layout>
-                                <HeaderNav
-                                  isLocalOrDemoGame={isLocalOrDemoGame}
-                                  localOrDemoGameNumPlayers={
-                                    localOrDemoGameNumPlayers
-                                  }
-                                  playerID={playerID ?? '0'}
-                                />
-                                <HexopolisWorldWrapper>
-                                  <World
-                                    boardHexes={G.boardHexes}
-                                    hexMap={G.hexMap}
-                                    glyphs={G.hexMap.glyphs}
-                                  />
+                          <Layout playerID={playerID}>
+                            <HeaderNav
+                              linkProps={{
+                                isLocalOrDemoGame,
+                                localOrDemoGameNumPlayers,
+                                playerID: playerID,
+                              }}
+                            />
+                            <HexopolisWorldWrapper>
+                              <World
+                                boardHexes={G.boardHexes}
+                                hexMap={G.hexMap}
+                                glyphs={G.hexMap.glyphs}
+                              />
                             </HexopolisWorldWrapper>
                             <TabsComponent />
                           </Layout>

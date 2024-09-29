@@ -2,6 +2,7 @@
 html {
   /* THEME */
   --black: #222222;
+  --outer-space: #011307;
   --white: #f7edf0;
   --player-color: #f7edf0; /* gets reset in Layout styled component*/
   --sub-white: #b4b4b4;
