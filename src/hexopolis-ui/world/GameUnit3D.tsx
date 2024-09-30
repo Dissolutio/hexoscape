@@ -2,10 +2,7 @@ import React, { useState } from 'react'
 import { CameraControls } from '@react-three/drei'
 
 import { BoardHex, GameUnit } from '../../game/types'
-import {
-  getBoardHex3DCoords,
-  getDirectionOfNeighbor,
-} from '../../game/hex-utils'
+import { getDirectionOfNeighbor } from '../../game/hex-utils'
 import { usePlacementContext } from '../contexts'
 import { useBgioClientInfo, useBgioCtx, useBgioG } from '../../bgio-contexts'
 import { selectHexForUnit, selectTailHexForUnit } from '../../game/selectors'

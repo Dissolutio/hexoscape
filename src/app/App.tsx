@@ -9,9 +9,10 @@ import { MultiplayerNav } from './MultiplayerNav'
 import { Hexoscape } from '../game/game'
 import { isLocalApp, SERVER } from './environment'
 import { Board } from '../hexopolis-ui/Board'
-import { DemoLocalGameLinks, LocalApp, localRoutes } from './LocalApp'
+import { LocalApp, localRoutes } from './LocalApp'
 import { Layout } from '../hexopolis-ui/layout'
 import HeaderNav from '../hexopolis-ui/layout/HeaderNav'
+import { ROUTES } from './routes'
 
 const MultiplayerGameClient = Client({
   game: Hexoscape,
@@ -51,7 +52,7 @@ const PlayPage = () => {
     return (
       <p>
         You are not currently joined in a match.{' '}
-        <Link to="/">Return to Lobby?</Link>
+        <Link to={ROUTES.home}>Return to Lobby?</Link>
       </p>
     )
   }

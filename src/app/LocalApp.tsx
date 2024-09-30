@@ -10,6 +10,7 @@ import { HexxaformBoard } from '../hexxaform-ui/HexxaformBoard'
 import BottomNav from './BottomNav'
 import { Layout } from '../hexopolis-ui/layout'
 import HeaderNav from '../hexopolis-ui/layout/HeaderNav'
+import { ROUTES } from './routes'
 
 const reduxDevTools =
   window &&
@@ -24,7 +25,7 @@ export const LocalApp = () => {
       </Helmet>
       <Routes>
         <Route
-          path="/"
+          path={ROUTES.home}
           element={
             <Layout playerID={''}>
               <HeaderNav
@@ -47,10 +48,13 @@ export const LocalApp = () => {
 export const localRoutes = () => (
   <>
     {/* Route local1 is special, it's the Map Editor */}
-    <Route path="/local1" element={<LocalDemoClients numPlayers={1} />} />
+    <Route
+      path={ROUTES.mapEditor}
+      element={<LocalDemoClients numPlayers={1} />}
+    />
     {/* The rest of the routes are for the local-multiplayer games */}
-    <Route path="/local2" element={<LocalDemoClients numPlayers={2} />} />
-    <Route path="/local3" element={<LocalDemoClients numPlayers={3} />} />
+    <Route path={ROUTES.local2} element={<LocalDemoClients numPlayers={2} />} />
+    <Route path={ROUTES.local3} element={<LocalDemoClients numPlayers={3} />} />
   </>
 )
 export const DemoLocalGameLinks = () => (
@@ -62,13 +66,13 @@ export const DemoLocalGameLinks = () => (
   <>
     <ul>
       <li>
-        <Link to="/local1">Map Editor</Link>
+        <Link to={ROUTES.mapEditor}>Map Editor</Link>
       </li>
       <li>
-        <Link to="/local2">2-Player Game</Link>
+        <Link to={ROUTES.local2}>2-Player Game</Link>
       </li>
       <li>
-        <Link to="/local3">3-Player Game</Link>
+        <Link to={ROUTES.local3}>3-Player Game</Link>
       </li>
     </ul>
   </>

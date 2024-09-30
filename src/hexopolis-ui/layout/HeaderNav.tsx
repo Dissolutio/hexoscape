@@ -47,19 +47,6 @@ export default function HeaderNav({
   )
 }
 
-// const StyledNavbar = styled.nav`
-//   background-color: var(--black);
-//   padding: 4px 36px 0px 36px;
-//   z-index: 10;
-//   & button:focus,
-//   & button:hover {
-//     outline: 2px solid var(--white);
-//   }
-//   a {
-//     color: var(--player-color) !important ;
-//   }
-// `
-
 const PlayerTeamLogo = ({
   playerID,
   isLocalOrDemoGame,

@@ -7,6 +7,7 @@ import { SelectedGameMatchList, MatchListItem } from './SelectedGameMatchList'
 import { Login } from './Login'
 import { LeaveJoinedMatchButton } from './LeaveJoinedMatchButton'
 import { CreateMatchForm } from './CreateMatchForm'
+import { ROUTES } from '../app/routes'
 
 export const MultiplayerLobby = () => {
   const {
@@ -116,7 +117,7 @@ const GoToMatchOrCreateMatch = ({
                   style={{
                     backgroundColor: 'var(--success-green)',
                   }}
-                  to="/play"
+                  to={ROUTES.play}
                 >
                   GO TO YOUR MATCH
                 </LinkAsButton>
