@@ -46,7 +46,7 @@ export const Army = ({
   selectedID?: string
 }) => {
   return (
-    <StyledOrderMarkerArmyCardsUl playerID={playerID}>
+    <StyledOrderMarkerArmyCardsUl $playerID={playerID}>
       {cards.map((card) => (
         <ArmyCard
           key={card.gameCardID}
@@ -59,7 +59,7 @@ export const Army = ({
   )
 }
 
-const StyledOrderMarkerArmyCardsUl = styled.ul<{ playerID: string }>`
+const StyledOrderMarkerArmyCardsUl = styled.ul<{ $playerID: string }>`
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
@@ -67,7 +67,7 @@ const StyledOrderMarkerArmyCardsUl = styled.ul<{ playerID: string }>`
   list-style-type: none;
   margin: 0;
   padding: 5px;
-  color: ${(props) => `${playerColors[props.playerID]}`};
+  color: ${(props) => `${playerColors[props.$playerID]}`};
 `
 export const ArmyCard = ({
   card,
