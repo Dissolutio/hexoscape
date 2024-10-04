@@ -1,7 +1,6 @@
-import { modalStates, useUIContext } from '../../hexopolis-ui/contexts'
+import { useUIContext } from '../../hexopolis-ui/contexts'
 import { ReactNode } from 'react'
 import styled from 'styled-components'
-import { ModalDisplay } from './ModalDisplay'
 import { playerColors } from '../theme'
 import useMuiSize from './useMuiSize'
 import { Drawer } from '@mui/material'
@@ -15,7 +14,6 @@ export const Layout = ({
   children: ReactNode[]
   playerID: string
 }) => {
-  const { modalState } = useUIContext()
   const playerColor = playerColors[playerID]
   const size = useMuiSize()
   if (size === 'xs' || size === 'sm') {
@@ -23,7 +21,6 @@ export const Layout = ({
   }
   return (
     <>
-      {modalState !== modalStates.off && <ModalDisplay />}
       <LayoutContainer
         id={`player${playerID}`} // for linking to this player view (useful in local dev, implemented in HeaderNav logo link)
         $playerColor={playerColor}

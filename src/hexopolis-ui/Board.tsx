@@ -5,6 +5,8 @@ import {
   UIContextProvider,
   PlacementContextProvider,
   PlayContextProvider,
+  useUIContext,
+  modalStates,
 } from './contexts'
 import { Layout } from './layout'
 import { theme } from './theme'
@@ -24,6 +26,7 @@ import { specialMatchIdToTellHeaderNavThisMatchIsLocal } from '../app/environmen
 import { World } from '../shared/World'
 import { HexopolisWorldWrapper } from './world/HexopolisWorldWrapper'
 import HeaderNav from './layout/HeaderNav'
+import { ModalDisplay } from './layout/ModalDisplay'
 
 interface MyGameProps extends BoardProps<GameState> {
   chatMessages: ChatMessage[]
@@ -56,12 +59,14 @@ export const Board = ({
   isConnected,
   credentials,
 }: MyGameProps) => {
+  const { modalState } = useUIContext()
   const isLocalOrDemoGame = matchID.includes(
     specialMatchIdToTellHeaderNavThisMatchIsLocal
   )
   const localOrDemoGameNumPlayers = parseInt(matchID?.split(':')?.[1])
   return (
     <>
+      {modalState !== modalStates.off && <ModalDisplay />}
       {/* BGIO CONTEXT BELOW */}
       <BgioClientInfoProvider
         isLocalOrDemoGame={isLocalOrDemoGame}
