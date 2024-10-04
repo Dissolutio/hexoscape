@@ -24,7 +24,6 @@ import { specialMatchIdToTellHeaderNavThisMatchIsLocal } from '../app/environmen
 import { World } from '../shared/World'
 import { HexopolisWorldWrapper } from './world/HexopolisWorldWrapper'
 import HeaderNav from './layout/HeaderNav'
-import BottomNav from '../app/BottomNav'
 
 interface MyGameProps extends BoardProps<GameState> {
   chatMessages: ChatMessage[]

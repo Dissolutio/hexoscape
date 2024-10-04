@@ -7,7 +7,6 @@ import { Hexxaform } from '../game/hexxaform/hexxaform-game'
 import { Board } from '../hexopolis-ui/Board'
 import { specialMatchIdToTellHeaderNavThisMatchIsLocal } from './environment'
 import { HexxaformBoard } from '../hexxaform-ui/HexxaformBoard'
-import BottomNav from './BottomNav'
 import { Layout } from '../hexopolis-ui/layout'
 import HeaderNav from '../hexopolis-ui/layout/HeaderNav'
 import { ROUTES } from './routes'
@@ -36,7 +35,6 @@ export const LocalApp = () => {
                 }}
               />
               <DemoLocalGameLinks />
-              <BottomNav />
             </Layout>
           }
         />

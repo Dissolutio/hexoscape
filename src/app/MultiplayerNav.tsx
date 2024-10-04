@@ -7,9 +7,13 @@ export const MultiplayerNav = () => {
   return (
     <nav>
       <ul>
-        <li>
-          <NavLink to="/">Multiplayer Lobby</NavLink>
-        </li>
+        {isJoinedInMatch ? (
+          <li>
+            <NavLink to="/play" reloadDocument>
+              Go to Joined Match
+            </NavLink>
+          </li>
+        ) : null}
         <li>
           <NavLink to="/local1">{`Map Editor`}</NavLink>
         </li>
@@ -19,13 +23,6 @@ export const MultiplayerNav = () => {
         <li>
           <NavLink to="/local3">{`3-Player Local Game`}</NavLink>
         </li>
-        {isJoinedInMatch ? (
-          <li>
-            <NavLink to="/play" reloadDocument>
-              Play
-            </NavLink>
-          </li>
-        ) : null}
       </ul>
     </nav>
   )

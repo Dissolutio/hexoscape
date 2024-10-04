@@ -1,13 +1,11 @@
-// import styled from 'styled-components'
-// import { playerIDDisplay } from '../../game/transformers'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
 import IconButton from '@mui/material/IconButton'
 import { MdMenu } from 'react-icons/md'
-import styled from 'styled-components'
 import { playerIDDisplay } from '../../game/transformers'
 import { useUIContext } from '../contexts'
+import { Button, Typography } from '@mui/material'
 
 type LocalGameLinkProps = {
   playerID: string
@@ -28,9 +26,8 @@ export default function HeaderNav({
           <IconButton
             size="large"
             edge="start"
-            color="inherit"
             aria-label="menu"
-            sx={{ mr: 2 }}
+            sx={{ mr: 2, color: 'var(--player-color)' }}
             onClick={() => toggleIsNavOpen(true)}
           >
             <MdMenu />
@@ -40,7 +37,6 @@ export default function HeaderNav({
             isLocalOrDemoGame={isLocalOrDemoGame}
             localOrDemoGameNumPlayers={localOrDemoGameNumPlayers}
           />
-          {/* <Button color="inherit">Login</Button> */}
         </Toolbar>
       </AppBar>
     </Box>
@@ -66,19 +62,26 @@ const PlayerTeamLogo = ({
     const localLink = `#player${nextPlayerID}`
     return (
       <div style={{ flexGrow: 1 }}>
-        <a href={localLink}>
-          <PlayerTeamLogoH1>
+        <Button component={'a'} href={localLink}>
+          <Typography
+            variant="h6"
+            component="h2"
+            sx={{ flexGrow: 1, color: 'var(--player-color)' }}
+          >
             Hexoscape: {playerIDDisplay(playerID)}
-          </PlayerTeamLogoH1>
-        </a>
+          </Typography>
+        </Button>
       </div>
     )
   }
-  return <PlayerTeamLogoH1>Hexoscape</PlayerTeamLogoH1>
+  // else we are not a local game:
+  return (
+    <Typography
+      variant="h6"
+      component="h2"
+      sx={{ flexGrow: 1, color: 'var(--player-color)' }}
+    >
+      Hexoscape
+    </Typography>
+  )
 }
-
-const PlayerTeamLogoH1 = styled.h1`
-  margin: 0;
-  font-size: 1.3rem;
-  color: var(--player-color);
-`
