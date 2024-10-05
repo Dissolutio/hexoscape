@@ -5,8 +5,10 @@ import {
   UIContextProvider,
   PlacementContextProvider,
   PlayContextProvider,
+  useUIContext,
+  modalStates,
 } from './contexts'
-import { Layout, HeaderNav } from './layout'
+import { Layout } from './layout'
 import { theme } from './theme'
 import {
   BgioClientInfoProvider,
@@ -23,6 +25,8 @@ import { SpecialAttackContextProvider } from './contexts/special-attack-context'
 import { specialMatchIdToTellHeaderNavThisMatchIsLocal } from '../app/environment'
 import { World } from '../shared/World'
 import { HexopolisWorldWrapper } from './world/HexopolisWorldWrapper'
+import HeaderNav from './layout/HeaderNav'
+import { ModalDisplay } from './layout/ModalDisplay'
 
 interface MyGameProps extends BoardProps<GameState> {
   chatMessages: ChatMessage[]
@@ -55,70 +59,67 @@ export const Board = ({
   isConnected,
   credentials,
 }: MyGameProps) => {
+  const { modalState } = useUIContext()
   const isLocalOrDemoGame = matchID.includes(
     specialMatchIdToTellHeaderNavThisMatchIsLocal
   )
-  const localOrDemoGameNumPlayers = parseInt(matchID.split(':')[1])
+  const localOrDemoGameNumPlayers = parseInt(matchID?.split(':')?.[1])
   return (
     <>
-      <ThemeProvider theme={theme(playerID ?? '')}>
-        {/* BGIO CONTEXT BELOW */}
-        <BgioClientInfoProvider
-          isLocalOrDemoGame={isLocalOrDemoGame}
-          log={log}
-          playerID={playerID || ''}
-          matchID={matchID}
-          matchData={matchData}
-          credentials={credentials || ''}
-          isMultiplayer={isMultiplayer}
-          isConnected={isConnected}
-          isActive={isActive}
-        >
-          <BgioGProvider G={G}>
-            <BgioCtxProvider isLocalOrDemoGame={isLocalOrDemoGame} ctx={ctx}>
-              <BgioMovesProvider moves={moves} undo={undo} redo={redo}>
-                <BgioEventsProvider reset={reset} events={events}>
-                  <BgioChatProvider
-                    chatMessages={chatMessages}
-                    sendChatMessage={sendChatMessage}
-                  >
-                    {/* GAME CONTEXT BELOW */}
-                    <MapContextProvider>
-                      {/* UI Context is consumed by PlacementContext and PlayContext */}
-                      <UIContextProvider>
-                        {/* Placement Context is consumed by Play Context  */}
-                        <PlacementContextProvider>
-                          <PlayContextProvider>
-                            <SpecialAttackContextProvider>
-                              <Layout>
-                                <HeaderNav
-                                  isLocalOrDemoGame={isLocalOrDemoGame}
-                                  localOrDemoGameNumPlayers={
-                                    localOrDemoGameNumPlayers
-                                  }
-                                  playerID={playerID ?? '0'}
-                                />
-                                <HexopolisWorldWrapper>
-                                  <World
-                                    boardHexes={G.boardHexes}
-                                    hexMap={G.hexMap}
-                                    glyphs={G.hexMap.glyphs}
-                                  />
-                                </HexopolisWorldWrapper>
-                                <TabsComponent />
-                              </Layout>
-                            </SpecialAttackContextProvider>
-                          </PlayContextProvider>
-                        </PlacementContextProvider>
-                      </UIContextProvider>
-                    </MapContextProvider>
-                  </BgioChatProvider>
-                </BgioEventsProvider>
-              </BgioMovesProvider>
-            </BgioCtxProvider>
-          </BgioGProvider>
-        </BgioClientInfoProvider>
-      </ThemeProvider>
+      {modalState !== modalStates.off && <ModalDisplay />}
+      {/* BGIO CONTEXT BELOW */}
+      <BgioClientInfoProvider
+        isLocalOrDemoGame={isLocalOrDemoGame}
+        log={log}
+        playerID={playerID || ''}
+        matchID={matchID}
+        matchData={matchData}
+        credentials={credentials || ''}
+        isMultiplayer={isMultiplayer}
+        isConnected={isConnected}
+        isActive={isActive}
+      >
+        <BgioGProvider G={G}>
+          <BgioCtxProvider isLocalOrDemoGame={isLocalOrDemoGame} ctx={ctx}>
+            <BgioMovesProvider moves={moves} undo={undo} redo={redo}>
+              <BgioEventsProvider reset={reset} events={events}>
+                <BgioChatProvider
+                  chatMessages={chatMessages}
+                  sendChatMessage={sendChatMessage}
+                >
+                  {/* GAME CONTEXT BELOW */}
+                  <MapContextProvider>
+                    {/* Placement Context is consumed by Play Context  */}
+                    <PlacementContextProvider>
+                      <PlayContextProvider>
+                        <SpecialAttackContextProvider>
+                          <Layout playerID={playerID}>
+                            <HeaderNav
+                              linkProps={{
+                                isLocalOrDemoGame,
+                                localOrDemoGameNumPlayers,
+                                playerID: playerID,
+                              }}
+                            />
+                            <HexopolisWorldWrapper>
+                              <World
+                                boardHexes={G.boardHexes}
+                                hexMap={G.hexMap}
+                                glyphs={G.hexMap.glyphs}
+                              />
+                            </HexopolisWorldWrapper>
+                            <TabsComponent />
+                          </Layout>
+                        </SpecialAttackContextProvider>
+                      </PlayContextProvider>
+                    </PlacementContextProvider>
+                  </MapContextProvider>
+                </BgioChatProvider>
+              </BgioEventsProvider>
+            </BgioMovesProvider>
+          </BgioCtxProvider>
+        </BgioGProvider>
+      </BgioClientInfoProvider>
     </>
   )
 }

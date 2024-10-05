@@ -1,6 +1,7 @@
 import { StringKeyedObj } from '../game/types'
 
 export const colors = {
+  white: '#f7edf0',
   gray: '#A09AAC',
   grayUrlEncoded: '%235d576b',
   // player colors
@@ -28,6 +29,7 @@ const playerColorsUrlEncoded: StringKeyedObj = {
 }
 
 export const playerColors: StringKeyedObj = {
+  '': colors.white, 
   '0': colors.beeYellow,
   '1': colors.butterflyPurple,
   '2': colors.waspGreen,

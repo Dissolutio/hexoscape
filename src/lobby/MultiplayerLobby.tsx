@@ -4,10 +4,10 @@ import styled from 'styled-components'
 import { useAuth } from '../hooks'
 import { useMultiplayerLobby } from './useMultiplayerLobby'
 import { SelectedGameMatchList, MatchListItem } from './SelectedGameMatchList'
-import { GameSelect } from './GameSelect'
 import { Login } from './Login'
 import { LeaveJoinedMatchButton } from './LeaveJoinedMatchButton'
 import { CreateMatchForm } from './CreateMatchForm'
+import { ROUTES } from '../app/routes'
 
 export const MultiplayerLobby = () => {
   const {
@@ -44,23 +44,49 @@ export const MultiplayerLobby = () => {
       </details>
       {/* Either we errored, or we connected to server and received games list */}
       <hr></hr>
-      {lobbyGamesError ? (
+      {lobbyGamesError && (
         <>
           <p
             style={{ color: 'red' }}
           >{`Sorry, could not connect to server `}</p>
           <button onClick={updateLobbyGames}>Retry Connecting to Server</button>
         </>
-      ) : (
-        <>
-          <details>
-            <summary>{`Switch games (current: ${selectedGame})`}</summary>
-            <GameSelect />
-          </details>
-        </>
       )}
-      {/* <hr></hr> */}
-      {/* If no games/connection, don't show anything below */}
+      <GoToMatchOrCreateMatch
+        selectedGame={selectedGame}
+        verifyMatchSuccess={verifyMatchSuccess}
+        verifyMatchError={verifyMatchError}
+        joinedMatchID={joinedMatchID}
+        joinedMatch={joinedMatch}
+        numCurrentMatches={numCurrentMatches}
+        handleVerifyJoinedMatch={handleVerifyJoinedMatch}
+        handleLeaveJoinedMatch={handleLeaveJoinedMatch}
+      />
+    </>
+  )
+}
+
+const GoToMatchOrCreateMatch = ({
+  selectedGame,
+  verifyMatchSuccess,
+  verifyMatchError,
+  joinedMatchID,
+  joinedMatch,
+  numCurrentMatches,
+  handleVerifyJoinedMatch,
+  handleLeaveJoinedMatch,
+}: {
+  selectedGame: string
+  verifyMatchSuccess: string
+  verifyMatchError: string
+  joinedMatchID: string
+  joinedMatch: any
+  numCurrentMatches: number
+  handleVerifyJoinedMatch: () => void
+  handleLeaveJoinedMatch: () => void
+}) => {
+  return (
+    <>
       {selectedGame && (
         <>
           {/* Joined match NOT verified, show error / retry OR leave game */}
@@ -91,7 +117,7 @@ export const MultiplayerLobby = () => {
                   style={{
                     backgroundColor: 'var(--success-green)',
                   }}
-                  to="/play"
+                  to={ROUTES.play}
                 >
                   GO TO YOUR MATCH
                 </LinkAsButton>
@@ -120,9 +146,14 @@ const LinkAsButton = styled(Link)`
   /* Below is dark.css button styles */
   -webkit-appearance: none;
   cursor: pointer;
-  transition: background-color 0.1s linear, border-color 0.1s linear,
-    color 0.1s linear, box-shadow 0.1s linear, transform 0.1s ease;
-  transition: background-color var(--animation-duration) linear,
+  transition:
+    background-color 0.1s linear,
+    border-color 0.1s linear,
+    color 0.1s linear,
+    box-shadow 0.1s linear,
+    transform 0.1s ease;
+  transition:
+    background-color var(--animation-duration) linear,
     border-color var(--animation-duration) linear,
     color var(--animation-duration) linear,
     box-shadow var(--animation-duration) linear,

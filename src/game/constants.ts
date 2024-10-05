@@ -173,3 +173,7 @@ export function getDefaultSubTerrainForTerrain(terrain: string) {
     return terrain
   }
 }
+
+export function generateTimestampID():string {
+return new Date().getTime().toString()
+}

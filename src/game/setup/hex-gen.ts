@@ -8,8 +8,16 @@ export const generateHexagon = (mapSize: number): BoardHexes => {
   const boardHexes = hexesToBoardHexes(translateHexagonHexesToNormal(hexgridHexes, mapSize))
   return boardHexes
 }
+
+/* 
+  translateHexagonHexesToNormal
+  translateHexagonBoardHexesToNormal
+    These functions normalize a hexagon map that is centered around (0,0), to one that stays in the same XY quadrant as rectangular maps. 
+    (Moves it "to the right and down" according to the map size)
+    DOWNSIDE: It causes decimal values for q if the map size is odd
+*/
 const qAdjust = 2 // why does dividing by 2 work?
-export const translateHexagonHexesToNormal = (hexes: HexCoordinates[], mapSize: number): HexCoordinates[] => {
+const translateHexagonHexesToNormal = (hexes: HexCoordinates[], mapSize: number): HexCoordinates[] => {
   return  hexes.map((hex: HexCoordinates) => {
     return {
       ...hex,
@@ -18,17 +26,17 @@ export const translateHexagonHexesToNormal = (hexes: HexCoordinates[], mapSize: 
     }
   })
 }
-/* translateHexagonBoardHexesToNormal
-    This function is for "updating" an old hexagon map that is centered around (0,0), to one that stays in the same XY quadrant as rectangular maps
-*/
 export const translateHexagonBoardHexesToNormal = (boardhexes: BoardHexes, mapSize: number): BoardHexes => {
   const hexArray = Object.values(boardhexes)
   return hexArray.reduce((prev: BoardHexes, curr: BoardHex) => {
-     prev[curr.id] =  {
+    const q = curr.q + mapSize / qAdjust
+    const r = curr.r + mapSize
+    const newID = generateHexID({q, r, s: curr.s})
+     prev[newID] =  {
       ...curr,
-      id: generateHexID(curr),
-      q: curr.q + mapSize / qAdjust, // why does dividing by 2 work?
-      r: curr.r + mapSize,
+      id: newID,
+      q,
+      r,
     }
     return prev
   }, {} as BoardHexes)

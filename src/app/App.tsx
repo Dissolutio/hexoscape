@@ -9,7 +9,10 @@ import { MultiplayerNav } from './MultiplayerNav'
 import { Hexoscape } from '../game/game'
 import { isLocalApp, SERVER } from './environment'
 import { Board } from '../hexopolis-ui/Board'
-import { DemoLocalGameLinks, LocalApp, localRoutes } from './LocalApp'
+import { LocalApp, localRoutes } from './LocalApp'
+import { Layout } from '../hexopolis-ui/layout'
+import HeaderNav from '../hexopolis-ui/layout/HeaderNav'
+import { ROUTES } from './routes'
 
 const MultiplayerGameClient = Client({
   game: Hexoscape,
@@ -33,7 +36,6 @@ export const App = () => {
             <Routes>
               <Route path="/" element={<MultiplayerLobbyPage />} />
               <Route path="/play" element={<PlayPage />} />
-              <Route path="/demo" element={<DemoLocalGamePage />} />
               {localRoutes()}
             </Routes>
           </MultiplayerLobbyProvider>
@@ -50,31 +52,42 @@ const PlayPage = () => {
     return (
       <p>
         You are not currently joined in a match.{' '}
-        <Link to="/">Return to Lobby?</Link>
+        <Link to={ROUTES.home}>Return to Lobby?</Link>
       </p>
     )
   }
   return (
-    <MultiplayerGameClient
-      matchID={matchID}
-      playerID={playerID}
-      credentials={playerCredentials}
-    />
-  )
-}
-const DemoLocalGamePage = () => {
-  return (
     <>
-      <MultiplayerNav />
-      <DemoLocalGameLinks />
+      <Helmet>
+        <title>Hexoscape - Play</title>
+      </Helmet>
+      <MultiplayerGameClient
+        matchID={matchID}
+        playerID={playerID}
+        credentials={playerCredentials}
+      />
     </>
   )
 }
+
 const MultiplayerLobbyPage = () => {
   return (
     <>
-      <MultiplayerNav />
-      <MultiplayerLobby />
+      <Helmet>
+        <title>Hexoscape - Lobby</title>
+      </Helmet>
+      <Layout playerID={''}>
+        <HeaderNav
+          linkProps={{
+            isLocalOrDemoGame: false,
+            localOrDemoGameNumPlayers: 0,
+            playerID: '',
+          }}
+        />
+        <MultiplayerLobby />
+        {/* <BottomNav /> */}
+        <MultiplayerNav />
+      </Layout>
     </>
   )
 }

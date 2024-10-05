@@ -5,14 +5,6 @@ export type GType = {
   boardHexes: BoardHexes;
 };
 
-export enum HexTerrain {
-  void = "void",
-  water = "water",
-  grass = "grass",
-  sand = "sand",
-  rock = "rock",
-}
-
 export enum PenMode {
   none = 'none',
   eraser = 'void',
