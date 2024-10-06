@@ -187,7 +187,10 @@ export const MapHex3D = ({
       >
         {/* The cap hex is either fluid-terrain or solid-terrain */}
         {isFluidHex ? (
-          <mesh position={capPosition} scale={[1, scaleToUseForCap, 1]}>
+          <mesh
+            position={capPosition.add(new Vector3(0, 0.1, 0))}
+            scale={[1, scaleToUseForCap, 1]}
+          >
             <meshLambertMaterial
               color={terrainColor}
               emissive={terrainColor}
