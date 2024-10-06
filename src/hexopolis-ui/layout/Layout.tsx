@@ -16,8 +16,22 @@ export const Layout = ({
 }) => {
   const playerColor = playerColors[playerID]
   const size = useMuiSize()
+  // in general, xs and sm should be treated as 'mobile'
   if (size === 'xs' || size === 'sm') {
-    // in general, xs and sm should be treated as 'mobile'
+    return (
+      <>
+        <LayoutContainer
+          id={`player${playerID}`} // for linking to this player view (useful in local dev, implemented in HeaderNav logo link)
+          $playerColor={playerColor}
+          $size={size}
+        >
+          <SideNavDrawer />
+          <div>{children[0]}</div>
+          <LayoutMiddle>{children[1]}</LayoutMiddle>
+          {children?.[2] && <LayoutBottom>{children[2]}</LayoutBottom>}
+        </LayoutContainer>
+      </>
+    )
   }
   return (
     <>
