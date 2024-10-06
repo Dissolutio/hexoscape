@@ -26,7 +26,7 @@ export const Layout = ({
         $playerColor={playerColor}
         $size={size}
       >
-        <SideNavDrawer playerID={playerID} />
+        <SideNavDrawer />
         <div>{children[0]}</div>
         <LayoutMiddle>{children[1]}</LayoutMiddle>
         {children?.[2] && <LayoutBottom>{children[2]}</LayoutBottom>}
@@ -34,21 +34,19 @@ export const Layout = ({
     </>
   )
 }
-const SideNavDrawer = ({ playerID }: { playerID: string }) => {
+const SideNavDrawer = () => {
   const { isNavOpen, toggleIsNavOpen } = useUIContext()
-  const verticalOffset = parseInt(playerID)
   return (
     <Drawer
       keepMounted={true}
       open={isNavOpen}
       onClose={() => toggleIsNavOpen(false)}
-      sx={{
-        '.MuiDrawer-paper': {
-          color: 'var(--white)',
-          backgroundColor: 'var(--black)',
-          transform: `translateY(${verticalOffset * 100}vh)`,
-        },
-      }}
+      // sx={{
+      //   '.MuiDrawer-paper': {
+      //     color: 'var(--white)',
+      //     backgroundColor: 'var(--black)',
+      //   },
+      // }}
     >
       <DrawerList />
     </Drawer>

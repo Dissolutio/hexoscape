@@ -51,22 +51,6 @@ export function HexxaformMapDisplay3D({
   )
 }
 
-/**
- * React component that renders a single 3D hex in the Hexopolis game world.
- *
- * Given a `boardHexID` prop, renders a `MapHex3D` component with the
- * corresponding hex's 3D coordinates, and a `GameUnit3D` component if the hex
- * is occupied by a unit that is visible to the current player.
- *
- * The component also handles clicks on the hex, and is responsible for
- * selecting special attacks and units during various stages of the game.
- *
- * The component takes a `cameraControlsRef` prop, which is a mutable ref to a
- * `react-three-fiber` `CameraControls` component.
- *
- * Returns a fragment containing a `MapHex3D` component and a `GameUnit3D`
- * component if the hex is occupied by a visible unit.
- */
 const HexxaformHex3D = ({
   playerID,
   boardHexID,
