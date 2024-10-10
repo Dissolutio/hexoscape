@@ -8,11 +8,11 @@ import MenuItem from '@mui/material/MenuItem'
 import MenuList from '@mui/material/MenuList'
 import { useRef, useState } from 'react'
 import { MdArrowDownward } from 'react-icons/md'
-import { Divider } from '@mui/material'
 
 type SaveLoadMapOption = {
   title: string
   onClick: () => void
+  isDisabled: boolean
 }
 type SplitButtonProps = {
   isMap1: boolean
@@ -47,97 +47,87 @@ export default function SplitButton({
   handleLoadRectangleMap,
 }: SplitButtonProps) {
   const [open, setOpen] = useState(false)
-  const [selectedIndex, setSelectedIndex] = useState(1)
   const anchorRef = useRef<HTMLDivElement>(null)
   const options: SaveLoadMapOption[] = [
     {
       title: 'Save Map 1',
       onClick: handleSaveMap1,
+      isDisabled: false,
     },
     {
       title: 'Save Map 2',
       onClick: handleSaveMap2,
+      isDisabled: false,
     },
     {
       title: 'Save Map 3',
       onClick: handleSaveMap3,
+      isDisabled: false,
     },
     {
       title: 'Load Map 1',
       onClick: handleLoadMap1,
+      isDisabled: !isMap1,
     },
     {
       title: 'Load Map 2',
       onClick: handleLoadMap2,
+      isDisabled: !isMap2,
     },
     {
       title: 'Load Map 3',
       onClick: handleLoadMap3,
+      isDisabled: !isMap3,
     },
     ////
     {
       title: 'Load Giants Table Map',
       onClick: handleLoadGiantsTable,
+      isDisabled: false,
     },
     {
       title: 'Load Forsaken Waters Map',
       onClick: handleLoadForsakenWaters,
+      isDisabled: false,
     },
     {
       title: 'Load Cirdan Garden Map',
       onClick: handleLoadCirdanGarden,
+      isDisabled: false,
     },
     {
       title: 'Load Hexagon Map',
       onClick: handleLoadHexagonMap,
+      isDisabled: false,
     },
     {
       title: 'Load Rectangle Map',
       onClick: handleLoadRectangleMap,
+      isDisabled: false,
     },
   ]
-
-  const handleClick = () => {
-    options?.[selectedIndex]?.onClick?.()
-  }
-
-  const handleMenuItemClick = (
-    event: React.MouseEvent<HTMLLIElement, MouseEvent>,
-    index: number
-  ) => {
-    setSelectedIndex(index)
-    setOpen(false)
-  }
-
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen)
   }
-
   const handleClose = (event: Event) => {
     if (anchorRef?.current?.contains?.(event.target as HTMLElement)) {
       return
     }
-
     setOpen(false)
   }
 
   return (
     <>
-      <ButtonGroup
-        variant="contained"
-        ref={anchorRef}
-        aria-label="Button group with a nested menu"
-      >
-        <Button onClick={handleClick}>{options?.[selectedIndex]?.title}</Button>
+      <ButtonGroup variant="contained" ref={anchorRef}>
         <Button
           size="small"
           aria-controls={open ? 'split-button-menu' : undefined}
           aria-expanded={open ? 'true' : undefined}
-          aria-label="select merge strategy"
+          aria-label="Load or save map"
           aria-haspopup="menu"
           onClick={handleToggle}
         >
-          <MdArrowDownward />
+          Load / Save Map <MdArrowDownward />
         </Button>
       </ButtonGroup>
       <Popper
@@ -160,16 +150,11 @@ export default function SplitButton({
             <Paper>
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList id="split-button-menu" autoFocusItem>
-                  {options.map((option, index) => (
+                  {options.map((option) => (
                     <MenuItem
                       key={option.title}
-                      disabled={
-                        (index === 3 && !isMap1) ||
-                        (index === 4 && !isMap2) ||
-                        (index === 5 && !isMap3)
-                      }
-                      selected={index === selectedIndex}
-                      onClick={(event) => handleMenuItemClick(event, index)}
+                      disabled={option.isDisabled}
+                      onClick={option.onClick}
                     >
                       {option.title}
                     </MenuItem>
