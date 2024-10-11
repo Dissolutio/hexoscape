@@ -65,7 +65,7 @@ export const Board = ({
   )
   const localOrDemoGameNumPlayers = parseInt(matchID?.split(':')?.[1])
   return (
-    <>
+    <div className="board-wrapper">
       {modalState !== modalStates.off && <ModalDisplay />}
       {/* BGIO CONTEXT BELOW */}
       <BgioClientInfoProvider
@@ -120,6 +120,6 @@ export const Board = ({
           </BgioCtxProvider>
         </BgioGProvider>
       </BgioClientInfoProvider>
-    </>
+    </div>
   )
 }

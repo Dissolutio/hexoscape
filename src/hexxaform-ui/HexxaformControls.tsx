@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { ChangeEvent } from 'react'
 import { Button, ButtonGroup } from '@mui/material'
 import { GiArrowCursor } from 'react-icons/gi'
-import { MdFileUpload } from 'react-icons/md'
+import { MdOutlineDownloadForOffline, MdFileOpen } from 'react-icons/md'
 
 import { useMapContext } from './useMapContext'
 import { BgioProps } from '../game/hexxaform/hexxaform-types'
@@ -70,41 +70,42 @@ export const HexxaformControls = ({ boardHexes, hexMap, moves }: BgioProps) => {
   const { toggleSelectHexMode } = useMapContext()
   return (
     <>
-      <StyledSection>
-        <ButtonGroup variant="contained" aria-label="Set pen mode">
-          <Button
-            variant="outlined"
-            onClick={toggleSelectHexMode}
-            startIcon={<GiArrowCursor />}
-          >
-            Select
-          </Button>
-        </ButtonGroup>
-      </StyledSection>
+      <ButtonGroup
+        sx={{ padding: '10px' }}
+        variant="contained"
+        aria-label="Set pen mode"
+      >
+        <Button
+          variant="outlined"
+          onClick={toggleSelectHexMode}
+          startIcon={<GiArrowCursor />}
+        >
+          Select
+        </Button>
+      </ButtonGroup>
 
-      <StyledSection>
+      <ButtonGroup>
         <LoadSaveMapButtons
           moves={moves}
           hexMap={hexMap}
           boardHexes={boardHexes}
         />
-      </StyledSection>
-
-      <StyledSection>
-        <h4>Export JSON File:</h4>
-        <button onClick={handleClickExportJson}>Export Map JSON</button>
-      </StyledSection>
-
-      <StyledSection>
         <Button
-          startIcon={<MdFileUpload />}
+          startIcon={<MdOutlineDownloadForOffline />}
+          onClick={handleClickExportJson}
+          variant="contained"
+        >
+          Download Map
+        </Button>
+        <Button
+          startIcon={<MdFileOpen />}
           onClick={handleClickFileSelect}
           variant="contained"
         >
           Import JSON File
         </Button>
         <ReadFile id={uploadElementID} readFile={readFile} />
-      </StyledSection>
+      </ButtonGroup>
     </>
   )
 }

@@ -11,6 +11,7 @@ import {
   Popper,
   Snackbar,
   SnackbarCloseReason,
+  styled,
 } from '@mui/material'
 
 import { useLocalMapMemory } from './useLocalMapMemory'
@@ -140,7 +141,9 @@ export const LoadSaveMapButtons = ({
     </>
   )
 }
-
+const DemoPaper = styled(Paper)(({ theme }) => ({
+  ...theme.typography.body2,
+}))
 type SaveLoadMapOption = {
   title: string
   onClick: () => void
@@ -250,18 +253,19 @@ function SplitButton({
 
   return (
     <>
-      <ButtonGroup variant="contained" ref={anchorRef}>
-        <Button
-          size="small"
-          aria-controls={open ? 'split-button-menu' : undefined}
-          aria-expanded={open ? 'true' : undefined}
-          aria-label="Load or save map"
-          aria-haspopup="menu"
-          onClick={handleToggle}
-        >
-          Load / Save Map <MdArrowDownward />
-        </Button>
-      </ButtonGroup>
+      <Button
+        ref={anchorRef}
+        variant="contained"
+        size="small"
+        aria-controls={open ? 'split-button-menu' : undefined}
+        aria-expanded={open ? 'true' : undefined}
+        aria-label="Load or save map"
+        aria-haspopup="menu"
+        onClick={handleToggle}
+        startIcon={<MdArrowDownward />}
+      >
+        Load / Save Map
+      </Button>
       <Popper
         sx={{ zIndex: 1 }}
         open={open}
@@ -277,7 +281,7 @@ function SplitButton({
               transformOrigin: 'center bottom',
             }}
           >
-            <Paper>
+            <DemoPaper>
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList id="split-button-menu" autoFocusItem>
                   {options.map((option) => (
@@ -291,7 +295,7 @@ function SplitButton({
                   ))}
                 </MenuList>
               </ClickAwayListener>
-            </Paper>
+            </DemoPaper>
           </Grow>
         )}
       </Popper>

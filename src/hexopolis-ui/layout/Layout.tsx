@@ -16,23 +16,6 @@ export const Layout = ({
 }) => {
   const playerColor = playerColors[playerID]
   const size = useMuiSize()
-  // in general, xs and sm should be treated as 'mobile'
-  if (size === 'xs' || size === 'sm') {
-    return (
-      <>
-        <LayoutContainer
-          id={`player${playerID}`} // for linking to this player view (useful in local dev, implemented in HeaderNav logo link)
-          $playerColor={playerColor}
-          $size={size}
-        >
-          <SideNavDrawer />
-          <div>{children[0]}</div>
-          <LayoutMiddle>{children[1]}</LayoutMiddle>
-          {children?.[2] && <LayoutBottom>{children[2]}</LayoutBottom>}
-        </LayoutContainer>
-      </>
-    )
-  }
   return (
     <>
       <LayoutContainer
@@ -75,6 +58,7 @@ const LayoutContainer = styled.div<{ $playerColor: string; $size: string }>`
   --middle-size: ${(props) =>
     props.$size === 'xl' || props.$size === 'lg' ? '70vh' : '65vh'};
   --bottom-size: calc(100vh - var(--top-size) - var(--middle-size));
+  scroll-snap-align: start;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

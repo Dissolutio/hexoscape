@@ -53,7 +53,7 @@ export const World = ({
         />
       )}
       <PerspectiveCamera fov={CAMERA_FOV} />
-      {/* <axesHelper scale={[100, 100, 100]} /> */}
+      <axesHelper scale={[100, 100, 100]} />
       <CameraControls
         maxPolarAngle={Math.PI / 2} // this keeps the camera on a half-sphere around the map, rather than allowing camera to go under the map
         maxDistance={100} // this prevents camera from dollying out too far
