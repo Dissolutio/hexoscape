@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { ChangeEvent } from 'react'
-import { Box, Button, ButtonGroup } from '@mui/material'
+import { Button, ButtonGroup } from '@mui/material'
 import { GiArrowCursor } from 'react-icons/gi'
 import { MdFileUpload } from 'react-icons/md'
 
@@ -82,13 +82,13 @@ export const HexxaformControls = ({ boardHexes, hexMap, moves }: BgioProps) => {
         </ButtonGroup>
       </StyledSection>
 
-      <Box>
+      <StyledSection>
         <LoadSaveMapButtons
           moves={moves}
           hexMap={hexMap}
           boardHexes={boardHexes}
         />
-      </Box>
+      </StyledSection>
 
       <StyledSection>
         <h4>Export JSON File:</h4>
