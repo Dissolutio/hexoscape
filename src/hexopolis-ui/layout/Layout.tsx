@@ -56,7 +56,7 @@ const LayoutContainer = styled.div<{ $playerColor: string; $size: string }>`
   height: 100vh;
   --top-size: ${(props) => navHeights[props.$size]}px;
   --middle-size: ${(props) =>
-    props.$size === 'xl' || props.$size === 'lg' ? '70vh' : '65vh'};
+    props.$size === 'xl' || props.$size === 'lg' ? '70vh' : '55vh'};
   --bottom-size: calc(100vh - var(--top-size) - var(--middle-size));
   scroll-snap-align: start;
   display: flex;

@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { MdArrowDownward } from 'react-icons/md'
+import { MdSave } from 'react-icons/md'
 import {
   Button,
   ClickAwayListener,
@@ -257,7 +257,7 @@ function SplitButton({
         aria-label="Load or save map"
         aria-haspopup="menu"
         onClick={handleToggle}
-        startIcon={<MdArrowDownward />}
+        startIcon={<MdSave />}
       >
         Load / Save Map
       </Button>
