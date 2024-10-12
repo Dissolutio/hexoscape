@@ -1,29 +1,14 @@
-import { Button, ButtonGroup } from '@mui/material'
-import { GiArrowCursor } from 'react-icons/gi'
-import { useMapContext } from './useMapContext'
+import { ButtonGroup, Container } from '@mui/material'
 import { BgioProps } from '../game/hexxaform/hexxaform-types'
 import { LoadSaveMapButtons } from './LoadSaveMapButtons'
 import ExportFileButton from './ExportFileButton'
 import ImportFileButton from './ImportFileButton'
+import PenTerrainSelect from './PenTerrainSelect'
 
 export const HexxaformControls = ({ boardHexes, hexMap, moves }: BgioProps) => {
-  const { toggleSelectHexMode } = useMapContext()
-
   return (
-    <>
-      <ButtonGroup
-        sx={{ padding: '10px' }}
-        variant="contained"
-        aria-label="Set pen mode"
-      >
-        <Button
-          variant="outlined"
-          onClick={toggleSelectHexMode}
-          startIcon={<GiArrowCursor />}
-        >
-          Select
-        </Button>
-      </ButtonGroup>
+    <Container sx={{ padding: 1 }}>
+      <PenTerrainSelect />
 
       <ButtonGroup
         sx={{ padding: '10px' }}
@@ -42,6 +27,6 @@ export const HexxaformControls = ({ boardHexes, hexMap, moves }: BgioProps) => {
         />
         <ImportFileButton moves={moves} />
       </ButtonGroup>
-    </>
+    </Container>
   )
 }
