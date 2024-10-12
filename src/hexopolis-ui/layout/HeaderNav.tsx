@@ -4,8 +4,8 @@ import Toolbar from '@mui/material/Toolbar'
 import IconButton from '@mui/material/IconButton'
 import { MdMenu } from 'react-icons/md'
 import { playerIDDisplay } from '../../game/transformers'
-import { useUIContext } from '../contexts'
 import { Button, Typography } from '@mui/material'
+import { useUIContext } from '../../hooks/ui-context'
 
 type LocalGameLinkProps = {
   playerID: string

@@ -1,4 +1,3 @@
-import { useUIContext } from '../../hexopolis-ui/contexts'
 import { ReactNode } from 'react'
 import styled from 'styled-components'
 import { playerColors } from '../theme'
@@ -6,6 +5,7 @@ import useMuiSize from './useMuiSize'
 import { Drawer } from '@mui/material'
 import { DrawerList } from './DrawerList'
 import { navHeights } from './mui-appbar-heights'
+import { useUIContext } from '../../hooks/ui-context'
 
 export const Layout = ({
   children,

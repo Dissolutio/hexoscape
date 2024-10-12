@@ -1,4 +1,4 @@
-import { usePlayContext, useUIContext } from '../../contexts'
+import { usePlayContext } from '../../contexts'
 import { useBgioEvents, useBgioG, useBgioMoves } from '../../../bgio-contexts'
 import { UndoRedoButtons } from './UndoRedoButtons'
 import {
@@ -22,6 +22,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { omToString } from '../../../game/transformers'
 import { selectHexForUnit, selectTailHexForUnit } from '../../../game/selectors'
 import { useEffect } from 'react'
+import { useUIContext } from '../../../hooks/ui-context'
 
 export const RopAttackMoveHeader = ({
   currentOrderMarker,

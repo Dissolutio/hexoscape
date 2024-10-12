@@ -3,8 +3,6 @@ import {
   MapContextProvider,
   PlacementContextProvider,
   PlayContextProvider,
-  useUIContext,
-  modalStates,
 } from './contexts'
 import { Layout } from './layout'
 import {
@@ -24,6 +22,7 @@ import { World } from '../shared/World'
 import { HexopolisWorldWrapper } from './world/HexopolisWorldWrapper'
 import HeaderNav from './layout/HeaderNav'
 import { ModalDisplay } from './layout/ModalDisplay'
+import { modalStates, useUIContext } from '../hooks/ui-context'
 
 interface MyGameProps extends BoardProps<GameState> {
   chatMessages: ChatMessage[]

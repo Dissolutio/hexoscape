@@ -1,4 +1,4 @@
-import { ArmyCard, CardAbility, GameArmyCard } from '../../game/types'
+import { ArmyCard, CardAbility, GameArmyCard } from '../game/types'
 import * as React from 'react'
 
 type ModalState = {

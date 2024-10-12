@@ -5,9 +5,9 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import { MdHome } from 'react-icons/md'
-import { useUIContext } from '../contexts'
 import { Link } from 'react-router-dom'
 import { ROUTES } from '../../app/routes'
+import { useUIContext } from '../../hooks/ui-context'
 
 export const DrawerList = () => {
   const { toggleIsNavOpen } = useUIContext()

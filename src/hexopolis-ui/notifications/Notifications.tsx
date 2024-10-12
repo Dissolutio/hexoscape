@@ -2,10 +2,10 @@ import styled from 'styled-components'
 import toast, { useToaster } from 'react-hot-toast/headless'
 import { useBgioG } from '../../bgio-contexts'
 import { useEffect } from 'react'
-import { useUIContext } from '../../hexopolis-ui/contexts'
 import { decodeGameLogMessage, gameLogTypes } from '../../game/gamelog'
 import { uniqBy } from 'lodash'
 import { GameLogMsg } from '../../hexopolis-ui/game-log/GameLogMsg'
+import { useUIContext } from '../../hooks/ui-context'
 
 export const Notifications = () => {
   const { toasts, handlers } = useToaster()

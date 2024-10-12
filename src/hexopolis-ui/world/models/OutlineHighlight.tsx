@@ -1,8 +1,8 @@
 import { Outlines } from '@react-three/drei'
 import { Color } from 'three'
 import { GameUnit } from '../../../game/types'
-import { useUIContext } from '../../contexts'
 import { playerColors } from '../../theme'
+import { useUIContext } from '../../../hooks/ui-context'
 
 export const OutlineHighlight = ({
   gameUnit,

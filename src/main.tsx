@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { App } from './app/App'
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material'
 import './app/theme.css'
-import { UIContextProvider } from './hexopolis-ui/contexts'
+import { UIContextProvider } from './hooks/ui-context'
 
 const darkTheme = createTheme({
   palette: {

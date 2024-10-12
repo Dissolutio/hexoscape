@@ -1,9 +1,10 @@
 import { Vector3, BufferGeometry, Color } from 'three'
-import { usePlacementContext, usePlayContext, useUIContext } from '../contexts'
+import { usePlacementContext, usePlayContext } from '../contexts'
 import { useBgioCtx, useBgioG } from '../../bgio-contexts'
 import { useSpecialAttackContext } from '../contexts/special-attack-context'
 import { playerColors } from '../theme'
 import { selectAttackerHasAttacksAllowed } from '../../game/selectors'
+import { useUIContext } from '../../hooks/ui-context'
 
 export const HexopolisHeightRing = ({
   points,

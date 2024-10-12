@@ -1,9 +1,9 @@
-import { modalStates, useUIContext } from '../../hexopolis-ui/contexts'
 import { OpenAbilityModalButton } from '../../hexopolis-ui/OpenAbilityModalButton'
 import { UnitIcon } from '../../hexopolis-ui/unit-icons'
 import React from 'react'
 import styled from 'styled-components'
 import { CardGridStyle } from './CardGridStyle'
+import { modalStates, useUIContext } from '../../hooks/ui-context'
 
 export const ModalDisplay = () => {
   const { modalAbility, modalState, modalCard, closeModal, backModal } =

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 
-import { useAuth } from '../hooks'
 import { useMultiplayerLobby } from './useMultiplayerLobby'
+import { useAuth } from '../hooks/useAuth'
 
 export const Login = () => {
   const [inputText, setInputText] = useState('')

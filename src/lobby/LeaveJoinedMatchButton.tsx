@@ -1,4 +1,4 @@
-import { useAuth } from '../hooks'
+import { useAuth } from '../hooks/useAuth'
 import { useMultiplayerLobby } from '../lobby'
 import React from 'react'
 

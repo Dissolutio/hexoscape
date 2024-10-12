@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { useAuth } from '../hooks'
 import { useMultiplayerLobby } from './useMultiplayerLobby'
 import { SelectedGameMatchList, MatchListItem } from './SelectedGameMatchList'
 import { Login } from './Login'
 import { LeaveJoinedMatchButton } from './LeaveJoinedMatchButton'
 import { CreateMatchForm } from './CreateMatchForm'
 import { ROUTES } from '../app/routes'
+import { useAuth } from '../hooks/useAuth'
 
 export const MultiplayerLobby = () => {
   const {

@@ -17,7 +17,9 @@ const TakePictureButtonGroup = () => {
         startIcon={<MdCameraFront />}
         onClick={handleTakePicture}
         variant="contained"
-      ></Button>
+      >
+        Take a picture
+      </Button>
     </ButtonGroup>
   )
 }

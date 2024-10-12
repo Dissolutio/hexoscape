@@ -3,11 +3,12 @@ import { CameraControls } from '@react-three/drei'
 import { MapHex3D } from '../../shared/MapHex3D'
 import { BoardHex, BoardHexes } from '../../game/types'
 import { useBgioClientInfo, useBgioCtx, useBgioG } from '../../bgio-contexts'
-import { usePlacementContext, usePlayContext, useUIContext } from '../contexts'
+import { usePlacementContext, usePlayContext } from '../contexts'
 import { useSpecialAttackContext } from '../contexts/special-attack-context'
 import { getBoardHex3DCoords } from '../../game/hex-utils'
 import { GameUnit3D } from './GameUnit3D'
 import { useZoomToMapCenterOnMapRender } from '../../hooks/useZoomToMapCenterOnMapRender'
+import { useUIContext } from '../../hooks/ui-context'
 
 export function HexopolisMapDisplay3D({
   cameraControlsRef,
