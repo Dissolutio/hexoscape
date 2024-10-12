@@ -2,8 +2,9 @@ import { ChangeEvent } from 'react'
 import styled from 'styled-components'
 import { Button } from '@mui/material'
 import { MdFileOpen } from 'react-icons/md'
+import { HexxaformMoves } from '../game/hexxaform/hexxaform-types'
 
-const ImportFileButton = ({ moves }: { moves: any }) => {
+const ImportFileButton = ({ moves }: { moves: HexxaformMoves }) => {
   const uploadElementID = 'upload'
   const handleClickFileSelect = () => {
     const element = document.getElementById(uploadElementID)

@@ -4,6 +4,8 @@ export type GType = {
   hexMap: HexMap;
   boardHexes: BoardHexes;
 };
+export type HexxaformMoves = any
+
 export type BgioProps = {
   boardHexes: BoardHexes
   hexMap: HexMap
