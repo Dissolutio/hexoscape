@@ -38,12 +38,6 @@ const SideNavDrawer = () => {
       keepMounted={true}
       open={isNavOpen}
       onClose={() => toggleIsNavOpen(false)}
-      // sx={{
-      //   '.MuiDrawer-paper': {
-      //     color: 'var(--white)',
-      //     backgroundColor: 'var(--black)',
-      //   },
-      // }}
     >
       <DrawerList />
     </Drawer>

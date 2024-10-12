@@ -11,9 +11,9 @@ import { HexxaformMoves } from '../game/hexxaform/hexxaform-types'
 export const World = ({
   boardHexes,
   hexMap,
-  hexxaformMoves,
   glyphs,
   isEditor,
+  hexxaformMoves,
 }: {
   boardHexes: BoardHexes
   hexMap: HexMap
