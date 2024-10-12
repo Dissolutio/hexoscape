@@ -11,7 +11,6 @@ const MapContext = React.createContext<
       selectedMapHex: string
       selectMapHex: (hexID: string) => void
       penMode: PenMode
-      toggleSelectHexMode: () => void
       showStartzones: boolean
       toggleShowStartzones: () => void
       toggleShowTerrain: () => void
@@ -20,10 +19,7 @@ const MapContext = React.createContext<
       toggleEraserStartZonePen: () => void
       toggleIncAltitudePen: () => void
       toggleDecAltitudePen: () => void
-      toggleWaterPen: () => void
-      toggleGrassPen: () => void
-      toggleSandPen: () => void
-      toggleRockPen: () => void
+      toggleTerrainPen: (mode: PenMode) => void
       toggleStartZonePen: (playerID: string) => void
       penThickness: number
       togglePenThickness: () => void
@@ -48,11 +44,6 @@ export function MapContextProvider({ children }: MapContextProviderProps) {
   const toggleShowTerrain = () => {
     setShowTerrain((s) => !s)
   }
-  //! Select Hex Mode
-  const toggleSelectHexMode = () => {
-    setPenMode(PenMode.none)
-  }
-  //! Pen modes
   const toggleEraserPen = () => {
     setPenMode(PenMode.eraser)
   }
@@ -65,17 +56,8 @@ export function MapContextProvider({ children }: MapContextProviderProps) {
   const toggleDecAltitudePen = () => {
     setPenMode(PenMode.decAltitude)
   }
-  const toggleWaterPen = () => {
-    setPenMode(PenMode.water)
-  }
-  const toggleGrassPen = () => {
-    setPenMode(PenMode.grass)
-  }
-  const toggleSandPen = () => {
-    setPenMode(PenMode.sand)
-  }
-  const toggleRockPen = () => {
-    setPenMode(PenMode.rock)
+  const toggleTerrainPen = (mode: PenMode) => {
+    setPenMode(mode)
   }
   const toggleStartZonePen = (playerID: string) => {
     switch (playerID) {
@@ -107,7 +89,6 @@ export function MapContextProvider({ children }: MapContextProviderProps) {
         selectedMapHex,
         selectMapHex,
         penMode,
-        toggleSelectHexMode,
         showStartzones,
         toggleShowStartzones,
         showTerrain,
@@ -116,10 +97,7 @@ export function MapContextProvider({ children }: MapContextProviderProps) {
         toggleEraserStartZonePen,
         toggleIncAltitudePen,
         toggleDecAltitudePen,
-        toggleWaterPen,
-        toggleGrassPen,
-        toggleSandPen,
-        toggleRockPen,
+        toggleTerrainPen,
         toggleStartZonePen,
         penThickness,
         togglePenThickness,
