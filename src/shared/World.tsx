@@ -7,6 +7,7 @@ import { HexopolisMapDisplay3D } from '../hexopolis-ui/world/HexopolisMapDisplay
 import { HexxaformMapDisplay3D } from '../hexxaform-ui/world/HexxaformMapDisplay3D'
 import { CAMERA_FOV } from '../game/constants'
 import { HexxaformMoves } from '../game/hexxaform/hexxaform-types'
+import TakeAPictureBox from './TakeAPictureBox'
 
 export const World = ({
   boardHexes,
@@ -40,6 +41,7 @@ export const World = ({
         speed={1}
       />
       <WorldOverheadLights />
+      <TakeAPictureBox />
       {/* Stats displays the fps */}
       {/* <Stats /> */}
       {isEditor ? (
