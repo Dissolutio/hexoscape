@@ -6,10 +6,12 @@ import { BoardHexes, Glyphs, HexMap } from '../game/types'
 import { HexopolisMapDisplay3D } from '../hexopolis-ui/world/HexopolisMapDisplay3D'
 import { HexxaformMapDisplay3D } from '../hexxaform-ui/world/HexxaformMapDisplay3D'
 import { CAMERA_FOV } from '../game/constants'
+import { HexxaformMoves } from '../game/hexxaform/hexxaform-types'
 
 export const World = ({
   boardHexes,
   hexMap,
+  hexxaformMoves,
   glyphs,
   isEditor,
 }: {
@@ -17,6 +19,7 @@ export const World = ({
   hexMap: HexMap
   glyphs: Glyphs
   isEditor?: boolean
+  hexxaformMoves?: HexxaformMoves
 }) => {
   const cameraControlsRef = useRef(undefined!)
   return (
@@ -43,6 +46,7 @@ export const World = ({
         <HexxaformMapDisplay3D
           boardHexes={boardHexes}
           hexMap={hexMap}
+          moves={hexxaformMoves}
           glyphs={glyphs}
           cameraControlsRef={cameraControlsRef}
         />

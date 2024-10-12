@@ -1,9 +1,17 @@
 import { ThreeEvent } from '@react-three/fiber'
 import { CameraControls } from '@react-three/drei'
-import { BoardHex, BoardHexes, Glyphs, HexMap } from '../../game/types'
+import {
+  BoardHex,
+  BoardHexes,
+  Glyphs,
+  HexMap,
+  HexTerrain,
+} from '../../game/types'
 import { getBoardHex3DCoords } from '../../game/hex-utils'
 import { MapHex3D } from '../../shared/MapHex3D'
 import { useZoomToMapCenterOnMapRender } from '../../hooks/useZoomToMapCenterOnMapRender'
+import { HexxaformMoves, PenMode } from '../../game/hexxaform/hexxaform-types'
+import { useMapContext } from '../useMapContext'
 
 /**
  * React component that renders the 3D hexmap.
@@ -18,15 +26,17 @@ import { useZoomToMapCenterOnMapRender } from '../../hooks/useZoomToMapCenterOnM
  * The component returns a fragment containing all the `Hex3D` components.
  */
 export function HexxaformMapDisplay3D({
-  cameraControlsRef,
   boardHexes,
-  glyphs,
   hexMap,
+  moves,
+  cameraControlsRef,
+  glyphs,
 }: {
-  cameraControlsRef: React.MutableRefObject<CameraControls>
   boardHexes: BoardHexes
-  glyphs: Glyphs
   hexMap: HexMap
+  moves: HexxaformMoves
+  cameraControlsRef: React.MutableRefObject<CameraControls>
+  glyphs: Glyphs
 }) {
   useZoomToMapCenterOnMapRender({
     cameraControlsRef,
@@ -42,6 +52,7 @@ export function HexxaformMapDisplay3D({
             boardHexID={bh.id}
             boardHexes={boardHexes}
             glyphs={glyphs}
+            moves={moves}
             cameraControlsRef={cameraControlsRef}
             key={`${bh.id}-${bh.altitude}`}
           />
@@ -56,18 +67,60 @@ const HexxaformHex3D = ({
   boardHexID,
   boardHexes,
   glyphs,
+  moves,
   cameraControlsRef,
 }: {
   playerID: string
   boardHexID: string
   boardHexes: BoardHexes
   glyphs: Glyphs
+  moves: HexxaformMoves
   cameraControlsRef: React.MutableRefObject<CameraControls>
 }) => {
+  const {
+    voidHex,
+    voidStartZone,
+    paintStartZone,
+    incAltitudeOfHex,
+    decAltitudeOfHex,
+    paintWaterHex,
+    paintGrassHex,
+    paintSandHex,
+    paintRockHex,
+  } = moves
+  const { penMode, penThickness } = useMapContext()
   const boardHex = boardHexes[boardHexID]
 
-  const onClick = (event: ThreeEvent<MouseEvent>, sourceHex: BoardHex) => {
-    console.log('🚀 ~ onClick ~ event, sourceHex:', event, sourceHex)
+  const onClick = (event: ThreeEvent<MouseEvent>, hex: BoardHex) => {
+    // const isVoidTerrainHex = hex.terrain === HexTerrain.void
+    // if (penMode === PenMode.eraser && !isVoidTerrainHex) {
+    //   voidHex({ hexID: hex.id })
+    // }
+    // if (penMode === PenMode.eraserStartZone) {
+    //   voidStartZone({ hexID: hex.id })
+    // }
+    // last letter in string is playerID, but this seems inelegant
+    // if (penMode.slice(0, -1) === 'startZone') {
+    //   paintStartZone({ hexID: hex.id, playerID: penMode.slice(-1) })
+    // }
+    // if (penMode === PenMode.incAltitude && !isVoidTerrainHex) {
+    //   incAltitudeOfHex({ hexID: hex.id })
+    // }
+    // if (penMode === PenMode.decAltitude && !isVoidTerrainHex) {
+    //   decAltitudeOfHex({ hexID: hex.id })
+    // }
+    if (penMode === PenMode.water) {
+      paintWaterHex({ hexID: hex.id })
+    }
+    if (penMode === PenMode.grass) {
+      paintGrassHex({ hexID: hex.id, thickness: penThickness })
+    }
+    if (penMode === PenMode.sand) {
+      paintSandHex({ hexID: hex.id, thickness: penThickness })
+    }
+    if (penMode === PenMode.rock) {
+      paintRockHex({ hexID: hex.id, thickness: penThickness })
+    }
   }
 
   const {

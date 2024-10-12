@@ -53,6 +53,7 @@ export function HexxaformBoard(props: HexxaformBoardProps) {
             isEditor={true}
             boardHexes={G.boardHexes}
             hexMap={G.hexMap}
+            hexxaformMoves={moves}
             glyphs={G.hexMap.glyphs}
           />
         </EditorWorldWrapper>
