@@ -1,15 +1,12 @@
-import { ThemeProvider } from 'styled-components'
 import { BoardProps } from 'boardgame.io/react'
 import {
   MapContextProvider,
-  UIContextProvider,
   PlacementContextProvider,
   PlayContextProvider,
   useUIContext,
   modalStates,
 } from './contexts'
 import { Layout } from './layout'
-import { theme } from './theme'
 import {
   BgioClientInfoProvider,
   BgioGProvider,

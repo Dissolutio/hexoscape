@@ -1,18 +1,16 @@
-import type { Move } from "boardgame.io";
 import { BoardHexes, HexMap, HexTerrain } from "../types";
-import { GType } from "./hexxaform-types";
 import { generateTimestampID } from "../constants";
-// import { BoardHexes, GType, HexMap, HexTerrain } from "./types";
-const voidHex: Move<GType> = ({ G, ctx }, { hexID }: { hexID: string }) => {
+
+const voidHex = ({ G, ctx }, { hexID }: { hexID: string }) => {
   G.boardHexes[hexID].terrain = HexTerrain.void;
   G.boardHexes[hexID].startzonePlayerIDs = [];
   G.boardHexes[hexID].altitude = 0;
 };
-const unVoidHex: Move<GType> = ({ G, ctx }, { hexID }: { hexID: string }) => {
+const unVoidHex = ({ G, ctx }, { hexID }: { hexID: string }) => {
   G.boardHexes[hexID].terrain = HexTerrain.grass;
   G.boardHexes[hexID].altitude = 1;
 };
-const paintStartZone: Move<GType> = (
+const paintStartZone = (
   { G, ctx },
   { hexID, playerID }: { hexID: string; playerID: string }
 ) => {
@@ -21,45 +19,45 @@ const paintStartZone: Move<GType> = (
     G.boardHexes[hexID].startzonePlayerIDs.push(playerID);
   }
 };
-const voidStartZone: Move<GType> = ({ G }, { hexID }: { hexID: string }) => {
+const voidStartZone = ({ G }, { hexID }: { hexID: string }) => {
   G.boardHexes[hexID].startzonePlayerIDs = [];
 };
-const incAltitudeOfHex: Move<GType> = ({ G }, { hexID }: { hexID: string }) => {
+const incAltitudeOfHex = ({ G }, { hexID }: { hexID: string }) => {
   G.boardHexes[hexID].altitude += 1;
 };
-const decAltitudeOfHex: Move<GType> = ({ G }, { hexID }: { hexID: string }) => {
+const decAltitudeOfHex = ({ G }, { hexID }: { hexID: string }) => {
   G.boardHexes[hexID].altitude -= 1;
 };
-const paintWaterHex: Move<GType> = (
+const paintWaterHex = (
   { G },
-  { hexID, thickness }: { hexID: string; thickness: number }
+  { hexID }: { hexID: string }
 ) => {
+  // before re-assigning terrain, assign the old terrain as the sub-terrain
+  G.boardHexes[hexID].subTerrain = G.boardHexes[hexID].terrain;
   G.boardHexes[hexID].terrain = HexTerrain.water;
-  // lower altitude one, like digging, for water
-  G.boardHexes[hexID].altitude -= thickness;
 };
-const paintGrassHex: Move<GType> = (
+const paintGrassHex = (
   { G },
   { hexID, thickness }: { hexID: string; thickness: number }
 ) => {
   G.boardHexes[hexID].terrain = HexTerrain.grass;
   G.boardHexes[hexID].altitude += thickness;
 };
-const paintSandHex: Move<GType> = (
+const paintSandHex = (
   { G },
   { hexID, thickness }: { hexID: string; thickness: number }
 ) => {
   G.boardHexes[hexID].terrain = HexTerrain.sand;
   G.boardHexes[hexID].altitude += thickness;
 };
-const paintRockHex: Move<GType> = (
+const paintRockHex = (
   { G },
   { hexID, thickness }: { hexID: string; thickness: number }
 ) => {
   G.boardHexes[hexID].terrain = HexTerrain.rock;
   G.boardHexes[hexID].altitude += thickness;
 };
-const loadMap: Move<GType> = (
+const loadMap = (
   { G },
   {
     boardHexes,

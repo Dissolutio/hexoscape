@@ -2,7 +2,6 @@ import { useRef, useState } from 'react'
 import { MdArrowDownward } from 'react-icons/md'
 import {
   Button,
-  ButtonGroup,
   ClickAwayListener,
   Grow,
   MenuItem,
@@ -11,7 +10,6 @@ import {
   Popper,
   Snackbar,
   SnackbarCloseReason,
-  styled,
 } from '@mui/material'
 
 import { useLocalMapMemory } from './useLocalMapMemory'
@@ -141,9 +139,6 @@ export const LoadSaveMapButtons = ({
     </>
   )
 }
-const DemoPaper = styled(Paper)(({ theme }) => ({
-  ...theme.typography.body2,
-}))
 type SaveLoadMapOption = {
   title: string
   onClick: () => void
@@ -281,7 +276,7 @@ function SplitButton({
               transformOrigin: 'center bottom',
             }}
           >
-            <DemoPaper>
+            <Paper>
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList id="split-button-menu" autoFocusItem>
                   {options.map((option) => (
@@ -295,7 +290,7 @@ function SplitButton({
                   ))}
                 </MenuList>
               </ClickAwayListener>
-            </DemoPaper>
+            </Paper>
           </Grow>
         )}
       </Popper>
