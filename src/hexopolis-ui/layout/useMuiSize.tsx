@@ -1,6 +1,6 @@
 import { useMediaQuery } from '@mui/material'
 import React from 'react'
-
+// these are the default breakpoints for MUI:
 const useMuiSize = (): string => {
   const isXl = useMediaQuery('(min-width:1536px)')
   const isLg = useMediaQuery('(min-width:1200px)')
