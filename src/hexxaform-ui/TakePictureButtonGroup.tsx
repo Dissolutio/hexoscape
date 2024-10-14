@@ -1,5 +1,5 @@
 import { Button, ButtonGroup } from '@mui/material'
-import { MdCameraFront } from 'react-icons/md'
+import { MdPhotoCamera } from 'react-icons/md'
 import { useEvent } from '../hooks/useEvent'
 import { useUIContext } from '../hooks/ui-context'
 import { EVENTS } from '../game/constants'
@@ -25,14 +25,14 @@ const TakePictureButtonGroup = () => {
       aria-label="Save current camera view as an image file"
     >
       <Button
-        startIcon={<MdCameraFront />}
+        startIcon={<MdPhotoCamera />}
         onClick={handleTakePicturePng}
         variant="contained"
       >
         Save current camera view as PNG
       </Button>
       <Button
-        startIcon={<MdCameraFront />}
+        startIcon={<MdPhotoCamera />}
         onClick={handleTakePictureJpg}
         variant="contained"
       >
