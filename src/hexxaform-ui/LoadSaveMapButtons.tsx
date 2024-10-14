@@ -30,7 +30,7 @@ export const LoadSaveMapButtons = ({
 }: BgioProps) => {
   const [snackbarMsg, setSnackbarMsg] = useState('')
   const isOpen = Boolean(snackbarMsg)
-  const handleClose = (
+  const onClose = (
     _event: React.SyntheticEvent | Event,
     reason?: SnackbarCloseReason
   ) => {
@@ -117,7 +117,7 @@ export const LoadSaveMapButtons = ({
         open={isOpen}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         autoHideDuration={5000}
-        onClose={handleClose}
+        onClose={onClose}
         message={snackbarMsg}
       />
       <SplitButton
@@ -245,6 +245,10 @@ function SplitButton({
     }
     setOpen(false)
   }
+  const onClickMenuItem = (event: Event, option: SaveLoadMapOption) => {
+    option.onClick()
+    handleClose(event)
+  }
 
   return (
     <>
@@ -283,7 +287,7 @@ function SplitButton({
                     <MenuItem
                       key={option.title}
                       disabled={option.isDisabled}
-                      onClick={option.onClick}
+                      onClick={(e) => onClickMenuItem(e, option)}
                     >
                       {option.title}
                     </MenuItem>
