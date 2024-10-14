@@ -1,10 +1,21 @@
 import { Button, ButtonGroup } from '@mui/material'
 import { MdCameraFront } from 'react-icons/md'
+import { useEvent } from '../hooks/useEvent'
+import { useUIContext } from '../hooks/ui-context'
+import { EVENTS } from '../game/constants'
 
 const TakePictureButtonGroup = () => {
-  const handleTakePicture = (e) => {
-    console.log('🚀 ~ handleTakePicture ~ e:', e)
+  const { publish } = useEvent()
+  const { toggleIsTakingPicture } = useUIContext()
+  const handleTakePicturePng = () => {
+    toggleIsTakingPicture(true)
+    publish(EVENTS.savePng, undefined)
   }
+  const handleTakePictureJpg = () => {
+    toggleIsTakingPicture(true)
+    publish(EVENTS.saveJpg, undefined)
+  }
+
   return (
     <ButtonGroup
       sx={{ padding: '10px' }}
@@ -15,10 +26,17 @@ const TakePictureButtonGroup = () => {
     >
       <Button
         startIcon={<MdCameraFront />}
-        onClick={handleTakePicture}
+        onClick={handleTakePicturePng}
         variant="contained"
       >
-        Take a picture
+        Save current camera view as PNG
+      </Button>
+      <Button
+        startIcon={<MdCameraFront />}
+        onClick={handleTakePictureJpg}
+        variant="contained"
+      >
+        Save current camera view as JPG
       </Button>
     </ButtonGroup>
   )

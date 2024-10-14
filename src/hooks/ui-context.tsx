@@ -27,6 +27,8 @@ const UIContext = React.createContext<
       setIndexOfLastShownToast: React.Dispatch<React.SetStateAction<number>>
       isNavOpen: boolean
       toggleIsNavOpen: (s: boolean) => void
+      isTakingPicture: boolean
+      toggleIsTakingPicture: (s: boolean) => void
     })
   | undefined
 >(undefined)
@@ -37,6 +39,11 @@ export function UIContextProvider({ children }: UIContextProviderProps) {
   const [selectedGameCardID, setSelectedGameCardID] = React.useState('')
   // navigation drawer state
   const [isNavOpen, setIsNavOpen] = React.useState(false)
+  // can be used to change the background during the picture
+  const [isTakingPicture, setIsTakingPicture] = React.useState(false)
+  const toggleIsTakingPicture = (s: boolean) => {
+    setIsTakingPicture(s)
+  }
   const toggleIsNavOpen = (s: boolean) => {
     setIsNavOpen(s)
   }
@@ -89,6 +96,8 @@ export function UIContextProvider({ children }: UIContextProviderProps) {
         openModalCard,
         isNavOpen,
         toggleIsNavOpen,
+        isTakingPicture,
+        toggleIsTakingPicture,
       }}
     >
       {children}

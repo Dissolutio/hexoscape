@@ -40,6 +40,7 @@ export const World = ({
         fade
         speed={1}
       />
+      {/* <color attach="background" args={[150, 150, 150]} /> */}
       <WorldOverheadLights />
       <TakeAPictureBox />
       {/* Stats displays the fps */}
