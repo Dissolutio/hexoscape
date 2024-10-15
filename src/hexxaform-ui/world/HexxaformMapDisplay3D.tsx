@@ -100,9 +100,9 @@ const HexxaformHex3D = ({
     //   voidStartZone({ hexID: hex.id })
     // }
     // last letter in string is playerID, but this seems inelegant
-    // if (penMode.slice(0, -1) === 'startZone') {
-    //   paintStartZone({ hexID: hex.id, playerID: penMode.slice(-1) })
-    // }
+    if (penMode.slice(0, -1) === 'startZone') {
+      paintStartZone({ hexID: hex.id, playerID: penMode.slice(-1) })
+    }
     // if (penMode === PenMode.incAltitude && !isVoidTerrainHex) {
     //   incAltitudeOfHex({ hexID: hex.id })
     // }

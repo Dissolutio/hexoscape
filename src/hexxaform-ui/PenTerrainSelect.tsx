@@ -2,7 +2,7 @@ import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
-import { ListItemIcon } from '@mui/material'
+import { Divider, ListItemIcon } from '@mui/material'
 import {
   GiArrowCursor,
   GiPeaks,
@@ -12,6 +12,11 @@ import {
 } from 'react-icons/gi'
 import { useMapContext } from './useMapContext'
 import { PenMode } from '../game/hexxaform/hexxaform-types'
+import {
+  TbHexagonNumber1Filled,
+  TbHexagonNumber2Filled,
+  TbHexagonNumber3Filled,
+} from 'react-icons/tb'
 
 export default function PenTerrainSelect() {
   const { penMode, toggleTerrainPen } = useMapContext()
@@ -67,6 +72,26 @@ export default function PenTerrainSelect() {
             <GiWaterfall />
           </ListItemIcon>
           <span>Water</span>
+        </MenuItem>
+        <Divider />
+        {/* START ZONES BEGIN */}
+        <MenuItem value={PenMode.startZone0}>
+          <ListItemIcon>
+            <TbHexagonNumber1Filled />
+          </ListItemIcon>
+          <span>Start Zone: P1</span>
+        </MenuItem>
+        <MenuItem value={PenMode.startZone1}>
+          <ListItemIcon>
+            <TbHexagonNumber2Filled />
+          </ListItemIcon>
+          <span>Start Zone: P2</span>
+        </MenuItem>
+        <MenuItem value={PenMode.startZone2}>
+          <ListItemIcon>
+            <TbHexagonNumber3Filled />
+          </ListItemIcon>
+          <span>Start Zone: P3</span>
         </MenuItem>
       </Select>
     </FormControl>

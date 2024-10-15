@@ -76,6 +76,9 @@ export function MapContextProvider({ children }: MapContextProviderProps) {
       case '4':
         setPenMode(PenMode.startZone4)
         break
+      case '5':
+        setPenMode(PenMode.startZone5)
+        break
       default:
         break
     }
