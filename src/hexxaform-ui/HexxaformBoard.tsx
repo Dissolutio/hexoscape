@@ -39,7 +39,7 @@ export function HexxaformBoard(props: HexxaformBoardProps) {
     credentials,
   } = props
   return (
-    <MapContextProvider>
+    <MapContextProvider G={G}>
       <Layout playerID={''}>
         <HeaderNav
           linkProps={{

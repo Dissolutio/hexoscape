@@ -400,7 +400,7 @@ const transformBoardHexesToHaveStartZones = (
     }
   }, {})
 }
-const getStartZonesFromBoardHexes = (boardHexes: BoardHexes): StartZones => {
+export const getStartZonesFromBoardHexes = (boardHexes: BoardHexes): StartZones => {
   const result: StartZones = {}
   for (const boardHex in boardHexes) {
     if (Object.prototype.hasOwnProperty.call(boardHexes, boardHex)) {

@@ -1,20 +1,21 @@
 import * as React from 'react'
-import { PenMode } from '../game/hexxaform/hexxaform-types'
+import { GType, PenMode } from '../game/hexxaform/hexxaform-types'
+import { BoardHexes, HexMap } from '../game/types'
 
 type MapContextProviderProps = {
   children: React.ReactNode
-  // mapSize: number
+  G: GType
 }
 
 const MapContext = React.createContext<
   | {
+      boardHexes: BoardHexes
+      hexMap: HexMap
       selectedMapHex: string
       selectMapHex: (hexID: string) => void
       penMode: PenMode
       showStartzones: boolean
       toggleShowStartzones: () => void
-      toggleShowTerrain: () => void
-      showTerrain: boolean
       toggleEraserPen: () => void
       toggleEraserStartZonePen: () => void
       toggleIncAltitudePen: () => void
@@ -26,23 +27,19 @@ const MapContext = React.createContext<
     }
   | undefined
 >(undefined)
-export function MapContextProvider({ children }: MapContextProviderProps) {
+export function MapContextProvider({ children, G }: MapContextProviderProps) {
   const [selectedMapHex, setSelectedMapHex] = React.useState('')
   // Pen Mode
   const [penMode, setPenMode] = React.useState(PenMode.grass)
   const [penThickness, setPenThickness] = React.useState(1)
   // Lenses
   const [showStartzones, setShowStartzones] = React.useState(false)
-  const [showTerrain, setShowTerrain] = React.useState(true)
 
   const togglePenThickness = () => {
     setPenThickness((s) => (s === 0 ? 1 : 0))
   }
   const toggleShowStartzones = () => {
     setShowStartzones((s) => !s)
-  }
-  const toggleShowTerrain = () => {
-    setShowTerrain((s) => !s)
   }
   const toggleEraserPen = () => {
     setPenMode(PenMode.eraser)
@@ -94,8 +91,6 @@ export function MapContextProvider({ children }: MapContextProviderProps) {
         penMode,
         showStartzones,
         toggleShowStartzones,
-        showTerrain,
-        toggleShowTerrain,
         toggleEraserPen,
         toggleEraserStartZonePen,
         toggleIncAltitudePen,
@@ -104,6 +99,8 @@ export function MapContextProvider({ children }: MapContextProviderProps) {
         toggleStartZonePen,
         penThickness,
         togglePenThickness,
+        boardHexes: G.boardHexes,
+        hexMap: G.hexMap,
       }}
     >
       {children}
