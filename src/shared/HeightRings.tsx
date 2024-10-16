@@ -1,5 +1,5 @@
 import { Line, Vector3 } from 'three'
-import { MoveRange } from '../game/types'
+import { MoveRange, StartZones } from '../game/types'
 import {
   HEXGRID_HEX_HEIGHT,
   transformMoveRangeToArraysOfIds,
@@ -17,6 +17,7 @@ export const HeightRings = ({
   position,
   isHighlighted,
   isEditor,
+  startZones,
 }: {
   boardHexID: string
   playerID: string
@@ -26,6 +27,7 @@ export const HeightRings = ({
   position: Vector3
   isHighlighted: boolean
   isEditor: boolean
+  startZones: StartZones
 }) => {
   const {
     safeMoves,
@@ -47,6 +49,8 @@ export const HeightRings = ({
             top={topRingYPos}
             position={position}
             isHighlighted={isHighlighted}
+            boardHexID={boardHexID}
+            startZones={startZones}
           />
         ) : (
           <HexopolisHeightRing
