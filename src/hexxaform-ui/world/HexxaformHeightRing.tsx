@@ -1,5 +1,7 @@
 import { Vector3, BufferGeometry } from 'three'
 import { getHexxaformMapHexLineStyle } from './getHexxaformMapHexLineStyle'
+import { useMapContext } from '../useMapContext'
+import { getStartZonesFromBoardHexes } from '../../game/setup/map-gen'
 
 export const HexxaformHeightRing = ({
   points,
@@ -7,19 +9,28 @@ export const HexxaformHeightRing = ({
   top,
   position,
   isHighlighted,
+  boardHexID,
 }: {
   points: Vector3[]
   height: number
   top: number
   position: Vector3
   isHighlighted: boolean
+  boardHexID: string
 }) => {
   const lineGeometry = new BufferGeometry().setFromPoints(points)
+  const { boardHexes } = useMapContext()
+  const startZones = getStartZonesFromBoardHexes(boardHexes)
   const {
     color,
     //  opacity,
     lineWidth,
-  } = getHexxaformMapHexLineStyle(top === height, isHighlighted)
+  } = getHexxaformMapHexLineStyle(
+    top === height,
+    isHighlighted,
+    boardHexID,
+    startZones
+  )
   return (
     <line_
       geometry={lineGeometry}

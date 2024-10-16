@@ -47,6 +47,7 @@ export const HeightRings = ({
             top={topRingYPos}
             position={position}
             isHighlighted={isHighlighted}
+            boardHexID={boardHexID}
           />
         ) : (
           <HexopolisHeightRing

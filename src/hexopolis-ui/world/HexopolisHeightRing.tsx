@@ -211,35 +211,35 @@ export const HexopolisHeightRing = ({
         return {
           color: new Color(playerColors['1']),
           opacity: 1,
-          lineWidth: 3,
+          lineWidth: 5,
         }
       }
       if ((startZones?.['2'] ?? []).includes(boardHexID)) {
         return {
           color: new Color(playerColors['2']),
           opacity: 1,
-          lineWidth: 3,
+          lineWidth: 5,
         }
       }
       if ((startZones?.['3'] ?? []).includes(boardHexID)) {
         return {
           color: new Color(playerColors['3']),
           opacity: 1,
-          lineWidth: 3,
+          lineWidth: 5,
         }
       }
       if ((startZones?.['4'] ?? []).includes(boardHexID)) {
         return {
           color: new Color(playerColors['4']),
           opacity: 1,
-          lineWidth: 3,
+          lineWidth: 5,
         }
       }
       if ((startZones?.['5'] ?? []).includes(boardHexID)) {
         return {
           color: new Color(playerColors['5']),
           opacity: 1,
-          lineWidth: 3,
+          lineWidth: 5,
         }
       }
     }
