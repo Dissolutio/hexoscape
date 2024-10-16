@@ -1,6 +1,4 @@
 import { Color } from "three"
-import { playerColors } from "../../hexopolis-ui/theme"
-import { StartZones } from "../../game/types"
 
 const highlightWhiteStyle = { color: 'white', opacity: 1, lineWidth: 2 }
 const nonTopRingGrayStyle = {
@@ -13,7 +11,7 @@ const basicGrayTopRingStyle = {
   opacity: 1,
   lineWidth: 1,
 }
-export const getHexxaformMapHexLineStyle = (isHeightEqualToTop: boolean, isHighlighted: boolean, boardHexID: string, startZones: StartZones) => {
+export const getHexxaformMapHexLineStyle = (isHeightEqualToTop: boolean, isHighlighted: boolean) => {
   // all non-top rings are as below:
   if (isHeightEqualToTop) {
     return nonTopRingGrayStyle
@@ -26,7 +24,7 @@ export const getHexxaformMapHexLineStyle = (isHeightEqualToTop: boolean, isHighl
     return {
       color: new Color(playerColors['0']),
       opacity: 1,
-      lineWidth: 3,
+      lineWidth: 5,
     }
   }
   if ((startZones?.['1'] ?? []).includes(boardHexID)) {

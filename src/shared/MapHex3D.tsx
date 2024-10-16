@@ -55,7 +55,6 @@ export const MapHex3D = ({
   selectedUnitID,
   selectedUnitMoveRange,
   isEditor,
-  startZones,
 }: {
   x: number
   z: number
@@ -164,7 +163,6 @@ export const MapHex3D = ({
         position={hexPosition}
         isHighlighted={isHovered}
         isEditor={isEditor}
-        startZones={startZones}
       />
 
       {/* This is the big sub-terrain mesh from the floor to the cap mesh */}

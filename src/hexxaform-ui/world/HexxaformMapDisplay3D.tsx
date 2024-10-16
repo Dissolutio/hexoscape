@@ -6,7 +6,6 @@ import {
   Glyphs,
   HexMap,
   HexTerrain,
-  StartZones,
 } from '../../game/types'
 import { getBoardHex3DCoords } from '../../game/hex-utils'
 import { MapHex3D } from '../../shared/MapHex3D'
@@ -70,7 +69,6 @@ const HexxaformHex3D = ({
   glyphs,
   moves,
   cameraControlsRef,
-  startZones,
 }: {
   playerID: string
   boardHexID: string
@@ -78,7 +76,6 @@ const HexxaformHex3D = ({
   glyphs: Glyphs
   moves: HexxaformMoves
   cameraControlsRef: React.MutableRefObject<CameraControls>
-  startZones: StartZones
 }) => {
   const {
     voidHex,
@@ -146,7 +143,6 @@ const HexxaformHex3D = ({
         selectedUnitID={''}
         selectedUnitMoveRange={{}}
         isEditor={true}
-        startZones={startZones}
       />
     </>
   )
