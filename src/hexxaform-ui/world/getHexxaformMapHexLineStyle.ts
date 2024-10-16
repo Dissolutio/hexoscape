@@ -13,7 +13,7 @@ const basicGrayTopRingStyle = {
 }
 export const getHexxaformMapHexLineStyle = (isHeightEqualToTop: boolean, isHighlighted: boolean) => {
   // all non-top rings are as below:
-  if (isHeightEqualToTop) {
+  if (!isHeightEqualToTop) {
     return nonTopRingGrayStyle
   }
   // top ring styles below:
