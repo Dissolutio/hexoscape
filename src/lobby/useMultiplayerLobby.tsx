@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { LobbyAPI } from 'boardgame.io'
 
 import { useBgioLobbyApi } from '../bgio-contexts/useBgioLobbyApi'
-import { useAuth } from '../hooks'
 import { SetupData } from '../game/types'
 import { hexoscapeScenarios } from '../game/setup/scenarios'
+import { useAuth } from '../hooks/useAuth'
 
 type MultiplayerLobbyCtxValue = {
   // lobby state

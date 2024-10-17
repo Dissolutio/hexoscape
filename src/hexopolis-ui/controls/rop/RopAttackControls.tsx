@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { usePlayContext, useUIContext } from '../../contexts'
+import { usePlayContext } from '../../contexts'
 import { useBgioEvents, useBgioG } from '../../../bgio-contexts'
 import { StyledControlsP } from '../../../hexopolis-ui/layout/Typography'
 import {
@@ -15,6 +15,7 @@ import {
   selectHasSpecialAttack,
   selectIfGameArmyCardHasAbility,
 } from '../../../game/selector/card-selectors'
+import { useUIContext } from '../../../hooks/ui-context'
 
 export const RopAttackControls = () => {
   const { uniqUnitsMoved, unitsAttacked, currentOrderMarker } = useBgioG()

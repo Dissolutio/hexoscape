@@ -4,7 +4,13 @@ export type GType = {
   hexMap: HexMap;
   boardHexes: BoardHexes;
 };
+export type HexxaformMoves = any
 
+export type BgioProps = {
+  boardHexes: BoardHexes
+  hexMap: HexMap
+  moves: any
+}
 export enum PenMode {
   none = 'none',
   eraser = 'void',

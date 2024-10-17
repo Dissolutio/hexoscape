@@ -1,8 +1,8 @@
 import { LobbyAPI, Server } from 'boardgame.io'
 import { uniqBy } from 'lodash'
 
-import { useAuth } from '../hooks'
 import { useMultiplayerLobby } from './useMultiplayerLobby'
+import { useAuth } from '../hooks/useAuth'
 
 export const RefreshLobbyMatchesButton = () => {
   const { updateLobbyMatchesForSelectedGame } = useMultiplayerLobby()

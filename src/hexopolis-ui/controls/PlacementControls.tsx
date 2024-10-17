@@ -1,10 +1,9 @@
-import React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 import styled from 'styled-components'
 
 import { useBgioClientInfo, useBgioG, useBgioMoves } from '../../bgio-contexts'
-import { useUIContext, usePlacementContext } from '../contexts'
+import { usePlacementContext } from '../contexts'
 import { PlacementCardUnitIcon } from '../unit-icons'
 import { PlacementUnit } from '../../game/types'
 import {
@@ -18,6 +17,7 @@ import {
 } from './ConfirmOrResetButtons'
 import { RedButton } from '../../hexopolis-ui/layout/buttons'
 import { selectGameCardByID } from '../../game/selectors'
+import { useUIContext } from '../../hooks/ui-context'
 
 export const PlacementControls = () => {
   const { playerID } = useBgioClientInfo()

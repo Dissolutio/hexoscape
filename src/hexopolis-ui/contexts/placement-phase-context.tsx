@@ -5,7 +5,7 @@ import React, {
   useEffect,
   useState,
 } from 'react'
-import { useUIContext, useMapContext } from '.'
+import { useMapContext } from '.'
 import {
   BoardHex,
   ArmyCard,
@@ -18,6 +18,7 @@ import { useBgioClientInfo, useBgioCtx, useBgioG } from '../../bgio-contexts'
 import { selectValidTailHexes } from '../../game/selectors'
 import { selectIfGameArmyCardHasAbility } from '../../game/selector/card-selectors'
 import { ThreeEvent } from '@react-three/fiber'
+import { useUIContext } from '../../hooks/ui-context'
 
 const PlacementContext = createContext<PlacementContextValue | undefined>(
   undefined

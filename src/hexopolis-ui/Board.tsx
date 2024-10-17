@@ -1,15 +1,10 @@
-import { ThemeProvider } from 'styled-components'
 import { BoardProps } from 'boardgame.io/react'
 import {
   MapContextProvider,
-  UIContextProvider,
   PlacementContextProvider,
   PlayContextProvider,
-  useUIContext,
-  modalStates,
 } from './contexts'
 import { Layout } from './layout'
-import { theme } from './theme'
 import {
   BgioClientInfoProvider,
   BgioGProvider,
@@ -27,6 +22,7 @@ import { World } from '../shared/World'
 import { HexopolisWorldWrapper } from './world/HexopolisWorldWrapper'
 import HeaderNav from './layout/HeaderNav'
 import { ModalDisplay } from './layout/ModalDisplay'
+import { modalStates, useUIContext } from '../hooks/ui-context'
 
 interface MyGameProps extends BoardProps<GameState> {
   chatMessages: ChatMessage[]
@@ -65,7 +61,7 @@ export const Board = ({
   )
   const localOrDemoGameNumPlayers = parseInt(matchID?.split(':')?.[1])
   return (
-    <>
+    <div className="board-wrapper">
       {modalState !== modalStates.off && <ModalDisplay />}
       {/* BGIO CONTEXT BELOW */}
       <BgioClientInfoProvider
@@ -104,6 +100,7 @@ export const Board = ({
                             <HexopolisWorldWrapper>
                               <World
                                 boardHexes={G.boardHexes}
+                                hexxaformMoves={undefined}
                                 hexMap={G.hexMap}
                                 glyphs={G.hexMap.glyphs}
                               />
@@ -120,6 +117,6 @@ export const Board = ({
           </BgioCtxProvider>
         </BgioGProvider>
       </BgioClientInfoProvider>
-    </>
+    </div>
   )
 }

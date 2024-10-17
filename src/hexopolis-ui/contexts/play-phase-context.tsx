@@ -28,7 +28,7 @@ import {
   generateBlankMoveRange,
   transformMoveRangeToArraysOfIds,
 } from '../../game/constants'
-import { usePlacementContext, useUIContext } from '../contexts'
+import { usePlacementContext } from '../contexts'
 import {
   useBgioClientInfo,
   useBgioCtx,
@@ -43,6 +43,7 @@ import {
 } from '../../game/selector/card-selectors'
 import { ThreeEvent } from '@react-three/fiber'
 import { generateHexID } from '../../game/constants'
+import { useUIContext } from '../../hooks/ui-context'
 
 type TargetsInRange = {
   [gameUnitID: string]: string[] // hexIDs
@@ -442,8 +443,8 @@ export const PlayContextProvider = ({ children }: PropsWithChildren) => {
       isMoreThanOneIndex && isSecondIndexMoreExclusive
         ? secondIndex
         : isFirstIndex
-        ? firstIndex
-        : -1
+          ? firstIndex
+          : -1
     if (indexToUse >= 0) {
       if (glyphOnHex) {
         // either this cloning is undoable (not onto a glyph), or it's not undoable (because it's onto a glyph)

@@ -1,43 +1,39 @@
 import * as React from 'react'
-import { PenMode } from '../game/hexxaform/hexxaform-types'
+import { GType, PenMode } from '../game/hexxaform/hexxaform-types'
+import { BoardHexes, HexMap } from '../game/types'
 
 type MapContextProviderProps = {
   children: React.ReactNode
-  // mapSize: number
+  G: GType
 }
 
 const MapContext = React.createContext<
   | {
+      boardHexes: BoardHexes
+      hexMap: HexMap
       selectedMapHex: string
       selectMapHex: (hexID: string) => void
       penMode: PenMode
-      toggleSelectHexMode: () => void
       showStartzones: boolean
       toggleShowStartzones: () => void
-      toggleShowTerrain: () => void
-      showTerrain: boolean
       toggleEraserPen: () => void
       toggleEraserStartZonePen: () => void
       toggleIncAltitudePen: () => void
       toggleDecAltitudePen: () => void
-      toggleWaterPen: () => void
-      toggleGrassPen: () => void
-      toggleSandPen: () => void
-      toggleRockPen: () => void
+      toggleTerrainPen: (mode: PenMode) => void
       toggleStartZonePen: (playerID: string) => void
       penThickness: number
       togglePenThickness: () => void
     }
   | undefined
 >(undefined)
-export function MapContextProvider({ children }: MapContextProviderProps) {
+export function MapContextProvider({ children, G }: MapContextProviderProps) {
   const [selectedMapHex, setSelectedMapHex] = React.useState('')
   // Pen Mode
   const [penMode, setPenMode] = React.useState(PenMode.grass)
   const [penThickness, setPenThickness] = React.useState(1)
   // Lenses
   const [showStartzones, setShowStartzones] = React.useState(false)
-  const [showTerrain, setShowTerrain] = React.useState(true)
 
   const togglePenThickness = () => {
     setPenThickness((s) => (s === 0 ? 1 : 0))
@@ -45,14 +41,6 @@ export function MapContextProvider({ children }: MapContextProviderProps) {
   const toggleShowStartzones = () => {
     setShowStartzones((s) => !s)
   }
-  const toggleShowTerrain = () => {
-    setShowTerrain((s) => !s)
-  }
-  //! Select Hex Mode
-  const toggleSelectHexMode = () => {
-    setPenMode(PenMode.none)
-  }
-  //! Pen modes
   const toggleEraserPen = () => {
     setPenMode(PenMode.eraser)
   }
@@ -65,17 +53,8 @@ export function MapContextProvider({ children }: MapContextProviderProps) {
   const toggleDecAltitudePen = () => {
     setPenMode(PenMode.decAltitude)
   }
-  const toggleWaterPen = () => {
-    setPenMode(PenMode.water)
-  }
-  const toggleGrassPen = () => {
-    setPenMode(PenMode.grass)
-  }
-  const toggleSandPen = () => {
-    setPenMode(PenMode.sand)
-  }
-  const toggleRockPen = () => {
-    setPenMode(PenMode.rock)
+  const toggleTerrainPen = (mode: PenMode) => {
+    setPenMode(mode)
   }
   const toggleStartZonePen = (playerID: string) => {
     switch (playerID) {
@@ -94,6 +73,9 @@ export function MapContextProvider({ children }: MapContextProviderProps) {
       case '4':
         setPenMode(PenMode.startZone4)
         break
+      case '5':
+        setPenMode(PenMode.startZone5)
+        break
       default:
         break
     }
@@ -107,22 +89,18 @@ export function MapContextProvider({ children }: MapContextProviderProps) {
         selectedMapHex,
         selectMapHex,
         penMode,
-        toggleSelectHexMode,
         showStartzones,
         toggleShowStartzones,
-        showTerrain,
-        toggleShowTerrain,
         toggleEraserPen,
         toggleEraserStartZonePen,
         toggleIncAltitudePen,
         toggleDecAltitudePen,
-        toggleWaterPen,
-        toggleGrassPen,
-        toggleSandPen,
-        toggleRockPen,
+        toggleTerrainPen,
         toggleStartZonePen,
         penThickness,
         togglePenThickness,
+        boardHexes: G.boardHexes,
+        hexMap: G.hexMap,
       }}
     >
       {children}

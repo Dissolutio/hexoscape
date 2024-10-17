@@ -6,6 +6,7 @@ import { EditorWorldWrapper } from './world/EditorWorldWrapper'
 import { World } from '../shared/World'
 import HeaderNav from '../hexopolis-ui/layout/HeaderNav'
 import { Layout } from '../hexopolis-ui/layout'
+import { HexxaformControls } from './HexxaformControls'
 
 type HexxaformBoardProps = BoardProps<GType> & {
   chatMessages?: ChatMessage[]
@@ -38,7 +39,7 @@ export function HexxaformBoard(props: HexxaformBoardProps) {
     credentials,
   } = props
   return (
-    <MapContextProvider>
+    <MapContextProvider G={G}>
       <Layout playerID={''}>
         <HeaderNav
           linkProps={{
@@ -52,9 +53,15 @@ export function HexxaformBoard(props: HexxaformBoardProps) {
             isEditor={true}
             boardHexes={G.boardHexes}
             hexMap={G.hexMap}
+            hexxaformMoves={moves}
             glyphs={G.hexMap.glyphs}
           />
         </EditorWorldWrapper>
+        <HexxaformControls
+          boardHexes={G.boardHexes}
+          hexMap={G.hexMap}
+          moves={moves}
+        />
       </Layout>
     </MapContextProvider>
   )

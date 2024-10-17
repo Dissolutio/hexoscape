@@ -1,5 +1,5 @@
-import { useAuth } from '../hooks'
 import { NavLink } from 'react-router-dom'
+import { useAuth } from '../hooks/useAuth'
 
 export const MultiplayerNav = () => {
   const { storedCredentials } = useAuth()

@@ -1,9 +1,10 @@
 import { Vector3, BufferGeometry, Color } from 'three'
-import { usePlacementContext, usePlayContext, useUIContext } from '../contexts'
+import { usePlacementContext, usePlayContext } from '../contexts'
 import { useBgioCtx, useBgioG } from '../../bgio-contexts'
 import { useSpecialAttackContext } from '../contexts/special-attack-context'
 import { playerColors } from '../theme'
 import { selectAttackerHasAttacksAllowed } from '../../game/selectors'
+import { useUIContext } from '../../hooks/ui-context'
 
 export const HexopolisHeightRing = ({
   points,
@@ -210,35 +211,35 @@ export const HexopolisHeightRing = ({
         return {
           color: new Color(playerColors['1']),
           opacity: 1,
-          lineWidth: 3,
+          lineWidth: 5,
         }
       }
       if ((startZones?.['2'] ?? []).includes(boardHexID)) {
         return {
           color: new Color(playerColors['2']),
           opacity: 1,
-          lineWidth: 3,
+          lineWidth: 5,
         }
       }
       if ((startZones?.['3'] ?? []).includes(boardHexID)) {
         return {
           color: new Color(playerColors['3']),
           opacity: 1,
-          lineWidth: 3,
+          lineWidth: 5,
         }
       }
       if ((startZones?.['4'] ?? []).includes(boardHexID)) {
         return {
           color: new Color(playerColors['4']),
           opacity: 1,
-          lineWidth: 3,
+          lineWidth: 5,
         }
       }
       if ((startZones?.['5'] ?? []).includes(boardHexID)) {
         return {
           color: new Color(playerColors['5']),
           opacity: 1,
-          lineWidth: 3,
+          lineWidth: 5,
         }
       }
     }

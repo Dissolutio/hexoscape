@@ -1,7 +1,7 @@
 import { ArmyCard, CardAbility, GameArmyCard } from '../game/types'
 import { ImZoomIn } from 'react-icons/im'
-import { useUIContext } from './contexts'
 import { StyledBlueIconButton } from './layout/buttons'
+import { useUIContext } from '../hooks/ui-context'
 
 export const OpenAbilityModalButton = ({
   cardAbility,
