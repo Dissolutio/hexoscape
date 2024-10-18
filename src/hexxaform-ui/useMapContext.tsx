@@ -14,8 +14,6 @@ const MapContext = React.createContext<
       selectedMapHex: string
       selectMapHex: (hexID: string) => void
       penMode: PenMode
-      showStartzones: boolean
-      toggleShowStartzones: () => void
       toggleEraserPen: () => void
       toggleEraserStartZonePen: () => void
       toggleIncAltitudePen: () => void
@@ -24,6 +22,8 @@ const MapContext = React.createContext<
       toggleStartZonePen: (playerID: string) => void
       penThickness: number
       togglePenThickness: () => void
+      isShowStartZones: boolean
+      toggleIsShowStartZones: () => void
     }
   | undefined
 >(undefined)
@@ -32,14 +32,15 @@ export function MapContextProvider({ children, G }: MapContextProviderProps) {
   // Pen Mode
   const [penMode, setPenMode] = React.useState(PenMode.grass)
   const [penThickness, setPenThickness] = React.useState(1)
+  // Show Start Zone edge highlights
   // Lenses
-  const [showStartzones, setShowStartzones] = React.useState(false)
+  const [isShowStartZones, setIsShowStartZones] = React.useState(true)
 
   const togglePenThickness = () => {
     setPenThickness((s) => (s === 0 ? 1 : 0))
   }
-  const toggleShowStartzones = () => {
-    setShowStartzones((s) => !s)
+  const toggleIsShowStartZones = () => {
+    setIsShowStartZones((s) => !s)
   }
   const toggleEraserPen = () => {
     setPenMode(PenMode.eraser)
@@ -89,8 +90,8 @@ export function MapContextProvider({ children, G }: MapContextProviderProps) {
         selectedMapHex,
         selectMapHex,
         penMode,
-        showStartzones,
-        toggleShowStartzones,
+        isShowStartZones,
+        toggleIsShowStartZones,
         toggleEraserPen,
         toggleEraserStartZonePen,
         toggleIncAltitudePen,
