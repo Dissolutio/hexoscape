@@ -13,7 +13,7 @@ const basicGrayTopRingStyle = {
   opacity: 1,
   lineWidth: 1,
 }
-export const getHexxaformMapHexLineStyle = (isHeightEqualToTop: boolean, isHighlighted: boolean, boardHexID: string, startZones: StartZones) => {
+export const getHexxaformMapHexLineStyle = (isHeightEqualToTop: boolean, isHighlighted: boolean, boardHexID: string, startZones: StartZones, isShowStartZones: boolean) => {
   // all non-top rings are as below:
   if (!isHeightEqualToTop) {
     return nonTopRingGrayStyle
@@ -22,6 +22,7 @@ export const getHexxaformMapHexLineStyle = (isHeightEqualToTop: boolean, isHighl
   if (isHighlighted) {
     return highlightWhiteStyle
   }
+if(isShowStartZones){
   if ((startZones?.['0'] ?? [])?.includes(boardHexID)) {
     return {
       color: new Color(playerColors['0']),
@@ -64,6 +65,8 @@ export const getHexxaformMapHexLineStyle = (isHeightEqualToTop: boolean, isHighl
       lineWidth: 5,
     }
   }
+}
+
   // FINALLY: top rings, if not modified, are gray to highlight the edge between hexes
   return basicGrayTopRingStyle
 }

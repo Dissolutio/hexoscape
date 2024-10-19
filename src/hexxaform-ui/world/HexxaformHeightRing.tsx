@@ -19,7 +19,7 @@ export const HexxaformHeightRing = ({
   boardHexID: string
 }) => {
   const lineGeometry = new BufferGeometry().setFromPoints(points)
-  const { boardHexes } = useMapContext()
+  const { boardHexes, isShowStartZones } = useMapContext()
   const startZones = getStartZonesFromBoardHexes(boardHexes)
   const {
     color,
@@ -29,7 +29,8 @@ export const HexxaformHeightRing = ({
     top === height,
     isHighlighted,
     boardHexID,
-    startZones
+    startZones,
+    isShowStartZones
   )
   return (
     <line_
