@@ -38,7 +38,7 @@ export const World = ({
         factor={4}
         saturation={0}
         fade
-        speed={1}
+        speed={0.1}
       />
       {/* <color attach="background" args={[150, 150, 150]} /> */}
       <WorldOverheadLights />
