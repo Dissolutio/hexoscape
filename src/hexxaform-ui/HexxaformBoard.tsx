@@ -1,5 +1,7 @@
 import { BoardProps } from 'boardgame.io/react'
 import { ChatMessage } from 'boardgame.io'
+import { useHotkeys } from 'react-hotkeys-hook'
+
 import { GType } from '../game/hexxaform/hexxaform-types'
 import { MapContextProvider } from './useMapContext'
 import { EditorWorldWrapper } from './world/EditorWorldWrapper'
@@ -38,6 +40,8 @@ export function HexxaformBoard(props: HexxaformBoardProps) {
     isConnected,
     credentials,
   } = props
+  useHotkeys('ctrl+z', () => undo())
+  useHotkeys('ctrl+y', () => redo())
   return (
     <MapContextProvider G={G}>
       <Layout playerID={''}>
