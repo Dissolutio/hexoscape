@@ -19,26 +19,26 @@ export function HexxaformBoard(props: HexxaformBoardProps) {
     // G
     G,
     // CTX
-    ctx,
+    // ctx,
     // MOVES
     moves,
     undo,
     redo,
     // EVENTS
-    events,
-    reset,
+    // events,
+    // reset,
     // CHAT
-    sendChatMessage,
-    chatMessages = [],
+    // sendChatMessage,
+    // chatMessages = [],
     // ALSO ON BOARD PROPS
-    playerID,
-    log,
-    matchID,
-    matchData,
-    isActive,
-    isMultiplayer,
-    isConnected,
-    credentials,
+    // playerID,
+    // log,
+    // matchID,
+    // matchData,
+    // isActive,
+    // isMultiplayer,
+    // isConnected,
+    // credentials,
   } = props
   useHotkeys('ctrl+z', () => undo())
   useHotkeys('ctrl+y', () => redo())

@@ -14,14 +14,10 @@ const MapContext = React.createContext<
       selectedMapHex: string
       selectMapHex: (hexID: string) => void
       penMode: PenMode
-      toggleEraserPen: () => void
-      toggleEraserStartZonePen: () => void
-      toggleIncAltitudePen: () => void
-      toggleDecAltitudePen: () => void
-      toggleTerrainPen: (mode: PenMode) => void
+      togglePenMode: (mode: PenMode) => void
       toggleStartZonePen: (playerID: string) => void
-      penThickness: number
-      togglePenThickness: () => void
+      pieceSize: number
+      togglePieceSize: (s: number) => void
       isShowStartZones: boolean
       toggleIsShowStartZones: () => void
     }
@@ -31,7 +27,14 @@ export function MapContextProvider({ children, G }: MapContextProviderProps) {
   const [selectedMapHex, setSelectedMapHex] = React.useState('')
   // Pen Mode
   const [penMode, setPenMode] = React.useState(PenMode.grass)
-  const [penThickness, setPenThickness] = React.useState(1)
+  const togglePenMode = (mode: PenMode) => {
+    setPenMode(mode)
+  }
+  // piece size
+  const [pieceSize, setPieceSize] = React.useState(1)
+  const togglePieceSize = (s: number) => {
+    setPieceSize(s)
+  }
   // Show Start Zone edge highlights
   // Lenses
   const [isShowStartZones, setIsShowStartZones] = React.useState(true)
@@ -42,21 +45,7 @@ export function MapContextProvider({ children, G }: MapContextProviderProps) {
   const toggleIsShowStartZones = () => {
     setIsShowStartZones((s) => !s)
   }
-  const toggleEraserPen = () => {
-    setPenMode(PenMode.eraser)
-  }
-  const toggleEraserStartZonePen = () => {
-    setPenMode(PenMode.eraserStartZone)
-  }
-  const toggleIncAltitudePen = () => {
-    setPenMode(PenMode.incAltitude)
-  }
-  const toggleDecAltitudePen = () => {
-    setPenMode(PenMode.decAltitude)
-  }
-  const toggleTerrainPen = (mode: PenMode) => {
-    setPenMode(mode)
-  }
+
   const toggleStartZonePen = (playerID: string) => {
     switch (playerID) {
       case '0':
@@ -90,16 +79,12 @@ export function MapContextProvider({ children, G }: MapContextProviderProps) {
         selectedMapHex,
         selectMapHex,
         penMode,
+        togglePenMode,
         isShowStartZones,
         toggleIsShowStartZones,
-        toggleEraserPen,
-        toggleEraserStartZonePen,
-        toggleIncAltitudePen,
-        toggleDecAltitudePen,
-        toggleTerrainPen,
         toggleStartZonePen,
-        penThickness,
-        togglePenThickness,
+        pieceSize,
+        togglePieceSize,
         boardHexes: G.boardHexes,
         hexMap: G.hexMap,
       }}
@@ -108,6 +93,7 @@ export function MapContextProvider({ children, G }: MapContextProviderProps) {
     </MapContext.Provider>
   )
 }
+// eslint-disable-next-line react-refresh/only-export-components
 export function useMapContext() {
   const context = React.useContext(MapContext)
   if (context === undefined) {

@@ -39,21 +39,19 @@ export interface GameState {
   unitsKilled: UnitsKilled
   gameLog: string[]
   /* 
-    START 
+    disengagesAttempting 
     Tracks the data passed from 
     1. clicking a `moveRange.disengage` hex in UI while moving
     to
     2. the bgio-move `disengagementSwipe`
    */
   disengagesAttempting: undefined | DisengageAttempt
-  /* END */
 
   /* 
-    START
+    disengagedUnitIds
      tracks for a unit who has survived a disengage with unit(s) and should now have its move range adjusted. Should be reset (every move?)
    */
   disengagedUnitIds: string[]
-  /* END */
   waterCloneRoll?: WaterCloneRoll
   waterClonesPlaced: WaterClonesPlaced
   // This is an array of gameCardIDs, it gets added to whenever a grenade gets thrown, and then at end of turn, in game.ts file,  we can mark that card true for hasThrownGrenade
@@ -139,7 +137,6 @@ export type BoardHex = HexCoordinates & {
   altitude: number
   startzonePlayerIDs: string[]
   terrain: string
-  // NOTE: subTerrain will require that when building maps, if we add a fluid hex to the map, we need to note its subterrain at that time. Also, will this affect virtualscape maps somehow, parsing this?
   subTerrain?: string // this is the same as terrain for solid terrain (grass, rock, sand) but separate for fluid terrains (water, lava, shadow)
 }
 export type BoardHexes = {

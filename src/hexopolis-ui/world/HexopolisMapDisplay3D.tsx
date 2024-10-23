@@ -182,7 +182,7 @@ const HexopolisHex3D = ({
 
   const {
     x: positionX,
-    y: positionY,
+    y: _positionY,
     z: positionZ,
   } = getBoardHex3DCoords(boardHex)
   return (

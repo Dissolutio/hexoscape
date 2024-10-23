@@ -68,7 +68,7 @@ const HexxaformHex3D = ({
   boardHexes,
   glyphs,
   moves,
-  cameraControlsRef,
+  cameraControlsRef: _cameraControlsRef,
 }: {
   playerID: string
   boardHexID: string
@@ -81,14 +81,12 @@ const HexxaformHex3D = ({
     voidHex,
     voidStartZone,
     paintStartZone,
-    incAltitudeOfHex,
-    decAltitudeOfHex,
     paintWaterHex,
     paintGrassHex,
     paintSandHex,
     paintRockHex,
   } = moves
-  const { penMode, penThickness } = useMapContext()
+  const { penMode } = useMapContext()
   const boardHex = boardHexes[boardHexID]
 
   const onClick = (event: ThreeEvent<MouseEvent>, hex: BoardHex) => {
@@ -106,29 +104,23 @@ const HexxaformHex3D = ({
     if (penMode.slice(0, -1) === 'startZone') {
       paintStartZone({ hexID: hex.id, playerID: penMode.slice(-1) })
     }
-    // if (penMode === PenMode.incAltitude && !isVoidTerrainHex) {
-    //   incAltitudeOfHex({ hexID: hex.id })
-    // }
-    // if (penMode === PenMode.decAltitude && !isVoidTerrainHex) {
-    //   decAltitudeOfHex({ hexID: hex.id })
-    // }
     if (penMode === PenMode.water) {
       paintWaterHex({ hexID: hex.id })
     }
     if (penMode === PenMode.grass) {
-      paintGrassHex({ hexID: hex.id, thickness: penThickness })
+      paintGrassHex({ hexID: hex.id, thickness: 1 })
     }
     if (penMode === PenMode.sand) {
-      paintSandHex({ hexID: hex.id, thickness: penThickness })
+      paintSandHex({ hexID: hex.id, thickness: 1 })
     }
     if (penMode === PenMode.rock) {
-      paintRockHex({ hexID: hex.id, thickness: penThickness })
+      paintRockHex({ hexID: hex.id, thickness: 1 })
     }
   }
 
   const {
     x: positionX,
-    y: positionY,
+    y: _positionY,
     z: positionZ,
   } = getBoardHex3DCoords(boardHex)
 

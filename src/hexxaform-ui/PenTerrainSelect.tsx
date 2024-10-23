@@ -21,10 +21,10 @@ import {
 import { FaEraser } from 'react-icons/fa'
 
 export default function PenTerrainSelect() {
-  const { penMode, toggleTerrainPen } = useMapContext()
+  const { penMode, togglePenMode } = useMapContext()
 
   const handleChange = (event: SelectChangeEvent) => {
-    toggleTerrainPen(event.target.value as PenMode)
+    togglePenMode(event.target.value as PenMode)
   }
   return (
     <FormControl variant="filled">

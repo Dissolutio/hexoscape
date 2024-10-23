@@ -1,17 +1,17 @@
 import { BoardHexes, HexMap, HexTerrain } from "../types";
 import { generateTimestampID } from "../constants";
 
-const voidHex = ({ G, ctx }, { hexID }: { hexID: string }) => {
+const voidHex = ({ G, ctx: _ctx }, { hexID }: { hexID: string }) => {
   G.boardHexes[hexID].terrain = HexTerrain.void;
   G.boardHexes[hexID].startzonePlayerIDs = [];
   G.boardHexes[hexID].altitude = 0;
 };
-const unVoidHex = ({ G, ctx }, { hexID }: { hexID: string }) => {
+const unVoidHex = ({ G, ctx: _ctx }, { hexID }: { hexID: string }) => {
   G.boardHexes[hexID].terrain = HexTerrain.grass;
   G.boardHexes[hexID].altitude = 1;
 };
 const paintStartZone = (
-  { G, ctx },
+  { G, ctx: _ctx },
   { hexID, playerID }: { hexID: string; playerID: string }
 ) => {
   const currentStartZonePlayerIDs = G.boardHexes[hexID].startzonePlayerIDs;
@@ -19,17 +19,11 @@ const paintStartZone = (
     G.boardHexes[hexID].startzonePlayerIDs.push(playerID);
   }
 };
-const voidStartZone = ({ G }, { hexID }: { hexID: string }) => {
+const voidStartZone = ({ G, ctx: _ctx }, { hexID }: { hexID: string }) => {
   G.boardHexes[hexID].startzonePlayerIDs = [];
 };
-const incAltitudeOfHex = ({ G }, { hexID }: { hexID: string }) => {
-  G.boardHexes[hexID].altitude += 1;
-};
-const decAltitudeOfHex = ({ G }, { hexID }: { hexID: string }) => {
-  G.boardHexes[hexID].altitude -= 1;
-};
 const paintWaterHex = (
-  { G },
+  { G, ctx: _ctx },
   { hexID }: { hexID: string }
 ) => {
   // before re-assigning terrain, assign the old terrain as the sub-terrain
@@ -37,28 +31,28 @@ const paintWaterHex = (
   G.boardHexes[hexID].terrain = HexTerrain.water;
 };
 const paintGrassHex = (
-  { G },
+  { G, ctx: _ctx },
   { hexID, thickness }: { hexID: string; thickness: number }
 ) => {
   G.boardHexes[hexID].terrain = HexTerrain.grass;
   G.boardHexes[hexID].altitude += thickness;
 };
 const paintSandHex = (
-  { G },
+  { G, ctx: _ctx },
   { hexID, thickness }: { hexID: string; thickness: number }
 ) => {
   G.boardHexes[hexID].terrain = HexTerrain.sand;
   G.boardHexes[hexID].altitude += thickness;
 };
 const paintRockHex = (
-  { G },
+  { G, ctx: _ctx },
   { hexID, thickness }: { hexID: string; thickness: number }
 ) => {
   G.boardHexes[hexID].terrain = HexTerrain.rock;
   G.boardHexes[hexID].altitude += thickness;
 };
 const loadMap = (
-  { G },
+  { G, ctx: _ctx },
   {
     boardHexes,
     hexMap,
@@ -79,8 +73,6 @@ export const moves = {
   unVoidHex,
   paintStartZone,
   voidStartZone,
-  incAltitudeOfHex,
-  decAltitudeOfHex,
   paintWaterHex,
   paintGrassHex,
   paintSandHex,

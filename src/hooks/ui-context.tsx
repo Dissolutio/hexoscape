@@ -105,6 +105,7 @@ export function UIContextProvider({ children }: UIContextProviderProps) {
   )
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useUIContext() {
   const context = React.useContext(UIContext)
   if (context === undefined) {
