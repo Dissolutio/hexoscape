@@ -93,12 +93,13 @@ const HexxaformHex3D = ({
 
   const onClick = (event: ThreeEvent<MouseEvent>, hex: BoardHex) => {
     // const isVoidTerrainHex = hex.terrain === HexTerrain.void
-    // if (penMode === PenMode.eraser && !isVoidTerrainHex) {
-    //   voidHex({ hexID: hex.id })
-    // }
-    // if (penMode === PenMode.eraserStartZone) {
-    //   voidStartZone({ hexID: hex.id })
-    // }
+    const isVoidTerrainHex = hex.terrain === HexTerrain.void
+    if (penMode === PenMode.eraser && !isVoidTerrainHex) {
+      voidHex({ hexID: hex.id })
+    }
+    if (penMode === PenMode.eraserStartZone) {
+      voidStartZone({ hexID: hex.id })
+    }
     // last letter in string is playerID, but this seems inelegant
     if (penMode.slice(0, -1) === 'startZone') {
       paintStartZone({ hexID: hex.id, playerID: penMode.slice(-1) })
