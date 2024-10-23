@@ -99,6 +99,7 @@ const HexopolisHex3D = ({
    * @param sourceHex The hex that was clicked.
    */
   const onClick = (event: ThreeEvent<MouseEvent>, sourceHex: BoardHex) => {
+    event.stopPropagation()
     // if (isDraftPhase) {
     // TODO: Select Units: should be able to click around units on map as ppl draft them
     // onClickPlacementHex?.(event, sourceHex)

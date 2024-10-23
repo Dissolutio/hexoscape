@@ -92,6 +92,8 @@ const HexxaformHex3D = ({
   const boardHex = boardHexes[boardHexID]
 
   const onClick = (event: ThreeEvent<MouseEvent>, hex: BoardHex) => {
+    // Prevent this click from going through to other hexes
+    event.stopPropagation()
     // const isVoidTerrainHex = hex.terrain === HexTerrain.void
     const isVoidTerrainHex = hex.terrain === HexTerrain.void
     if (penMode === PenMode.eraser && !isVoidTerrainHex) {
