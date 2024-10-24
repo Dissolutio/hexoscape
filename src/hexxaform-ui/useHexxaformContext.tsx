@@ -15,7 +15,6 @@ const HexxaformContext = React.createContext<
       selectMapHex: (hexID: string) => void
       penMode: PenMode
       togglePenMode: (mode: PenMode) => void
-      toggleStartZonePen: (playerID: string) => void
       pieceSize: number
       togglePieceSize: (s: number) => void
       isShowStartZones: boolean
@@ -46,47 +45,22 @@ export function HexxaformContextProvider({
     setIsShowStartZones((s) => !s)
   }
 
-  const toggleStartZonePen = (playerID: string) => {
-    switch (playerID) {
-      case '0':
-        setPenMode(PenMode.startZone0)
-        break
-      case '1':
-        setPenMode(PenMode.startZone1)
-        break
-      case '2':
-        setPenMode(PenMode.startZone2)
-        break
-      case '3':
-        setPenMode(PenMode.startZone3)
-        break
-      case '4':
-        setPenMode(PenMode.startZone4)
-        break
-      case '5':
-        setPenMode(PenMode.startZone5)
-        break
-      default:
-        break
-    }
-  }
   const selectMapHex = (hexID: string) => {
     setSelectedMapHex(hexID)
   }
   return (
     <HexxaformContext.Provider
       value={{
+        boardHexes: G.boardHexes,
+        hexMap: G.hexMap,
         selectedMapHex,
         selectMapHex,
         penMode,
         togglePenMode,
-        isShowStartZones,
-        toggleIsShowStartZones,
-        toggleStartZonePen,
         pieceSize,
         togglePieceSize,
-        boardHexes: G.boardHexes,
-        hexMap: G.hexMap,
+        isShowStartZones,
+        toggleIsShowStartZones,
       }}
     >
       {children}
