@@ -22,11 +22,11 @@ const halfLevel = 0.25
 const quarterLevel = 0.125
 
 const hexTerrainColor: StringKeyedObj = {
-  grass: '#60840d',
   water: '#3794fd',
+  grass: '#60840d',
   rock: '#475776',
-  road: '#868686',
   sand: '#ab8e10',
+  road: '#868686',
 }
 /**
  * @function MapHex3D

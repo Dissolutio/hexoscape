@@ -18,6 +18,7 @@ const HexxaformContext = React.createContext<
       togglePenMode: (mode: PenMode) => void
       pieceSize: number
       togglePieceSize: (s: number) => void
+      flatPieceSizes: number[]
       isShowStartZones: boolean
       toggleIsShowStartZones: () => void
     }
@@ -31,24 +32,45 @@ export function HexxaformContextProvider({
   // Pen Mode
   const [penMode, setPenMode] = React.useState(PenMode.grass)
   const togglePenMode = (mode: PenMode) => {
+    const { newSize, flatPieceSizes } = getNewPieceSizeForPenMode(
+      mode,
+      penMode,
+      pieceSize
+    )
     setPenMode(mode)
+    setPieceSize(newSize)
+    setFlatPieceSizes(flatPieceSizes)
   }
   // piece size
   const [pieceSize, setPieceSize] = React.useState(1)
+  const [flatPieceSizes, setFlatPieceSizes] = React.useState(
+    terrain[penMode]?.flatPieceSizes ?? []
+  )
   const togglePieceSize = (s: number) => {
     setPieceSize(s)
   }
-  const getNewPieceSizeForPenMode = (newMode: string) => {
+  const getNewPieceSizeForPenMode = (
+    newMode: string,
+    oldMode: string,
+    oldPieceSize: number
+  ): { newSize: number; flatPieceSizes: number[] } => {
     const terrainsWithFlatPieceSizes = Object.keys(terrain).filter((t) => {
       return terrain[t].flatPieceSizes.length > 0
     })
     const newPieceSizes = terrainsWithFlatPieceSizes.includes(newMode)
       ? terrain[newMode].flatPieceSizes
       : []
-    if (newPieceSizes.includes(pieceSize)) {
-      return pieceSize
+    if (!(newPieceSizes.length > 0)) {
+      return { newSize: 1, flatPieceSizes: [] }
+    }
+    if (newPieceSizes.includes(oldPieceSize)) {
+      return { newSize: oldPieceSize, flatPieceSizes: newPieceSizes }
     } else {
-      return newPieceSizes[-1]
+      const oldIndex = terrain[oldMode].flatPieceSizes.indexOf(oldPieceSize)
+      return {
+        newSize: newPieceSizes?.[oldIndex] ?? newPieceSizes[0],
+        flatPieceSizes: newPieceSizes,
+      }
     }
   }
   // Show Start Zone edge highlights
@@ -73,6 +95,7 @@ export function HexxaformContextProvider({
         togglePenMode,
         pieceSize,
         togglePieceSize,
+        flatPieceSizes,
         isShowStartZones,
         toggleIsShowStartZones,
       }}

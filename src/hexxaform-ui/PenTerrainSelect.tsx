@@ -18,7 +18,6 @@ import {
   TbHexagonNumber2Filled,
   TbHexagonNumber3Filled,
 } from 'react-icons/tb'
-import { FaEraser } from 'react-icons/fa'
 
 export default function PenTerrainSelect() {
   const { penMode, togglePenMode } = useHexxaformContext()
@@ -48,21 +47,22 @@ export default function PenTerrainSelect() {
           </ListItemIcon>
           <span>Select</span>
         </MenuItem>
+
         <Divider />
+        {/* TERRAIN TYPES BEGIN */}
+
         <MenuItem value={PenMode.grass}>
           <ListItemIcon>
             <GiGrass />
           </ListItemIcon>
           <span>Grass</span>
         </MenuItem>
-
         <MenuItem value={PenMode.rock}>
           <ListItemIcon>
             <GiPeaks />
           </ListItemIcon>
           <span>Rock</span>
         </MenuItem>
-
         <MenuItem value={PenMode.sand}>
           <ListItemIcon>
             <GiIsland />
@@ -75,8 +75,10 @@ export default function PenTerrainSelect() {
           </ListItemIcon>
           <span>Water</span>
         </MenuItem>
+
         <Divider />
         {/* START ZONES BEGIN */}
+
         <MenuItem value={PenMode.startZone0}>
           <ListItemIcon>
             <TbHexagonNumber1Filled />
@@ -95,8 +97,10 @@ export default function PenTerrainSelect() {
           </ListItemIcon>
           <span>Start Zone: P3</span>
         </MenuItem>
-        {/* ERASER BUTTONS BEGIN */}
+
         <Divider />
+        {/* ERASER BUTTONS BEGIN */}
+
         <MenuItem value={PenMode.eraserStartZone}>
           <ListItemIcon>
             <GiBulldozer />
