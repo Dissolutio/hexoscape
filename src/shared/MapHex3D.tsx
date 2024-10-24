@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { Vector3, Color } from 'three'
 import { ThreeEvent } from '@react-three/fiber'
-import { Billboard, Text } from '@react-three/drei'
 import {
   BoardHex,
   EditingBoardHexes,
@@ -17,6 +16,7 @@ import {
 import { selectGlyphForHex } from '../game/selectors'
 import { powerGlyphs } from '../game/glyphs'
 import { HeightRings } from './HeightRings'
+import { MapHexGlyph } from './MapHexGlyph'
 
 const halfLevel = 0.25
 const quarterLevel = 0.125
@@ -210,49 +210,4 @@ export const MapHex3D = ({
       </group>
     </group>
   )
-}
-
-/* 
-  MapHexIDDisplay
-  This component is expensive to render if there are a lot of hexes
- */
-const MapHexIDDisplay = ({
-  boardHexID,
-  glyphPosition,
-}: {
-  boardHexID: string
-  glyphPosition: Vector3
-}) => {
-  return (
-    <Billboard position={glyphPosition}>
-      <Text fontSize={0.3} color={new Color('black')}>
-        {boardHexID}
-      </Text>
-    </Billboard>
-  )
-}
-const MapHexGlyph = ({
-  glyphText,
-  glyphPosition,
-  isGlyphRevealed,
-  glyphOnHex,
-}: {
-  glyphText: string
-  glyphPosition: Vector3
-  isGlyphRevealed: boolean
-  glyphOnHex: boolean
-}) => {
-  return glyphOnHex ? (
-    <group position={glyphPosition}>
-      <Billboard position={[isGlyphRevealed ? -1 : -0.5, 0.4, 0]}>
-        <Text fontSize={isGlyphRevealed ? 0.3 : 0.6} color={new Color('black')}>
-          {glyphText}
-        </Text>
-      </Billboard>
-      <mesh>
-        <cylinderGeometry args={[0.5, 0.5, 0.1, 6]} />
-        <meshBasicMaterial color={new Color('maroon')} />
-      </mesh>
-    </group>
-  ) : null
 }

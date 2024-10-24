@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { GType, PenMode } from '../game/hexxaform/hexxaform-types'
 import { BoardHexes, HexMap } from '../game/types'
+import { terrain } from '../game/terrain'
 
 type HexxaformContextProviderProps = {
   children: React.ReactNode
@@ -36,6 +37,19 @@ export function HexxaformContextProvider({
   const [pieceSize, setPieceSize] = React.useState(1)
   const togglePieceSize = (s: number) => {
     setPieceSize(s)
+  }
+  const getNewPieceSizeForPenMode = (newMode: string) => {
+    const terrainsWithFlatPieceSizes = Object.keys(terrain).filter((t) => {
+      return terrain[t].flatPieceSizes.length > 0
+    })
+    const newPieceSizes = terrainsWithFlatPieceSizes.includes(newMode)
+      ? terrain[newMode].flatPieceSizes
+      : []
+    if (newPieceSizes.includes(pieceSize)) {
+      return pieceSize
+    } else {
+      return newPieceSizes[-1]
+    }
   }
   // Show Start Zone edge highlights
   // Lenses
