@@ -48,14 +48,7 @@ export default function PenTerrainSelect() {
           </ListItemIcon>
           <span>Select</span>
         </MenuItem>
-
-        <MenuItem value={PenMode.eraser}>
-          <ListItemIcon>
-            <GiBulldozer />
-          </ListItemIcon>
-          <span>Erase</span>
-        </MenuItem>
-
+        <Divider />
         <MenuItem value={PenMode.grass}>
           <ListItemIcon>
             <GiGrass />
@@ -84,12 +77,6 @@ export default function PenTerrainSelect() {
         </MenuItem>
         <Divider />
         {/* START ZONES BEGIN */}
-        <MenuItem value={PenMode.eraserStartZone}>
-          <ListItemIcon>
-            <GiBulldozer />
-          </ListItemIcon>
-          <span>Erase Start Zone</span>
-        </MenuItem>
         <MenuItem value={PenMode.startZone0}>
           <ListItemIcon>
             <TbHexagonNumber1Filled />
@@ -107,6 +94,20 @@ export default function PenTerrainSelect() {
             <TbHexagonNumber3Filled />
           </ListItemIcon>
           <span>Start Zone: P3</span>
+        </MenuItem>
+        {/* ERASER BUTTONS BEGIN */}
+        <Divider />
+        <MenuItem value={PenMode.eraserStartZone}>
+          <ListItemIcon>
+            <GiBulldozer />
+          </ListItemIcon>
+          <span>Erase Start Zone</span>
+        </MenuItem>
+        <MenuItem value={PenMode.eraser}>
+          <ListItemIcon>
+            <GiBulldozer />
+          </ListItemIcon>
+          <span>Delete Hex</span>
         </MenuItem>
       </Select>
     </FormControl>
