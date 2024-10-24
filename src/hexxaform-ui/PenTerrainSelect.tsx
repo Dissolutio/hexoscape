@@ -11,7 +11,7 @@ import {
   GiWaterfall,
   GiBulldozer,
 } from 'react-icons/gi'
-import { useMapContext } from './useMapContext'
+import { useHexxaformContext } from './useHexxaformContext'
 import { PenMode } from '../game/hexxaform/hexxaform-types'
 import {
   TbHexagonNumber1Filled,
@@ -21,7 +21,7 @@ import {
 import { FaEraser } from 'react-icons/fa'
 
 export default function PenTerrainSelect() {
-  const { penMode, togglePenMode } = useMapContext()
+  const { penMode, togglePenMode } = useHexxaformContext()
 
   const handleChange = (event: SelectChangeEvent) => {
     togglePenMode(event.target.value as PenMode)

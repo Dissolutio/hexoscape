@@ -6,10 +6,10 @@ import {
   FormLabel,
   Switch,
 } from '@mui/material'
-import { useMapContext } from './useMapContext'
+import { useHexxaformContext } from './useHexxaformContext'
 
 const MapLensToggles = () => {
-  const { isShowStartZones, toggleIsShowStartZones } = useMapContext()
+  const { isShowStartZones, toggleIsShowStartZones } = useHexxaformContext()
   return (
     <Container>
       <FormControl component="fieldset">

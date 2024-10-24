@@ -3,7 +3,7 @@ import { ChatMessage } from 'boardgame.io'
 import { useHotkeys } from 'react-hotkeys-hook'
 
 import { GType } from '../game/hexxaform/hexxaform-types'
-import { MapContextProvider } from './useMapContext'
+import { HexxaformContextProvider } from './useHexxaformContext'
 import { EditorWorldWrapper } from './world/EditorWorldWrapper'
 import { World } from '../shared/World'
 import HeaderNav from '../hexopolis-ui/layout/HeaderNav'
@@ -43,7 +43,7 @@ export function HexxaformBoard(props: HexxaformBoardProps) {
   useHotkeys('ctrl+z', () => undo())
   useHotkeys('ctrl+y', () => redo())
   return (
-    <MapContextProvider G={G}>
+    <HexxaformContextProvider G={G}>
       <Layout playerID={''}>
         <HeaderNav
           linkProps={{
@@ -67,6 +67,6 @@ export function HexxaformBoard(props: HexxaformBoardProps) {
           moves={moves}
         />
       </Layout>
-    </MapContextProvider>
+    </HexxaformContextProvider>
   )
 }

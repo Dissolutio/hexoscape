@@ -11,7 +11,7 @@ import { getBoardHex3DCoords } from '../../game/hex-utils'
 import { MapHex3D } from '../../shared/MapHex3D'
 import { useZoomToMapCenterOnMapRender } from '../../hooks/useZoomToMapCenterOnMapRender'
 import { HexxaformMoves, PenMode } from '../../game/hexxaform/hexxaform-types'
-import { useMapContext } from '../useMapContext'
+import { useHexxaformContext } from '../useHexxaformContext'
 
 /**
  * React component that renders the 3D hexmap.
@@ -86,7 +86,7 @@ const HexxaformHex3D = ({
     paintSandHex,
     paintRockHex,
   } = moves
-  const { penMode } = useMapContext()
+  const { penMode } = useHexxaformContext()
   const boardHex = boardHexes[boardHexID]
 
   const onClick = (event: ThreeEvent<MouseEvent>, hex: BoardHex) => {

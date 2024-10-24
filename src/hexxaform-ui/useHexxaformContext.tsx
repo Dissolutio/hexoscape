@@ -2,12 +2,12 @@ import * as React from 'react'
 import { GType, PenMode } from '../game/hexxaform/hexxaform-types'
 import { BoardHexes, HexMap } from '../game/types'
 
-type MapContextProviderProps = {
+type HexxaformContextProviderProps = {
   children: React.ReactNode
   G: GType
 }
 
-const MapContext = React.createContext<
+const HexxaformContext = React.createContext<
   | {
       boardHexes: BoardHexes
       hexMap: HexMap
@@ -23,7 +23,10 @@ const MapContext = React.createContext<
     }
   | undefined
 >(undefined)
-export function MapContextProvider({ children, G }: MapContextProviderProps) {
+export function HexxaformContextProvider({
+  children,
+  G,
+}: HexxaformContextProviderProps) {
   const [selectedMapHex, setSelectedMapHex] = React.useState('')
   // Pen Mode
   const [penMode, setPenMode] = React.useState(PenMode.grass)
@@ -39,9 +42,6 @@ export function MapContextProvider({ children, G }: MapContextProviderProps) {
   // Lenses
   const [isShowStartZones, setIsShowStartZones] = React.useState(true)
 
-  const togglePenThickness = () => {
-    setPenThickness((s) => (s === 0 ? 1 : 0))
-  }
   const toggleIsShowStartZones = () => {
     setIsShowStartZones((s) => !s)
   }
@@ -74,7 +74,7 @@ export function MapContextProvider({ children, G }: MapContextProviderProps) {
     setSelectedMapHex(hexID)
   }
   return (
-    <MapContext.Provider
+    <HexxaformContext.Provider
       value={{
         selectedMapHex,
         selectMapHex,
@@ -90,12 +90,12 @@ export function MapContextProvider({ children, G }: MapContextProviderProps) {
       }}
     >
       {children}
-    </MapContext.Provider>
+    </HexxaformContext.Provider>
   )
 }
 // eslint-disable-next-line react-refresh/only-export-components
-export function useMapContext() {
-  const context = React.useContext(MapContext)
+export function useHexxaformContext() {
+  const context = React.useContext(HexxaformContext)
   if (context === undefined) {
     throw new Error('useMapContext must be used within a MapContextProvider')
   }
