@@ -8,6 +8,7 @@ import { useBgioClientInfo, useBgioCtx, useBgioG } from '../../bgio-contexts'
 import { selectHexForUnit, selectTailHexForUnit } from '../../game/selectors'
 import { UnitModelByID } from './models/UnitModelByID'
 import { getUnitDefaultCameraLookAt } from '../../shared/camera-utils'
+import { HEXGRID_HEX_HEIGHT } from '../../game/constants'
 
 export const GameUnit3D = ({
   gameUnit,
@@ -29,7 +30,7 @@ export const GameUnit3D = ({
 
   const positionX = x
   const positionZ = z
-  const positionY = boardHex.altitude / 2
+  const positionY = boardHex.altitude * HEXGRID_HEX_HEIGHT
   const tailHex = selectTailHexForUnit(
     gameUnit.unitID,
     isPlacementPhase ? editingBoardHexes : boardHexes
