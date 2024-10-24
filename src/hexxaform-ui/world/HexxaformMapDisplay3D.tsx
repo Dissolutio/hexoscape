@@ -118,11 +118,7 @@ const HexxaformHex3D = ({
     }
   }
 
-  const {
-    x: positionX,
-    y: _positionY,
-    z: positionZ,
-  } = getBoardHex3DCoords(boardHex)
+  const { x: positionX, z: positionZ } = getBoardHex3DCoords(boardHex)
 
   return (
     <>

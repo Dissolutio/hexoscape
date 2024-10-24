@@ -180,11 +180,7 @@ const HexopolisHex3D = ({
   //   gameUnitCard?.type.includes('hero') || (gameUnitCard?.life ?? 0) > 1
   // const unitLifePosition: Point = { x: hexSize * -0.6, y: 0 }
 
-  const {
-    x: positionX,
-    y: _positionY,
-    z: positionZ,
-  } = getBoardHex3DCoords(boardHex)
+  const { x: positionX, z: positionZ } = getBoardHex3DCoords(boardHex)
   return (
     <>
       <MapHex3D

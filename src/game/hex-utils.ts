@@ -142,7 +142,7 @@ export const getBoardHex3DCoords = (hex: BoardHex) => {
   // ALSO: We scootch the map to the right one apothem so that X=0 aligns with the left edge of hexes, not the center. This makes width calculation easier, keeps things neat
   // ALSO: We scootch the map down one radius so that Y=0 aligns with the top edge of hexes, not the center. This makes height calculation easier, keeps things neat
 
-  return { x: (x + HEXGRID_HEX_APOTHEM) * HEXGRID_SPACING, z: (y + HEXGRID_HEX_RADIUS) * HEXGRID_SPACING, y: hex.altitude / 2 }
+  return { x: (x + HEXGRID_HEX_APOTHEM) * HEXGRID_SPACING, z: (y + HEXGRID_HEX_RADIUS) * HEXGRID_SPACING }
 }
 
 export const getDirectionOfNeighbor = (
