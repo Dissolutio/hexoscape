@@ -9,6 +9,7 @@ import { CAMERA_FOV } from '../game/constants'
 import { HexxaformMoves } from '../game/hexxaform/hexxaform-types'
 import TakeAPictureBox from './TakeAPictureBox'
 import { useUIContext } from '../hooks/ui-context'
+import { HexMapInstance } from '../hexxaform-ui/world/InstanceHex'
 
 export const World = ({
   boardHexes,
@@ -48,6 +49,7 @@ export const World = ({
       {/* Stats displays the fps */}
       {/* <Stats /> */}
       {isEditor ? (
+        // <HexMapInstance />
         <HexxaformMapDisplay3D
           boardHexes={boardHexes}
           hexMap={hexMap}
