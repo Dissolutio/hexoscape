@@ -1,7 +1,9 @@
 import { BoardProps } from 'boardgame.io/react'
 import { ChatMessage } from 'boardgame.io'
+import { useHotkeys } from 'react-hotkeys-hook'
+
 import { GType } from '../game/hexxaform/hexxaform-types'
-import { MapContextProvider } from './useMapContext'
+import { HexxaformContextProvider } from './useHexxaformContext'
 import { EditorWorldWrapper } from './world/EditorWorldWrapper'
 import { World } from '../shared/World'
 import HeaderNav from '../hexopolis-ui/layout/HeaderNav'
@@ -17,29 +19,31 @@ export function HexxaformBoard(props: HexxaformBoardProps) {
     // G
     G,
     // CTX
-    ctx,
+    // ctx,
     // MOVES
     moves,
     undo,
     redo,
     // EVENTS
-    events,
-    reset,
+    // events,
+    // reset,
     // CHAT
-    sendChatMessage,
-    chatMessages = [],
+    // sendChatMessage,
+    // chatMessages = [],
     // ALSO ON BOARD PROPS
-    playerID,
-    log,
-    matchID,
-    matchData,
-    isActive,
-    isMultiplayer,
-    isConnected,
-    credentials,
+    // playerID,
+    // log,
+    // matchID,
+    // matchData,
+    // isActive,
+    // isMultiplayer,
+    // isConnected,
+    // credentials,
   } = props
+  useHotkeys('ctrl+z', () => undo())
+  useHotkeys('ctrl+y', () => redo())
   return (
-    <MapContextProvider G={G}>
+    <HexxaformContextProvider G={G}>
       <Layout playerID={''}>
         <HeaderNav
           linkProps={{
@@ -63,6 +67,6 @@ export function HexxaformBoard(props: HexxaformBoardProps) {
           moves={moves}
         />
       </Layout>
-    </MapContextProvider>
+    </HexxaformContextProvider>
   )
 }

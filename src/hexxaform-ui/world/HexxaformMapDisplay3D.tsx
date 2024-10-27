@@ -11,7 +11,7 @@ import { getBoardHex3DCoords } from '../../game/hex-utils'
 import { MapHex3D } from '../../shared/MapHex3D'
 import { useZoomToMapCenterOnMapRender } from '../../hooks/useZoomToMapCenterOnMapRender'
 import { HexxaformMoves, PenMode } from '../../game/hexxaform/hexxaform-types'
-import { useMapContext } from '../useMapContext'
+import { useHexxaformContext } from '../useHexxaformContext'
 
 /**
  * React component that renders the 3D hexmap.
@@ -68,7 +68,7 @@ const HexxaformHex3D = ({
   boardHexes,
   glyphs,
   moves,
-  cameraControlsRef,
+  cameraControlsRef: _cameraControlsRef,
 }: {
   playerID: string
   boardHexID: string
@@ -81,53 +81,44 @@ const HexxaformHex3D = ({
     voidHex,
     voidStartZone,
     paintStartZone,
-    incAltitudeOfHex,
-    decAltitudeOfHex,
     paintWaterHex,
     paintGrassHex,
     paintSandHex,
     paintRockHex,
   } = moves
-  const { penMode, penThickness } = useMapContext()
+  const { penMode } = useHexxaformContext()
   const boardHex = boardHexes[boardHexID]
 
   const onClick = (event: ThreeEvent<MouseEvent>, hex: BoardHex) => {
+    // Prevent this click from going through to other hexes
+    event.stopPropagation()
     // const isVoidTerrainHex = hex.terrain === HexTerrain.void
-    // if (penMode === PenMode.eraser && !isVoidTerrainHex) {
-    //   voidHex({ hexID: hex.id })
-    // }
-    // if (penMode === PenMode.eraserStartZone) {
-    //   voidStartZone({ hexID: hex.id })
-    // }
+    const isVoidTerrainHex = hex.terrain === HexTerrain.void
+    if (penMode === PenMode.eraser && !isVoidTerrainHex) {
+      voidHex({ hexID: hex.id })
+    }
+    if (penMode === PenMode.eraserStartZone) {
+      voidStartZone({ hexID: hex.id })
+    }
     // last letter in string is playerID, but this seems inelegant
     if (penMode.slice(0, -1) === 'startZone') {
       paintStartZone({ hexID: hex.id, playerID: penMode.slice(-1) })
     }
-    // if (penMode === PenMode.incAltitude && !isVoidTerrainHex) {
-    //   incAltitudeOfHex({ hexID: hex.id })
-    // }
-    // if (penMode === PenMode.decAltitude && !isVoidTerrainHex) {
-    //   decAltitudeOfHex({ hexID: hex.id })
-    // }
     if (penMode === PenMode.water) {
       paintWaterHex({ hexID: hex.id })
     }
     if (penMode === PenMode.grass) {
-      paintGrassHex({ hexID: hex.id, thickness: penThickness })
+      paintGrassHex({ hexID: hex.id, thickness: 1 })
     }
     if (penMode === PenMode.sand) {
-      paintSandHex({ hexID: hex.id, thickness: penThickness })
+      paintSandHex({ hexID: hex.id, thickness: 1 })
     }
     if (penMode === PenMode.rock) {
-      paintRockHex({ hexID: hex.id, thickness: penThickness })
+      paintRockHex({ hexID: hex.id, thickness: 1 })
     }
   }
 
-  const {
-    x: positionX,
-    y: positionY,
-    z: positionZ,
-  } = getBoardHex3DCoords(boardHex)
+  const { x: positionX, z: positionZ } = getBoardHex3DCoords(boardHex)
 
   return (
     <>

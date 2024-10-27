@@ -9,8 +9,9 @@ import {
   GiGrass,
   GiIsland,
   GiWaterfall,
+  GiBulldozer,
 } from 'react-icons/gi'
-import { useMapContext } from './useMapContext'
+import { useHexxaformContext } from './useHexxaformContext'
 import { PenMode } from '../game/hexxaform/hexxaform-types'
 import {
   TbHexagonNumber1Filled,
@@ -19,10 +20,10 @@ import {
 } from 'react-icons/tb'
 
 export default function PenTerrainSelect() {
-  const { penMode, toggleTerrainPen } = useMapContext()
+  const { penMode, togglePenMode } = useHexxaformContext()
 
   const handleChange = (event: SelectChangeEvent) => {
-    toggleTerrainPen(event.target.value as PenMode)
+    togglePenMode(event.target.value as PenMode)
   }
   return (
     <FormControl variant="filled">
@@ -47,20 +48,21 @@ export default function PenTerrainSelect() {
           <span>Select</span>
         </MenuItem>
 
+        <Divider />
+        {/* TERRAIN TYPES BEGIN */}
+
         <MenuItem value={PenMode.grass}>
           <ListItemIcon>
             <GiGrass />
           </ListItemIcon>
           <span>Grass</span>
         </MenuItem>
-
         <MenuItem value={PenMode.rock}>
           <ListItemIcon>
             <GiPeaks />
           </ListItemIcon>
           <span>Rock</span>
         </MenuItem>
-
         <MenuItem value={PenMode.sand}>
           <ListItemIcon>
             <GiIsland />
@@ -73,8 +75,10 @@ export default function PenTerrainSelect() {
           </ListItemIcon>
           <span>Water</span>
         </MenuItem>
+
         <Divider />
         {/* START ZONES BEGIN */}
+
         <MenuItem value={PenMode.startZone0}>
           <ListItemIcon>
             <TbHexagonNumber1Filled />
@@ -92,6 +96,22 @@ export default function PenTerrainSelect() {
             <TbHexagonNumber3Filled />
           </ListItemIcon>
           <span>Start Zone: P3</span>
+        </MenuItem>
+
+        <Divider />
+        {/* ERASER BUTTONS BEGIN */}
+
+        <MenuItem value={PenMode.eraserStartZone}>
+          <ListItemIcon>
+            <GiBulldozer />
+          </ListItemIcon>
+          <span>Erase Start Zone</span>
+        </MenuItem>
+        <MenuItem value={PenMode.eraser}>
+          <ListItemIcon>
+            <GiBulldozer />
+          </ListItemIcon>
+          <span>Delete Hex</span>
         </MenuItem>
       </Select>
     </FormControl>

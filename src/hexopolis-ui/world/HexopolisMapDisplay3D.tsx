@@ -99,6 +99,7 @@ const HexopolisHex3D = ({
    * @param sourceHex The hex that was clicked.
    */
   const onClick = (event: ThreeEvent<MouseEvent>, sourceHex: BoardHex) => {
+    event.stopPropagation()
     // if (isDraftPhase) {
     // TODO: Select Units: should be able to click around units on map as ppl draft them
     // onClickPlacementHex?.(event, sourceHex)
@@ -179,11 +180,7 @@ const HexopolisHex3D = ({
   //   gameUnitCard?.type.includes('hero') || (gameUnitCard?.life ?? 0) > 1
   // const unitLifePosition: Point = { x: hexSize * -0.6, y: 0 }
 
-  const {
-    x: positionX,
-    y: positionY,
-    z: positionZ,
-  } = getBoardHex3DCoords(boardHex)
+  const { x: positionX, z: positionZ } = getBoardHex3DCoords(boardHex)
   return (
     <>
       <MapHex3D

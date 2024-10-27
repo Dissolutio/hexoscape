@@ -20,7 +20,7 @@ import {
   generateBlankPlayersOrderMarkers,
 } from '../../game/constants'
 import { omToString } from '../../game/transformers'
-export const selectedOrderMarkerStyle = (
+const selectedOrderMarkerStyle = (
   activeMarker: string,
   orderMarker: string
 ) => {

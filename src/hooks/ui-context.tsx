@@ -29,6 +29,8 @@ const UIContext = React.createContext<
       toggleIsNavOpen: (s: boolean) => void
       isTakingPicture: boolean
       toggleIsTakingPicture: (s: boolean) => void
+      isCameraControlsLocked: boolean
+      toggleIsCameraControlsLocked: (s: boolean) => void
     })
   | undefined
 >(undefined)
@@ -37,6 +39,12 @@ export function UIContextProvider({ children }: UIContextProviderProps) {
   const [indexOfLastShownToast, setIndexOfLastShownToast] = React.useState(0)
   const [selectedUnitID, setSelectedUnitID] = React.useState('')
   const [selectedGameCardID, setSelectedGameCardID] = React.useState('')
+  // World Camera Controls lock (i.e. when click and dragging pieces)
+  const [isCameraControlsLocked, setIsCameraControlsLocked] =
+    React.useState(false)
+  const toggleIsCameraControlsLocked = (s: boolean) => {
+    setIsCameraControlsLocked(s)
+  }
   // navigation drawer state
   const [isNavOpen, setIsNavOpen] = React.useState(false)
   // can be used to change the background during the picture
@@ -98,6 +106,8 @@ export function UIContextProvider({ children }: UIContextProviderProps) {
         toggleIsNavOpen,
         isTakingPicture,
         toggleIsTakingPicture,
+        isCameraControlsLocked,
+        toggleIsCameraControlsLocked,
       }}
     >
       {children}
@@ -105,6 +115,7 @@ export function UIContextProvider({ children }: UIContextProviderProps) {
   )
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useUIContext() {
   const context = React.useContext(UIContext)
   if (context === undefined) {
