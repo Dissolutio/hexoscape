@@ -3,7 +3,10 @@ import {
   StyledControlsHeaderH2,
   StyledControlsP,
 } from '../../../hexopolis-ui/layout/Typography'
-import { StyledButtonWrapper } from '../ConfirmOrResetButtons'
+import {
+  ConfirmOrResetButtons,
+  StyledButtonWrapper,
+} from '../ConfirmOrResetButtons'
 import { GreenButton, RedButton } from '../../../hexopolis-ui/layout/buttons'
 import { stageNames } from '../../../game/constants'
 import { usePlayContext } from '../../../hexopolis-ui/contexts'
@@ -11,12 +14,14 @@ import { useSpecialAttackContext } from '../../../hexopolis-ui/contexts/special-
 import { selectGameCardByID, selectUnitForHex } from '../../../game/selectors'
 import { uniqBy } from 'lodash'
 import { OpenAbilityModalButton } from '../../../hexopolis-ui/OpenAbilityModalButton'
+import { useUIContext } from '../../../hooks/ui-context'
 
 export const GrenadeSAControls = () => {
   const {
     moves: { rollForExplosionSpecialAttack },
   } = useBgioMoves()
   const { events } = useBgioEvents()
+  const { setSelectedUnitID } = useUIContext()
   const { boardHexes, gameUnits, gameArmyCards, unitsAttacked } = useBgioG()
   const { revealedGameCard } = usePlayContext()
   const ability = revealedGameCard?.abilities[0]
@@ -72,6 +77,11 @@ export const GrenadeSAControls = () => {
       isStillAttacksLeft: attacksUsed + 1 < unitsAliveCount,
     })
   }
+  const handleEndTurnButtonClick = () => {
+    // clear selected unit on end turn
+    setSelectedUnitID('')
+    events?.endTurn?.()
+  }
   return (
     <>
       <StyledControlsHeaderH2>Grenade Special Attack</StyledControlsHeaderH2>
@@ -109,6 +119,11 @@ export const GrenadeSAControls = () => {
           Grenade out! (confirm selected target)
         </RedButton>
       </StyledButtonWrapper>
+      <ConfirmOrResetButtons
+        confirm={handleEndTurnButtonClick}
+        confirmText={'END TURN'}
+        noResetButton
+      />
       {ability && (
         <StyledButtonWrapper>
           <OpenAbilityModalButton cardAbility={ability} />
