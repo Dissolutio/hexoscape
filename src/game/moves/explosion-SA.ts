@@ -216,10 +216,11 @@ export const rollForExplosionSpecialAttack: Move<GameState> = (
       value: activePlayers,
     })
   }
-  // Mark this so that in game.ts file
+  // Mark this so that in game.ts file, the game object (roundOfPlay.onEnd) can see that grenades were thrown, and remove that army card's grenade marker
   if (grenadeThrowingGameCardID) {
     G.grenadesThrown = [...G.grenadesThrown, grenadeThrowingGameCardID]
   }
+  // No attacks left and no next stage, end turn
   if (!nextStage) {
     events.endTurn()
   }
