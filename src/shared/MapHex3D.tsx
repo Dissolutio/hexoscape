@@ -28,21 +28,6 @@ const hexTerrainColor: StringKeyedObj = {
   sand: '#ab8e10',
   road: '#868686',
 }
-/**
- * @function MapHex3D
- * @description A single hex on the board. It renders:
- * - A sub-terrain mesh (from the floor to the cap mesh)
- * - A cap-terrain mesh (either fluid or solid)
- * - A group of height rings around the cap-terrain (for height indication)
- * - A glyph on the hex (if there is one)
- *
- * The hex also listens to pointer events, and triggers hover effects on the top height ring and the cap-terrain mesh.
- *
- * @prop {number} x - The x-coordinate of the hex
- * @prop {number} z - The z-coordinate of the hex
- * @prop {BoardHex} boardHex - The board hex data
- * @prop {function} onClick - An optional function to call when the hex is clicked
- */
 export const MapHex3D = ({
   x,
   z,
