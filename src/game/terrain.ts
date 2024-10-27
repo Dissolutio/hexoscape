@@ -53,3 +53,11 @@ export const terrain: Dictionary<Terrain> = {
 
   */
 }
+
+export const hexTerrainColor: Dictionary<string> = {
+  water: '#3794fd',
+  grass: '#60840d',
+  rock: '#475776',
+  sand: '#ab8e10',
+  road: '#868686',
+}
