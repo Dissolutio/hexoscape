@@ -106,4 +106,4 @@ export function AgentCarrModel({
   )
 }
 
-useGLTF.preload('/agent_carr_low_poly_colored.glb')
+// useGLTF.preload('/agent_carr_low_poly_colored.glb')

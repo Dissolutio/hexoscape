@@ -58,4 +58,4 @@ export function MarroWarrior3({
   )
 }
 
-useGLTF.preload('/marro_warrior_3_low_poly_colored.glb')
+// useGLTF.preload('/marro_warrior_3_low_poly_colored.glb')

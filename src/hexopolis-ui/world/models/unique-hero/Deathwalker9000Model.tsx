@@ -56,4 +56,4 @@ export function Deathwalker9000Model({
   )
 }
 
-useGLTF.preload('/d9000_low_poly_colored.glb')
+// useGLTF.preload('/d9000_low_poly_colored.glb')

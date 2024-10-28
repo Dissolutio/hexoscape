@@ -65,4 +65,4 @@ export function ThorgrimModel({
   )
 }
 
-useGLTF.preload('/thorgrim_low_poly_colored.glb')
+// useGLTF.preload('/thorgrim_low_poly_colored.glb')
