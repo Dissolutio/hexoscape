@@ -1,15 +1,22 @@
 import { Canvas } from '@react-three/fiber'
 import { Stars, PerspectiveCamera, CameraControls } from '@react-three/drei'
-
-import { useRef } from 'react'
+import { lazy, Suspense, useRef } from 'react'
 import { BoardHexes, Glyphs, HexMap } from '../game/types'
-import { HexopolisMapDisplay3D } from '../hexopolis-ui/world/HexopolisMapDisplay3D'
-import { HexxaformMapDisplay3D } from '../hexxaform-ui/world/HexxaformMapDisplay3D'
 import { CAMERA_FOV } from '../game/constants'
 import { HexxaformMoves } from '../game/hexxaform/hexxaform-types'
 import TakeAPictureBox from './TakeAPictureBox'
 import { useUIContext } from '../hooks/ui-context'
 
+const HexopolisMapDisplay3D = lazy(() =>
+  import('../hexopolis-ui/world/HexopolisMapDisplay3D').then((module) => ({
+    default: module.HexopolisMapDisplay3D,
+  }))
+)
+const HexxaformMapDisplay3D = lazy(() =>
+  import('../hexxaform-ui/world/HexxaformMapDisplay3D').then((module) => ({
+    default: module.HexxaformMapDisplay3D,
+  }))
+)
 export const World = ({
   boardHexes,
   hexMap,
@@ -48,18 +55,22 @@ export const World = ({
       {/* Stats displays the fps */}
       {/* <Stats /> */}
       {isEditor ? (
-        <HexxaformMapDisplay3D
-          boardHexes={boardHexes}
-          hexMap={hexMap}
-          moves={hexxaformMoves}
-          glyphs={glyphs}
-          cameraControlsRef={cameraControlsRef}
-        />
+        <Suspense fallback={<></>}>
+          <HexxaformMapDisplay3D
+            boardHexes={boardHexes}
+            hexMap={hexMap}
+            moves={hexxaformMoves}
+            glyphs={glyphs}
+            cameraControlsRef={cameraControlsRef}
+          />
+        </Suspense>
       ) : (
-        <HexopolisMapDisplay3D
-          boardHexes={boardHexes}
-          cameraControlsRef={cameraControlsRef}
-        />
+        <Suspense fallback={<></>}>
+          <HexopolisMapDisplay3D
+            boardHexes={boardHexes}
+            cameraControlsRef={cameraControlsRef}
+          />
+        </Suspense>
       )}
       <PerspectiveCamera fov={CAMERA_FOV} />
       <axesHelper scale={[100, 100, 100]} />
