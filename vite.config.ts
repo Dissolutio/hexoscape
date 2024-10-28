@@ -8,5 +8,15 @@ export default defineConfig({
       '@mui/styled-engine': '@mui/styled-engine-sc'
     },
 },
+build: {
+  rollupOptions: {
+    output: {
+      manualChunks: {
+      lodash: ['lodash'],
+      three: ['three'],
+    }
+  }
+  },
+},
   plugins: [react()],
 })
