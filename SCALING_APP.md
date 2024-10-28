@@ -98,12 +98,15 @@ Here is the overall architecture
 title: Overall Architecture
 ---
 flowchart TB
-    users@{ shape: docs, label: "Users"}
-    lb["Load Balancer"]
-    wss@{ shape: docs, label: "Web Socket Servers"}
-    rc["Redis Cluster"]
-    users==>lb
-    lb==>wss
+    u["Users/Browsers"]
+    ng["Ingress/Nginx"]
+    fes["Front-End Server (Solid Start)"]
+    wss["Websocket Server (Golang)"]
+    rc["Redis (Clusterable)"]
+    u==>|"html/js"|ng
+    u==>|websocket|ng
+    ng<==>fes
+    ng<==>wss
     wss<==>|pubsub|rc
 ```
 
