@@ -9,10 +9,11 @@ import { MultiplayerNav } from './MultiplayerNav'
 import { Hexoscape } from '../game/game'
 import { isLocalApp, SERVER } from './environment'
 import { Board } from '../hexopolis-ui/Board'
-import { LocalApp, localRoutes } from './LocalApp'
+import { LocalApp } from './LocalApp'
 import { Layout } from '../hexopolis-ui/layout'
 import HeaderNav from '../hexopolis-ui/layout/HeaderNav'
 import { ROUTES } from './routes'
+import localRoutes from './localRoutes'
 
 const MultiplayerGameClient = Client({
   game: Hexoscape,
@@ -85,7 +86,6 @@ const MultiplayerLobbyPage = () => {
           }}
         />
         <MultiplayerLobby />
-        {/* <BottomNav /> */}
         <MultiplayerNav />
       </Layout>
     </>

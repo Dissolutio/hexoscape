@@ -8,6 +8,9 @@ const isDevEnv = import.meta.env.MODE === 'development'
 const isSeparateServer = Boolean(import.meta.env.VITE_WITH_SEPARATE_SERVER)
 export const isLocalApp = isDevEnv && !isSeparateServer
 export const specialMatchIdToTellHeaderNavThisMatchIsLocal = 'localGameId'
+export const generateLocalMatchID = (numPlayers: number) =>
+    `${specialMatchIdToTellHeaderNavThisMatchIsLocal}:${numPlayers}`
+  
 // use appropriate address for server
 const hostname = window?.location?.hostname ?? ''
 const protocol = window?.location?.protocol ?? ''

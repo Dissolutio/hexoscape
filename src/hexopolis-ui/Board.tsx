@@ -24,7 +24,7 @@ import HeaderNav from './layout/HeaderNav'
 import { ModalDisplay } from './layout/ModalDisplay'
 import { modalStates, useUIContext } from '../hooks/ui-context'
 
-interface MyGameProps extends BoardProps<GameState> {
+export interface HexoscapeBoardProps extends BoardProps<GameState> {
   chatMessages: ChatMessage[]
 }
 
@@ -54,7 +54,7 @@ export const Board = ({
   isMultiplayer,
   isConnected,
   credentials,
-}: MyGameProps) => {
+}: HexoscapeBoardProps) => {
   const { modalState } = useUIContext()
   const isLocalOrDemoGame = matchID.includes(
     specialMatchIdToTellHeaderNavThisMatchIsLocal

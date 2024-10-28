@@ -5,7 +5,6 @@ import {
   StartingArmies,
 } from '../types'
 import { MS1Cards } from '../coreHeroscapeCards'
-import { testCards } from '../testHeroscapeCards'
 import { makeGameCardID } from '../transformers'
 import { keyBy } from 'lodash'
 

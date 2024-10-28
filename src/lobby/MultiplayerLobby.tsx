@@ -144,7 +144,6 @@ const GoToMatchOrCreateMatch = ({
 
 const LinkAsButton = styled(Link)`
   /* Below is dark.css button styles */
-  -webkit-appearance: none;
   cursor: pointer;
   transition:
     background-color 0.1s linear,
