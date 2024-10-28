@@ -1,0 +1,171 @@
+import React from 'react'
+import { ThreeEvent } from '@react-three/fiber'
+import { BoardHex, EditingBoardHexes } from '../../game/types'
+import { HEXGRID_HEX_HEIGHT, isFluidTerrainHex } from '../../game/constants'
+import { Color, Vector3 } from 'three'
+import { hexTerrainColor } from '../../game/terrain'
+
+type CapMeshProps = {
+  capPosition: Vector3
+  boardHex: BoardHex
+  capEmissiveColor: Color
+  isHovered: boolean
+  setIsHovered: React.Dispatch<React.SetStateAction<boolean>>
+  onClick?: (e: ThreeEvent<MouseEvent>, hex: BoardHex) => void
+}
+
+const SolidCapMesh = ({
+  capPosition,
+  boardHex,
+  setIsHovered,
+  capEmissiveColor,
+  isHovered,
+  onClick,
+}: CapMeshProps) => {
+  const halfLevel = HEXGRID_HEX_HEIGHT / 2
+  const isFluidHex = isFluidTerrainHex(boardHex.terrain)
+  const heightScaleFluidCap = 1
+  const heightScaleSolidCap = halfLevel
+  const scaleToUseForCap = isFluidHex
+    ? heightScaleFluidCap
+    : heightScaleSolidCap
+  const terrainColor = new Color(hexTerrainColor[boardHex.terrain])
+  const baseEmissivity = 0.2
+  const capEmissiveIntensity = isHovered ? 1 : baseEmissivity
+  return (
+    <mesh
+      onClick={(e) => {
+        if (onClick) {
+          onClick(e, boardHex)
+        }
+      }}
+      onPointerEnter={(e) => {
+        // this keeps the hover from penetrating to hoverable-hexes behind this one
+        e.stopPropagation()
+        setIsHovered(true)
+      }}
+      onPointerLeave={() => setIsHovered(false)}
+      position={capPosition}
+      scale={[1, scaleToUseForCap, 1]}
+    >
+      <meshToonMaterial
+        color={terrainColor}
+        emissive={capEmissiveColor}
+        emissiveIntensity={capEmissiveIntensity}
+      />
+      <cylinderGeometry args={[1, 1, halfLevel, 6]} />
+    </mesh>
+  )
+}
+const FluidCapMesh = ({
+  capPosition,
+  boardHex,
+  setIsHovered,
+  capEmissiveColor,
+  isHovered,
+  onClick,
+}: CapMeshProps) => {
+  const halfLevel = HEXGRID_HEX_HEIGHT / 2
+  const isFluidHex = isFluidTerrainHex(boardHex.terrain)
+  const heightScaleFluidCap = 1
+  const heightScaleSolidCap = halfLevel
+  const scaleToUseForCap = isFluidHex
+    ? heightScaleFluidCap
+    : heightScaleSolidCap
+  const terrainColor = new Color(hexTerrainColor[boardHex.terrain])
+  const baseEmissivity = 0.2
+  const fluidEmissivity = 2 * baseEmissivity
+  const capFluidEmissiveIntensity = isHovered ? 8 : fluidEmissivity
+  const capFluidOpacity = 0.85
+  return (
+    <mesh
+      onClick={(e) => {
+        if (onClick) {
+          onClick(e, boardHex)
+        }
+      }}
+      onPointerEnter={(e) => {
+        // this keeps the hover from penetrating to hoverable-hexes behind this one
+        e.stopPropagation()
+        setIsHovered(true)
+      }}
+      onPointerLeave={() => setIsHovered(false)}
+      position={capPosition}
+      scale={[1, scaleToUseForCap, 1]}
+    >
+      <meshLambertMaterial
+        color={terrainColor}
+        emissive={capEmissiveColor} // TODO, should this not be capEmissiveColor instead of terrainColor?
+        emissiveIntensity={capFluidEmissiveIntensity}
+        transparent
+        opacity={capFluidOpacity}
+      />
+      <cylinderGeometry args={[1, 1, halfLevel, 6]} />
+    </mesh>
+  )
+}
+
+type Props = {
+  x: number
+  z: number
+  boardHex: BoardHex
+  editingBoardHexes: EditingBoardHexes
+  selectedUnitID: string
+  isHovered: boolean
+  setIsHovered: React.Dispatch<React.SetStateAction<boolean>>
+  isPlacementPhase?: boolean
+  onClick?: (e: ThreeEvent<MouseEvent>, hex: BoardHex) => void
+}
+const HexCap = ({
+  x,
+  z,
+  boardHex,
+  editingBoardHexes,
+  selectedUnitID,
+  isHovered,
+  setIsHovered,
+  isPlacementPhase,
+  onClick,
+}: Props) => {
+  const quarterLevel = HEXGRID_HEX_HEIGHT / 4
+  const unitID = boardHex?.occupyingUnitID ?? ''
+  const editingHexUnitID = editingBoardHexes[boardHex.id]?.occupyingUnitID ?? ''
+  const isSelectedUnitHex =
+    selectedUnitID &&
+    (isPlacementPhase ? editingHexUnitID : unitID) &&
+    selectedUnitID === (isPlacementPhase ? editingHexUnitID : unitID)
+
+  const altitude = boardHex.altitude
+  const isFluidHex = isFluidTerrainHex(boardHex.terrain)
+  // as of yet, this just looks right, it's not mathematically sound
+  const mysteryMathValueThatSeemsToWorkWell = quarterLevel / 4
+  const yAdjustFluidCap = altitude / 2
+  const yAdjustSolidCap = yAdjustFluidCap - mysteryMathValueThatSeemsToWorkWell
+  const hexCapYAdjust = isFluidHex ? yAdjustFluidCap : yAdjustSolidCap
+  const capPosition = new Vector3(x, hexCapYAdjust, z)
+  const whiteColor = new Color('white')
+  const terrainColor = new Color(hexTerrainColor[boardHex.terrain])
+  const capEmissiveColor =
+    isHovered || isSelectedUnitHex ? whiteColor : terrainColor
+  return isFluidHex ? (
+    <FluidCapMesh
+      capPosition={capPosition}
+      capEmissiveColor={capEmissiveColor}
+      boardHex={boardHex}
+      setIsHovered={setIsHovered}
+      isHovered={isHovered}
+      onClick={onClick}
+    />
+  ) : (
+    <SolidCapMesh
+      capPosition={capPosition}
+      capEmissiveColor={capEmissiveColor}
+      boardHex={boardHex}
+      setIsHovered={setIsHovered}
+      isHovered={isHovered}
+      onClick={onClick}
+    />
+  )
+}
+
+export default HexCap

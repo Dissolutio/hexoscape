@@ -4,8 +4,8 @@ import { CameraControls } from '@react-three/drei'
 import { BoardHex, GameUnit } from '../../game/types'
 import { getDirectionOfNeighbor } from '../../game/hex-utils'
 import { usePlacementContext } from '../contexts'
-import { useBgioClientInfo, useBgioCtx, useBgioG } from '../../bgio-contexts'
-import { selectHexForUnit, selectTailHexForUnit } from '../../game/selectors'
+import { useBgioCtx, useBgioG } from '../../bgio-contexts'
+import { selectTailHexForUnit } from '../../game/selectors'
 import { UnitModelByID } from './models/UnitModelByID'
 import { getUnitDefaultCameraLookAt } from '../../shared/camera-utils'
 import { HEXGRID_HEX_HEIGHT } from '../../game/constants'
@@ -24,7 +24,7 @@ export const GameUnit3D = ({
   cameraControlsRef: React.MutableRefObject<CameraControls>
   // onClick?: (e: ThreeEvent<MouseEvent>, hex: BoardHex) => void
 }) => {
-  const { boardHexes, gameUnits } = useBgioG()
+  const { boardHexes } = useBgioG()
   const { isPlacementPhase } = useBgioCtx()
   const { editingBoardHexes } = usePlacementContext()
 
@@ -45,14 +45,6 @@ export const GameUnit3D = ({
     ? rotationToTail
     : playerAdjustedRotationForSingleHexFigures
   const [isHovered, setIsHovered] = useState(false)
-  const { playerID } = useBgioClientInfo()
-  const randomEnemyUnit = Object.values(gameUnits).find(
-    (u) => u.playerID !== playerID
-  )
-  const hexForRandomEnemyUnit = selectHexForUnit(
-    randomEnemyUnit?.unitID ?? '',
-    boardHexes
-  )
 
   return (
     <group

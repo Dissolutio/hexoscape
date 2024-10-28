@@ -1,13 +1,7 @@
 import { useState } from 'react'
 import { Vector3, Color } from 'three'
 import { ThreeEvent } from '@react-three/fiber'
-import {
-  BoardHex,
-  EditingBoardHexes,
-  Glyphs,
-  MoveRange,
-  StringKeyedObj,
-} from '../game/types'
+import { BoardHex, EditingBoardHexes, Glyphs, MoveRange } from '../game/types'
 import {
   getDefaultSubTerrainForTerrain,
   HEXGRID_HEX_HEIGHT,
@@ -17,32 +11,13 @@ import { selectGlyphForHex } from '../game/selectors'
 import { powerGlyphs } from '../game/glyphs'
 import { HeightRings } from './HeightRings'
 import { MapHexGlyph } from './MapHexGlyph'
+import { hexTerrainColor } from '../game/terrain'
+import HexCap from './world/HexCap'
+import HexSubTerrain from './world/HexSubTerrain'
 
-const halfLevel = 0.25
-const quarterLevel = 0.125
+const halfLevel = HEXGRID_HEX_HEIGHT / 2
+const quarterLevel = HEXGRID_HEX_HEIGHT / 4
 
-const hexTerrainColor: StringKeyedObj = {
-  water: '#3794fd',
-  grass: '#60840d',
-  rock: '#475776',
-  sand: '#ab8e10',
-  road: '#868686',
-}
-/**
- * @function MapHex3D
- * @description A single hex on the board. It renders:
- * - A sub-terrain mesh (from the floor to the cap mesh)
- * - A cap-terrain mesh (either fluid or solid)
- * - A group of height rings around the cap-terrain (for height indication)
- * - A glyph on the hex (if there is one)
- *
- * The hex also listens to pointer events, and triggers hover effects on the top height ring and the cap-terrain mesh.
- *
- * @prop {number} x - The x-coordinate of the hex
- * @prop {number} z - The z-coordinate of the hex
- * @prop {BoardHex} boardHex - The board hex data
- * @prop {function} onClick - An optional function to call when the hex is clicked
- */
 export const MapHex3D = ({
   x,
   z,
@@ -71,16 +46,9 @@ export const MapHex3D = ({
   // HOVERED STATE
   const [isHovered, setIsHovered] = useState(false)
 
-  const unitID = boardHex?.occupyingUnitID ?? ''
-  const editingHexUnitID = editingBoardHexes[boardHex.id]?.occupyingUnitID ?? ''
-  const isSelectedUnitHex =
-    selectedUnitID &&
-    (isPlacementPhase ? editingHexUnitID : unitID) &&
-    selectedUnitID === (isPlacementPhase ? editingHexUnitID : unitID)
-
   const altitude = boardHex.altitude
-  const hexYPosition = altitude / 4
   const isFluidHex = isFluidTerrainHex(boardHex.terrain)
+  const hexYPosition = altitude / 4
   const bottomRingYPosition = hexYPosition - altitude / 2
   const topRingYPosition = isFluidHex
     ? hexYPosition + quarterLevel
@@ -90,41 +58,16 @@ export const MapHex3D = ({
   const heightScaleSubTerrain = isFluidHex
     ? altitude - halfLevel
     : altitude - quarterLevel
-  const heightScaleFluidCap = 1
-  const heightScaleSolidCap = halfLevel
-  const scaleToUseForCap = isFluidHex
-    ? heightScaleFluidCap
-    : heightScaleSolidCap
-  // as of yet, this just looks right, it's not mathematically sound
   const mysteryMathValueThatSeemsToWorkWell = quarterLevel / 4
   const yAdjustFluidCap = altitude / 2
   const yAdjustSolidCap = yAdjustFluidCap - mysteryMathValueThatSeemsToWorkWell
-  const hexCapYAdjust = isFluidHex ? yAdjustFluidCap : yAdjustSolidCap
-  const capPosition = new Vector3(x, hexCapYAdjust, z)
   const subTerrain =
     boardHex?.subTerrain ?? getDefaultSubTerrainForTerrain(boardHex.terrain)
   const subTerrainYAdjust = (altitude - quarterLevel) / 4
   const subTerrainPosition = new Vector3(x, subTerrainYAdjust, z)
-
-  const whiteColor = new Color('white')
-  const terrainColor = new Color(hexTerrainColor[boardHex.terrain])
-  // const isPlaceableOccupiedPlacementHex =
-  //   isMyStartZoneHex &&
-  //   occupyingPlacementUnitId &&
-  //   occupyingPlacementUnitId !== selectedUnitID
-
-  const capEmissiveColor =
-    isHovered || isSelectedUnitHex ? whiteColor : terrainColor
-  const baseEmissivity = 0.2
-  const capFluidOpacity = 0.85
-  const fluidEmissivity = 2 * baseEmissivity
-  const capEmissiveIntensity = isHovered ? 1 : baseEmissivity
-  const capFluidEmissiveIntensity = isHovered ? 8 : fluidEmissivity
   const subTerrainColor = new Color(hexTerrainColor[subTerrain])
 
-  /* 
-    GLYPHS
-     */
+  /* GLYPHS */
   const glyphOnHex = selectGlyphForHex({ hexID: boardHex.id, glyphs })
   const isGlyphRevealed = Boolean(glyphOnHex?.isRevealed)
   const canonicalGlyph = powerGlyphs[glyphOnHex?.glyphID ?? '']
@@ -164,50 +107,23 @@ export const MapHex3D = ({
         isHighlighted={isHovered}
         isEditor={isEditor}
       />
+      <HexSubTerrain
+        subTerrainPosition={subTerrainPosition}
+        heightScaleSubTerrain={heightScaleSubTerrain}
+        subTerrainColor={subTerrainColor}
+      />
 
-      {/* This is the big sub-terrain mesh from the floor to the cap mesh */}
-      <mesh position={subTerrainPosition} scale={[1, heightScaleSubTerrain, 1]}>
-        <cylinderGeometry args={[1, 1, HEXGRID_HEX_HEIGHT, 6]} />
-        <meshBasicMaterial color={subTerrainColor} />
-      </mesh>
-
-      {/* This group wraps the cap-terrain, and triggers the hover for this hex's top height ring */}
-      <group
-        onClick={(e) => {
-          if (onClick) {
-            onClick(e, boardHex)
-          }
-        }}
-        onPointerEnter={(e) => {
-          // this keeps the hover from penetrating to hoverable-hexes behind this one
-          e.stopPropagation()
-          setIsHovered(true)
-        }}
-        onPointerLeave={() => setIsHovered(false)}
-      >
-        {/* The cap hex is either fluid-terrain or solid-terrain */}
-        {isFluidHex ? (
-          <mesh position={capPosition} scale={[1, scaleToUseForCap, 1]}>
-            <meshLambertMaterial
-              color={terrainColor}
-              emissive={terrainColor}
-              emissiveIntensity={capFluidEmissiveIntensity}
-              transparent
-              opacity={capFluidOpacity}
-            />
-            <cylinderGeometry args={[1, 1, halfLevel, 6]} />
-          </mesh>
-        ) : (
-          <mesh position={capPosition} scale={[1, scaleToUseForCap, 1]}>
-            <meshToonMaterial
-              color={terrainColor}
-              emissive={capEmissiveColor}
-              emissiveIntensity={capEmissiveIntensity}
-            />
-            <cylinderGeometry args={[1, 1, halfLevel, 6]} />
-          </mesh>
-        )}
-      </group>
+      <HexCap
+        x={x}
+        z={z}
+        boardHex={boardHex}
+        editingBoardHexes={editingBoardHexes}
+        selectedUnitID={selectedUnitID}
+        isHovered={isHovered}
+        setIsHovered={setIsHovered}
+        isPlacementPhase={isPlacementPhase}
+        onClick={onClick}
+      />
     </group>
   )
 }
