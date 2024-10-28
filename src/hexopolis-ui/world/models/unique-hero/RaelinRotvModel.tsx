@@ -65,4 +65,4 @@ export function RaelinRotvModel({
   )
 }
 
-useGLTF.preload('/raelin1_low_poly_colored.glb')
+// useGLTF.preload('/raelin1_low_poly_colored.glb')

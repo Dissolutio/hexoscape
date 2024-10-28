@@ -72,4 +72,4 @@ export function AirbornElite1({
   )
 }
 
-useGLTF.preload('/airborn_1_low_poly_colored.glb')
+// useGLTF.preload('/airborn_1_low_poly_colored.glb')

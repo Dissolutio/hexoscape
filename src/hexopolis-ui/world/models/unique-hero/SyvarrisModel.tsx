@@ -65,4 +65,4 @@ export function SyvarrisModel({
   )
 }
 
-useGLTF.preload('/syvarris_low_poly.glb')
+// useGLTF.preload('/syvarris_low_poly.glb')

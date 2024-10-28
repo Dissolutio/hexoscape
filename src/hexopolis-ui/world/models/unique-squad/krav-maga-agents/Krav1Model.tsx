@@ -58,4 +58,4 @@ export function Krav1Model({
   )
 }
 
-useGLTF.preload('/krav_maga_1_low_poly_colored.glb')
+// useGLTF.preload('/krav_maga_1_low_poly_colored.glb')

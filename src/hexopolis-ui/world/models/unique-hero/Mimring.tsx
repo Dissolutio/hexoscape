@@ -48,4 +48,4 @@ export function MimringModel({
   )
 }
 
-useGLTF.preload('/mimring_low_poly_colored.glb')
+// useGLTF.preload('/mimring_low_poly_colored.glb')

@@ -97,4 +97,4 @@ export function SgtDrakeModel({
   )
 }
 
-useGLTF.preload('/sgt_drake_low_poly_colored.glb')
+// useGLTF.preload('/sgt_drake_low_poly_colored.glb')
