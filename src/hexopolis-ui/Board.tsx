@@ -16,7 +16,6 @@ import {
 } from '../bgio-contexts'
 import { ChatMessage } from 'boardgame.io'
 import { GameState } from '../game/types'
-import { TabsComponent } from './controls/TabsComponent'
 import { SpecialAttackContextProvider } from './contexts/special-attack-context'
 import { specialMatchIdToTellHeaderNavThisMatchIsLocal } from '../app/environment'
 import { HexopolisWorldWrapper } from './world/HexopolisWorldWrapper'
@@ -24,6 +23,11 @@ import HeaderNav from './layout/HeaderNav'
 import { ModalDisplay } from './layout/ModalDisplay'
 import { modalStates, useUIContext } from '../hooks/ui-context'
 
+const TabsComponent = lazy(() =>
+  import('./controls/TabsComponent').then((module) => ({
+    default: module.TabsComponent,
+  }))
+)
 const World = lazy(() =>
   import('../shared/World').then((module) => ({
     default: module.World,
@@ -113,7 +117,9 @@ export const Board = ({
                                 />
                               </Suspense>
                             </HexopolisWorldWrapper>
-                            <TabsComponent />
+                            <Suspense fallback={<></>}>
+                              <TabsComponent />
+                            </Suspense>
                           </Layout>
                         </SpecialAttackContextProvider>
                       </PlayContextProvider>
