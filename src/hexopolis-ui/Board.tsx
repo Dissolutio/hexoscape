@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react'
 import { BoardProps } from 'boardgame.io/react'
 import {
   MapContextProvider,
@@ -18,11 +19,16 @@ import { GameState } from '../game/types'
 import { TabsComponent } from './controls/TabsComponent'
 import { SpecialAttackContextProvider } from './contexts/special-attack-context'
 import { specialMatchIdToTellHeaderNavThisMatchIsLocal } from '../app/environment'
-import { World } from '../shared/World'
 import { HexopolisWorldWrapper } from './world/HexopolisWorldWrapper'
 import HeaderNav from './layout/HeaderNav'
 import { ModalDisplay } from './layout/ModalDisplay'
 import { modalStates, useUIContext } from '../hooks/ui-context'
+
+const World = lazy(() =>
+  import('../shared/World').then((module) => ({
+    default: module.World,
+  }))
+)
 
 export interface HexoscapeBoardProps extends BoardProps<GameState> {
   chatMessages: ChatMessage[]
@@ -98,12 +104,14 @@ export const Board = ({
                               }}
                             />
                             <HexopolisWorldWrapper>
-                              <World
-                                boardHexes={G.boardHexes}
-                                hexxaformMoves={undefined}
-                                hexMap={G.hexMap}
-                                glyphs={G.hexMap.glyphs}
-                              />
+                              <Suspense fallback={<></>}>
+                                <World
+                                  boardHexes={G.boardHexes}
+                                  hexxaformMoves={undefined}
+                                  hexMap={G.hexMap}
+                                  glyphs={G.hexMap.glyphs}
+                                />
+                              </Suspense>
                             </HexopolisWorldWrapper>
                             <TabsComponent />
                           </Layout>

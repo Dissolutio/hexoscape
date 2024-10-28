@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react'
 import { BoardProps } from 'boardgame.io/react'
 import { ChatMessage } from 'boardgame.io'
 import { useHotkeys } from 'react-hotkeys-hook'
@@ -5,10 +6,15 @@ import { useHotkeys } from 'react-hotkeys-hook'
 import { GType } from '../game/hexxaform/hexxaform-types'
 import { HexxaformContextProvider } from './useHexxaformContext'
 import { EditorWorldWrapper } from './world/EditorWorldWrapper'
-import { World } from '../shared/World'
 import HeaderNav from '../hexopolis-ui/layout/HeaderNav'
 import { Layout } from '../hexopolis-ui/layout'
 import { HexxaformControls } from './HexxaformControls'
+
+const World = lazy(() =>
+  import('../shared/World').then((module) => ({
+    default: module.World,
+  }))
+)
 
 type HexxaformBoardProps = BoardProps<GType> & {
   chatMessages?: ChatMessage[]
@@ -53,13 +59,15 @@ export function HexxaformBoard(props: HexxaformBoardProps) {
           }}
         />
         <EditorWorldWrapper>
-          <World
-            isEditor={true}
-            boardHexes={G.boardHexes}
-            hexMap={G.hexMap}
-            hexxaformMoves={moves}
-            glyphs={G.hexMap.glyphs}
-          />
+          <Suspense fallback={<></>}>
+            <World
+              isEditor={true}
+              boardHexes={G.boardHexes}
+              hexMap={G.hexMap}
+              hexxaformMoves={moves}
+              glyphs={G.hexMap.glyphs}
+            />
+          </Suspense>
         </EditorWorldWrapper>
         <HexxaformControls
           boardHexes={G.boardHexes}
