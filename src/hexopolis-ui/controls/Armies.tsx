@@ -69,7 +69,7 @@ const StyledOrderMarkerArmyCardsUl = styled.ul<{ $playerID: string }>`
   padding: 5px;
   color: ${(props) => `${playerColors[props.$playerID]}`};
 `
-export const ArmyCard = ({
+const ArmyCard = ({
   card,
   onClickCard,
   selectedID,
@@ -111,7 +111,7 @@ export const ArmyCard = ({
     </StyledOrderMarkerArmyCardsLi>
   )
 }
-export const StyledOrderMarkerArmyCardsLi = styled.li`
+const StyledOrderMarkerArmyCardsLi = styled.li`
   padding: 5px;
   margin: 5px;
   max-width: 300px;
@@ -123,7 +123,7 @@ export const StyledOrderMarkerArmyCardsLi = styled.li`
   }
 `
 
-export const OMList = ({ orderMarkers }: { orderMarkers: OrderMarker[] }) => {
+const OMList = ({ orderMarkers }: { orderMarkers: OrderMarker[] }) => {
   return (
     <StyledOrderMarkersUl>
       {orderMarkers.map((om, i) => {
@@ -143,7 +143,7 @@ export const OMList = ({ orderMarkers }: { orderMarkers: OrderMarker[] }) => {
     </StyledOrderMarkersUl>
   )
 }
-export const StyledOrderMarkersUl = styled.ul`
+const StyledOrderMarkersUl = styled.ul`
   display: flex;
   flex-flow: row wrap;
   justify-content: center;

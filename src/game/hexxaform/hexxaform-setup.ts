@@ -17,7 +17,7 @@ export const rectangleScenario = makeRectangleScenario({
   mapLength: 12,
   mapWidth: 12,
 });
-export function makeRectangleScenario(
+ function makeRectangleScenario(
   options?: RectangleScenarioOptions
 ): GType {
   const mapHeight = Math.min(options?.mapLength ?? 12, MAX_RECTANGLE_DIMENSION);
@@ -43,7 +43,7 @@ type HexagonScenarioOptions = {
 export const hexagonScenario = makeHexagonScenario({
   mapSize: 6,
 });
-export function makeHexagonScenario(
+ function makeHexagonScenario(
   options?: HexagonScenarioOptions
 ): GType {
   const mapSize = Math.min(options?.mapSize ?? 6, MAX_HEXAGON_DIMENSION);

@@ -16,7 +16,7 @@ const DIRECTIONS: HexCoordinates[] = [
   { q: -1, r: 0, s: 1 }, // W -q +s
   { q: 0, r: -1, s: 1 }, // NW -r +s
 ]
-export const hexUtilsGetTailCoordinates = (
+ const hexUtilsGetTailCoordinates = (
   hex: HexCoordinates,
   neighbor: HexCoordinates
 ): Point => {
@@ -34,31 +34,31 @@ export const hexUtilsGetTailCoordinates = (
     return { x: -8.66, y: -15 } // NW -r +s
   return { x: 0, y: 0 }
 }
-export const hexUtilsEquals = (
+ const hexUtilsEquals = (
   a: HexCoordinates,
   b: HexCoordinates
 ): boolean => {
   return a.q === b.q && a.r === b.r && a.s === b.s
 }
-export const hexUtilsAdd = (
+ const hexUtilsAdd = (
   a: HexCoordinates,
   b: HexCoordinates
 ): HexCoordinates => {
   return { q: a.q + b.q, r: a.r + b.r, s: a.s + b.s }
 }
-export const hexUtilsSubtract = (
+ const hexUtilsSubtract = (
   a: HexCoordinates,
   b: HexCoordinates
 ): HexCoordinates => {
   return { q: a.q - b.q, r: a.r - b.r, s: a.s - b.s }
 }
-export const hexUtilsMultiply = (
+ const hexUtilsMultiply = (
   a: HexCoordinates,
   k: number
 ): HexCoordinates => {
   return { q: a.q * k, r: a.r * k, s: a.s * k }
 }
-export const hexUtilsLengths = (hex: HexCoordinates): number => {
+ const hexUtilsLengths = (hex: HexCoordinates): number => {
   return (Math.abs(hex.q) + Math.abs(hex.r) + Math.abs(hex.s)) / 2
 }
 export const hexUtilsDistance = (
@@ -67,7 +67,7 @@ export const hexUtilsDistance = (
 ): number => {
   return hexUtilsLengths(hexUtilsSubtract(a, b))
 }
-export const hexUtilsDirection = (direction: number): HexCoordinates => {
+ const hexUtilsDirection = (direction: number): HexCoordinates => {
   return DIRECTIONS[(6 + (direction % 6)) % 6]
 }
 export const hexUtilsNeighbor = (
@@ -96,7 +96,7 @@ export const hexUtilsNeighborsWithDirections = (
 }
 // input cube coordinates that might be floats (from pixelToHex or pixel => cube), and get a hex/cube coord where q+r+s=0 guaranteed
 // see: https://www.redblobgames.com/grids/hexagons/#rounding
-export const hexUtilsRound = (hex: HexCoordinates): HexCoordinates => {
+ const hexUtilsRound = (hex: HexCoordinates): HexCoordinates => {
   let rq = Math.round(hex.q)
   let rr = Math.round(hex.r)
   let rs = Math.round(hex.s)
@@ -115,7 +115,7 @@ export const hexUtilsRound = (hex: HexCoordinates): HexCoordinates => {
 /** Given the q,r,s of a hexagon return the x and y pixel coordinates of the
  * hexagon center.
  */
-export const hexUtilsHexToPixel = (
+ const hexUtilsHexToPixel = (
   hex: HexCoordinates,
   layout: LayoutDimension
 ): { x: number; y: number } => {
@@ -164,7 +164,7 @@ export const getDirectionOfNeighbor = (
 /** Return the q,r,s coordinate of the hexagon given pixel point x and y.
  * https://www.redblobgames.com/grids/hexagons/#pixel-to-hex
  */
-export const hexUtilsPixelToHex = (
+ const hexUtilsPixelToHex = (
   point: { x: number; y: number },
   layout: LayoutDimension
 ): HexCoordinates => {
@@ -190,7 +190,7 @@ export const hexUtilsPixelToHex = (
  * @param {number} t - alpha blending value (how much of a or b to be used)
  * @returns {number} a value between a and b based on t
  */
-export const hexUtilsLerp = (a: number, b: number, t: number): number => {
+ const hexUtilsLerp = (a: number, b: number, t: number): number => {
   return a + (b - a) * t
 }
 
@@ -203,7 +203,7 @@ export const hexUtilsLerp = (a: number, b: number, t: number): number => {
  * @param {number} t - alpha blending value
  * @returns {Hex} new Hex which is between the two Hexes
  */
-export const hexUtilsHexLerp = (
+ const hexUtilsHexLerp = (
   a: HexCoordinates,
   b: HexCoordinates,
   t: number
@@ -221,7 +221,7 @@ export const hexUtilsHexLerp = (
  * @param {HexCoordinates} hex - target Hex
  * @returns {string} an ID string in the form `{q},{r},{s}`
  */
-export const hexUtilsGetID = (hex: HexCoordinates): string => {
+const hexUtilsGetID = (hex: HexCoordinates): string => {
   return `${hex.q},${hex.r},${hex.s}`
 }
 
@@ -249,7 +249,7 @@ export const generateRectangleHexas = (
   }
   return hexas
 }
-export const generateOrientedRectangleHexas = (
+ const generateOrientedRectangleHexas = (
   mapWidth: number,
   mapHeight: number
 ): HexCoordinates[] => {
@@ -263,7 +263,7 @@ export const generateOrientedRectangleHexas = (
 
   return hexas
 }
-export const generateParalellogramHexas = (
+ const generateParalellogramHexas = (
   q1: number,
   q2: number,
   r1: number,

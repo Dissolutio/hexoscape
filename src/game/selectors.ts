@@ -74,18 +74,6 @@ export function selectGlyphForHex({
   const glyph = Object.values(glyphs).find((g) => g.hexID === hexID)
   return glyph
 }
-export function selectUnitGameCardForHex(
-  hexID: string,
-  boardHexes: BoardHexes,
-  gameArmyCards: GameArmyCard[],
-  gameUnits: GameUnits
-): GameArmyCard | undefined {
-  const hex = boardHexes?.[hexID]
-  const unitID = hex?.occupyingUnitID
-  const unit = gameUnits?.[unitID]
-  const card = selectGameCardByID(gameArmyCards, unit?.gameCardID ?? '')
-  return card
-}
 export function selectGameCardByID(
   gameArmyCards: GameArmyCard[],
   gameCardID: string

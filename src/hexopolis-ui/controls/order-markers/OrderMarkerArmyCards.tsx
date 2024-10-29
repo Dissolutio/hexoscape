@@ -42,7 +42,7 @@ const StyledOrderMarkerArmyCardsUl = styled.ul`
   padding: 5px;
 `
 
-export const OrderMarkerArmyCard = ({
+const OrderMarkerArmyCard = ({
   card,
   activeMarker,
   setActiveMarker,

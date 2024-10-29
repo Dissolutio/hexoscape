@@ -105,11 +105,6 @@ export type Glyph = {
   glyphID: string
   isRevealed: boolean
 }
-export enum MapShapes {
-  hexagon = 'hexagon',
-  orientedRectangle = 'orientedRectangle', // rectangle tilted 45 degrees
-  rectangle = 'rectangle',
-}
 export type Point = {
   x: number
   y: number
@@ -141,10 +136,6 @@ export type BoardHex = HexCoordinates & {
 }
 export type BoardHexes = {
   [key: string]: BoardHex
-}
-export type EditingBoardHex = HexCoordinates & {
-  occupyingUnitID: string
-  isUnitTail: boolean
 }
 export type EditingBoardHexes = {
   [boardHexId: string]: HexCoordinates & {
@@ -215,9 +206,6 @@ export type ArmyCard = {
   // CURRENTLY, THESE ARE OMITTED UNTIL WE USE THEM
   // setWave: string
   // portraitPattern: string
-}
-export type GameArmyCardsState = {
-  [gameArmyCardId: string]: GameArmyCard
 }
 export type GameArmyCard = ArmyCard & {
   playerID: string
@@ -326,24 +314,7 @@ export type OrderMarkers = {
   [playerID: string]: OrderMarker[]
 }
 
-export type DevGameOptions = BaseGameOptions &
-  MapOptions & {
-    withPrePlacedUnits?: boolean
-  }
 
-export type BaseGameOptions =
-  | {
-      placementReady?: PlayerStateToggle
-      orderMarkersReady?: PlayerStateToggle
-      currentRound?: number
-      currentOrderMarker?: number
-      orderMarkers?: OrderMarkers
-      initiative?: string[]
-      unitsMoved?: string[]
-      unitsAttacked?: Record<string, string[]>
-      players?: PlayerState
-    }
-  | undefined
 export type MapOptions = {
   mapSize: number
   gameUnits?: GameUnits | undefined
@@ -355,12 +326,6 @@ export type RangeScan = {
   isInRange: boolean
   isMelee: boolean
   isRanged: boolean
-}
-export type StringKeyedObj = {
-  [key: string]: string
-}
-export type StringKeyedNums = {
-  [key: string]: number
 }
 export type LayoutDimension = {
   size: Point

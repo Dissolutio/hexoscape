@@ -1,17 +1,10 @@
-export const getGlyphInfoByID = (glyphID: string) => {
-  const glyph = Object.values(powerGlyphs).find((g) => g.id === glyphID)
-  if (!glyph) {
-    throw new Error(`No glyph found for ID: ${glyphID}`)
-  }
-  return glyph
-}
 export const glyphIDs = {
   attack: 'attack',
   defense: 'defense',
   move: 'move',
   range: 'range',
 }
-export type HexoscapeGlyphs = {
+type HexoscapeGlyphs = {
   [key: string]: {
     id: string
     name: string
@@ -99,7 +92,7 @@ export const powerGlyphs: HexoscapeGlyphs = {
   // },
 }
 
-export const temporaryGlyphs: HexoscapeGlyphs = {
+const _temporaryGlyphs: HexoscapeGlyphs = {
   healer: {
     id: 'healer',
     name: 'Glyph of Kelda',
