@@ -36,3 +36,6 @@ We can view simple map files in hex and binary:
 ## Other Editors
 - Landscape 20: https://www.heroscapers.com/threads/landscape-20-reimagining-a-heroscape-battlefield-app-20-ye.63462/
 - HexScape (mentioned above): https://www.heroscapers.com/threads/hexscape.50162/
+
+## Verifying maps obey laws of physics (can be built with real tiles)
+- Where Virtualscape verifies a map: https://github.com/Dissolutio/virtualscape-backup/blob/7c80625e1b152fb1e7836c83d4165cf79eca1c7d/HeroscapeEditor/Tile.cpp#L1576
