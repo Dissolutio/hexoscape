@@ -168,14 +168,14 @@ function readCString(
   tag: string
 } {
   const { length, offset: o, tag: t } = readCStringLength(dataView, offset, tag)
+  const finalOffset = o + length * 2
   let value = ''
   for (let i = 0; i < length; i++) {
-    const newChar = String.fromCodePoint(
-      dataView.getInt16(offset + i * 2, true)
-    )
+    const charOffset = o + i * 2
+    const newChar = String.fromCodePoint(dataView.getInt16(charOffset, true))
     value += newChar
   }
-  return { value, offset: o + length * 2, tag: t }
+  return { value, offset: finalOffset, tag: t }
 }
 
 function readCStringLength(
@@ -202,6 +202,10 @@ function readCStringLength(
       return readCStringLength(dataView, newOffset, tag)
     } else if (short === 0xffff) {
       length = dataView.getUint32(newOffset, true)
+      // throw new Error(
+      //   `DOES THIS EVER ACTUALLY HAPPEN? This branch exists in the HexScape code. This function worked fine, but the whole time I was developing it, this code block was incrementing offset instead of newOffset (offset += 4, should be newOffset += 4)`
+      // )
+      // offset += 4
       newOffset += 4
     } else {
       length = short
