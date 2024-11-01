@@ -3,11 +3,20 @@ import styled from 'styled-components'
 import { Button } from '@mui/material'
 import { MdFileOpen } from 'react-icons/md'
 import { HexxaformMoves } from '../game/hexxaform/hexxaform-types'
+import { GiDevilMask } from 'react-icons/gi'
+import readVirtualscapeMapFile from './readVirtualscapeMapFile'
 
 const ImportFileButton = ({ moves }: { moves: HexxaformMoves }) => {
   const uploadElementID = 'upload'
+  const virtualScapeUploadElementID = 'vsupload'
   const handleClickFileSelect = () => {
     const element = document.getElementById(uploadElementID)
+    if (element) {
+      element.click()
+    }
+  }
+  const handleClickVSFileSelect = () => {
+    const element = document.getElementById(virtualScapeUploadElementID)
     if (element) {
       element.click()
     }
@@ -43,6 +52,19 @@ const ImportFileButton = ({ moves }: { moves: HexxaformMoves }) => {
       console.error(error)
     }
   }
+  const readVSFile = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event?.target?.files?.[0]
+    if (!file) {
+      return
+    }
+
+    try {
+      const myMap = await readVirtualscapeMapFile(file)
+      console.log('🚀 ~ readVSFile ~ myMap:', myMap)
+    } catch (error) {
+      console.error(error)
+    }
+  }
   return (
     <>
       <Button
@@ -52,7 +74,15 @@ const ImportFileButton = ({ moves }: { moves: HexxaformMoves }) => {
       >
         Import Map File
       </Button>
+      <Button
+        startIcon={<GiDevilMask />}
+        onClick={handleClickVSFileSelect}
+        variant="contained"
+      >
+        Import VirtualScape File
+      </Button>
       <ReadFile id={uploadElementID} readFile={readFile} />
+      <ReadVSFile id={virtualScapeUploadElementID} readFile={readVSFile} />
     </>
   )
 }
@@ -69,6 +99,16 @@ const ReadFile = ({ id, readFile }: ReadFileProps) => {
       id={id}
       type="file"
       accept="application/json"
+      onChange={readFile}
+    />
+  )
+}
+const ReadVSFile = ({ id, readFile }: ReadFileProps) => {
+  return (
+    <StyledVisuallyHiddenFileInput
+      id={id}
+      type="file"
+      // accept="application/json"
       onChange={readFile}
     />
   )

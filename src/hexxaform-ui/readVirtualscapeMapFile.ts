@@ -1,0 +1,221 @@
+const VERSION_OFFSET = 0
+const VERSION_SIZE = 8
+const NAME_OFFSET = VERSION_OFFSET + VERSION_SIZE
+
+// const TILE_TYPE_OFFSET = 0
+// const TILE_VERSION_OFFSET = TILE_TYPE_OFFSET + 4
+// const TILE_ROTATION_OFFSET = TILE_VERSION_OFFSET + 8
+// const TILE_POS_X_OFFSET = TILE_ROTATION_OFFSET + 4
+// const TILE_POS_Y_OFFSET = TILE_POS_X_OFFSET + 4
+// const TILE_POS_Z_OFFSET = TILE_POS_Y_OFFSET + 4
+// const TILE_GLYPH_LETTER_OFFSET = TILE_POS_Z_OFFSET + 4
+// const TILE_GLYPH_NAME_OFFSET = TILE_GLYPH_LETTER_OFFSET + 1
+export default function readVirtualscapeMapFile(file) {
+  // let isSurvivedOneTile = false
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onloadend = () => {
+      const arrayBuffer = reader.result
+      const dataView = new DataView(arrayBuffer as ArrayBuffer)
+      const virtualScapeMap = {
+        version: 0,
+        name: '',
+        author: '',
+        playerNumber: '',
+        scenario: '',
+        levelPerPage: 0,
+        printingTransparency: 0,
+        printingGrid: false,
+        printTileNumber: false,
+        printStartAreaAsLevel: false,
+        tileCount: 0,
+        tiles: [],
+      }
+
+      virtualScapeMap.version = dataView.getFloat64(VERSION_OFFSET, true)
+      const { value: mapName, newOffset: AUTHOR_OFFSET } = readCString(
+        dataView,
+        NAME_OFFSET,
+        'NAME'
+      )
+      virtualScapeMap.name = mapName
+      const { value: mapAuthor, newOffset: PLAYER_NUMBER_OFFSET } = readCString(
+        dataView,
+        AUTHOR_OFFSET,
+        'AUTHOR'
+      )
+      virtualScapeMap.author = mapAuthor
+      const { value: playerNumber, newOffset: SCENARIO_LENGTH_OFFSET } =
+        readCString(dataView, PLAYER_NUMBER_OFFSET, 'PLAYER_NUMBER')
+      virtualScapeMap.playerNumber = playerNumber
+      const scenarioLength = dataView.getInt32(SCENARIO_LENGTH_OFFSET, true)
+      const SCENARIO_DATA_OFFSET = SCENARIO_LENGTH_OFFSET + 4
+      let scenarioRichText = ''
+      for (let i = 0; i < scenarioLength; i++) {
+        scenarioRichText += String.fromCharCode(
+          dataView.getUint8(SCENARIO_DATA_OFFSET + i)
+        )
+      }
+      virtualScapeMap.scenario = scenarioRichText
+      const LEVEL_PER_PAGE_OFFSET = SCENARIO_DATA_OFFSET + scenarioLength
+      const levelPerPage = dataView.getInt32(LEVEL_PER_PAGE_OFFSET, true)
+      virtualScapeMap.levelPerPage = levelPerPage
+      const PRINTING_TRANSPARENCY_OFFSET = LEVEL_PER_PAGE_OFFSET + 4
+      virtualScapeMap.printingTransparency = dataView.getInt32(
+        PRINTING_TRANSPARENCY_OFFSET,
+        true
+      )
+      const PRINTING_GRID_OFFSET = PRINTING_TRANSPARENCY_OFFSET + 4
+      virtualScapeMap.printingGrid =
+        dataView.getInt32(PRINTING_GRID_OFFSET, true) !== 0
+      const PRINT_TILE_NUMBER_OFFSET = PRINTING_GRID_OFFSET + 4
+      virtualScapeMap.printTileNumber =
+        dataView.getInt32(PRINT_TILE_NUMBER_OFFSET, true) !== 0
+      const PRINT_START_AREA_AS_LEVEL_OFFSET = PRINT_TILE_NUMBER_OFFSET + 4
+      virtualScapeMap.printStartAreaAsLevel =
+        dataView.getInt32(PRINT_START_AREA_AS_LEVEL_OFFSET, true) !== 0
+      const TILE_NUMBER_OFFSET = PRINT_START_AREA_AS_LEVEL_OFFSET + 4
+      virtualScapeMap.tileCount = dataView.getInt32(TILE_NUMBER_OFFSET, true)
+      const TILE_DATA_OFFSET = TILE_NUMBER_OFFSET + 4
+
+      virtualScapeMap.tiles = []
+      let tileRollingOffset = 0
+      for (let i = 0; i < virtualScapeMap.tileCount; i++) {
+        const tile = {
+          type: 0,
+          version: 0,
+          rotation: 0,
+          posX: 0,
+          posY: 0,
+          posZ: 0,
+          glyphLetterCode: 0,
+          glyphLetter: '',
+          glyphName: '',
+          startName: '',
+          colorf: 0,
+        }
+        const COUNT_OFFSET = tileRollingOffset + TILE_DATA_OFFSET
+        let tileType = 0
+        tileType = dataView.getInt32(COUNT_OFFSET, true)
+        // try {
+        //   tileType = dataView.getInt32(COUNT_OFFSET, true)
+        // } catch (error) {
+        //   console.error(':skull_and_crossbones: error:', error)
+        //   if (isSurvivedOneTile) {
+        //     resolve(virtualScapeMap)
+        //   }
+        // }
+        tile.type = tileType
+        const TILE_VERSION_OFFSET = 4
+        tile.version = dataView.getFloat64(
+          COUNT_OFFSET + TILE_VERSION_OFFSET,
+          true
+        )
+        const TILE_ROTATION_OFFSET = TILE_VERSION_OFFSET + 8
+        tile.rotation = dataView.getInt32(
+          COUNT_OFFSET + TILE_ROTATION_OFFSET,
+          true
+        )
+        const TILE_POS_X_OFFSET = TILE_ROTATION_OFFSET + 4
+        tile.posX = dataView.getInt32(COUNT_OFFSET + TILE_POS_X_OFFSET, true)
+        const TILE_POS_Y_OFFSET = TILE_POS_X_OFFSET + 4
+        tile.posY = dataView.getInt32(COUNT_OFFSET + TILE_POS_Y_OFFSET, true)
+        const TILE_POS_Z_OFFSET = TILE_POS_Y_OFFSET + 4
+        tile.posZ = dataView.getInt32(COUNT_OFFSET + TILE_POS_Z_OFFSET, true)
+        const TILE_GLYPH_LETTER_OFFSET = TILE_POS_Z_OFFSET + 4
+        const intForGlyphLetter = dataView.getUint8(
+          COUNT_OFFSET + TILE_GLYPH_LETTER_OFFSET
+        )
+        tile.glyphLetterCode = intForGlyphLetter
+        const glyphLetter = String.fromCharCode(intForGlyphLetter)
+        tile.glyphLetter = glyphLetter
+        const TILE_GLYPH_NAME_OFFSET = TILE_GLYPH_LETTER_OFFSET + 1
+        const { value: glyphName, newOffset: TILE_START_NAME_OFFSET } =
+          readCString(
+            dataView,
+            // this is the last time we feed in count_offset because readCString returns newOffset
+            COUNT_OFFSET + TILE_GLYPH_NAME_OFFSET,
+            'TILE_GLYPH_NAME'
+          )
+        tile.glyphName = glyphName
+        const { value: startName, newOffset: TILE_COLORF_OFFSET } = readCString(
+          dataView,
+          TILE_START_NAME_OFFSET,
+          'TILE_START_NAME'
+        )
+        tile.startName = startName
+        tile.colorf = dataView.getInt32(TILE_COLORF_OFFSET, true)
+        tileRollingOffset = TILE_COLORF_OFFSET + 4 - TILE_DATA_OFFSET
+        virtualScapeMap.tiles.push(tile)
+        // isSurvivedOneTile = true
+      }
+
+      console.log(
+        '🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀',
+        tileRollingOffset + TILE_DATA_OFFSET,
+        dataView.byteLength
+      )
+      tileRollingOffset = 0
+      resolve(virtualScapeMap)
+    }
+
+    reader.onerror = () => {
+      reject(reader.error)
+    }
+
+    reader.readAsArrayBuffer(file)
+  })
+}
+
+function readCString(
+  dataView: DataView,
+  offset: number,
+  tag: string
+): {
+  newOffset: number
+  value: string
+  tag: string
+} {
+  const { length, newOffset, tag: t } = readCStringLength(dataView, offset, tag)
+  let value = ''
+  for (let i = 0; i < length; i++) {
+    const newChar = String.fromCodePoint(
+      dataView.getInt16(newOffset + i * 2, true)
+    )
+    value += newChar
+  }
+  return { value, newOffset: newOffset + length * 2, tag: t }
+}
+
+function readCStringLength(
+  dataView: DataView,
+  offset: number,
+  tag: string
+): {
+  newOffset: number
+  length: number
+  tag: string
+} {
+  let length = 0
+  let newOffset = offset
+  const byte = dataView.getUint8(offset)
+  newOffset += 1
+
+  if (byte !== 0xff) {
+    length = byte
+  } else {
+    const short = dataView.getUint16(offset, false)
+    newOffset += 2
+
+    if (short === 0xfffe) {
+      return readCStringLength(dataView, newOffset, tag)
+    } else if (short === 0xffff) {
+      length = dataView.getUint32(newOffset, true)
+      offset += 4
+    } else {
+      length = short
+    }
+  }
+
+  return { length, newOffset, tag }
+}
