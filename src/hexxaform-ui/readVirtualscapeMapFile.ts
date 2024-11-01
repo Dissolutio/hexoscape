@@ -1,15 +1,3 @@
-const VERSION_OFFSET = 0
-const VERSION_SIZE = 8
-const NAME_OFFSET = VERSION_OFFSET + VERSION_SIZE
-
-// const TILE_TYPE_OFFSET = 0
-// const TILE_VERSION_OFFSET = TILE_TYPE_OFFSET + 4
-// const TILE_ROTATION_OFFSET = TILE_VERSION_OFFSET + 8
-// const TILE_POS_X_OFFSET = TILE_ROTATION_OFFSET + 4
-// const TILE_POS_Y_OFFSET = TILE_POS_X_OFFSET + 4
-// const TILE_POS_Z_OFFSET = TILE_POS_Y_OFFSET + 4
-// const TILE_GLYPH_LETTER_OFFSET = TILE_POS_Z_OFFSET + 4
-// const TILE_GLYPH_NAME_OFFSET = TILE_GLYPH_LETTER_OFFSET + 1
 export default function readVirtualscapeMapFile(file) {
   // let isSurvivedOneTile = false
   return new Promise((resolve, reject) => {
@@ -32,6 +20,9 @@ export default function readVirtualscapeMapFile(file) {
         tiles: [],
       }
 
+      const VERSION_OFFSET = 0
+      const VERSION_SIZE = 8
+      const NAME_OFFSET = VERSION_OFFSET + VERSION_SIZE
       virtualScapeMap.version = dataView.getFloat64(VERSION_OFFSET, true)
       const { value: mapName, newOffset: AUTHOR_OFFSET } = readCString(
         dataView,
@@ -97,14 +88,6 @@ export default function readVirtualscapeMapFile(file) {
         const COUNT_OFFSET = tileRollingOffset + TILE_DATA_OFFSET
         let tileType = 0
         tileType = dataView.getInt32(COUNT_OFFSET, true)
-        // try {
-        //   tileType = dataView.getInt32(COUNT_OFFSET, true)
-        // } catch (error) {
-        //   console.error(':skull_and_crossbones: error:', error)
-        //   if (isSurvivedOneTile) {
-        //     resolve(virtualScapeMap)
-        //   }
-        // }
         tile.type = tileType
         const TILE_VERSION_OFFSET = 4
         tile.version = dataView.getFloat64(
@@ -145,16 +128,11 @@ export default function readVirtualscapeMapFile(file) {
         )
         tile.startName = startName
         tile.colorf = dataView.getInt32(TILE_COLORF_OFFSET, true)
+        // virtualscape start zones: red:255, green:65280, blue:16711680, yellow:65535, violet: 16711935, cyan:16776960, orange:33023, purple:16711808
+        // virtualscape glyphs: unknown:14063,
         tileRollingOffset = TILE_COLORF_OFFSET + 4 - TILE_DATA_OFFSET
         virtualScapeMap.tiles.push(tile)
-        // isSurvivedOneTile = true
       }
-
-      console.log(
-        '🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀',
-        tileRollingOffset + TILE_DATA_OFFSET,
-        dataView.byteLength
-      )
       tileRollingOffset = 0
       resolve(virtualScapeMap)
     }
@@ -166,7 +144,6 @@ export default function readVirtualscapeMapFile(file) {
     reader.readAsArrayBuffer(file)
   })
 }
-
 function readCString(
   dataView: DataView,
   offset: number,
