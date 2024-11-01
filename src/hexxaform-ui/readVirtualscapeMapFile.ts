@@ -1,10 +1,26 @@
+const BYTES_PER_FLOAT = 8
+const getDouble = ({
+  offset,
+  dataView,
+}: {
+  offset: number
+  dataView: DataView
+}): {
+  value: number
+  offset: number
+} => {
+  return {
+    value: dataView.getFloat64(offset, true),
+    offset: offset + BYTES_PER_FLOAT,
+  }
+}
 export default function readVirtualscapeMapFile(file) {
-  // let isSurvivedOneTile = false
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
     reader.onloadend = () => {
       const arrayBuffer = reader.result
       const dataView = new DataView(arrayBuffer as ArrayBuffer)
+      let currentOffset = 0
       const virtualScapeMap = {
         version: 0,
         name: '',
@@ -20,23 +36,21 @@ export default function readVirtualscapeMapFile(file) {
         tiles: [],
       }
 
-      const VERSION_OFFSET = 0
-      const VERSION_SIZE = 8
-      const NAME_OFFSET = VERSION_OFFSET + VERSION_SIZE
-      virtualScapeMap.version = dataView.getFloat64(VERSION_OFFSET, true)
-      const { value: mapName, newOffset: AUTHOR_OFFSET } = readCString(
+      const version = getDouble({ offset: currentOffset, dataView })
+      virtualScapeMap.version = version.value
+      currentOffset = version.offset
+
+      const mapName = readCString(dataView, currentOffset, 'NAME')
+      virtualScapeMap.name = mapName.value
+      currentOffset = mapName.offset
+
+      const { value: mapAuthor, offset: PLAYER_NUMBER_OFFSET } = readCString(
         dataView,
-        NAME_OFFSET,
-        'NAME'
-      )
-      virtualScapeMap.name = mapName
-      const { value: mapAuthor, newOffset: PLAYER_NUMBER_OFFSET } = readCString(
-        dataView,
-        AUTHOR_OFFSET,
+        currentOffset,
         'AUTHOR'
       )
       virtualScapeMap.author = mapAuthor
-      const { value: playerNumber, newOffset: SCENARIO_LENGTH_OFFSET } =
+      const { value: playerNumber, offset: SCENARIO_LENGTH_OFFSET } =
         readCString(dataView, PLAYER_NUMBER_OFFSET, 'PLAYER_NUMBER')
       virtualScapeMap.playerNumber = playerNumber
       const scenarioLength = dataView.getInt32(SCENARIO_LENGTH_OFFSET, true)
@@ -113,7 +127,7 @@ export default function readVirtualscapeMapFile(file) {
         const glyphLetter = String.fromCharCode(intForGlyphLetter)
         tile.glyphLetter = glyphLetter
         const TILE_GLYPH_NAME_OFFSET = TILE_GLYPH_LETTER_OFFSET + 1
-        const { value: glyphName, newOffset: TILE_START_NAME_OFFSET } =
+        const { value: glyphName, offset: TILE_START_NAME_OFFSET } =
           readCString(
             dataView,
             // this is the last time we feed in count_offset because readCString returns newOffset
@@ -121,7 +135,7 @@ export default function readVirtualscapeMapFile(file) {
             'TILE_GLYPH_NAME'
           )
         tile.glyphName = glyphName
-        const { value: startName, newOffset: TILE_COLORF_OFFSET } = readCString(
+        const { value: startName, offset: TILE_COLORF_OFFSET } = readCString(
           dataView,
           TILE_START_NAME_OFFSET,
           'TILE_START_NAME'
@@ -149,19 +163,19 @@ function readCString(
   offset: number,
   tag: string
 ): {
-  newOffset: number
   value: string
+  offset: number
   tag: string
 } {
-  const { length, newOffset, tag: t } = readCStringLength(dataView, offset, tag)
+  const { length, offset: o, tag: t } = readCStringLength(dataView, offset, tag)
   let value = ''
   for (let i = 0; i < length; i++) {
     const newChar = String.fromCodePoint(
-      dataView.getInt16(newOffset + i * 2, true)
+      dataView.getInt16(offset + i * 2, true)
     )
     value += newChar
   }
-  return { value, newOffset: newOffset + length * 2, tag: t }
+  return { value, offset: o + length * 2, tag: t }
 }
 
 function readCStringLength(
@@ -169,7 +183,7 @@ function readCStringLength(
   offset: number,
   tag: string
 ): {
-  newOffset: number
+  offset: number
   length: number
   tag: string
 } {
@@ -188,11 +202,11 @@ function readCStringLength(
       return readCStringLength(dataView, newOffset, tag)
     } else if (short === 0xffff) {
       length = dataView.getUint32(newOffset, true)
-      offset += 4
+      newOffset += 4
     } else {
       length = short
     }
   }
 
-  return { length, newOffset, tag }
+  return { length, offset: newOffset, tag }
 }
