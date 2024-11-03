@@ -11,7 +11,7 @@ import { selectGlyphForHex } from '../game/selectors'
 import { powerGlyphs } from '../game/glyphs'
 import { HeightRings } from './HeightRings'
 import { MapHexGlyph } from './MapHexGlyph'
-import { hexTerrainColor } from '../game/terrain'
+import { hexTerrainColor } from '../hexxaform-ui/virtualscape/terrain'
 import HexCap from './world/HexCap'
 import HexSubTerrain from './world/HexSubTerrain'
 

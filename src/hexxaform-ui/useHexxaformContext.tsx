@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { GType, PenMode } from '../game/hexxaform/hexxaform-types'
 import { BoardHexes, HexMap } from '../game/types'
-import { terrain } from '../game/terrain'
+import { terrain } from './virtualscape/terrain'
 
 type HexxaformContextProviderProps = {
   children: React.ReactNode
@@ -30,7 +30,7 @@ export function HexxaformContextProvider({
 }: HexxaformContextProviderProps) {
   const [selectedMapHex, setSelectedMapHex] = React.useState('')
   // Pen Mode
-  const [penMode, setPenMode] = React.useState(PenMode.grass)
+  const [penMode, setPenMode] = React.useState(PenMode.none)
   const togglePenMode = (mode: PenMode) => {
     const { newSize, flatPieceSizes } = getNewPieceSizeForPenMode(
       mode,

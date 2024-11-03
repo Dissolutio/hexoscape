@@ -4,7 +4,7 @@ import { Button } from '@mui/material'
 import { MdFileOpen } from 'react-icons/md'
 import { HexxaformMoves } from '../game/hexxaform/hexxaform-types'
 import { GiDevilMask } from 'react-icons/gi'
-import readVirtualscapeMapFile from './readVirtualscapeMapFile'
+import readVirtualscapeMapFile from './virtualscape/readVirtualscapeMapFile'
 
 const ImportFileButton = ({ moves }: { moves: HexxaformMoves }) => {
   const uploadElementID = 'upload'

@@ -3,7 +3,7 @@ import { ThreeEvent } from '@react-three/fiber'
 import { BoardHex, EditingBoardHexes } from '../../game/types'
 import { HEXGRID_HEX_HEIGHT, isFluidTerrainHex } from '../../game/constants'
 import { Color, Vector3 } from 'three'
-import { hexTerrainColor } from '../../game/terrain'
+import { hexTerrainColor } from '../../hexxaform-ui/virtualscape/terrain'
 
 type CapMeshProps = {
   capPosition: Vector3

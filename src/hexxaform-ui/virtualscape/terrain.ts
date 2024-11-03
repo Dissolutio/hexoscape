@@ -1,14 +1,20 @@
-import { Dictionary } from "lodash"
+import { Dictionary } from 'lodash'
 
 type Terrain = {
   flatPieceSizes: number[]
 }
-
+export const hexTerrainColor: Dictionary<string> = {
+  water: '#3794fd',
+  grass: '#60840d',
+  rock: '#475776',
+  sand: '#ab8e10',
+  road: '#868686',
+}
 export const terrain: Dictionary<Terrain> = {
-  grass: {flatPieceSizes: [1, 2, 3, 7, 24]},
-  rock: {flatPieceSizes: [1, 2, 3, 7, 24]},
-  sand: {flatPieceSizes: [1, 2, 3, 7, 24]},
-  water: {flatPieceSizes: [1]},
+  grass: { flatPieceSizes: [1, 2, 3, 7, 24] },
+  rock: { flatPieceSizes: [1, 2, 3, 7, 24] },
+  sand: { flatPieceSizes: [1, 2, 3, 7, 24] },
+  water: { flatPieceSizes: [1] },
   // dungeon: {flatPieceSizes: [1, 2, 3, 7, 24]},
   // swamp: {flatPieceSizes: [1, 2, 3, 7, 24]},
   // lavaField: {flatPieceSizes: [1, 2, 7]},
@@ -52,12 +58,4 @@ export const terrain: Dictionary<Terrain> = {
   Road/Bridge 5
 
   */
-}
-
-export const hexTerrainColor: Dictionary<string> = {
-  water: '#3794fd',
-  grass: '#60840d',
-  rock: '#475776',
-  sand: '#ab8e10',
-  road: '#868686',
 }

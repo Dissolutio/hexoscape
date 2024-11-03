@@ -160,6 +160,7 @@ export default function readVirtualscapeMapFile(file) {
     reader.readAsArrayBuffer(file)
   })
 }
+
 function readCString(
   dataView: DataView,
   offset: number,
@@ -179,7 +180,6 @@ function readCString(
   }
   return { value, offset: finalOffset, tag: t }
 }
-
 function readCStringLength(
   dataView: DataView,
   offset: number,
