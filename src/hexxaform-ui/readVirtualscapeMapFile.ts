@@ -1,3 +1,5 @@
+import rtfToText from './rtfToText'
+
 const BYTES_PER_FLOAT = 8
 const getDouble = ({
   offset,
@@ -61,7 +63,7 @@ export default function readVirtualscapeMapFile(file) {
           dataView.getUint8(SCENARIO_DATA_OFFSET + i)
         )
       }
-      virtualScapeMap.scenario = scenarioRichText
+      virtualScapeMap.scenario = rtfToText(scenarioRichText)
       const LEVEL_PER_PAGE_OFFSET = SCENARIO_DATA_OFFSET + scenarioLength
       const levelPerPage = dataView.getInt32(LEVEL_PER_PAGE_OFFSET, true)
       virtualScapeMap.levelPerPage = levelPerPage
