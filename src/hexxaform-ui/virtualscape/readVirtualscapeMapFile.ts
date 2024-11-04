@@ -1,5 +1,6 @@
 import { VirtualScapeTile } from '../../game/hexxaform/hexxaform-types'
 import rtfToText from './rtfToText'
+import getTerrain from './terrain'
 
 const BYTES_PER_FLOAT = 8
 const getDouble = ({
@@ -145,8 +146,8 @@ export default function readVirtualscapeMapFile(file) {
         tile.startName = startName
         tile.colorf = dataView.getInt32(TILE_COLORF_OFFSET, true)
 
-        // virtualscape glyphs: unknown:14063,
         tileRollingOffset = TILE_COLORF_OFFSET + 4 - TILE_DATA_OFFSET
+        // const terrain = getTerrain(tile.type)
         virtualScapeMap.tiles.push(tile)
       }
       tileRollingOffset = 0
