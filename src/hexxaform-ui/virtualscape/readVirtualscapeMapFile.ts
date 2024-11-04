@@ -144,7 +144,7 @@ export default function readVirtualscapeMapFile(file) {
         )
         tile.startName = startName
         tile.colorf = dataView.getInt32(TILE_COLORF_OFFSET, true)
-        // virtualscape start zones: red:255, green:65280, blue:16711680, yellow:65535, violet: 16711935, cyan:16776960, orange:33023, purple:16711808
+
         // virtualscape glyphs: unknown:14063,
         tileRollingOffset = TILE_COLORF_OFFSET + 4 - TILE_DATA_OFFSET
         virtualScapeMap.tiles.push(tile)

@@ -9,7 +9,7 @@ export type HexxaformMoves = any
 export type BgioProps = {
   boardHexes: BoardHexes
   hexMap: HexMap
-  moves: any
+  moves?: any
 }
 export enum PenMode {
   none = 'none',
