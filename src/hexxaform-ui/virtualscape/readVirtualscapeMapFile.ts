@@ -151,6 +151,9 @@ export default function readVirtualscapeMapFile(file) {
         virtualScapeMap.tiles.push(tile)
       }
       tileRollingOffset = 0
+      virtualScapeMap.tiles.sort((a, b) => {
+        return a.posZ - b.posZ
+      })
       resolve(virtualScapeMap)
     }
 
