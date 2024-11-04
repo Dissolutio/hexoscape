@@ -110,7 +110,7 @@ export const hexTerrainColor: Dictionary<string> = {
   road: '#868686',
 }
 export const terrain: Dictionary<Terrain> = {
-  grass: { flatPieceSizes: [1, 2, 3, 7, 24] },
+  grass: { flatPieceSizes: [1, 2, 3, 6, 7, 9, 24] },
   rock: { flatPieceSizes: [1, 2, 3, 7, 24] },
   sand: { flatPieceSizes: [1, 2, 3, 7, 24] },
   water: { flatPieceSizes: [1] },

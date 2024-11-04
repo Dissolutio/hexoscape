@@ -146,7 +146,65 @@ export const getBoardHex3DCoords = (hex: BoardHex) => {
     z: (y + HEXGRID_HEX_RADIUS) * HEXGRID_SPACING,
   }
 }
-
+function hexUtilsRotateVector(
+  v: HexCoordinates,
+  rotation: number
+): HexCoordinates {
+  // const str = `${}`
+  switch (rotation % 6) {
+    case 1:
+    case -5:
+      return {
+        q: -v.r,
+        r: -v.s,
+        s: -v.q,
+      }
+    case 2:
+    case -4:
+      return {
+        q: v.s,
+        r: v.q,
+        s: v.r,
+      }
+    case 3:
+    case -3:
+      return {
+        q: -v.q,
+        r: -v.r,
+        s: -v.s,
+      }
+    case 4:
+    case -2:
+      return {
+        q: v.r,
+        r: v.s,
+        s: v.q,
+      }
+    case 5:
+    case -1:
+      return {
+        q: -v.s,
+        r: -v.q,
+        s: -v.r,
+      }
+    case 0:
+    default:
+      return v
+  }
+}
+/* hexUtilsRotate: not this does not update the IDS of boardHexes */
+export function hexUtilsRotate<T extends HexCoordinates>(
+  h: T,
+  origin: T,
+  rotation: number
+): T {
+  const vector = hexUtilsSubtract(h, origin)
+  const rotatedVector = hexUtilsRotateVector(vector, rotation)
+  return {
+    ...h,
+    ...hexUtilsAdd(rotatedVector, origin),
+  }
+}
 export const getDirectionOfNeighbor = (
   hexStart: HexCoordinates,
   neighbor: HexCoordinates

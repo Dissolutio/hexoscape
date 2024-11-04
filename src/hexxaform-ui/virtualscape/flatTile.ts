@@ -1,9 +1,10 @@
-import { hexUtilsAdd } from '../../game/hex-utils'
+import { Dictionary } from 'lodash'
+import { hexUtilsAdd, hexUtilsRotate } from '../../game/hex-utils'
 import { HexCoordinates } from '../../game/types'
 
-const origin = [{ q: 0, r: 0, s: 0 }]
+const origin = { q: 0, r: 0, s: 0 }
 const flatTile2 = [
-  ...origin,
+  origin,
   {
     q: 1,
     r: 0,
@@ -16,6 +17,24 @@ const flatTile3 = [
     q: 0,
     r: 1,
     s: -1,
+  },
+]
+const flatTile6 = [
+  ...flatTile3,
+  {
+    q: -1,
+    r: 1,
+    s: 0,
+  },
+  {
+    q: 2,
+    r: 0,
+    s: -2,
+  },
+  {
+    q: 1,
+    r: 1,
+    s: -2,
   },
 ]
 const flatTile7 = [
@@ -167,7 +186,7 @@ const flatTileCastle9 = [
 ]
 const virtualscapeRotationOriginTransformsBySize = {
   // order matters here, rotations go 0-5
-  1: Array.from({ length: 6 }, (_) => origin),
+  1: [origin, origin, origin, origin, origin, origin],
   2: [
     { q: 0, r: 0, s: 0 },
     { q: 0, r: 0, s: 0 },
@@ -184,15 +203,24 @@ const virtualscapeRotationOriginTransformsBySize = {
     { q: 0, r: 1, s: -1 },
     { q: -1, r: 1, s: 0 },
   ],
-  //   7: [
-  //     { q: 0, r: 0, s: 0 },
-  //     { q: 1, r: 0, s: -1 },
-  //     { q: 1, r: 1, s: -2 },
-  //     { q: 0, r: 2, s: -2 },
-  //     { q: -1, r: 2, s: -1 },
-  //     { q: -1, r: 1, s: 0 },
-  //   ],
+  6: [
+    { q: 0, r: 0, s: 0 },
+    { q: 1, r: 0, s: -1 },
+    { q: 0, r: 1, s: -1 },
+    { q: 1, r: 1, s: -2 },
+    { q: 0, r: 2, s: -2 },
+    { q: -2, r: 2, s: 0 },
+  ],
+  // 7: [
+  //   { q: 0, r: 0, s: 0 },
+  //   { q: 1, r: 0, s: -1 },
+  //   { q: 1, r: 1, s: -2 },
+  //   { q: 0, r: 2, s: -2 },
+  //   { q: -1, r: 2, s: -1 },
+  //   { q: -1, r: 1, s: 0 },
+  // ],
   7: [
+    // castle7
     { q: 0, r: 0, s: 0 },
     { q: 0, r: 0, s: 0 },
     { q: 1, r: 0, s: -1 },
@@ -201,6 +229,7 @@ const virtualscapeRotationOriginTransformsBySize = {
     { q: -3, r: 3, s: 0 },
   ],
   9: [
+    // castle9
     { q: 0, r: 0, s: 0 },
     { q: 0, r: 0, s: 0 },
     { q: 1, r: 0, s: -1 },
@@ -212,31 +241,35 @@ const virtualscapeRotationOriginTransformsBySize = {
     { q: 0, r: 0, s: 0 },
     { q: 1, r: 0, s: -1 },
     { q: 2, r: 3, s: -5 },
-    { q: 1, r: 5, s: -2 },
-    { q: -5, r: 6, s: -1 },
-    { q: -4, r: 4, s: 0 },
+    { q: 2, r: 5, s: -7 },
+    { q: -5, r: 7, s: -2 },
+    { q: -5, r: 2, s: 3 },
   ],
 }
 
 export const getFlatTileHexes = ({
-  origin,
+  clickedHex,
   rotation,
   size,
 }: {
-  origin: HexCoordinates
+  clickedHex: HexCoordinates
   size: number
   rotation: number
 }): HexCoordinates[] => {
-  const originOfTile = hexUtilsAdd(
-    origin,
+  const originOfTileTransform =
     virtualscapeRotationOriginTransformsBySize[size][rotation]
-  )
-  return flatTiles[size].map((t) => hexUtilsAdd(t, originOfTile))
+  const originOfTile = hexUtilsAdd(clickedHex, originOfTileTransform)
+  return flatTiles[size]
+    .map((t) => {
+      return hexUtilsRotate(t, origin, rotation)
+    })
+    .map((t) => hexUtilsAdd(t, originOfTile))
 }
-const flatTiles = {
-  1: origin,
+const flatTiles: Dictionary<HexCoordinates[]> = {
+  1: [origin],
   2: flatTile2,
   3: flatTile3,
+  6: flatTile6,
   // 7: flatTile7,
   7: flatTileCastle7,
   9: flatTileCastle9,
@@ -287,16 +320,6 @@ ROTATIONS (virtualscape)
 1,1 rot:4 main stays: next is left-up
 1,1 rot:5 main to 1,2: next is right-up 
 
-4-hex glacier, tree4
-(use glacier in virtualscape to see)
-(heights 7/11/9/11 clockwise)
-1,1 rot:0 main=height-7 hex , next hex is CW height-11(1) is directly right
-1,1 rot:1 main stays: next is right-down
-1,1 rot:2 main to 2,1 : next is left-down
-1,1 rot:3 main to 3,2: next is left
-1,1 rot:4 main to 1,3: next is left-up
-1,1 rot:5 main to 1,2: next is right-up
-
 9-hex castleground
 rot: 0 main=left-most of longest row, short row goes below, next-hex is right
 rot: 1 main stays: next is right-down
@@ -313,13 +336,22 @@ rot: 3 main to 3,2: next is left
 rot: 4 main to 2,4: next is left-up
 rot: 5 main to -1,4: next is right-up
 
+4-hex glacier, tree4
+(use glacier in virtualscape to see)
+(heights 7/11/9/11 clockwise)
+1,1 rot:0 main=height-7 hex , next hex is CW height-11(1) is directly right
+1,1 rot:1 main stays: next is right-down
+1,1 rot:2 main to 2,1 : next is left-down
+1,1 rot:3 main to 3,2: next is left
+1,1 rot:4 main to 1,3: next is left-up
+1,1 rot:5 main to 1,2: next is right-up
+
+
 castlebase end(>), straight(=), corner(<=connections left-up/down)
 All start "facing" left, and turn CW
 
 battlements, ladders, flags:
 Start facing right-up, CW from there (remember, they are technically placed adjacent to the hex they are modifying)
-
-
 
 Long-hex 123-flip
 archway3/door3(connecting side down first), road5(either side), roadwall4(connecting-side side down first, remember it is placed adjacent to the hexes it modifies):

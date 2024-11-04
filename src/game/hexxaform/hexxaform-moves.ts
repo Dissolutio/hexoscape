@@ -34,6 +34,17 @@ const paintGrassHex = (
   G.boardHexes[hexID].terrain = HexTerrain.grass
   G.boardHexes[hexID].altitude += thickness
 }
+const paintGrassTile = (
+  { G, ctx: _ctx },
+  { hexIDArr, altitude }: { hexIDArr: string[]; altitude: number }
+) => {
+  hexIDArr.forEach((hexID) => {
+    if (G.boardHexes[hexID]) {
+      G.boardHexes[hexID].terrain = HexTerrain.grass
+      G.boardHexes[hexID].altitude = altitude + 1
+    }
+  })
+}
 const paintSandHex = (
   { G, ctx: _ctx },
   { hexID, thickness }: { hexID: string; thickness: number }
@@ -72,6 +83,7 @@ export const moves = {
   voidStartZone,
   paintWaterHex,
   paintGrassHex,
+  paintGrassTile,
   paintSandHex,
   paintRockHex,
   loadMap,
