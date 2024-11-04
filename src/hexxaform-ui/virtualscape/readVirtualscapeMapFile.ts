@@ -1,3 +1,4 @@
+import { VirtualScapeTile } from '../../game/hexxaform/hexxaform-types'
 import rtfToText from './rtfToText'
 
 const BYTES_PER_FLOAT = 8
@@ -88,14 +89,13 @@ export default function readVirtualscapeMapFile(file) {
       virtualScapeMap.tiles = []
       let tileRollingOffset = 0
       for (let i = 0; i < virtualScapeMap.tileCount; i++) {
-        const tile = {
+        const tile: VirtualScapeTile = {
           type: 0,
           version: 0,
           rotation: 0,
           posX: 0,
           posY: 0,
           posZ: 0,
-          glyphLetterCode: 0,
           glyphLetter: '',
           glyphName: '',
           startName: '',
@@ -125,7 +125,7 @@ export default function readVirtualscapeMapFile(file) {
         const intForGlyphLetter = dataView.getUint8(
           COUNT_OFFSET + TILE_GLYPH_LETTER_OFFSET
         )
-        tile.glyphLetterCode = intForGlyphLetter
+        // tile.glyphLetterCode = intForGlyphLetter
         const glyphLetter = String.fromCharCode(intForGlyphLetter)
         tile.glyphLetter = glyphLetter
         const TILE_GLYPH_NAME_OFFSET = TILE_GLYPH_LETTER_OFFSET + 1
