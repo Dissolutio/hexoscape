@@ -125,7 +125,7 @@ export type Orientation = {
   b3: number
   startAngle: number
 }
-export type BoardHex = HexCoordinates & {
+export interface BoardHex extends HexCoordinates {
   id: string
   occupyingUnitID: string
   isUnitTail: boolean
@@ -313,7 +313,6 @@ export type OrderMarker = {
 export type OrderMarkers = {
   [playerID: string]: OrderMarker[]
 }
-
 
 export type MapOptions = {
   mapSize: number
