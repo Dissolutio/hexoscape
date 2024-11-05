@@ -30,7 +30,7 @@ export function HexxaformContextProvider({
 }: HexxaformContextProviderProps) {
   const [selectedMapHex, setSelectedMapHex] = React.useState('')
   // Pen Mode
-  const [penMode, setPenMode] = React.useState(PenMode.none)
+  const [penMode, setPenMode] = React.useState(PenMode.grass)
   const togglePenMode = (mode: PenMode) => {
     const { newSize, flatPieceSizes } = getNewPieceSizeForPenMode(
       mode,
@@ -42,7 +42,7 @@ export function HexxaformContextProvider({
     setFlatPieceSizes(flatPieceSizes)
   }
   // piece size
-  const [pieceSize, setPieceSize] = React.useState(1)
+  const [pieceSize, setPieceSize] = React.useState(4)
   const [flatPieceSizes, setFlatPieceSizes] = React.useState(
     terrain[penMode]?.flatPieceSizes ?? []
   )

@@ -112,9 +112,6 @@ const HexxaformHex3D = ({
       paintWaterHex({ hexID: hex.id })
     }
     if (penMode === PenMode.grass) {
-      // OLD: PAINT HEX
-      // paintGrassHex({ hexID: hex.id })
-      // PAINT TILE (NEW) BELOW:
       const hexIDArr = getFlatTileHexes({
         clickedHex: { q: hex.q, r: hex.r, s: hex.s },
         rotation: ROTATION++ % 6,

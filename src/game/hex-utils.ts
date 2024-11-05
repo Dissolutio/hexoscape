@@ -150,7 +150,6 @@ function hexUtilsRotateVector(
   v: HexCoordinates,
   rotation: number
 ): HexCoordinates {
-  // const str = `${}`
   switch (rotation % 6) {
     case 1:
     case -5:

@@ -19,6 +19,14 @@ const flatTile3 = [
     s: -1,
   },
 ]
+const flatTile4 = [
+  ...flatTile3,
+  {
+    q: 1,
+    r: 1,
+    s: -2,
+  },
+]
 const flatTile6 = [
   ...flatTile3,
   {
@@ -203,6 +211,14 @@ const virtualscapeRotationOriginTransformsBySize = {
     { q: 0, r: 1, s: -1 },
     { q: -1, r: 1, s: 0 },
   ],
+  4: [
+    { q: 0, r: 0, s: 0 },
+    { q: 0, r: 0, s: 0 },
+    { q: 1, r: 0, s: -1 },
+    { q: 1, r: 1, s: -2 },
+    { q: -1, r: 2, s: -1 },
+    { q: -1, r: 1, s: 0 },
+  ],
   6: [
     { q: 0, r: 0, s: 0 },
     { q: 1, r: 0, s: -1 },
@@ -269,6 +285,7 @@ const flatTiles: Dictionary<HexCoordinates[]> = {
   1: [origin],
   2: flatTile2,
   3: flatTile3,
+  4: flatTile4,
   6: flatTile6,
   // 7: flatTile7,
   7: flatTileCastle7,
@@ -336,6 +353,16 @@ rot: 3 main to 3,2: next is left
 rot: 4 main to 2,4: next is left-up
 rot: 5 main to -1,4: next is right-up
 
+6-hex glacier6, hive6
+(xx 17,17,9)
+(9,17,(peak)17 xx)
+1,1 rot:0 main= height-17(1) hex (heights 17/17/9/17/17/9 clockwise), the next is CW height-17(2) is directly right
+1,1 rot:1 main to 2,1: next is right-down
+1,1 rot:2 main to 1,2 : next is left-down
+1,1 rot:3 main to 2,2: next is left
+1,1 rot:4 main to 2,3: next is left-up
+1,1 rot:5 main to 0,3: next is right-up
+
 4-hex glacier, tree4
 (use glacier in virtualscape to see)
 (heights 7/11/9/11 clockwise)
@@ -345,7 +372,6 @@ rot: 5 main to -1,4: next is right-up
 1,1 rot:3 main to 3,2: next is left
 1,1 rot:4 main to 1,3: next is left-up
 1,1 rot:5 main to 1,2: next is right-up
-
 
 castlebase end(>), straight(=), corner(<=connections left-up/down)
 All start "facing" left, and turn CW
@@ -361,13 +387,4 @@ start out with next CW hex from main being to the right
 rot: 0,1,2 rotate CCW from going right, to right-down, to left-down
 rot: 3,4,5 rotate CCW the same, the main hex being the mirror hex 
 
-6-hex glacier6
-(xx 17,17,9)
-(9,17,(peak)17 xx)
-1,1 rot:0 main= height-17(1) hex (heights 17/17/9/17/17/9 clockwise), the next is CW height-17(2) is directly right
-1,1 rot:1 main to 2,1: next is right-down
-1,1 rot:2 main to 1,2 : next is left-down
-1,1 rot:3 main to 2,2: next is left
-1,1 rot:4 main to 2,3: next is left-up
-1,1 rot:5 main to 0,3: next is right-up
 */
