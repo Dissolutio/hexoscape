@@ -2,7 +2,7 @@ import { BoardHexes, HexMap, HexTerrain } from '../types'
 import { generateTimestampID } from '../constants'
 
 const voidHex = ({ G, ctx: _ctx }, { hexID }: { hexID: string }) => {
-  G.boardHexes[hexID].terrain = HexTerrain.void
+  G.boardHexes[hexID].terrain = HexTerrain.empty
   G.boardHexes[hexID].startzonePlayerIDs = []
   G.boardHexes[hexID].altitude = 0
 }

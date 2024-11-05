@@ -9,17 +9,18 @@ const DEVLogSomethingCoolButton = ({
 }: BgioProps) => {
   const onClick = () => {
     const myArr = Object.values(boardHexes)
-    const myHexCoords = myArr
-      .filter((item) => Boolean(item.terrain !== HexTerrain.void))
-      .map((item) => {
-        const copy = {
-          q: item.q,
-          r: item.r,
-          s: item.s,
-        }
-        return hexUtilsAdd(copy, { q: -1, r: -1, s: 2 })
-        // return item.id
-      })
+    const myHexCoords = myArr.filter((item) =>
+      Boolean(item.terrain !== HexTerrain.empty)
+    )
+    // .map((item) => {
+    //   const copy = {
+    //     q: item.q,
+    //     r: item.r,
+    //     s: item.s,
+    //   }
+    //   return hexUtilsAdd(copy, { q: -1, r: -1, s: 2 })
+    //   // return item.id
+    // })
     console.log('🚀 ~ boardHexes:', myHexCoords)
   }
   return (

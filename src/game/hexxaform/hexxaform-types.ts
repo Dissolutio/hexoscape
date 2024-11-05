@@ -13,7 +13,7 @@ export type BgioProps = {
 }
 export enum PenMode {
   none = 'none',
-  eraser = 'void',
+  eraser = 'empty',
   eraserStartZone = 'eraserStartZone',
   water = 'water',
   grass = 'grass',

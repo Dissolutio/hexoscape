@@ -146,6 +146,7 @@ type Terrain = {
   flatPieceSizes: number[]
 }
 export const hexTerrainColor: Dictionary<string> = {
+  empty: '#ff29bb',
   water: '#3794fd',
   grass: '#60840d',
   rock: '#475776',
