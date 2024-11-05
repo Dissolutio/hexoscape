@@ -14,6 +14,7 @@ import { MapHexGlyph } from './MapHexGlyph'
 import { hexTerrainColor } from '../hexxaform-ui/virtualscape/terrain'
 import HexCap from './world/HexCap'
 import HexSubTerrain from './world/HexSubTerrain'
+import { MapHexIDDisplay } from './MapHexIDDisplay'
 
 const halfLevel = HEXGRID_HEX_HEIGHT / 2
 const quarterLevel = HEXGRID_HEX_HEIGHT / 4
@@ -86,7 +87,7 @@ export const MapHex3D = ({
 
   return (
     <group>
-      {/* <MapHexIDDisplay boardHexID={boardHex.id} glyphPosition={glyphPosition} /> */}
+      <MapHexIDDisplay boardHexID={boardHex.id} glyphPosition={glyphPosition} />
 
       <MapHexGlyph
         glyphOnHex={Boolean(glyphOnHex)}
