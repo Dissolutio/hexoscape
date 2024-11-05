@@ -9,7 +9,7 @@ import {
 } from '../../game/types'
 import { getBoardHex3DCoords } from '../../game/hex-utils'
 import { MapHex3D } from '../../shared/MapHex3D'
-import { useZoomToMapCenterOnMapRender } from '../../hooks/useZoomToMapCenterOnMapRender'
+import { useZoomCameraToMapCenter } from '../../hooks/useZoomCameraToMapCenter'
 import { HexxaformMoves, PenMode } from '../../game/hexxaform/hexxaform-types'
 import { useHexxaformContext } from '../useHexxaformContext'
 import { generateHexID } from '../../game/constants'
@@ -40,7 +40,7 @@ export function HexxaformMapDisplay3D({
   cameraControlsRef: React.MutableRefObject<CameraControls>
   glyphs: Glyphs
 }) {
-  useZoomToMapCenterOnMapRender({
+  useZoomCameraToMapCenter({
     cameraControlsRef,
     boardHexes,
     mapID: hexMap.mapId,
