@@ -29,22 +29,65 @@ const typeCodes = {
   TYPE_SWAMPWATER: '190',
   TYPE_SHADOW: '250',
   // Start zones
-  TYPE_STARTAREA: '150', // all are 15001 type, tile.colorf is what distinguishes them: red:255, green:65280, blue:16711680, yellow:65535, violet: 16711935, cyan:16776960, orange:33023, purple:16711808
+  TYPE_STARTAREA: '150',
   // Glyphs
   TYPE_GLYPH: '140',
-  // Obstacles (Todo soon)
-  TYPE_TREE: '100', // 10013 10012 10011 are the 3 single trees,10004 is the big 4-tree
-  TYPE_RUIN: '110', // 11003, 11002 are the 2 ruins, 11006 is the marvel ruin (with wall), 11007 is the marvel ruin (with wall "destroyed")
-  TYPE_ROADWALL: '120', // 12004
-  TYPE_TICALLA: '240', // 24014, 24015, 24016 are the palms, 24002 is the brush
+  // Hex Tile Obstacles
+  TYPE_TREE: '100',
+  TYPE_TICALLA: '240',
   TYPE_GLACIER: '130',
   TYPE_OUTCROP: '270',
-  TYPE_HIVE: '230', // 23006 is the hive
-  // Castle (Todo soonish)
-  TYPE_CASTLE: '16', // 16 009,7,1 is the castle ground; 16401 is arch w/door, 16404 is arch no door, 16101,2,3, is wall-base corner/straight/end 16201,2,3, is wall corner/straight/end, 16301 battlement, 16402 is ladder, 16403 is flag
-  // Types todo later
+  TYPE_HIVE: '230',
+  // Castle: Walls, Ladders, a lot
+  TYPE_CASTLE: '16',
+  // Hex-Edge Obstacles
+  TYPE_RUIN: '110',
+  TYPE_ROADWALL: '120',
+  // REQUIRES FURTHER VIRTUALSCAPE FILE DECODING
   TYPE_PERSONAL: '170',
   TYPE_FIGURE: '180',
+}
+const startZonePlayerIds = {
+  // Keys are the colorf values of tiles from virtualscape (the colorf values are the only differentiator between start zone tiles)
+  255: '1', // red
+  65280: '2', // green
+  16711680: '3', // blue
+  65535: '4', // yellow
+  16711935: '5', // violet
+  16776960: '6', // cyan
+  33023: '7', // orange
+  16711808: '8', // purple
+}
+const terrainSubcodes = {
+  palm14: '014',
+  palm15: '015',
+  palm16: '016',
+  brush9: '002',
+  ruin2: '02',
+  ruin3: '03',
+  marvelWallIntact: '06',
+  marvelWallDestroyed: '07',
+  ffTree10: '11',
+  ffTree11: '12',
+  ffTree12: '13',
+  ffTree415: '04',
+  hive: '006',
+  wallWalk1: '001',
+  wallWalk7: '007',
+  wallWalk9: '009',
+  castleBaseCorner: '101',
+  castleBaseStraight: '102',
+  castleBaseEnd: '103',
+  castleWallCorner: '201',
+  castleWallStraight: '202',
+  castleWallEnd: '203',
+  archDoor: '401',
+  archOpen: '404',
+  battlement: '301',
+  ladder: '402',
+  flag: '403',
+  roadWall4: '04',
+  startArea: '01',
 }
 const terrainCodes = {
   [typeCodes.TYPE_GRASS]: 'grass',
