@@ -9,6 +9,7 @@ type CapMeshProps = {
   capPosition: Vector3
   boardHex: BoardHex
   capEmissiveColor: Color
+  terrainColor: Color
   isHovered: boolean
   setIsHovered: React.Dispatch<React.SetStateAction<boolean>>
   onClick?: (e: ThreeEvent<MouseEvent>, hex: BoardHex) => void
@@ -19,6 +20,7 @@ const SolidCapMesh = ({
   boardHex,
   setIsHovered,
   capEmissiveColor,
+  terrainColor,
   isHovered,
   onClick,
 }: CapMeshProps) => {
@@ -29,7 +31,6 @@ const SolidCapMesh = ({
   const scaleToUseForCap = isFluidHex
     ? heightScaleFluidCap
     : heightScaleSolidCap
-  const terrainColor = new Color(hexTerrainColor[boardHex.terrain])
   const baseEmissivity = 0.2
   const capEmissiveIntensity = isHovered ? 1 : baseEmissivity
   return (
@@ -48,7 +49,7 @@ const SolidCapMesh = ({
       position={capPosition}
       scale={[1, scaleToUseForCap, 1]}
     >
-      <meshToonMaterial
+      <meshLambertMaterial
         color={terrainColor}
         emissive={capEmissiveColor}
         emissiveIntensity={capEmissiveIntensity}
@@ -62,6 +63,7 @@ const FluidCapMesh = ({
   boardHex,
   setIsHovered,
   capEmissiveColor,
+  terrainColor,
   isHovered,
   onClick,
 }: CapMeshProps) => {
@@ -72,7 +74,6 @@ const FluidCapMesh = ({
   const scaleToUseForCap = isFluidHex
     ? heightScaleFluidCap
     : heightScaleSolidCap
-  const terrainColor = new Color(hexTerrainColor[boardHex.terrain])
   const baseEmissivity = 0.2
   const fluidEmissivity = 2 * baseEmissivity
   const capFluidEmissiveIntensity = isHovered ? 8 : fluidEmissivity
@@ -95,7 +96,7 @@ const FluidCapMesh = ({
     >
       <meshLambertMaterial
         color={terrainColor}
-        emissive={capEmissiveColor} // TODO, should this not be capEmissiveColor instead of terrainColor?
+        emissive={capEmissiveColor}
         emissiveIntensity={capFluidEmissiveIntensity}
         transparent
         opacity={capFluidOpacity}
@@ -143,14 +144,15 @@ const HexCap = ({
   const yAdjustSolidCap = yAdjustFluidCap - mysteryMathValueThatSeemsToWorkWell
   const hexCapYAdjust = isFluidHex ? yAdjustFluidCap : yAdjustSolidCap
   const capPosition = new Vector3(x, hexCapYAdjust, z)
-  const whiteColor = new Color('white')
+  const hoverHexCapColor = new Color('orange')
   const terrainColor = new Color(hexTerrainColor[boardHex.terrain])
   const capEmissiveColor =
-    isHovered || isSelectedUnitHex ? whiteColor : terrainColor
+    isHovered || isSelectedUnitHex ? hoverHexCapColor : terrainColor
   return isFluidHex ? (
     <FluidCapMesh
       capPosition={capPosition}
       capEmissiveColor={capEmissiveColor}
+      terrainColor={terrainColor}
       boardHex={boardHex}
       setIsHovered={setIsHovered}
       isHovered={isHovered}
@@ -160,6 +162,7 @@ const HexCap = ({
     <SolidCapMesh
       capPosition={capPosition}
       capEmissiveColor={capEmissiveColor}
+      terrainColor={terrainColor}
       boardHex={boardHex}
       setIsHovered={setIsHovered}
       isHovered={isHovered}

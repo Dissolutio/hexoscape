@@ -14,8 +14,8 @@ type RectangleScenarioOptions = {
 }
 
 export const rectangleScenario = makeRectangleScenario({
-  mapLength: 12,
-  mapWidth: 12,
+  mapLength: 2,
+  mapWidth: 2,
 })
 function makeRectangleScenario(options?: RectangleScenarioOptions): GType {
   const mapHeight = Math.min(options?.mapLength ?? 12, MAX_RECTANGLE_DIMENSION)
@@ -29,7 +29,6 @@ function makeRectangleScenario(options?: RectangleScenarioOptions): GType {
   }
 
   const boardHexes: BoardHexes = generateRectangle(mapHeight, mapWidth)
-  // console.log("🚀 ~ boardHexes:", Object.keys(boardHexes).length)
   return {
     boardHexes,
     hexMap,
