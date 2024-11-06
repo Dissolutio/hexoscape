@@ -114,16 +114,14 @@ export type HexCoordinates = {
   r: number
   s: number
 }
-export type Orientation = {
-  f0: number
-  f1: number
-  f2: number
-  f3: number
-  b0: number
-  b1: number
-  b2: number
-  b3: number
-  startAngle: number
+export enum HexTerrain {
+  empty = 'empty',
+  water = 'water',
+  grass = 'grass',
+  sand = 'sand',
+  rock = 'rock',
+  dungeon = 'dungeon',
+  lavaField = 'lavaField',
 }
 export interface BoardHex extends HexCoordinates {
   id: string
@@ -214,7 +212,6 @@ export type GameArmyCard = ArmyCard & {
   // this is for the airborn elite ability, which is a one time use
   hasThrownGrenade?: boolean
 }
-
 export type GameUnit = {
   unitID: string
   playerID: string
@@ -226,19 +223,15 @@ export type GameUnit = {
   rotation: number // 0-5 for the 6 directions. 1-hex figures can be rotated, 2-hex figures can be flipped during the movement stage
   modelIndex: number
 }
-
 export type GameUnits = {
   [unitID: string]: GameUnit
 }
-
 export type PlacementUnit = GameUnit & {
   singleName: string
 }
-
 export type PlayerStateToggle = {
   [playerID: string]: boolean
 }
-
 export type MoveRange = {
   [hexID: string]: {
     fromHexID: string
@@ -255,9 +248,7 @@ export type MoveRange = {
     isActionGlyph?: boolean
   }
 }
-
 export type StartingArmies = { [playerID: string]: string[] }
-
 export type DisengageAttempt = {
   unit: GameUnit
   endHexID: string
@@ -304,16 +295,13 @@ export type PlayerState = {
   }
 }
 export type PlayerOrderMarkers = { [order: string]: string }
-
 export type OrderMarker = {
   gameCardID: string
   order: string
 }
-
 export type OrderMarkers = {
   [playerID: string]: OrderMarker[]
 }
-
 export type MapOptions = {
   mapSize: number
   gameUnits?: GameUnits | undefined
@@ -326,16 +314,7 @@ export type RangeScan = {
   isMelee: boolean
   isRanged: boolean
 }
-export type LayoutDimension = {
-  size: Point
-  orientation: Orientation
-  origin: Point
-  spacing: number
-  flat: boolean
-}
-
 export type HexNeighborsWithDirections = { [hexID: string]: number }
-
 export type PossibleFireLineAttack = {
   affectedUnitIDs: string[]
   clickableHexID: string
@@ -358,11 +337,3 @@ export type BerserkerChargeRoll = {
   isSuccessful: boolean
 }
 export type UnitsKilled = { [unitID: string]: string[] }
-
-export enum HexTerrain {
-  empty = 'empty',
-  water = 'water',
-  grass = 'grass',
-  sand = 'sand',
-  rock = 'rock',
-}
