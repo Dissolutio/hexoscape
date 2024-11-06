@@ -5,6 +5,7 @@ import { MdFileOpen } from 'react-icons/md'
 import { HexxaformMoves } from '../game/hexxaform/hexxaform-types'
 import { GiDevilMask } from 'react-icons/gi'
 import readVirtualscapeMapFile from './virtualscape/readVirtualscapeMapFile'
+// import readVirtualscapeMapFile from './virtualscape/readVSFileDirty'
 
 const ImportFileButton = ({ moves }: { moves: HexxaformMoves }) => {
   const uploadElementID = 'upload'
@@ -60,6 +61,7 @@ const ImportFileButton = ({ moves }: { moves: HexxaformMoves }) => {
 
     try {
       const myMap = await readVirtualscapeMapFile(file)
+      console.log('🚀 ~ readVSFile ~ myMap:', myMap)
     } catch (error) {
       console.error(error)
     }
