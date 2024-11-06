@@ -164,14 +164,14 @@ export default function readVirtualscapeMapFile(file: File) {
         tile.glyphLetter = glyphLetter
         const TILE_GLYPH_NAME_OFFSET = TILE_GLYPH_LETTER_OFFSET + 1
         const { value: glyphName, offset: TILE_START_NAME_OFFSET } =
-          readCString(
+          readCString2(
             dataView,
             // this is the last time we feed in count_offset because readCString returns newOffset
             COUNT_OFFSET + TILE_GLYPH_NAME_OFFSET,
             'TILE_GLYPH_NAME'
           )
         tile.glyphName = glyphName
-        const { value: startName, offset: TILE_COLORF_OFFSET } = readCString(
+        const { value: startName, offset: TILE_COLORF_OFFSET } = readCString2(
           dataView,
           TILE_START_NAME_OFFSET,
           'TILE_START_NAME'
@@ -180,7 +180,6 @@ export default function readVirtualscapeMapFile(file: File) {
         tile.colorf = dataView.getInt32(TILE_COLORF_OFFSET, true)
 
         tileRollingOffset = TILE_COLORF_OFFSET + 4 - TILE_DATA_OFFSET
-        // const terrain = getTerrain(tile.type)
         virtualScapeMap.tiles.push(tile)
       }
       tileRollingOffset = 0
