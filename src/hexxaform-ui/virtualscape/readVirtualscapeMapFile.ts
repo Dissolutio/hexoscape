@@ -1,3 +1,12 @@
+/* 
+This function is designed to read a specific binary file format used by VirtualScape, 
+and to convert it into a JavaScript object.
+
+Huge applause for Didiers! For his amazing and free VirtualScape map editor: https://github.com/didiers/virtualscape
+15 years later, Virtualscape is still going strong!
+
+Great thanks to Lyrgard! They originally decoded virtualscape files in their own astounding project, HexScape: https://github.com/lyrgard/HexScape
+*/
 let offset = 0
 export default function readVirtualscapeMapFile(file: File) {
   return new Promise((resolve, reject) => {
