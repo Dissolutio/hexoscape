@@ -1,8 +1,9 @@
 import { VirtualScapeTile } from '../../game/hexxaform/hexxaform-types'
 import rtfToText from './rtfToText'
-import getTerrain from './terrain'
 
 const BYTES_PER_FLOAT = 8
+const BYTES_PER_INT = 4
+const BYTES_PER_UINT8 = 1
 const getDouble = ({
   offset,
   dataView,
@@ -18,7 +19,22 @@ const getDouble = ({
     offset: offset + BYTES_PER_FLOAT,
   }
 }
-export default function readVirtualscapeMapFile(file) {
+const getInt = ({
+  offset,
+  dataView,
+}: {
+  offset: number
+  dataView: DataView
+}): {
+  value: number
+  offset: number
+} => {
+  return {
+    value: dataView.getInt32(offset, true),
+    offset: offset + BYTES_PER_INT,
+  }
+}
+export default function readVirtualscapeMapFile(file: File) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
     reader.onloadend = () => {
@@ -48,46 +64,62 @@ export default function readVirtualscapeMapFile(file) {
       virtualScapeMap.name = mapName.value
       currentOffset = mapName.offset
 
-      const { value: mapAuthor, offset: PLAYER_NUMBER_OFFSET } = readCString(
-        dataView,
-        currentOffset,
-        'AUTHOR'
-      )
-      virtualScapeMap.author = mapAuthor
-      const { value: playerNumber, offset: SCENARIO_LENGTH_OFFSET } =
-        readCString(dataView, PLAYER_NUMBER_OFFSET, 'PLAYER_NUMBER')
-      virtualScapeMap.playerNumber = playerNumber
-      const scenarioLength = dataView.getInt32(SCENARIO_LENGTH_OFFSET, true)
-      const SCENARIO_DATA_OFFSET = SCENARIO_LENGTH_OFFSET + 4
+      const mapAuthor = readCString(dataView, currentOffset, 'AUTHOR')
+      virtualScapeMap.author = mapAuthor.value
+      currentOffset = mapAuthor.offset
+
+      const playerNumber = readCString(dataView, currentOffset, 'PLAYER_NUMBER')
+      virtualScapeMap.playerNumber = playerNumber.value
+      currentOffset = playerNumber.offset
+
+      const scenarioLength = getInt({ offset: currentOffset, dataView })
+      currentOffset = scenarioLength.offset
+
       let scenarioRichText = ''
-      for (let i = 0; i < scenarioLength; i++) {
+      for (let i = 0; i < scenarioLength.value; i++) {
         scenarioRichText += String.fromCharCode(
-          dataView.getUint8(SCENARIO_DATA_OFFSET + i)
+          dataView.getUint8(currentOffset + i)
         )
       }
+      currentOffset += BYTES_PER_UINT8 * scenarioLength.value
       virtualScapeMap.scenario = rtfToText(scenarioRichText)
-      const LEVEL_PER_PAGE_OFFSET = SCENARIO_DATA_OFFSET + scenarioLength
-      const levelPerPage = dataView.getInt32(LEVEL_PER_PAGE_OFFSET, true)
-      virtualScapeMap.levelPerPage = levelPerPage
-      const PRINTING_TRANSPARENCY_OFFSET = LEVEL_PER_PAGE_OFFSET + 4
-      virtualScapeMap.printingTransparency = dataView.getInt32(
-        PRINTING_TRANSPARENCY_OFFSET,
-        true
-      )
-      const PRINTING_GRID_OFFSET = PRINTING_TRANSPARENCY_OFFSET + 4
-      virtualScapeMap.printingGrid =
-        dataView.getInt32(PRINTING_GRID_OFFSET, true) !== 0
-      const PRINT_TILE_NUMBER_OFFSET = PRINTING_GRID_OFFSET + 4
-      virtualScapeMap.printTileNumber =
-        dataView.getInt32(PRINT_TILE_NUMBER_OFFSET, true) !== 0
-      const PRINT_START_AREA_AS_LEVEL_OFFSET = PRINT_TILE_NUMBER_OFFSET + 4
-      virtualScapeMap.printStartAreaAsLevel =
-        dataView.getInt32(PRINT_START_AREA_AS_LEVEL_OFFSET, true) !== 0
-      const TILE_NUMBER_OFFSET = PRINT_START_AREA_AS_LEVEL_OFFSET + 4
-      virtualScapeMap.tileCount = dataView.getInt32(TILE_NUMBER_OFFSET, true)
-      const TILE_DATA_OFFSET = TILE_NUMBER_OFFSET + 4
 
-      virtualScapeMap.tiles = []
+      const levelPerPage = getInt({ offset: currentOffset, dataView })
+      virtualScapeMap.levelPerPage = levelPerPage.value
+      currentOffset = levelPerPage.offset
+
+      const printingTransparency = getInt({
+        offset: currentOffset,
+        dataView,
+      })
+      virtualScapeMap.printingTransparency = printingTransparency.value
+      currentOffset = printingTransparency.offset
+
+      const printingGrid = getInt({ offset: currentOffset, dataView })
+      virtualScapeMap.printingGrid = printingGrid.value !== 0
+      currentOffset = printingGrid.offset
+
+      const printTileNumber = getInt({ offset: currentOffset, dataView })
+      virtualScapeMap.printTileNumber = printTileNumber.value !== 0
+      currentOffset = printTileNumber.offset
+
+      const printStartAreaAsLevel = getInt({
+        offset: currentOffset,
+        dataView,
+      })
+      virtualScapeMap.printStartAreaAsLevel = printStartAreaAsLevel.value !== 0
+      currentOffset = printStartAreaAsLevel.offset
+
+      const tileCount = getInt({ offset: currentOffset, dataView })
+      virtualScapeMap.tileCount = tileCount.value
+      currentOffset = tileCount.offset
+      const TILE_DATA_OFFSET = currentOffset
+
+      // THIS IS WHERE THE TWO OFFSETS HANDOFF: We stop using currentOffset
+      // and start using tileRollingOffset
+      // LET'S TRY A MUTATED OFFSET ^^^^ first and see if it works
+      console.log('🚀 ~ returnnewPromise ~ virtualScapeMap:', virtualScapeMap)
+
       let tileRollingOffset = 0
       for (let i = 0; i < virtualScapeMap.tileCount; i++) {
         const tile: VirtualScapeTile = {
@@ -106,6 +138,7 @@ export default function readVirtualscapeMapFile(file) {
         let tileType = 0
         tileType = dataView.getInt32(COUNT_OFFSET, true)
         tile.type = tileType
+
         const TILE_VERSION_OFFSET = 4
         tile.version = dataView.getFloat64(
           COUNT_OFFSET + TILE_VERSION_OFFSET,
@@ -185,6 +218,73 @@ function readCString(
   return { value, offset: finalOffset, tag: t }
 }
 function readCStringLength(
+  dataView: DataView,
+  offset: number,
+  tag: string
+): {
+  offset: number
+  length: number
+  tag: string
+} {
+  let length = 0
+  let newOffset = offset
+  const byte = dataView.getUint8(offset)
+  newOffset += 1
+
+  if (byte !== 0xff) {
+    length = byte
+  } else {
+    const short = dataView.getUint16(offset, false)
+    newOffset += 2
+
+    if (short === 0xfffe) {
+      return readCStringLength(dataView, newOffset, tag)
+    } else if (short === 0xffff) {
+      length = dataView.getUint32(newOffset, true)
+      // throw new Error(
+      //   `DOES THIS EVER ACTUALLY HAPPEN? This branch exists in the HexScape code. This function worked fine, but the whole time I was developing it, this code block was incrementing offset instead of newOffset (offset += 4, should be newOffset += 4)`
+      // )
+      // offset += 4
+      newOffset += 4
+    } else {
+      length = short
+    }
+  }
+
+  return { length, offset: newOffset, tag }
+}
+
+///////
+////////
+///////
+////////
+///////
+////////
+///////
+////////
+///////
+////////
+
+function readCString2(
+  dataView: DataView,
+  offset: number,
+  tag: string
+): {
+  value: string
+  offset: number
+  tag: string
+} {
+  const { length, offset: o, tag: t } = readCStringLength(dataView, offset, tag)
+  const finalOffset = o + length * 2
+  let value = ''
+  for (let i = 0; i < length; i++) {
+    const charOffset = o + i * 2
+    const newChar = String.fromCodePoint(dataView.getInt16(charOffset, true))
+    value += newChar
+  }
+  return { value, offset: finalOffset, tag: t }
+}
+function readCStringLength2(
   dataView: DataView,
   offset: number,
   tag: string
