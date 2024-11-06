@@ -1,4 +1,8 @@
-const figureNames = {
+// We may never need this data, but these are the english names (keys) and the french
+// names (values) of the figure tiles in Virtualscape.
+type FigureFrenchName = string
+const figureNames: { [englishName: string]: FigureFrenchName } = {
+  // ['EnglishName']: 'FrenchName'
   NE_GOK_SA: 'NE-GOK-SA',
   'AGENT CARR': 'AGENT CARR',
   MIMRING: 'MIMRING',
@@ -47,4 +51,27 @@ const figureNames = {
   'TAELORD THE KYRIE WARRIOR': 'TAELORD THE KYRIE WARRIOR',
   'VENOC VIPERS': 'VENOC VIPERS',
   'VENOC WARLORD': 'VENOC WARLORD',
+}
+const glyphLetterToName = {
+  '?': 'unknown', // tile.type: 14063="unknown"
+  A: 'astrid',
+  G: 'gerda',
+  I: 'ivor',
+  V: 'valda',
+  D: 'dragmar',
+  B: 'brandar',
+  K: 'kelda',
+  E: 'erland',
+  M: 'mitonsoul',
+  L: 'lodin',
+  S: 'sturla',
+  R: 'rannveig',
+  J: 'jalgard',
+  W: 'wannok',
+  P: 'proftaka',
+  O: 'oreld',
+  N: 'nilrend',
+  C: 'crevcor',
+  T: 'thorian',
+  U: 'ulaniva',
 }

@@ -43,12 +43,13 @@ const typeCodes = {
   // Hex-Edge Obstacles
   TYPE_RUIN: '110',
   TYPE_ROADWALL: '120',
-  // REQUIRES FURTHER VIRTUALSCAPE FILE DECODING
+  // Tiles that people could customize in Virtualscape:
   TYPE_PERSONAL: '170',
+  // The MasterSet 1 figures (colored/textured too!), and Wave 1 figures (unpainted & incomplete but most of the meshes)
   TYPE_FIGURE: '180',
 }
-const startZonePlayerIds = {
-  // Keys are the colorf values of tiles from virtualscape (the colorf values are the only differentiator between start zone tiles)
+const startAreaColorsToPlayerID = {
+  // Keys are the colorf values of StartAreaTiles from virtualscape (the colorf values are these tiles only differentiating property)
   255: '1', // red
   65280: '2', // green
   16711680: '3', // blue
@@ -93,58 +94,32 @@ const terrainCodes = {
   [typeCodes.TYPE_GRASS]: 'grass',
   [typeCodes.TYPE_ROCK]: 'rock',
   [typeCodes.TYPE_SAND]: 'sand',
+  [typeCodes.TYPE_ROAD]: 'road',
+  [typeCodes.TYPE_LAVAFIELD]: 'lavaField',
+  [typeCodes.TYPE_SWAMPWATER]: 'swampWater',
+  [typeCodes.TYPE_SWAMP]: 'swamp',
+  [typeCodes.TYPE_CONCRETE]: 'concrete',
+  [typeCodes.TYPE_ASPHALT]: 'asphalt',
+  [typeCodes.TYPE_SHADOW]: 'shadow',
+  [typeCodes.TYPE_DUNGEON]: 'dungeon',
+  [typeCodes.TYPE_SNOW]: 'snow',
   [typeCodes.TYPE_WATER]: 'water',
   [typeCodes.TYPE_ICE]: 'ice',
   [typeCodes.TYPE_LAVA]: 'lava',
-  [typeCodes.TYPE_LAVAFIELD]: 'lavaField',
-  [typeCodes.TYPE_ROAD]: 'road',
-  [typeCodes.TYPE_SNOW]: 'snow',
   [typeCodes.TYPE_TREE]: 'tree',
   [typeCodes.TYPE_RUIN]: 'ruin',
   [typeCodes.TYPE_ROADWALL]: 'roadWall',
   [typeCodes.TYPE_GLACIER]: 'glacier',
   [typeCodes.TYPE_GLYPH]: 'glyph',
-  [typeCodes.TYPE_STARTAREA]: 'startzone',
   [typeCodes.TYPE_CASTLE]: 'castle',
-  [typeCodes.TYPE_PERSONAL]: 'personal',
-  [typeCodes.TYPE_FIGURE]: 'figure',
-  [typeCodes.TYPE_SWAMPWATER]: 'swampWater',
-  [typeCodes.TYPE_SWAMP]: 'swamp',
-  [typeCodes.TYPE_CONCRETE]: 'concrete',
-  [typeCodes.TYPE_ASPHALT]: 'asphalt',
   [typeCodes.TYPE_HIVE]: 'hive',
   [typeCodes.TYPE_TICALLA]: 'ticalla',
-  [typeCodes.TYPE_SHADOW]: 'shadow',
-  [typeCodes.TYPE_DUNGEON]: 'dungeon',
   [typeCodes.TYPE_OUTCROP]: 'outcrop',
-}
-const glyphLetterToName = {
-  '?': 'unknown', // 14063="unknown"
-  A: 'astrid',
-  G: 'gerda',
-  I: 'ivor',
-  V: 'valda',
-  D: 'dragmar',
-  B: 'brandar',
-  K: 'kelda',
-  E: 'erland',
-  M: 'mitonsoul',
-  L: 'lodin',
-  S: 'sturla',
-  R: 'rannveig',
-  J: 'jalgard',
-  W: 'wannok',
-  P: 'proftaka',
-  O: 'oreld',
-  N: 'nilrend',
-  C: 'crevcor',
-  T: 'thorian',
-  U: 'ulaniva',
+  [typeCodes.TYPE_STARTAREA]: 'startzone',
+  [typeCodes.TYPE_PERSONAL]: 'personal',
+  [typeCodes.TYPE_FIGURE]: 'figure',
 }
 
-type Terrain = {
-  flatPieceSizes: number[]
-}
 export const hexTerrainColor: Dictionary<string> = {
   empty: '#ff29bb',
   water: '#3794fd',
@@ -153,14 +128,14 @@ export const hexTerrainColor: Dictionary<string> = {
   sand: '#ab8e10',
   road: '#868686',
 }
-export const terrain: Dictionary<Terrain> = {
+export const terrain = {
   grass: { flatPieceSizes: [1, 2, 3, 4, 6, 7, 9, 24] },
   rock: { flatPieceSizes: [1, 2, 3, 7, 24] },
   sand: { flatPieceSizes: [1, 2, 3, 7, 24] },
   water: { flatPieceSizes: [1] },
   // dungeon: {flatPieceSizes: [1, 2, 3, 7, 24]},
-  // swamp: {flatPieceSizes: [1, 2, 3, 7, 24]},
   // lavaField: {flatPieceSizes: [1, 2, 7]},
+  // swamp: {flatPieceSizes: [1, 2, 3, 7, 24]},
   // concrete: {flatPieceSizes: [1, 2, 7]},
   // asphalt: {flatPieceSizes: [1, 2, 7]},
   // snow: {flatPieceSizes: [1, 2]},
