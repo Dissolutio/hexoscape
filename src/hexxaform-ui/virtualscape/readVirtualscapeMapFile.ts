@@ -19,6 +19,17 @@ const getDouble = ({
     offset: offset + BYTES_PER_FLOAT,
   }
 }
+const getDouble_M = ({
+  dataView,
+  offset,
+}: {
+  dataView: DataView
+  offset: number
+}): number => {
+  const val = dataView.getFloat64(offset, true)
+  offset += BYTES_PER_FLOAT
+  return val
+}
 const getInt = ({
   offset,
   dataView,
@@ -41,6 +52,8 @@ export default function readVirtualscapeMapFile(file: File) {
       const arrayBuffer = reader.result
       const dataView = new DataView(arrayBuffer as ArrayBuffer)
       let currentOffset = 0
+      // eslint-disable-next-line prefer-const
+      let mutant = 0
       const virtualScapeMap = {
         version: 0,
         name: '',
@@ -57,10 +70,11 @@ export default function readVirtualscapeMapFile(file: File) {
       }
 
       const version = getDouble({ offset: currentOffset, dataView })
-      virtualScapeMap.version = version.value
+      const version_M = getDouble_M({ offset: mutant, dataView })
+      virtualScapeMap.version = version_M
       currentOffset = version.offset
 
-      const mapName = readCString(dataView, currentOffset, 'NAME')
+      const mapName = readCString_M(dataView, currentOffset, 'NAME')
       virtualScapeMap.name = mapName.value
       currentOffset = mapName.offset
 
@@ -164,14 +178,14 @@ export default function readVirtualscapeMapFile(file: File) {
         tile.glyphLetter = glyphLetter
         const TILE_GLYPH_NAME_OFFSET = TILE_GLYPH_LETTER_OFFSET + 1
         const { value: glyphName, offset: TILE_START_NAME_OFFSET } =
-          readCString2(
+          readCString(
             dataView,
             // this is the last time we feed in count_offset because readCString returns newOffset
             COUNT_OFFSET + TILE_GLYPH_NAME_OFFSET,
             'TILE_GLYPH_NAME'
           )
         tile.glyphName = glyphName
-        const { value: startName, offset: TILE_COLORF_OFFSET } = readCString2(
+        const { value: startName, offset: TILE_COLORF_OFFSET } = readCString(
           dataView,
           TILE_START_NAME_OFFSET,
           'TILE_START_NAME'
@@ -197,7 +211,7 @@ export default function readVirtualscapeMapFile(file: File) {
   })
 }
 
-function readCString(
+function readCString_M(
   dataView: DataView,
   offset: number,
   tag: string
@@ -206,7 +220,11 @@ function readCString(
   offset: number
   tag: string
 } {
-  const { length, offset: o, tag: t } = readCStringLength(dataView, offset, tag)
+  const {
+    length,
+    offset: o,
+    tag: t,
+  } = readCStringLength_M(dataView, offset, tag)
   const finalOffset = o + length * 2
   let value = ''
   for (let i = 0; i < length; i++) {
@@ -216,7 +234,7 @@ function readCString(
   }
   return { value, offset: finalOffset, tag: t }
 }
-function readCStringLength(
+function readCStringLength_M(
   dataView: DataView,
   offset: number,
   tag: string
@@ -237,7 +255,7 @@ function readCStringLength(
     newOffset += 2
 
     if (short === 0xfffe) {
-      return readCStringLength(dataView, newOffset, tag)
+      return readCStringLength_M(dataView, newOffset, tag)
     } else if (short === 0xffff) {
       length = dataView.getUint32(newOffset, true)
       // throw new Error(
@@ -252,19 +270,7 @@ function readCStringLength(
 
   return { length, offset: newOffset, tag }
 }
-
-///////
-////////
-///////
-////////
-///////
-////////
-///////
-////////
-///////
-////////
-
-function readCString2(
+function readCString(
   dataView: DataView,
   offset: number,
   tag: string
@@ -283,7 +289,7 @@ function readCString2(
   }
   return { value, offset: finalOffset, tag: t }
 }
-function readCStringLength2(
+function readCStringLength(
   dataView: DataView,
   offset: number,
   tag: string
