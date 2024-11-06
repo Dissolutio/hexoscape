@@ -1,14 +1,11 @@
-import { VirtualScapeTile } from '../../game/hexxaform/hexxaform-types'
-import rtfToText from './rtfToText'
-
 const BYTES_PER_FLOAT = 8
 const BYTES_PER_INT32 = 4
 const BYTES_PER_UINT8 = 1
 
+let bytePosition = 0
 export default function readVirtualscapeMapFile(file: File) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
-    let mutant = 0
     reader.onloadend = () => {
       const arrayBuffer = reader.result
       const dataView = new DataView(arrayBuffer as ArrayBuffer)
@@ -27,28 +24,25 @@ export default function readVirtualscapeMapFile(file: File) {
         tiles: [],
       }
 
-      virtualScapeMap.version = getDouble_M({ dataView })
-      virtualScapeMap.name = readCString_M(dataView, 'NAME').value
-      virtualScapeMap.author = readCString_M(dataView, 'AUTHOR').value
-      virtualScapeMap.playerNumber = readCString_M(
-        dataView,
-        'PLAYER_NUMBER'
-      ).value
-      const scenarioLength = getInt32_M({ dataView })
+      virtualScapeMap.version = getDouble({ dataView })
+      virtualScapeMap.name = readCString(dataView)
+      virtualScapeMap.author = readCString(dataView)
+      virtualScapeMap.playerNumber = readCString(dataView)
+      const scenarioLength = getInt32({ dataView })
       let scenarioRichText_M = ''
       for (let i = 0; i < scenarioLength; i++) {
-        scenarioRichText_M += String.fromCharCode(getUint8_M({ dataView }))
+        scenarioRichText_M += String.fromCharCode(getUint8({ dataView }))
       }
       virtualScapeMap.scenario = rtfToText(scenarioRichText_M)
-      virtualScapeMap.levelPerPage = getInt32_M({ dataView })
-      virtualScapeMap.printingTransparency = getInt32_M({ dataView })
-      virtualScapeMap.printingGrid = getInt32_M({ dataView }) !== 0
-      virtualScapeMap.printTileNumber = getInt32_M({ dataView }) !== 0
-      virtualScapeMap.printStartAreaAsLevel = getInt32_M({ dataView }) !== 0
-      virtualScapeMap.tileCount = getInt32_M({ dataView })
+      virtualScapeMap.levelPerPage = getInt32({ dataView })
+      virtualScapeMap.printingTransparency = getInt32({ dataView })
+      virtualScapeMap.printingGrid = getInt32({ dataView }) !== 0
+      virtualScapeMap.printTileNumber = getInt32({ dataView }) !== 0
+      virtualScapeMap.printStartAreaAsLevel = getInt32({ dataView }) !== 0
+      virtualScapeMap.tileCount = getInt32({ dataView })
 
       for (let i = 0; i < virtualScapeMap.tileCount; i++) {
-        const tile: VirtualScapeTile = {
+        const tile = {
           type: 0,
           version: 0,
           rotation: 0,
@@ -61,23 +55,23 @@ export default function readVirtualscapeMapFile(file: File) {
           colorf: 0,
         }
 
-        tile.type = getInt32_M({ dataView })
-        tile.version = getDouble_M({ dataView })
-        tile.rotation = getInt32_M({ dataView })
-        tile.posX = getInt32_M({ dataView })
-        tile.posY = getInt32_M({ dataView })
-        tile.posZ = getInt32_M({ dataView })
-        tile.glyphLetter = String.fromCharCode(getUint8_M({ dataView }))
+        tile.type = getInt32({ dataView })
+        tile.version = getDouble({ dataView })
+        tile.rotation = getInt32({ dataView })
+        tile.posX = getInt32({ dataView })
+        tile.posY = getInt32({ dataView })
+        tile.posZ = getInt32({ dataView })
+        tile.glyphLetter = String.fromCharCode(getUint8({ dataView }))
 
-        tile.glyphName = readCString_M(dataView, 'TILE_GLYPH_NAME').value
+        tile.glyphName = readCString(dataView)
 
-        tile.startName = readCString_M(dataView, 'TILE_START_NAME').value
-        tile.colorf = getInt32_M({ dataView })
+        tile.startName = readCString(dataView)
+        tile.colorf = getInt32({ dataView })
 
         virtualScapeMap.tiles.push(tile)
       }
 
-      // sort by posZ, so we can build from the bottom up
+      // sort by posZ, so we can build from the bottom up (posZ is altitude in virtualscape)
       virtualScapeMap.tiles.sort((a, b) => {
         return a.posZ - b.posZ
       })
@@ -88,73 +82,63 @@ export default function readVirtualscapeMapFile(file: File) {
     }
     reader.readAsArrayBuffer(file)
 
-    function getDouble_M({ dataView }: { dataView: DataView }): number {
-      const val = dataView.getFloat64(mutant, true)
-      mutant += BYTES_PER_FLOAT
+    function getDouble({ dataView }: { dataView: DataView }): number {
+      const val = dataView.getFloat64(bytePosition, true)
+      bytePosition += BYTES_PER_FLOAT
       return val
     }
-    function getInt32_M({ dataView }: { dataView: DataView }): number {
-      const val = dataView.getInt32(mutant, true)
-      mutant += BYTES_PER_INT32
+    function getInt32({ dataView }: { dataView: DataView }): number {
+      const val = dataView.getInt32(bytePosition, true)
+      bytePosition += BYTES_PER_INT32
       return val
     }
-    function getUint8_M({ dataView }: { dataView: DataView }): number {
-      const val = dataView.getUint8(mutant)
-      mutant += BYTES_PER_UINT8
+    function getUint8({ dataView }: { dataView: DataView }): number {
+      const val = dataView.getUint8(bytePosition)
+      bytePosition += BYTES_PER_UINT8
       return val
     }
-    function readCString_M(
-      dataView: DataView,
-      tag: string
-    ): {
-      value: string
-      tag: string
-    } {
-      const { length, tag: t } = readCStringLength_M(dataView, tag)
+    function readCString(dataView: DataView): string {
+      const length = readCStringLength(dataView)
       let value = ''
       for (let i = 0; i < length; i++) {
-        const newChar = String.fromCodePoint(dataView.getInt16(mutant, true))
+        const newChar = String.fromCodePoint(
+          dataView.getInt16(bytePosition, true)
+        )
         value += newChar
-        mutant += 2
+        bytePosition += 2
       }
-      return { value, tag: t }
+      return value
     }
-    function readCStringLength_M(
-      dataView: DataView,
-      tag: string
-    ): {
-      length: number
-      tag: string
-    } {
+    function readCStringLength(dataView: DataView): number {
       let length = 0
-      let lengthByteLength = 0
-      const byte = dataView.getUint8(mutant)
-      mutant += 1
+      const byte = dataView.getUint8(bytePosition)
+      bytePosition += 1
 
       if (byte !== 0xff) {
-        lengthByteLength = 1
         length = byte
       } else {
-        const mysterious3BytesFor1Short = mutant - 1 // I have no idea why the short is read from the same spot as the first byte, but the offset must be incremented by 3 after the short or there's an error
-        lengthByteLength = 3
+        const mysterious3BytesFor1Short = bytePosition - 1 // I have no idea why the short is read from the same spot as the first byte, but the offset must be incremented by 3 after the short or there's an error
         const short = dataView.getUint16(mysterious3BytesFor1Short, false)
-        mutant += 2
+        bytePosition += 2
 
         if (short === 0xfffe) {
-          return readCStringLength_M(dataView, tag)
+          return readCStringLength(dataView)
         } else if (short === 0xffff) {
-          /* 
-           So far, this branch of code seems to be unused.
-           IF it's actually used, it remains to be seen if it will follow the pattern above, or some other pattern.
-          */
-          length = dataView.getUint32(mutant, true)
-          mutant += 4
+          length = dataView.getUint32(bytePosition, true)
+          bytePosition += 4
         } else {
           length = short
         }
       }
 
-      return { length, tag }
+      return length
+    }
+    function rtfToText(rtf: string) {
+      // https://stackoverflow.com/questions/29922771/convert-rtf-to-and-from-plain-text
+      rtf = rtf.replace(/\\par[d]?/g, '')
+      return rtf
+        .replace(/\{\*?\\[^{}]+}|[{}]|\\\n?[A-Za-z]+\n?(?:-?\d+)?[ ]?/g, '')
+        .trim()
     }
   })
 }

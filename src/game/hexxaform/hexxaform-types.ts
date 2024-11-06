@@ -26,15 +26,3 @@ export enum PenMode {
   // startZone4 = 'startZone4',
   // startZone5 = 'startZone5',
 }
-export type VirtualScapeTile = {
-  type: number
-  version: number
-  rotation: number
-  posX: number
-  posY: number
-  posZ: number
-  glyphLetter: string
-  glyphName: string
-  startName: string
-  colorf: number
-}
