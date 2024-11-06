@@ -59,7 +59,7 @@ const ImportFileButton = ({ moves }: { moves: HexxaformMoves }) => {
     }
 
     try {
-      const myMap = await readVirtualscapeMapFile(file)
+      const myMap: any = await readVirtualscapeMapFile(file)
       console.log('🚀 ~ readVSFile ~ myMap:', myMap)
     } catch (error) {
       console.error(error)
