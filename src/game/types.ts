@@ -1,25 +1,13 @@
 export interface GameState {
+  boardHexes: BoardHexes
+  hexMap: HexMap
   maxArmyValue: number
   maxRounds: number
   gameArmyCards: GameArmyCard[]
   killedArmyCards: GameArmyCard[]
   gameUnits: GameUnits
-  // killedUnits is updated when units die, and when units are resurrected/cloned
-  killedUnits: GameUnits
-  // annihilatedUnits would be units that were never killed, because they were never placed on the map (in placement, no room in start zone)
-  // annihilatedUnits: GameUnits
-
-  // TODO: Cheating: secret: We should not be storing unrevealed-glyph-state in the public game state, but it's a quick way to get the game to work
-  // secret: {
-  //   glyphs: {
-  //     [boardHexID: string]: string // a glyphID
-  //   }
-  // }
-
-  // players is like secret, a bgio include: playersState keys are playerIDS, players only see their slice of it at G.players
-  players: PlayerState
-  hexMap: HexMap
-  boardHexes: BoardHexes
+  killedUnits: GameUnits // killedUnits is updated when units die, and when units are resurrected/cloned
+  players: PlayerState // players is secret state, each player ID only sees their slice: (G.players[0] = { secret stuff for player 0 })
   startZones: StartZones
   orderMarkers: OrderMarkers
   initiative: string[]
@@ -35,8 +23,7 @@ export interface GameState {
   // ROP game state below
   unitsMoved: string[] // unitsMoved is not unique ids; for now used to track # of moves used
   unitsAttacked: { [attackingUnitID: string]: string[] }
-  // unitsKilled does not get erased or updated when killed units are resurrected/cloned
-  unitsKilled: UnitsKilled
+  unitsKilled: UnitsKilled // unitsKilled does not get erased or updated when killed units are resurrected/cloned
   gameLog: string[]
   /* 
     disengagesAttempting 
@@ -54,21 +41,17 @@ export interface GameState {
   disengagedUnitIds: string[]
   waterCloneRoll?: WaterCloneRoll
   waterClonesPlaced: WaterClonesPlaced
-  // This is an array of gameCardIDs, it gets added to whenever a grenade gets thrown, and then at end of turn, in game.ts file,  we can mark that card true for hasThrownGrenade
-  grenadesThrown: string[]
-  // tracks which cards that need to use The Drop have used it
-  theDropUsed: string[]
-  // this temporarily stores the results of The Drop rolls for players to see while they decide if/where to drop, does NOT mean they have used The Drop
-  theDropResult?: {
-    [playerID: string]: TheDropRoll
-  }
-  // this marks grimnak as having chomped
-  chompsAttempted: string[]
-  // this marks negoksa as having attempted mind shackle
-  mindShacklesAttempted: string[]
+  grenadesThrown: string[] // array of gameCardIDs, added to when a grenade is thrown, flags Game "use up" the grenades
+  chompsAttempted: string[] // this marks grimnak as having chomped
+  mindShacklesAttempted: string[] // this marks negoksa as having attempted mind shackle
   // this is used to track results of Tarn Viking Warrior berserker charges
   berserkerChargeRoll: BerserkerChargeRoll | undefined
   berserkerChargeSuccessCount: number
+  theDropUsed: string[] // tracks which cards that need to use The Drop have used it
+  // theDropResult: this temporarily stores the results of The Drop rolls for players to see while they decide if/where to drop, does NOT mean they have used The Drop
+  theDropResult?: {
+    [playerID: string]: TheDropRoll
+  }
 }
 export type SetupData = {
   numPlayers: number
