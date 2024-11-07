@@ -28,7 +28,7 @@ export const getMapCenterCameraLookAt = (
   const { width, height } = getBoardHexesRectangularMapDimensions(boardHexes)
   const alpha = CAMERA_FOV / 2
   const beta = 90 - alpha // 180 degrees in a right-triangle
-  const heightCameraFitMapInFov = (width / 2) * Math.tan(beta) * 1.1 // zooms out to 1.1 to give a little space (it was too tight on mobile)
+  const heightCameraFitMapInFov = (width / 2) * Math.tan(beta)
   const centerOfMapCamera = {
     x: width / 2,
     z: height / 2,
