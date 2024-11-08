@@ -1,5 +1,5 @@
 import { Dictionary } from 'lodash'
-export default function getTerrain(type: number) {
+function getTerrain(type: number) {
   const str = type.toString()
   let terrainCode = str.substring(0, str.length - 2)
   let terrainSubcode = Number(str.substring(str.length - 2)).toString()
