@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { GType, PenMode } from '../game/hexxaform/hexxaform-types'
 import { BoardHexes, HexMap } from '../game/types'
-import { terrain } from '../game/terrain'
+import { terrain } from './virtualscape/terrain'
 
 type HexxaformContextProviderProps = {
   children: React.ReactNode
@@ -42,7 +42,7 @@ export function HexxaformContextProvider({
     setFlatPieceSizes(flatPieceSizes)
   }
   // piece size
-  const [pieceSize, setPieceSize] = React.useState(1)
+  const [pieceSize, setPieceSize] = React.useState(4)
   const [flatPieceSizes, setFlatPieceSizes] = React.useState(
     terrain[penMode]?.flatPieceSizes ?? []
   )

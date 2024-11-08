@@ -194,7 +194,7 @@ export const OMButtonList = ({
     </AnimatePresence>
   )
 }
-export const StyledOrderMarkersUl = styled.ul`
+const StyledOrderMarkersUl = styled.ul`
   display: flex;
   flex-flow: row wrap;
   justify-content: center;

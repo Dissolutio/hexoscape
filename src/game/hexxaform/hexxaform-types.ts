@@ -1,19 +1,19 @@
-import { BoardHexes, HexMap } from "../types";
+import { BoardHexes, HexMap } from '../types'
 
 export type GType = {
-  hexMap: HexMap;
-  boardHexes: BoardHexes;
-};
+  hexMap: HexMap
+  boardHexes: BoardHexes
+}
 export type HexxaformMoves = any
 
 export type BgioProps = {
   boardHexes: BoardHexes
   hexMap: HexMap
-  moves: any
+  moves?: any
 }
 export enum PenMode {
   none = 'none',
-  eraser = 'void',
+  eraser = 'empty',
   eraserStartZone = 'eraserStartZone',
   water = 'water',
   grass = 'grass',

@@ -9,9 +9,11 @@ import {
 } from '../../game/types'
 import { getBoardHex3DCoords } from '../../game/hex-utils'
 import { MapHex3D } from '../../shared/MapHex3D'
-import { useZoomToMapCenterOnMapRender } from '../../hooks/useZoomToMapCenterOnMapRender'
+import { useZoomCameraToMapCenter } from '../../hooks/useZoomCameraToMapCenter'
 import { HexxaformMoves, PenMode } from '../../game/hexxaform/hexxaform-types'
 import { useHexxaformContext } from '../useHexxaformContext'
+import { generateHexID } from '../../game/constants'
+import { getFlatTileHexes } from '../virtualscape/flatTile'
 
 /**
  * React component that renders the 3D hexmap.
@@ -38,7 +40,7 @@ export function HexxaformMapDisplay3D({
   cameraControlsRef: React.MutableRefObject<CameraControls>
   glyphs: Glyphs
 }) {
-  useZoomToMapCenterOnMapRender({
+  useZoomCameraToMapCenter({
     cameraControlsRef,
     boardHexes,
     mapID: hexMap.mapId,
@@ -62,6 +64,7 @@ export function HexxaformMapDisplay3D({
   )
 }
 
+let ROTATION = 0
 const HexxaformHex3D = ({
   playerID,
   boardHexID,
@@ -83,17 +86,18 @@ const HexxaformHex3D = ({
     paintStartZone,
     paintWaterHex,
     paintGrassHex,
+    paintGrassTile,
     paintSandHex,
     paintRockHex,
   } = moves
-  const { penMode } = useHexxaformContext()
+  const { penMode, pieceSize } = useHexxaformContext()
   const boardHex = boardHexes[boardHexID]
 
   const onClick = (event: ThreeEvent<MouseEvent>, hex: BoardHex) => {
     // Prevent this click from going through to other hexes
     event.stopPropagation()
-    // const isVoidTerrainHex = hex.terrain === HexTerrain.void
-    const isVoidTerrainHex = hex.terrain === HexTerrain.void
+    // const isVoidTerrainHex = hex.terrain === HexTerrain.empty
+    const isVoidTerrainHex = hex.terrain === HexTerrain.empty
     if (penMode === PenMode.eraser && !isVoidTerrainHex) {
       voidHex({ hexID: hex.id })
     }
@@ -108,7 +112,12 @@ const HexxaformHex3D = ({
       paintWaterHex({ hexID: hex.id })
     }
     if (penMode === PenMode.grass) {
-      paintGrassHex({ hexID: hex.id, thickness: 1 })
+      const hexIDArr = getFlatTileHexes({
+        clickedHex: { q: hex.q, r: hex.r, s: hex.s },
+        rotation: ROTATION++ % 6,
+        size: pieceSize,
+      }).map((h) => generateHexID(h))
+      paintGrassTile({ hexIDArr, altitude: hex.altitude })
     }
     if (penMode === PenMode.sand) {
       paintSandHex({ hexID: hex.id, thickness: 1 })

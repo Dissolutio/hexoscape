@@ -74,18 +74,6 @@ export function selectGlyphForHex({
   const glyph = Object.values(glyphs).find((g) => g.hexID === hexID)
   return glyph
 }
-export function selectUnitGameCardForHex(
-  hexID: string,
-  boardHexes: BoardHexes,
-  gameArmyCards: GameArmyCard[],
-  gameUnits: GameUnits
-): GameArmyCard | undefined {
-  const hex = boardHexes?.[hexID]
-  const unitID = hex?.occupyingUnitID
-  const unit = gameUnits?.[unitID]
-  const card = selectGameCardByID(gameArmyCards, unit?.gameCardID ?? '')
-  return card
-}
 export function selectGameCardByID(
   gameArmyCards: GameArmyCard[],
   gameCardID: string
@@ -141,11 +129,9 @@ export function selectHexNeighbors(
 }
 
 export function selectHexNeighborsWithDirections(
-  // this fn actually returns an array of arrays, [string, number] where the string is the hexID and the number is the direction
-  // the any[] is to get around a Typescript error I don't understand
   startHexID: string,
   boardHexes: BoardHexes
-): any[] {
+): [string, number][] {
   const startHex = boardHexes?.[startHexID]
   if (!startHex) return []
   const neighborsWithDirections = hexUtilsNeighborsWithDirections(startHex)
@@ -392,8 +378,9 @@ export const selectIsInRangeOfAttack = ({
     // thorian speed means cannot be targeted by a normal ranged attack
     'Thorian Speed',
     defenderGameCard
-    )
-    const isUnableToShootBecauseOfThorianSpeed = (!isSpecialAttack && isThorianSpeedDefender)
+  )
+  const isUnableToShootBecauseOfThorianSpeed =
+    !isSpecialAttack && isThorianSpeedDefender
   const isAttackerRequiredToBeEngagedToDefender =
     isAttackerRangeOneWhichRequiresEngagement ||
     isUnableToShootBecauseOfThorianSpeed
@@ -440,11 +427,11 @@ export function selectEngagementsForHex({
   }
   const tailHexID = overrideUnitID
     ? overrideTailHexID || ''
-    : selectTailHexForUnit(unitOnHex.unitID, boardHexes)?.id ?? ''
+    : (selectTailHexForUnit(unitOnHex.unitID, boardHexes)?.id ?? '')
   // refetch the head in case we had the tail to start with
   const headHexID = overrideUnitID
     ? hexID
-    : selectHexForUnit(unitOnHex.unitID, boardHexes)?.id ?? ''
+    : (selectHexForUnit(unitOnHex.unitID, boardHexes)?.id ?? '')
   const isUnit2Hex = unitOnHex.is2Hex
   // mutate/expand tailNeighbors if unit is 2 hex
   let tailNeighbors: BoardHex[] = []
@@ -472,8 +459,8 @@ export function selectEngagementsForHex({
           (all
             ? true
             : friendly
-            ? gameUnits?.[h.occupyingUnitID]?.playerID === playerID
-            : gameUnits?.[h.occupyingUnitID]?.playerID !== playerID) &&
+              ? gameUnits?.[h.occupyingUnitID]?.playerID === playerID
+              : gameUnits?.[h.occupyingUnitID]?.playerID !== playerID) &&
           // filter for engaged units
           Boolean(
             selectAreTwoAdjacentUnitsEngaged({

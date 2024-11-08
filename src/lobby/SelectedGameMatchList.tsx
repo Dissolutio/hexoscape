@@ -4,7 +4,7 @@ import { uniqBy } from 'lodash'
 import { useMultiplayerLobby } from './useMultiplayerLobby'
 import { useAuth } from '../hooks/useAuth'
 
-export const RefreshLobbyMatchesButton = () => {
+const RefreshLobbyMatchesButton = () => {
   const { updateLobbyMatchesForSelectedGame } = useMultiplayerLobby()
   async function handleRefreshButton(e: React.MouseEvent) {
     updateLobbyMatchesForSelectedGame()

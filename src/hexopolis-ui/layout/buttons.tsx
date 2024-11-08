@@ -11,7 +11,7 @@ export const BigGreenButton = styled(GreenButton)`
   margin: auto;
 `
 
-export const BlueButton = styled.button`
+const BlueButton = styled.button`
   font-size: 0.8rem;
   line-height: 0.8;
   color: var(--info-blue);

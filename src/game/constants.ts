@@ -14,8 +14,8 @@ export const HEXGRID_HEX_APOTHEM = 0.866
 export const HEXGRID_HEX_HEIGHT = 0.5
 export const CAMERA_FOV = 65
 export const EVENTS = {
-savePng: 'savePng',
-saveJpg: 'saveJpg'
+  savePng: 'savePng',
+  saveJpg: 'saveJpg',
 }
 export const phaseNames = {
   draft: 'draft',
@@ -177,6 +177,6 @@ export function getDefaultSubTerrainForTerrain(terrain: string) {
   }
 }
 
-export function generateTimestampID():string {
-return new Date().getTime().toString()
+export function generateTimestampID(): string {
+  return new Date().getTime().toString()
 }

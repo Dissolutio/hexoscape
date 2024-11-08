@@ -3,7 +3,7 @@ import { CameraControls } from '@react-three/drei'
 import { BoardHexes } from '../game/types'
 import { getMapCenterCameraLookAt } from '../shared/camera-utils'
 
-export const useZoomToMapCenterOnMapRender = ({
+export const useZoomCameraToMapCenter = ({
   cameraControlsRef,
   boardHexes,
   mapID,

@@ -41,7 +41,7 @@ export function makeForsakenWatersMap(
   for (const hex in boardHexes) {
     if (Object.prototype.hasOwnProperty.call(boardHexes, hex)) {
       const element = boardHexes[hex]
-      if (element.terrain === 'void') {
+      if (element.terrain === HexTerrain.empty) {
         delete boardHexes[hex]
       }
     }
@@ -64,15 +64,19 @@ export function makeCirdanGardenMap(
   withPrePlacedUnits?: boolean,
   gameUnitsToPrePlace?: GameUnits
 ): GameMap {
-  const preNormalizedBoardHexes = cirdanGardenMap.boardHexes as unknown as BoardHexes
+  const preNormalizedBoardHexes =
+    cirdanGardenMap.boardHexes as unknown as BoardHexes
   if (!preNormalizedBoardHexes) {
     throw new Error('cirdanGardenMap.boardHexes is not defined')
   }
-  const boardHexes =  translateHexagonBoardHexesToNormal(preNormalizedBoardHexes, cirdanGardenMap.hexMap.mapSize)
+  const boardHexes = translateHexagonBoardHexesToNormal(
+    preNormalizedBoardHexes,
+    cirdanGardenMap.hexMap.mapSize
+  )
   for (const hex in boardHexes) {
     if (Object.prototype.hasOwnProperty.call(boardHexes, hex)) {
       const element = boardHexes[hex]
-      if (element.terrain === HexTerrain.void) {
+      if (element.terrain === HexTerrain.empty) {
         delete boardHexes[hex]
       }
     }
@@ -105,7 +109,7 @@ export function makeGiantsTableMap({
   for (const hex in boardHexes) {
     if (Object.prototype.hasOwnProperty.call(boardHexes, hex)) {
       const element = boardHexes[hex]
-      if (element.terrain === 'void') {
+      if (element.terrain === HexTerrain.empty) {
         delete boardHexes[hex]
       }
     }
@@ -400,7 +404,9 @@ const transformBoardHexesToHaveStartZones = (
     }
   }, {})
 }
-export const getStartZonesFromBoardHexes = (boardHexes: BoardHexes): StartZones => {
+export const getStartZonesFromBoardHexes = (
+  boardHexes: BoardHexes
+): StartZones => {
   const result: StartZones = {}
   for (const boardHex in boardHexes) {
     if (Object.prototype.hasOwnProperty.call(boardHexes, boardHex)) {

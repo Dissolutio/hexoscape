@@ -1,11 +1,13 @@
-import { HEXGRID_HEX_APOTHEM, HEXGRID_HEX_RADIUS, HEXGRID_SPACING } from './constants'
+import {
+  HEXGRID_HEX_APOTHEM,
+  HEXGRID_HEX_RADIUS,
+  HEXGRID_SPACING,
+} from './constants'
 import {
   BoardHex,
   BoardHexes,
   HexCoordinates,
   HexNeighborsWithDirections,
-  LayoutDimension,
-  Point,
 } from './types'
 
 const DIRECTIONS: HexCoordinates[] = [
@@ -16,49 +18,19 @@ const DIRECTIONS: HexCoordinates[] = [
   { q: -1, r: 0, s: 1 }, // W -q +s
   { q: 0, r: -1, s: 1 }, // NW -r +s
 ]
-export const hexUtilsGetTailCoordinates = (
-  hex: HexCoordinates,
-  neighbor: HexCoordinates
-): Point => {
-  if (hexUtilsEquals(hexUtilsNeighbor(hex, 0), neighbor))
-    return { x: 8.66, y: -15 } // NE +q -r
-  if (hexUtilsEquals(hexUtilsNeighbor(hex, 1), neighbor))
-    return { x: 17.32, y: 0 } // E +q -s
-  if (hexUtilsEquals(hexUtilsNeighbor(hex, 2), neighbor))
-    return { x: 8.66, y: 15 } // SE +r -s
-  if (hexUtilsEquals(hexUtilsNeighbor(hex, 3), neighbor))
-    return { x: -8.66, y: 15 } // SW -q +r
-  if (hexUtilsEquals(hexUtilsNeighbor(hex, 4), neighbor))
-    return { x: -17.32, y: 0 } // W -q +s
-  if (hexUtilsEquals(hexUtilsNeighbor(hex, 5), neighbor))
-    return { x: -8.66, y: -15 } // NW -r +s
-  return { x: 0, y: 0 }
-}
-export const hexUtilsEquals = (
-  a: HexCoordinates,
-  b: HexCoordinates
-): boolean => {
-  return a.q === b.q && a.r === b.r && a.s === b.s
-}
 export const hexUtilsAdd = (
   a: HexCoordinates,
   b: HexCoordinates
 ): HexCoordinates => {
   return { q: a.q + b.q, r: a.r + b.r, s: a.s + b.s }
 }
-export const hexUtilsSubtract = (
+const hexUtilsSubtract = (
   a: HexCoordinates,
   b: HexCoordinates
 ): HexCoordinates => {
   return { q: a.q - b.q, r: a.r - b.r, s: a.s - b.s }
 }
-export const hexUtilsMultiply = (
-  a: HexCoordinates,
-  k: number
-): HexCoordinates => {
-  return { q: a.q * k, r: a.r * k, s: a.s * k }
-}
-export const hexUtilsLengths = (hex: HexCoordinates): number => {
+const hexUtilsLengths = (hex: HexCoordinates): number => {
   return (Math.abs(hex.q) + Math.abs(hex.r) + Math.abs(hex.s)) / 2
 }
 export const hexUtilsDistance = (
@@ -67,7 +39,7 @@ export const hexUtilsDistance = (
 ): number => {
   return hexUtilsLengths(hexUtilsSubtract(a, b))
 }
-export const hexUtilsDirection = (direction: number): HexCoordinates => {
+const hexUtilsDirection = (direction: number): HexCoordinates => {
   return DIRECTIONS[(6 + (direction % 6)) % 6]
 }
 export const hexUtilsNeighbor = (
@@ -94,43 +66,9 @@ export const hexUtilsNeighborsWithDirections = (
   }
   return obj
 }
-// input cube coordinates that might be floats (from pixelToHex or pixel => cube), and get a hex/cube coord where q+r+s=0 guaranteed
-// see: https://www.redblobgames.com/grids/hexagons/#rounding
-export const hexUtilsRound = (hex: HexCoordinates): HexCoordinates => {
-  let rq = Math.round(hex.q)
-  let rr = Math.round(hex.r)
-  let rs = Math.round(hex.s)
-
-  const qDiff = Math.abs(rq - hex.q)
-  const rDiff = Math.abs(rr - hex.r)
-  const sDiff = Math.abs(rs - hex.s)
-
-  if (qDiff > rDiff && qDiff > sDiff) rq = -rr - rs
-  else if (rDiff > sDiff) rr = -rq - rs
-  else rs = -rq - rr
-
-  return { q: rq, r: rr, s: rs }
-}
-
-/** Given the q,r,s of a hexagon return the x and y pixel coordinates of the
- * hexagon center.
- */
-export const hexUtilsHexToPixel = (
-  hex: HexCoordinates,
-  layout: LayoutDimension
-): { x: number; y: number } => {
-  const s = layout.spacing
-  const M = layout.orientation
-  let x = (M.f0 * hex.q + M.f1 * hex.r) * layout.size.x
-  let y = (M.f2 * hex.q + M.f3 * hex.r) * layout.size.y
-  // Apply spacing
-  x = x * s
-  y = y * s
-  return { x: x + layout.origin.x, y: y + layout.origin.y }
-}
-// a simplified version of above
 export const cubeToPixel = (hex: HexCoordinates) => {
-  const x = HEXGRID_HEX_RADIUS * (Math.sqrt(3) * hex.q + (Math.sqrt(3) / 2) * hex.r)
+  const x =
+    HEXGRID_HEX_RADIUS * (Math.sqrt(3) * hex.q + (Math.sqrt(3) / 2) * hex.r)
   const y = HEXGRID_HEX_RADIUS * ((3 / 2) * hex.r)
   return { x: x, y: y }
 }
@@ -142,9 +80,69 @@ export const getBoardHex3DCoords = (hex: BoardHex) => {
   // ALSO: We scootch the map to the right one apothem so that X=0 aligns with the left edge of hexes, not the center. This makes width calculation easier, keeps things neat
   // ALSO: We scootch the map down one radius so that Y=0 aligns with the top edge of hexes, not the center. This makes height calculation easier, keeps things neat
 
-  return { x: (x + HEXGRID_HEX_APOTHEM) * HEXGRID_SPACING, z: (y + HEXGRID_HEX_RADIUS) * HEXGRID_SPACING }
+  return {
+    x: (x + HEXGRID_HEX_APOTHEM) * HEXGRID_SPACING,
+    z: (y + HEXGRID_HEX_RADIUS) * HEXGRID_SPACING,
+  }
 }
-
+function hexUtilsRotateVector(
+  v: HexCoordinates,
+  rotation: number
+): HexCoordinates {
+  switch (rotation % 6) {
+    case 1:
+    case -5:
+      return {
+        q: -v.r,
+        r: -v.s,
+        s: -v.q,
+      }
+    case 2:
+    case -4:
+      return {
+        q: v.s,
+        r: v.q,
+        s: v.r,
+      }
+    case 3:
+    case -3:
+      return {
+        q: -v.q,
+        r: -v.r,
+        s: -v.s,
+      }
+    case 4:
+    case -2:
+      return {
+        q: v.r,
+        r: v.s,
+        s: v.q,
+      }
+    case 5:
+    case -1:
+      return {
+        q: -v.s,
+        r: -v.q,
+        s: -v.r,
+      }
+    case 0:
+    default:
+      return v
+  }
+}
+/* hexUtilsRotate: not this does not update the IDS of boardHexes */
+export function hexUtilsRotate<T extends HexCoordinates>(
+  h: T,
+  origin: T,
+  rotation: number
+): T {
+  const vector = hexUtilsSubtract(h, origin)
+  const rotatedVector = hexUtilsRotateVector(vector, rotation)
+  return {
+    ...h,
+    ...hexUtilsAdd(rotatedVector, origin),
+  }
+}
 export const getDirectionOfNeighbor = (
   hexStart: HexCoordinates,
   neighbor: HexCoordinates
@@ -161,59 +159,6 @@ export const getDirectionOfNeighbor = (
   if (matchedDir === 3) return 4 // SW
   if (matchedDir === 2) return 5 // SE
 }
-/** Return the q,r,s coordinate of the hexagon given pixel point x and y.
- * https://www.redblobgames.com/grids/hexagons/#pixel-to-hex
- */
-export const hexUtilsPixelToHex = (
-  point: { x: number; y: number },
-  layout: LayoutDimension
-): HexCoordinates => {
-  const M = layout.orientation
-  const pt = {
-    x: (point.x - layout.origin.x) / layout.size.x,
-    y: (point.y - layout.origin.y) / layout.size.y,
-  }
-  // get floating point axial coordinates from x and y
-  const q = M.b0 * pt.x + M.b1 * pt.y
-  const r = M.b2 * pt.x + M.b3 * pt.y
-  // convert float point axial to float cube coordinates
-  const hex = { q, r, s: -q - r }
-  // convert float cube coordinates to integer cube coordinates
-  return hexUtilsRound(hex)
-}
-
-/** Returns a value that is blended between a and b.
- * For more Information:
- * {@link https://en.wikipedia.org/wiki/Linear_interpolation#Programming_language_support Linear Interpolation Wiki}
- * @param {number} a - left hand value
- * @param {number} b - right hand value
- * @param {number} t - alpha blending value (how much of a or b to be used)
- * @returns {number} a value between a and b based on t
- */
-export const hexUtilsLerp = (a: number, b: number, t: number): number => {
-  return a + (b - a) * t
-}
-
-/** Calculates the linear interpolation of each Hex coordinate and
- * returns a Hex with the linear interpolated coordiantes.
- * For more Information:
- * {@link https://en.wikipedia.org/wiki/Linear_interpolation#Programming_language_support Linear Interpolation Wiki}
- * @param {HexCoordinates} a - left hand hex
- * @param {HexCoordinates} b - right hand hex
- * @param {number} t - alpha blending value
- * @returns {Hex} new Hex which is between the two Hexes
- */
-export const hexUtilsHexLerp = (
-  a: HexCoordinates,
-  b: HexCoordinates,
-  t: number
-): HexCoordinates => {
-  return {
-    q: hexUtilsLerp(a.q, b.q, t),
-    r: hexUtilsLerp(a.r, b.r, t),
-    s: hexUtilsLerp(a.s, b.s, t),
-  }
-}
 
 /** Return a string ID from Hex Coordinates.
  * Example: Hex Coordinates of {q: 1, r: 2, s: 3} is returned
@@ -221,7 +166,7 @@ export const hexUtilsHexLerp = (
  * @param {HexCoordinates} hex - target Hex
  * @returns {string} an ID string in the form `{q},{r},{s}`
  */
-export const hexUtilsGetID = (hex: HexCoordinates): string => {
+const hexUtilsGetID = (hex: HexCoordinates): string => {
   return `${hex.q},${hex.r},${hex.s}`
 }
 
@@ -249,48 +194,39 @@ export const generateRectangleHexas = (
   }
   return hexas
 }
-export const generateOrientedRectangleHexas = (
-  mapWidth: number,
-  mapHeight: number
-): HexCoordinates[] => {
-  const hexas: HexCoordinates[] = []
-  for (let q = 0; q < mapWidth; q++) {
-    const offset = Math.floor(q / 2) // or q>>1
-    for (let r = -offset; r < mapHeight - offset; r++) {
-      hexas.push({ q, r, s: -q - r })
-    }
-  }
-
-  return hexas
-}
-export const generateParalellogramHexas = (
-  q1: number,
-  q2: number,
-  r1: number,
-  r2: number
-): HexCoordinates[] => {
-  const hexas: HexCoordinates[] = []
-  for (let q = q1; q <= q2; q++) {
-    for (let r = r1; r <= r2; r++) {
-      hexas.push({ q, r, s: -q - r })
-    }
-  }
-  return hexas
-}
 type MapDimensions = {
   width: number
   height: number
 }
-export const getBoardHexesRectangularMapDimensions = (boardHexes: BoardHexes): MapDimensions => {
+export const getBoardHexesRectangularMapDimensions = (
+  boardHexes: BoardHexes
+): MapDimensions => {
   // Gets the top-most, bottom-most, left-most, and right-most hexes, then calculates the difference for the map width and height
-  const qPlusSMax = Math.max(...Object.keys(boardHexes).map((hexID) => boardHexes[hexID].q + boardHexes[hexID].s))
-  const qPlusSMin = Math.min(...Object.keys(boardHexes).map((hexID) => boardHexes[hexID].q + boardHexes[hexID].s))
-  const sMinusQMax = Math.max(...Object.keys(boardHexes).map((hexID) => boardHexes[hexID].s - boardHexes[hexID].q))
-  const sMinusQMin = Math.min(...Object.keys(boardHexes).map((hexID) => boardHexes[hexID].s - boardHexes[hexID].q))
+  const qPlusSMax = Math.max(
+    ...Object.keys(boardHexes).map(
+      (hexID) => boardHexes[hexID].q + boardHexes[hexID].s
+    )
+  )
+  const qPlusSMin = Math.min(
+    ...Object.keys(boardHexes).map(
+      (hexID) => boardHexes[hexID].q + boardHexes[hexID].s
+    )
+  )
+  const sMinusQMax = Math.max(
+    ...Object.keys(boardHexes).map(
+      (hexID) => boardHexes[hexID].s - boardHexes[hexID].q
+    )
+  )
+  const sMinusQMin = Math.min(
+    ...Object.keys(boardHexes).map(
+      (hexID) => boardHexes[hexID].s - boardHexes[hexID].q
+    )
+  )
   const hexHeight = qPlusSMax - qPlusSMin
-  const height = (hexHeight * 1.5 + (2* HEXGRID_HEX_RADIUS)) * HEXGRID_SPACING
+  const height = (hexHeight * 1.5 + 2 * HEXGRID_HEX_RADIUS) * HEXGRID_SPACING
   const hexWidth = sMinusQMax - sMinusQMin
-  const width = ((hexWidth * HEXGRID_HEX_APOTHEM) + (2* HEXGRID_HEX_APOTHEM)) * HEXGRID_SPACING
+  const width =
+    (hexWidth * HEXGRID_HEX_APOTHEM + 2 * HEXGRID_HEX_APOTHEM) * HEXGRID_SPACING
   // const maxAltitude = Math.max(...Object.keys(boardHexes).map((hexID) => boardHexes[hexID].altitude))
   return { height, width }
 }

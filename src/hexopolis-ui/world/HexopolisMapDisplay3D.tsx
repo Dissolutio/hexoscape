@@ -7,7 +7,7 @@ import { usePlacementContext, usePlayContext } from '../contexts'
 import { useSpecialAttackContext } from '../contexts/special-attack-context'
 import { getBoardHex3DCoords } from '../../game/hex-utils'
 import { GameUnit3D } from './GameUnit3D'
-import { useZoomToMapCenterOnMapRender } from '../../hooks/useZoomToMapCenterOnMapRender'
+import { useZoomCameraToMapCenter } from '../../hooks/useZoomCameraToMapCenter'
 import { useUIContext } from '../../hooks/ui-context'
 
 export function HexopolisMapDisplay3D({
@@ -17,7 +17,7 @@ export function HexopolisMapDisplay3D({
   cameraControlsRef: React.MutableRefObject<CameraControls>
   boardHexes: BoardHexes
 }) {
-  useZoomToMapCenterOnMapRender({
+  useZoomCameraToMapCenter({
     cameraControlsRef,
     boardHexes,
     mapID: 'hexopolis', // currently, hexopolis does not switch maps, thus mapID does not need to trigger re-zoom to middle
