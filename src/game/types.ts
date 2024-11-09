@@ -100,11 +100,17 @@ export type HexCoordinates = {
 export enum HexTerrain {
   empty = 'empty',
   water = 'water',
+  lava = 'lava',
+  ice = 'ice',
+  swampWater = 'swampWater',
+  shadow = 'shadow',
   grass = 'grass',
   sand = 'sand',
   rock = 'rock',
   dungeon = 'dungeon',
   lavaField = 'lavaField',
+  swamp = 'swamp',
+  snow = 'snow',
 }
 export interface BoardHex extends HexCoordinates {
   id: string

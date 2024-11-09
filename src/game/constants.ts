@@ -1,5 +1,6 @@
 import {
   HexCoordinates,
+  HexTerrain,
   MoveRange,
   OrderMarker,
   OrderMarkers,
@@ -147,11 +148,11 @@ export function generateReadyStateForNumPlayers(
 
 export function isFluidTerrainHex(terrain: string) {
   if (
-    terrain === 'water' ||
-    terrain === 'lava' ||
-    terrain === 'swampWater' ||
-    terrain === 'ice' ||
-    terrain === 'shadow'
+    terrain === HexTerrain.water ||
+    terrain === HexTerrain.lava ||
+    terrain === HexTerrain.swampWater ||
+    terrain === HexTerrain.ice ||
+    terrain === HexTerrain.shadow
   ) {
     return true
   } else {
@@ -161,21 +162,22 @@ export function isFluidTerrainHex(terrain: string) {
 
 export function getDefaultSubTerrainForTerrain(terrain: string) {
   // for fluid types, this returns some type of sub terrain, but for solid types, it just returns terrain
-  if (terrain === 'lava') {
-    return 'lavaField'
+  if (terrain === HexTerrain.lava) {
+    return HexTerrain.lavaField
   }
-  if (terrain === 'water') {
-    return 'rock'
+  if (terrain === HexTerrain.water) {
+    return HexTerrain.rock
   }
-  if (terrain === 'swampWater') {
-    return 'swamp'
+  if (terrain === HexTerrain.swampWater) {
+    return HexTerrain.swamp
   }
-  if (terrain === 'ice') {
-    return 'snow'
+  if (terrain === HexTerrain.ice) {
+    return HexTerrain.snow
   }
-  if (terrain === 'shadow') {
-    return 'dungeon'
-  } else {
+  if (terrain === HexTerrain.shadow) {
+    return HexTerrain.dungeon
+  } 
+  else {
     return terrain
   }
 }
