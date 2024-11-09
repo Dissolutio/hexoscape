@@ -4,8 +4,9 @@ import { ThreeEvent } from '@react-three/fiber'
 import { BoardHex, EditingBoardHexes, Glyphs, MoveRange } from '../game/types'
 import {
   getDefaultSubTerrainForTerrain,
-  HEXGRID_HEX_HEIGHT,
+  halfLevel,
   isFluidTerrainHex,
+  quarterLevel,
 } from '../game/constants'
 import { selectGlyphForHex } from '../game/selectors'
 import { powerGlyphs } from '../game/glyphs'
@@ -16,8 +17,6 @@ import HexCap from './world/HexCap'
 import HexSubTerrain from './world/HexSubTerrain'
 import { MapHexIDDisplay } from './MapHexIDDisplay'
 
-const halfLevel = HEXGRID_HEX_HEIGHT / 2
-const quarterLevel = HEXGRID_HEX_HEIGHT / 4
 
 export const MapHex3D = ({
   x,

@@ -1,7 +1,7 @@
 import React from 'react'
 import { ThreeEvent } from '@react-three/fiber'
 import { BoardHex, EditingBoardHexes } from '../../game/types'
-import { HEXGRID_HEX_HEIGHT, isFluidTerrainHex } from '../../game/constants'
+import { eighthLevel, halfLevel, isFluidTerrainHex } from '../../game/constants'
 import { Color, Vector3 } from 'three'
 import { hexTerrainColor } from '../../hexxaform-ui/virtualscape/terrain'
 
@@ -24,7 +24,6 @@ const SolidCapMesh = ({
   isHovered,
   onClick,
 }: CapMeshProps) => {
-  const halfLevel = HEXGRID_HEX_HEIGHT / 2
   const isFluidHex = isFluidTerrainHex(boardHex.terrain)
   const heightScaleFluidCap = 1
   const heightScaleSolidCap = halfLevel
@@ -67,7 +66,6 @@ const FluidCapMesh = ({
   isHovered,
   onClick,
 }: CapMeshProps) => {
-  const halfLevel = HEXGRID_HEX_HEIGHT / 2
   const isFluidHex = isFluidTerrainHex(boardHex.terrain)
   const heightScaleFluidCap = 1
   const heightScaleSolidCap = halfLevel
@@ -128,7 +126,6 @@ const HexCap = ({
   isPlacementPhase,
   onClick,
 }: Props) => {
-  const quarterLevel = HEXGRID_HEX_HEIGHT / 4
   const unitID = boardHex?.occupyingUnitID ?? ''
   const editingHexUnitID = editingBoardHexes[boardHex.id]?.occupyingUnitID ?? ''
   const isSelectedUnitHex =
@@ -138,10 +135,8 @@ const HexCap = ({
 
   const altitude = boardHex.altitude
   const isFluidHex = isFluidTerrainHex(boardHex.terrain)
-  // as of yet, this just looks right, it's not mathematically sound
-  const mysteryMathValueThatSeemsToWorkWell = quarterLevel / 4
   const yAdjustFluidCap = altitude / 2
-  const yAdjustSolidCap = yAdjustFluidCap - mysteryMathValueThatSeemsToWorkWell
+  const yAdjustSolidCap = yAdjustFluidCap - eighthLevel
   const hexCapYAdjust = isFluidHex ? yAdjustFluidCap : yAdjustSolidCap
   const capPosition = new Vector3(x, hexCapYAdjust, z)
   const hoverHexCapColor = new Color('orange')

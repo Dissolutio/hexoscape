@@ -169,7 +169,6 @@ export const getDirectionOfNeighbor = (
 const hexUtilsGetID = (hex: HexCoordinates): string => {
   return `${hex.q},${hex.r},${hex.s}`
 }
-
 export const generateHexagonHexas = (mapRadius: number): HexCoordinates[] => {
   const hexas: HexCoordinates[] = []
   for (let q = -mapRadius; q <= mapRadius; q++) {
