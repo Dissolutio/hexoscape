@@ -67,37 +67,37 @@ export const LoadSaveMapButtons = ({
   }
   const handleLoadHexagonMap = () => {
     moves.loadMap(hexagonScenario)
-    setSnackbarMsg(`Loaded map: ${hexagonScenario.hexMap.mapName}`)
+    setSnackbarMsg(`Loaded map: ${hexagonScenario.hexMap.name}`)
   }
   const handleLoadRectangleMap = () => {
     moves.loadMap(rectangleScenario)
-    setSnackbarMsg(`Loaded map: ${rectangleScenario.hexMap.mapName}`)
+    setSnackbarMsg(`Loaded map: ${rectangleScenario.hexMap.name}`)
   }
   const handleLoadGiantsTable = () => {
     moves.loadMap({
       boardHexes: giantsTable.boardHexes,
       hexMap: giantsTable.hexMap,
     })
-    setSnackbarMsg(`Loaded map: ${giantsTable.hexMap.mapName}`)
+    setSnackbarMsg(`Loaded map: ${giantsTable.hexMap.name}`)
   }
   const handleLoadForsakenWaters = () => {
     moves.loadMap({
       boardHexes: forsakenWaters.boardHexes,
       hexMap: forsakenWaters.hexMap,
     })
-    setSnackbarMsg(`Loaded map: ${forsakenWaters.hexMap.mapName}`)
+    setSnackbarMsg(`Loaded map: ${forsakenWaters.hexMap.name}`)
   }
   const handleLoadCirdanGarden = () => {
     const translatedBoardHexes = translateHexagonBoardHexesToNormal(
       cirdanGardenMap.boardHexes,
-      cirdanGardenMap.hexMap.mapSize
+      cirdanGardenMap.hexMap.size
     )
     moves.loadMap({
       boardHexes: translatedBoardHexes,
       // boardHexes: cirdanGardenMap.boardHexes,
       hexMap: cirdanGardenMap.hexMap,
     })
-    setSnackbarMsg(`Loaded map: ${cirdanGardenMap.hexMap.mapName}`)
+    setSnackbarMsg(`Loaded map: ${cirdanGardenMap.hexMap.name}`)
   }
   const handleSaveMap1 = () => {
     setMap1(currentSaveableMap)

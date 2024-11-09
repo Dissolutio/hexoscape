@@ -69,8 +69,8 @@ const loadMap = (
     hexMap: HexMap
   }
 ) => {
-  if (!hexMap.mapId) {
-    hexMap.mapId = generateTimestampID()
+  if (!hexMap.id) {
+    hexMap.id = generateTimestampID()
   }
   G.boardHexes = boardHexes
   G.hexMap = hexMap

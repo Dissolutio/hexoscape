@@ -8,7 +8,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '1,0,-1': {
@@ -19,7 +19,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '2,0,-2': {
@@ -30,7 +30,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '3,0,-3': {
@@ -41,7 +41,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '4,0,-4': {
@@ -63,7 +63,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '6,0,-6': {
@@ -74,7 +74,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '7,0,-7': {
@@ -85,7 +85,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '8,0,-8': {
@@ -96,7 +96,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '9,0,-9': {
@@ -107,7 +107,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '10,0,-10': {
@@ -118,7 +118,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '11,0,-11': {
@@ -129,7 +129,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '12,0,-12': {
@@ -140,7 +140,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '13,0,-13': {
@@ -151,7 +151,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '14,0,-14': {
@@ -162,7 +162,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '15,0,-15': {
@@ -195,7 +195,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '18,0,-18': {
@@ -206,7 +206,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '19,0,-19': {
@@ -217,7 +217,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '20,0,-20': {
@@ -228,7 +228,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '0,1,-1': {
@@ -239,7 +239,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '1,1,-2': {
@@ -250,7 +250,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '2,1,-3': {
@@ -261,7 +261,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '3,1,-4': {
@@ -305,7 +305,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '7,1,-8': {
@@ -316,7 +316,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '8,1,-9': {
@@ -327,7 +327,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '9,1,-10': {
@@ -338,7 +338,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '10,1,-11': {
@@ -349,7 +349,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '11,1,-12': {
@@ -360,7 +360,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '12,1,-13': {
@@ -426,7 +426,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '18,1,-19': {
@@ -437,7 +437,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '19,1,-20': {
@@ -448,7 +448,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '20,1,-21': {
@@ -459,7 +459,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-1,2,-1': {
@@ -470,7 +470,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '0,2,-2': {
@@ -481,7 +481,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '1,2,-3': {
@@ -492,7 +492,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '2,2,-4': {
@@ -668,7 +668,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '18,2,-20': {
@@ -679,7 +679,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '19,2,-21': {
@@ -690,7 +690,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-1,3,-2': {
@@ -701,7 +701,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '0,3,-3': {
@@ -712,7 +712,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '1,3,-4': {
@@ -910,7 +910,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '19,3,-22': {
@@ -921,7 +921,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-2,4,-2': {
@@ -932,7 +932,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-1,4,-3': {
@@ -943,7 +943,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '0,4,-4': {
@@ -1152,7 +1152,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-2,5,-3': {
@@ -1163,7 +1163,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-1,5,-4': {
@@ -1383,7 +1383,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-3,6,-3': {
@@ -1394,7 +1394,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-2,6,-4': {
@@ -1614,7 +1614,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-3,7,-4': {
@@ -1625,7 +1625,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-2,7,-5': {
@@ -1834,7 +1834,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '17,7,-24': {
@@ -1845,7 +1845,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-4,8,-4': {
@@ -1856,7 +1856,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-3,8,-5': {
@@ -2076,7 +2076,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-4,9,-5': {
@@ -2296,7 +2296,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '16,9,-25': {
@@ -2307,7 +2307,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-5,10,-5': {
@@ -2318,7 +2318,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-4,10,-6': {
@@ -2538,7 +2538,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-5,11,-6': {
@@ -2549,7 +2549,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-4,11,-7': {
@@ -2758,7 +2758,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '15,11,-26': {
@@ -2769,7 +2769,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-6,12,-6': {
@@ -2780,7 +2780,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-5,12,-7': {
@@ -2989,7 +2989,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '14,12,-26': {
@@ -3000,7 +3000,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-6,13,-7': {
@@ -3011,7 +3011,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-5,13,-8': {
@@ -3220,7 +3220,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '14,13,-27': {
@@ -3231,7 +3231,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-7,14,-7': {
@@ -3242,7 +3242,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-6,14,-8': {
@@ -3462,7 +3462,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-7,15,-8': {
@@ -3473,7 +3473,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-6,15,-9': {
@@ -3484,7 +3484,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-5,15,-10': {
@@ -3495,7 +3495,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-4,15,-11': {
@@ -3506,7 +3506,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-3,15,-12': {
@@ -3517,7 +3517,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-2,15,-13': {
@@ -3528,7 +3528,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-1,15,-14': {
@@ -3539,7 +3539,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '0,15,-15': {
@@ -3550,7 +3550,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '1,15,-16': {
@@ -3616,7 +3616,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '7,15,-22': {
@@ -3627,7 +3627,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '8,15,-23': {
@@ -3638,7 +3638,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '9,15,-24': {
@@ -3649,7 +3649,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '10,15,-25': {
@@ -3660,7 +3660,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '11,15,-26': {
@@ -3671,7 +3671,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '12,15,-27': {
@@ -3682,7 +3682,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '13,15,-28': {
@@ -3693,7 +3693,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-8,16,-8': {
@@ -3704,7 +3704,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-7,16,-9': {
@@ -3715,7 +3715,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-6,16,-10': {
@@ -3726,7 +3726,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-5,16,-11': {
@@ -3737,7 +3737,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-4,16,-12': {
@@ -3748,7 +3748,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-3,16,-13': {
@@ -3759,7 +3759,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-2,16,-14': {
@@ -3770,7 +3770,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-1,16,-15': {
@@ -3781,7 +3781,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '0,16,-16': {
@@ -3792,7 +3792,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '1,16,-17': {
@@ -3847,7 +3847,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '6,16,-22': {
@@ -3858,7 +3858,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '7,16,-23': {
@@ -3869,7 +3869,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '8,16,-24': {
@@ -3880,7 +3880,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '9,16,-25': {
@@ -3891,7 +3891,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '10,16,-26': {
@@ -3902,7 +3902,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '11,16,-27': {
@@ -3913,7 +3913,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '12,16,-28': {
@@ -3924,7 +3924,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-8,17,-9': {
@@ -3935,7 +3935,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-7,17,-10': {
@@ -3946,7 +3946,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-6,17,-11': {
@@ -3957,7 +3957,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-5,17,-12': {
@@ -3968,7 +3968,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-4,17,-13': {
@@ -3979,7 +3979,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-3,17,-14': {
@@ -3990,7 +3990,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-2,17,-15': {
@@ -4001,7 +4001,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-1,17,-16': {
@@ -4012,7 +4012,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '0,17,-17': {
@@ -4023,7 +4023,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '1,17,-18': {
@@ -4034,7 +4034,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '2,17,-19': {
@@ -4067,7 +4067,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '5,17,-22': {
@@ -4078,7 +4078,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '6,17,-23': {
@@ -4089,7 +4089,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '7,17,-24': {
@@ -4100,7 +4100,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '8,17,-25': {
@@ -4111,7 +4111,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '9,17,-26': {
@@ -4122,7 +4122,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '10,17,-27': {
@@ -4133,7 +4133,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '11,17,-28': {
@@ -4144,7 +4144,7 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '12,17,-29': {
@@ -4155,20 +4155,16 @@ export const forsakenWaters = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
   },
   hexMap: {
-    mapId: 'forsakenWaters',
-    mapName: 'Forsaken Waters',
-    mapShape: 'rectangle',
-    flat: false,
-    mapSize: 25,
-    hexSize: 10,
-    mapWidth: 21,
-    mapHeight: 18,
-    // glyphs: {},
+    id: 'forsakenWaters',
+    name: 'Forsaken Waters',
+    shape: 'rectangle',
+    width: 21,
+    height: 18,
     glyphs: {
       '5,11,-16': {
         hexID: '5,11,-16',
@@ -4190,11 +4186,6 @@ export const forsakenWaters = {
         glyphID: 'move',
         isRevealed: true,
       },
-      // '9,2,-11': {
-      //   hexID: '9,2,-11',
-      //   glyphID: 'move',
-      //   isRevealed: true,
-      // },
     },
   },
 }

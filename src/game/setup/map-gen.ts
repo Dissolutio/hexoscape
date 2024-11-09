@@ -9,16 +9,8 @@ import {
 } from '../types'
 import { giantsTable } from './maps/giantsTable'
 import { forsakenWaters } from './maps/forsakenWaters'
-import { devHexagon } from './maps/devHexagon'
-import { moveRange1HexWalkMap } from './maps/moveRange1HexWalkMap'
 import { selectHexNeighbors } from '../selectors'
 import { transformBoardHexesWithPrePlacedUnits } from '../transformers'
-import { moveRangeTest2HexWalkMap } from './maps/moveRange2HexWalkMap'
-import { moveRangePassThruMap } from './maps/moveRangePassThruMap'
-import { moveRange1HexFlyMap } from './maps/moveRange1HexFlyMap'
-import { moveRange2HexFlyEngagedMap } from './maps/moveRange2HexFlyingEngagedMap'
-import { moveRange2HexFlyMap } from './maps/moveRange2HexFlyMap'
-import { moveRange1HexFlyEngagedMap } from './maps/moveRange1HexFlyingEngagedMap'
 import { cirdanGardenMap } from './maps/cirdanGarden'
 
 function generateUID() {
@@ -71,7 +63,7 @@ export function makeCirdanGardenMap(
   }
   const boardHexes = translateHexagonBoardHexesToNormal(
     preNormalizedBoardHexes,
-    cirdanGardenMap.hexMap.mapSize
+    cirdanGardenMap.hexMap.size
   )
   for (const hex in boardHexes) {
     if (Object.prototype.hasOwnProperty.call(boardHexes, hex)) {
@@ -128,218 +120,14 @@ export function makeGiantsTableMap({
     startZones: getStartZonesFromBoardHexes(boardHexes),
   }
 }
-export function makeDevHexagonMap({
-  withPrePlacedUnits,
-  gameUnits,
-}: {
-  withPrePlacedUnits: boolean
-  gameUnits: GameUnits
-}): GameMap {
-  const boardHexes = devHexagon.boardHexes as unknown as BoardHexes
-  if (!boardHexes) {
-    throw new Error('devHexagon.boardHexes is not defined')
-  }
-  const startZones = getStartZonesFromBoardHexes(boardHexes)
-  if (withPrePlacedUnits) {
-    transformBoardHexesWithPrePlacedUnits(
-      boardHexes,
-      startZones,
-      gameUnits ?? {}
-    )
-  }
-  return {
-    boardHexes: devHexagon.boardHexes as unknown as BoardHexes,
-    hexMap: devHexagon.hexMap,
-    startZones: getStartZonesFromBoardHexes(boardHexes),
-  }
-}
-export function makeMoveRangeTestMap({
-  withPrePlacedUnits,
-  gameUnits,
-}: {
-  withPrePlacedUnits: boolean
-  gameUnits: GameUnits
-}): GameMap {
-  const boardHexes = moveRange1HexWalkMap.boardHexes as unknown as BoardHexes
-  if (!boardHexes) {
-    throw new Error('moveRangeMap.boardHexes is not defined')
-  }
-  const startZones = getStartZonesFromBoardHexes(boardHexes)
-  if (withPrePlacedUnits) {
-    transformBoardHexesWithPrePlacedUnits(
-      boardHexes,
-      startZones,
-      gameUnits ?? {}
-    )
-  }
-  return {
-    boardHexes: moveRange1HexWalkMap.boardHexes,
-    hexMap: moveRange1HexWalkMap.hexMap,
-    startZones: getStartZonesFromBoardHexes(boardHexes),
-  }
-}
-export function makeMoveRange1HexFlyMap({
-  withPrePlacedUnits,
-  gameUnits,
-}: {
-  withPrePlacedUnits: boolean
-  gameUnits: GameUnits
-}): GameMap {
-  const boardHexes = moveRange1HexFlyMap.boardHexes as unknown as BoardHexes
-  if (!boardHexes) {
-    throw new Error('moveRangeMap.boardHexes is not defined')
-  }
-  const startZones = getStartZonesFromBoardHexes(boardHexes)
-  if (withPrePlacedUnits) {
-    transformBoardHexesWithPrePlacedUnits(
-      boardHexes,
-      startZones,
-      gameUnits ?? {}
-    )
-  }
-  return {
-    boardHexes: moveRange1HexFlyMap.boardHexes,
-    hexMap: moveRange1HexFlyMap.hexMap,
-    startZones: getStartZonesFromBoardHexes(boardHexes),
-  }
-}
-export function makeMoveRange2HexFlyMap({
-  withPrePlacedUnits,
-  gameUnits,
-}: {
-  withPrePlacedUnits: boolean
-  gameUnits: GameUnits
-}): GameMap {
-  const boardHexes = moveRange2HexFlyMap.boardHexes as unknown as BoardHexes
-  if (!boardHexes) {
-    throw new Error('moveRange2HexFlyMap.boardHexes is not defined')
-  }
-  const startZones = getStartZonesFromBoardHexes(boardHexes)
-  if (withPrePlacedUnits) {
-    transformBoardHexesWithPrePlacedUnits(
-      boardHexes,
-      startZones,
-      gameUnits ?? {}
-    )
-  }
-  return {
-    boardHexes: moveRange2HexFlyMap.boardHexes,
-    hexMap: moveRange2HexFlyMap.hexMap,
-    startZones: getStartZonesFromBoardHexes(boardHexes),
-  }
-}
-export function makeMoveRangePassThruMap({
-  withPrePlacedUnits,
-  gameUnits,
-}: {
-  withPrePlacedUnits: boolean
-  gameUnits: GameUnits
-}): GameMap {
-  const boardHexes = moveRangePassThruMap.boardHexes as unknown as BoardHexes
-  if (!boardHexes) {
-    throw new Error('moveRangePassThruMap.boardHexes is not defined')
-  }
-  const startZones = getStartZonesFromBoardHexes(boardHexes)
-  if (withPrePlacedUnits) {
-    transformBoardHexesWithPrePlacedUnits(
-      boardHexes,
-      startZones,
-      gameUnits ?? {}
-    )
-  }
-  return {
-    boardHexes: moveRangePassThruMap.boardHexes,
-    hexMap: moveRangePassThruMap.hexMap,
-    startZones: getStartZonesFromBoardHexes(boardHexes),
-  }
-}
-export function makeMoveRange1HexFlyingEngagedMap({
-  withPrePlacedUnits,
-  gameUnits,
-}: {
-  withPrePlacedUnits: boolean
-  gameUnits: GameUnits
-}): GameMap {
-  const boardHexes =
-    moveRange1HexFlyEngagedMap.boardHexes as unknown as BoardHexes
-  if (!boardHexes) {
-    throw new Error('moveRange1HexFlyEngagedMap.boardHexes is not defined')
-  }
-  const startZones = getStartZonesFromBoardHexes(boardHexes)
-  if (withPrePlacedUnits) {
-    transformBoardHexesWithPrePlacedUnits(
-      boardHexes,
-      startZones,
-      gameUnits ?? {}
-    )
-  }
-  return {
-    boardHexes: moveRange1HexFlyEngagedMap.boardHexes,
-    hexMap: moveRange1HexFlyEngagedMap.hexMap,
-    startZones: getStartZonesFromBoardHexes(boardHexes),
-  }
-}
-export function makeMoveRange2HexFlyingEngagedMap({
-  withPrePlacedUnits,
-  gameUnits,
-}: {
-  withPrePlacedUnits: boolean
-  gameUnits: GameUnits
-}): GameMap {
-  const boardHexes =
-    moveRange2HexFlyEngagedMap.boardHexes as unknown as BoardHexes
-  if (!boardHexes) {
-    throw new Error('moveRange2HexFlyEngagedMap.boardHexes is not defined')
-  }
-  const startZones = getStartZonesFromBoardHexes(boardHexes)
-  if (withPrePlacedUnits) {
-    transformBoardHexesWithPrePlacedUnits(
-      boardHexes,
-      startZones,
-      gameUnits ?? {}
-    )
-  }
-  return {
-    boardHexes: moveRange2HexFlyEngagedMap.boardHexes,
-    hexMap: moveRange2HexFlyEngagedMap.hexMap,
-    startZones: getStartZonesFromBoardHexes(boardHexes),
-  }
-}
-export function makeMoveRangeTest2HexWalkMap({
-  withPrePlacedUnits,
-  gameUnits,
-}: {
-  withPrePlacedUnits: boolean
-  gameUnits: GameUnits
-}): GameMap {
-  const boardHexes =
-    moveRangeTest2HexWalkMap.boardHexes as unknown as BoardHexes
-  if (!boardHexes) {
-    throw new Error('moveRangeTest2HexWalkMap.boardHexes is not defined')
-  }
-  const startZones = getStartZonesFromBoardHexes(boardHexes)
-  if (withPrePlacedUnits) {
-    transformBoardHexesWithPrePlacedUnits(
-      boardHexes,
-      startZones,
-      gameUnits ?? {}
-    )
-  }
-  return {
-    boardHexes: moveRangeTest2HexWalkMap.boardHexes,
-    hexMap: moveRangeTest2HexWalkMap.hexMap,
-    startZones: getStartZonesFromBoardHexes(boardHexes),
-  }
-}
 export function makeHexagonShapedMap(mapOptions?: MapOptions): GameMap {
-  const mapSize = mapOptions?.mapSize ?? 3
+  const size = mapOptions?.mapSize ?? 3
   const withPrePlacedUnits = mapOptions?.withPrePlacedUnits ?? false
   const gameUnits = mapOptions?.gameUnits ?? {}
-  const flat = mapOptions?.flat ?? false
 
   const boardHexes: BoardHexes = transformBoardHexesToHaveStartZones(
-    generateHexagon(mapSize),
-    mapSize
+    generateHexagon(size),
+    size
   )
   const startZones = getStartZonesFromBoardHexes(boardHexes)
   const boardHexesWithPrePlacedUnits: BoardHexes =
@@ -348,14 +136,10 @@ export function makeHexagonShapedMap(mapOptions?: MapOptions): GameMap {
     boardHexes: withPrePlacedUnits ? boardHexesWithPrePlacedUnits : boardHexes,
     startZones,
     hexMap: {
-      mapId: generateUID(),
-      mapShape: 'hexagon',
-      mapName: 'The Big Hexagon',
-      flat,
-      mapSize,
-      mapHeight: mapSize,
-      mapWidth: mapSize,
-      hexSize: 10,
+      id: generateUID(),
+      shape: 'hexagon',
+      name: 'The Big Hexagon',
+      size,
       glyphs: {},
     },
   }

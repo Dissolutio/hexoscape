@@ -8,7 +8,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '-10,1,9': {
@@ -41,7 +41,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '-10,4,6': {
@@ -52,7 +52,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '-10,5,5': {
@@ -63,7 +63,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '-10,6,4': {
@@ -74,7 +74,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '-10,7,3': {
@@ -85,7 +85,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '-10,8,2': {
@@ -96,7 +96,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '-10,9,1': {
@@ -107,7 +107,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '-10,10,0': {
@@ -118,7 +118,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '-9,-1,10': {
@@ -129,7 +129,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '-9,0,9': {
@@ -206,7 +206,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '-9,7,2': {
@@ -217,7 +217,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '-9,8,1': {
@@ -228,7 +228,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '-9,9,0': {
@@ -239,7 +239,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '-9,10,-1': {
@@ -250,7 +250,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '-8,-2,10': {
@@ -261,7 +261,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '-8,-1,9': {
@@ -349,7 +349,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '-8,7,1': {
@@ -360,7 +360,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '-8,8,0': {
@@ -371,7 +371,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '-8,9,-1': {
@@ -382,7 +382,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '-8,10,-2': {
@@ -393,7 +393,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '-7,-3,10': {
@@ -547,7 +547,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '-6,-4,10': {
@@ -712,7 +712,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '-5,-5,10': {
@@ -899,7 +899,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '-4,-5,9': {
@@ -1086,7 +1086,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '-3,-6,9': {
@@ -1284,7 +1284,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '-2,-7,9': {
@@ -1482,7 +1482,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '-1,-9,10': {
@@ -1493,7 +1493,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '-1,-8,9': {
@@ -1504,7 +1504,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '-1,-7,8': {
@@ -1702,7 +1702,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '0,-10,10': {
@@ -1713,7 +1713,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '0,-9,9': {
@@ -1724,7 +1724,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '0,-8,8': {
@@ -1735,7 +1735,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '0,-7,7': {
@@ -1933,7 +1933,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '1,-10,9': {
@@ -1944,7 +1944,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '1,-9,8': {
@@ -1955,7 +1955,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '1,-8,7': {
@@ -1966,7 +1966,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '1,-7,6': {
@@ -2164,7 +2164,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '2,-9,7': {
@@ -2175,7 +2175,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '2,-8,6': {
@@ -2186,7 +2186,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '2,-7,5': {
@@ -2373,7 +2373,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '3,-9,6': {
@@ -2384,7 +2384,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '3,-8,5': {
@@ -2560,7 +2560,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '4,-10,6': {
@@ -2571,7 +2571,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '4,-9,5': {
@@ -2747,7 +2747,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '5,-10,5': {
@@ -2758,7 +2758,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '5,-9,4': {
@@ -2923,7 +2923,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '6,-10,4': {
@@ -2934,7 +2934,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '6,-9,3': {
@@ -3066,7 +3066,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '6,3,-9': {
@@ -3077,7 +3077,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '6,4,-10': {
@@ -3088,7 +3088,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '7,-10,3': {
@@ -3099,7 +3099,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '7,-9,2': {
@@ -3220,7 +3220,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '7,2,-9': {
@@ -3231,7 +3231,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '7,3,-10': {
@@ -3242,7 +3242,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '8,-10,2': {
@@ -3363,7 +3363,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '8,1,-9': {
@@ -3374,7 +3374,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '8,2,-10': {
@@ -3385,7 +3385,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '9,-10,1': {
@@ -3495,7 +3495,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '9,0,-9': {
@@ -3506,7 +3506,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '9,1,-10': {
@@ -3517,7 +3517,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '10,-10,0': {
@@ -3528,7 +3528,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '10,-9,-1': {
@@ -3539,7 +3539,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '10,-8,-2': {
@@ -3550,7 +3550,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '10,-7,-3': {
@@ -3594,7 +3594,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '10,-3,-7': {
@@ -3605,7 +3605,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '10,-2,-8': {
@@ -3616,7 +3616,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '10,-1,-9': {
@@ -3627,7 +3627,7 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
     '10,0,-10': {
@@ -3638,21 +3638,15 @@ export const cirdanGardenMap = {
       startzonePlayerIDs: [],
       occupyingUnitID: '',
       isUnitTail: false,
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 0,
     },
   },
   hexMap: {
-    flat: false,
-    hexHeight: 2,
-    hexWidth: 1.73,
-    mapId: 'cirdanGardenWithoutTrees',
-    mapName: 'The Cirdan Garden',
-    hexSize: 25,
-    mapShape: 'hexagon',
-    mapSize: 10,
-    mapHeight: 21,
-    mapWidth: 21,
+    id: 'cirdanGardenWithoutTrees',
+    name: 'The Cirdan Garden',
+    shape: 'hexagon',
+    size: 10,
     glyphs: {},
   },
 }

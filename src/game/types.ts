@@ -70,15 +70,13 @@ export type GameMap = {
   hexMap: HexMap
 }
 export type HexMap = {
-  mapId: string
-  mapName: string
-  mapShape: string // 'hexagon' | 'rectangle'
+  id: string
+  name: string
+  shape: string // 'hexagon' | 'rectangle'
   glyphs: Glyphs
-  mapSize?: number // for hexagon shaped maps
-  mapHeight?: number // for rectangle shaped maps
-  mapWidth?: number // for rectangle shaped maps
-  hexSize?: number
-  flat?: boolean
+  size?: number // for hexagon shaped maps
+  height?: number // for rectangle shaped maps
+  width?: number // for rectangle shaped maps
 }
 export type Glyphs = {
   [boardHexID: string]: Glyph
@@ -100,11 +98,17 @@ export type HexCoordinates = {
 export enum HexTerrain {
   empty = 'empty',
   water = 'water',
+  lava = 'lava',
+  ice = 'ice',
+  swampWater = 'swampWater',
+  shadow = 'shadow',
   grass = 'grass',
   sand = 'sand',
   rock = 'rock',
   dungeon = 'dungeon',
   lavaField = 'lavaField',
+  swamp = 'swamp',
+  snow = 'snow',
 }
 export interface BoardHex extends HexCoordinates {
   id: string
@@ -289,8 +293,6 @@ export type MapOptions = {
   mapSize: number
   gameUnits?: GameUnits | undefined
   withPrePlacedUnits?: boolean
-  // flat-top, or pointy-top hexes
-  flat?: boolean
 }
 export type RangeScan = {
   isInRange: boolean

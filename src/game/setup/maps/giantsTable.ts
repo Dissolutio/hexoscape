@@ -8,7 +8,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '1,0,-1': {
@@ -19,7 +19,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '2,0,-2': {
@@ -30,7 +30,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '3,0,-3': {
@@ -41,7 +41,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '4,0,-4': {
@@ -52,7 +52,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '5,0,-5': {
@@ -63,7 +63,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '6,0,-6': {
@@ -74,7 +74,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '7,0,-7': {
@@ -85,7 +85,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '8,0,-8': {
@@ -96,7 +96,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '9,0,-9': {
@@ -184,7 +184,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '17,0,-17': {
@@ -195,7 +195,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '18,0,-18': {
@@ -206,7 +206,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '19,0,-19': {
@@ -217,7 +217,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '20,0,-20': {
@@ -228,7 +228,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '21,0,-21': {
@@ -239,7 +239,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '22,0,-22': {
@@ -250,7 +250,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '23,0,-23': {
@@ -261,7 +261,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '24,0,-24': {
@@ -272,7 +272,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '0,1,-1': {
@@ -283,7 +283,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '1,1,-2': {
@@ -294,7 +294,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '2,1,-3': {
@@ -305,7 +305,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '3,1,-4': {
@@ -316,7 +316,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '4,1,-5': {
@@ -327,7 +327,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '5,1,-6': {
@@ -338,7 +338,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '6,1,-7': {
@@ -349,7 +349,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '7,1,-8': {
@@ -360,7 +360,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '8,1,-9': {
@@ -470,7 +470,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '18,1,-19': {
@@ -481,7 +481,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '19,1,-20': {
@@ -492,7 +492,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '20,1,-21': {
@@ -503,7 +503,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '21,1,-22': {
@@ -514,7 +514,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '22,1,-23': {
@@ -525,7 +525,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '23,1,-24': {
@@ -536,7 +536,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '24,1,-25': {
@@ -547,7 +547,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-1,2,-1': {
@@ -558,7 +558,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '0,2,-2': {
@@ -569,7 +569,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '1,2,-3': {
@@ -580,7 +580,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '2,2,-4': {
@@ -591,7 +591,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '3,2,-5': {
@@ -602,7 +602,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '4,2,-6': {
@@ -613,7 +613,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '5,2,-7': {
@@ -624,7 +624,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '6,2,-8': {
@@ -635,7 +635,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '7,2,-9': {
@@ -756,7 +756,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '18,2,-20': {
@@ -767,7 +767,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '19,2,-21': {
@@ -778,7 +778,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '20,2,-22': {
@@ -789,7 +789,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '21,2,-23': {
@@ -800,7 +800,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '22,2,-24': {
@@ -811,7 +811,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '23,2,-25': {
@@ -822,7 +822,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-1,3,-2': {
@@ -833,7 +833,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '0,3,-3': {
@@ -844,7 +844,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '1,3,-4': {
@@ -855,7 +855,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '2,3,-5': {
@@ -866,7 +866,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '3,3,-6': {
@@ -877,7 +877,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '4,3,-7': {
@@ -888,7 +888,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '5,3,-8': {
@@ -899,7 +899,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '6,3,-9': {
@@ -1031,7 +1031,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '18,3,-21': {
@@ -1042,7 +1042,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '19,3,-22': {
@@ -1053,7 +1053,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '20,3,-23': {
@@ -1064,7 +1064,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '21,3,-24': {
@@ -1075,7 +1075,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '22,3,-25': {
@@ -1086,7 +1086,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '23,3,-26': {
@@ -1097,7 +1097,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-2,4,-2': {
@@ -1108,7 +1108,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-1,4,-3': {
@@ -1119,7 +1119,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '0,4,-4': {
@@ -1317,7 +1317,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '18,4,-22': {
@@ -1328,7 +1328,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '19,4,-23': {
@@ -1339,7 +1339,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '20,4,-24': {
@@ -1350,7 +1350,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '21,4,-25': {
@@ -1361,7 +1361,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '22,4,-26': {
@@ -1372,7 +1372,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-2,5,-3': {
@@ -1592,7 +1592,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '18,5,-23': {
@@ -1603,7 +1603,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '19,5,-24': {
@@ -1614,7 +1614,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '20,5,-25': {
@@ -1625,7 +1625,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '21,5,-26': {
@@ -1636,7 +1636,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '22,5,-27': {
@@ -1647,7 +1647,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-3,6,-3': {
@@ -1867,7 +1867,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '17,6,-23': {
@@ -1878,7 +1878,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '18,6,-24': {
@@ -1889,7 +1889,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '19,6,-25': {
@@ -1900,7 +1900,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '20,6,-26': {
@@ -1911,7 +1911,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '21,6,-27': {
@@ -1922,7 +1922,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-3,7,-4': {
@@ -2142,7 +2142,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '17,7,-24': {
@@ -2153,7 +2153,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '18,7,-25': {
@@ -2164,7 +2164,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '19,7,-26': {
@@ -2175,7 +2175,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '20,7,-27': {
@@ -2186,7 +2186,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '21,7,-28': {
@@ -2197,7 +2197,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-4,8,-4': {
@@ -2428,7 +2428,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '17,8,-25': {
@@ -2439,7 +2439,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '18,8,-26': {
@@ -2450,7 +2450,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '19,8,-27': {
@@ -2461,7 +2461,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '20,8,-28': {
@@ -2472,7 +2472,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-4,9,-5': {
@@ -3033,7 +3033,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-4,11,-7': {
@@ -3044,7 +3044,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-3,11,-8': {
@@ -3055,7 +3055,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-2,11,-9': {
@@ -3066,7 +3066,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-1,11,-10': {
@@ -3308,7 +3308,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-5,12,-7': {
@@ -3319,7 +3319,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-4,12,-8': {
@@ -3330,7 +3330,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-3,12,-9': {
@@ -3341,7 +3341,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-2,12,-10': {
@@ -3352,7 +3352,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-1,12,-11': {
@@ -3363,7 +3363,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '0,12,-12': {
@@ -3374,7 +3374,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '1,12,-13': {
@@ -3385,7 +3385,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '2,12,-14': {
@@ -3396,7 +3396,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '3,12,-15': {
@@ -3407,7 +3407,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '4,12,-16': {
@@ -3418,7 +3418,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '5,12,-17': {
@@ -3429,7 +3429,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '6,12,-18': {
@@ -3440,7 +3440,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '7,12,-19': {
@@ -3451,7 +3451,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '8,12,-20': {
@@ -3583,7 +3583,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-5,13,-8': {
@@ -3594,7 +3594,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-4,13,-9': {
@@ -3605,7 +3605,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-3,13,-10': {
@@ -3616,7 +3616,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-2,13,-11': {
@@ -3627,7 +3627,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-1,13,-12': {
@@ -3638,7 +3638,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '0,13,-13': {
@@ -3649,7 +3649,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '1,13,-14': {
@@ -3660,7 +3660,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '2,13,-15': {
@@ -3671,7 +3671,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '3,13,-16': {
@@ -3682,7 +3682,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '4,13,-17': {
@@ -3693,7 +3693,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '5,13,-18': {
@@ -3704,7 +3704,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '6,13,-19': {
@@ -3715,7 +3715,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '7,13,-20': {
@@ -3726,7 +3726,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '8,13,-21': {
@@ -3858,7 +3858,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-6,14,-8': {
@@ -3869,7 +3869,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-5,14,-9': {
@@ -3880,7 +3880,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-4,14,-10': {
@@ -3891,7 +3891,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-3,14,-11': {
@@ -3902,7 +3902,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-2,14,-12': {
@@ -3913,7 +3913,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '-1,14,-13': {
@@ -3924,7 +3924,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '0,14,-14': {
@@ -3935,7 +3935,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '1,14,-15': {
@@ -3946,7 +3946,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '2,14,-16': {
@@ -3957,7 +3957,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '3,14,-17': {
@@ -3968,7 +3968,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '4,14,-18': {
@@ -3979,7 +3979,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '5,14,-19': {
@@ -3990,7 +3990,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '6,14,-20': {
@@ -4001,7 +4001,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '7,14,-21': {
@@ -4012,7 +4012,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '8,14,-22': {
@@ -4023,7 +4023,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '9,14,-23': {
@@ -4034,7 +4034,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '10,14,-24': {
@@ -4045,7 +4045,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '11,14,-25': {
@@ -4056,7 +4056,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '12,14,-26': {
@@ -4067,7 +4067,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '13,14,-27': {
@@ -4078,7 +4078,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '14,14,-28': {
@@ -4089,7 +4089,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '15,14,-29': {
@@ -4100,7 +4100,7 @@ export const giantsTable = {
       occupyingUnitID: '',
       isUnitTail: false,
       startzonePlayerIDs: [],
-      terrain: 'void',
+      terrain: 'empty',
       altitude: 1,
     },
     '16,14,-30': {
@@ -4127,14 +4127,11 @@ export const giantsTable = {
     },
   },
   hexMap: {
-    mapId: 'giantsTable',
-    mapName: 'The Table of the Giants',
-    mapShape: 'rectangle',
-    flat: false,
-    mapSize: 25,
-    hexSize: 10,
-    mapWidth: 25,
-    mapHeight: 15,
+    id: 'giantsTable',
+    name: 'The Table of the Giants',
+    shape: 'rectangle',
+    width: 25,
+    height: 15,
     glyphs: {
       '12,0,-12': {
         hexID: '12,0,-12',
