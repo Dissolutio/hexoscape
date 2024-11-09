@@ -21,10 +21,10 @@ function makeRectangleScenario(options?: RectangleScenarioOptions): GType {
   const mapHeight = Math.min(options?.mapLength ?? 12, MAX_RECTANGLE_DIMENSION)
   const mapWidth = Math.min(options?.mapWidth ?? 12, MAX_RECTANGLE_DIMENSION)
   const hexMap = {
-    mapId: generateTimestampID(),
-    mapName: 'default rectangle map',
-    mapShape: 'rectangle',
-    mapSize: Math.max(mapHeight, mapWidth),
+    id: generateTimestampID(),
+    name: 'default rectangle map',
+    shape: 'rectangle',
+    size: Math.max(mapHeight, mapWidth),
     glyphs: {},
   }
 
@@ -35,22 +35,22 @@ function makeRectangleScenario(options?: RectangleScenarioOptions): GType {
   }
 }
 type HexagonScenarioOptions = {
-  mapSize?: number
+  size?: number
 }
 export const hexagonScenario = makeHexagonScenario({
-  mapSize: 6,
+  size: 6,
 })
 function makeHexagonScenario(options?: HexagonScenarioOptions): GType {
-  const mapSize = Math.min(options?.mapSize ?? 6, MAX_HEXAGON_DIMENSION)
+  const size = Math.min(options?.size ?? 6, MAX_HEXAGON_DIMENSION)
   const hexMap = {
-    mapId: generateTimestampID(),
-    mapName: 'default hexagon map',
-    mapShape: 'hexagon',
-    mapSize,
+    id: generateTimestampID(),
+    name: 'default hexagon map',
+    shape: 'hexagon',
+    size,
     glyphs: {},
   }
 
-  const boardHexes: BoardHexes = generateHexagon(mapSize)
+  const boardHexes: BoardHexes = generateHexagon(size)
   return {
     boardHexes,
     hexMap,

@@ -20,7 +20,7 @@ export function HexopolisMapDisplay3D({
   useZoomCameraToMapCenter({
     cameraControlsRef,
     boardHexes,
-    mapID: 'hexopolis', // currently, hexopolis does not switch maps, thus mapID does not need to trigger re-zoom to middle
+    mapID: 'hexopolis', // currently, hexopolis does not switch maps, thus map.id does not need to trigger re-zoom to middle
   })
 
   return (

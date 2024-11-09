@@ -7,13 +7,13 @@ import {
   HexMap,
   HexTerrain,
 } from '../../game/types'
-import { getBoardHex3DCoords } from '../../game/hex-utils'
 import { MapHex3D } from '../../shared/MapHex3D'
 import { useZoomCameraToMapCenter } from '../../hooks/useZoomCameraToMapCenter'
 import { HexxaformMoves, PenMode } from '../../game/hexxaform/hexxaform-types'
 import { useHexxaformContext } from '../useHexxaformContext'
 import { generateHexID } from '../../game/constants'
 import { getFlatTileHexes } from '../virtualscape/flatTile'
+import { getBoardHex3DCoords } from '../../game/hex-utils'
 
 /**
  * React component that renders the 3D hexmap.
@@ -43,7 +43,7 @@ export function HexxaformMapDisplay3D({
   useZoomCameraToMapCenter({
     cameraControlsRef,
     boardHexes,
-    mapID: hexMap.mapId,
+    mapID: hexMap.id,
   })
   return (
     <>
