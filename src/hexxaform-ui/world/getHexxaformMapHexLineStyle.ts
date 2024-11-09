@@ -4,12 +4,13 @@ import { StartZones } from "../../game/types"
 
 const highlightWhiteStyle = { color: 'white', opacity: 1, lineWidth: 2 }
 const nonTopRingGrayStyle = {
-  color: new Color('#686868'),
+  color: '#686868',
   opacity: 1,
   lineWidth: 1,
 }
 const basicGrayTopRingStyle = {
-  color: new Color('#b4b4b4'),
+  // color: new Color('#b4b4b4'),
+  color: '#b4b4b4',
   opacity: 1,
   lineWidth: 1,
 }

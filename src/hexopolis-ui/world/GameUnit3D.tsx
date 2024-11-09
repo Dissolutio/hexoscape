@@ -2,7 +2,10 @@ import React, { useState } from 'react'
 import { CameraControls } from '@react-three/drei'
 
 import { BoardHex, GameUnit } from '../../game/types'
-import { getDirectionOfNeighbor } from '../../game/hex-utils'
+import {
+  getBoardHex3DCoords,
+  getDirectionOfNeighbor,
+} from '../../game/hex-utils'
 import { usePlacementContext } from '../contexts'
 import { useBgioCtx, useBgioG } from '../../bgio-contexts'
 import { selectTailHexForUnit } from '../../game/selectors'
@@ -13,23 +16,16 @@ import { HEXGRID_HEX_HEIGHT } from '../../game/constants'
 export const GameUnit3D = ({
   gameUnit,
   boardHex,
-  x,
-  z,
   cameraControlsRef,
 }: {
   gameUnit: GameUnit
   boardHex: BoardHex
-  x: number
-  z: number
   cameraControlsRef: React.MutableRefObject<CameraControls>
-  // onClick?: (e: ThreeEvent<MouseEvent>, hex: BoardHex) => void
 }) => {
   const { boardHexes } = useBgioG()
   const { isPlacementPhase } = useBgioCtx()
   const { editingBoardHexes } = usePlacementContext()
-
-  const positionX = x
-  const positionZ = z
+  const { x, z } = getBoardHex3DCoords(boardHex)
   const positionY = boardHex.altitude * HEXGRID_HEX_HEIGHT
   const tailHex = selectTailHexForUnit(
     gameUnit.unitID,
@@ -59,7 +55,7 @@ export const GameUnit3D = ({
         const args = getUnitDefaultCameraLookAt(boardHex, boardHexes)
         cameraControlsRef.current.setLookAt(...args)
       }}
-      position={[positionX, positionY, positionZ]}
+      position={[x, positionY, z]}
       rotation={[0, rotationY, 0]}
     >
       <UnitModelByID gameUnit={gameUnit} isHovered={isHovered} />

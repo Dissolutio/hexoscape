@@ -177,7 +177,7 @@ function SplitButton({
   handleLoadRectangleMap,
 }: SplitButtonProps) {
   const [open, setOpen] = useState(false)
-  const anchorRef = useRef<HTMLDivElement>(null)
+  const anchorRef = useRef(null)
   const options: SaveLoadMapOption[] = [
     {
       title: 'Save Map 1',
@@ -245,7 +245,7 @@ function SplitButton({
     }
     setOpen(false)
   }
-  const onClickMenuItem = (event: Event, option: SaveLoadMapOption) => {
+  const onClickMenuItem = (event, option: SaveLoadMapOption) => {
     option.onClick()
     handleClose(event)
   }
