@@ -5,10 +5,12 @@ import { BoardHex, BoardHexes } from '../../game/types'
 import { useBgioClientInfo, useBgioCtx, useBgioG } from '../../bgio-contexts'
 import { usePlacementContext, usePlayContext } from '../contexts'
 import { useSpecialAttackContext } from '../contexts/special-attack-context'
-import { getBoardHex3DCoords } from '../../game/hex-utils'
 import { GameUnit3D } from './GameUnit3D'
 import { useZoomCameraToMapCenter } from '../../hooks/useZoomCameraToMapCenter'
 import { useUIContext } from '../../hooks/ui-context'
+import InstanceSubTerrain from '../../shared/world/InstanceSubTerrain'
+import InstanceSolidHexCap from '../../shared/world/InstanceSolidHexCap'
+import InstanceFluidHexCap from '../../shared/world/InstanceFluidHexCap'
 
 export function HexopolisMapDisplay3D({
   cameraControlsRef,
@@ -22,48 +24,7 @@ export function HexopolisMapDisplay3D({
     boardHexes,
     mapID: 'hexopolis', // currently, hexopolis does not switch maps, thus map.id does not need to trigger re-zoom to middle
   })
-
-  return (
-    <>
-      {Object.values(boardHexes).map((bh: any) => {
-        return (
-          <HexopolisHex3D
-            cameraControlsRef={cameraControlsRef}
-            key={`${bh.id}-${bh.altitude}`}
-            boardHexID={bh.id}
-          />
-        )
-      })}
-    </>
-  )
-}
-
-/**
- * React component that renders a single 3D hex in the Hexopolis game world.
- *
- * Given a `boardHexID` prop, renders a `MapHex3D` component with the
- * corresponding hex's 3D coordinates, and a `GameUnit3D` component if the hex
- * is occupied by a unit that is visible to the current player.
- *
- * The component also handles clicks on the hex, and is responsible for
- * selecting special attacks and units during various stages of the game.
- *
- * The component takes a `cameraControlsRef` prop, which is a mutable ref to a
- * `react-three-fiber` `CameraControls` component.
- *
- * Returns a fragment containing a `MapHex3D` component and a `GameUnit3D`
- * component if the hex is occupied by a visible unit.
- */
-const HexopolisHex3D = ({
-  boardHexID,
-  cameraControlsRef,
-}: {
-  boardHexID: string
-  cameraControlsRef: React.MutableRefObject<CameraControls>
-}) => {
-  const { playerID } = useBgioClientInfo()
-  const { boardHexes, gameUnits, hexMap } = useBgioG()
-  const boardHex = boardHexes[boardHexID]
+  const { gameUnits } = useBgioG()
   const { selectedUnitID } = useUIContext()
   const {
     isPlacementPhase,
@@ -75,9 +36,9 @@ const HexopolisHex3D = ({
     isExplosionSAStage,
     isGrenadeSAStage,
   } = useBgioCtx()
-  const { onClickPlacementHex, editingBoardHexes } = usePlacementContext()
-  const { onClickTurnHex, currentTurnGameCardID, selectedUnitMoveRange } =
-    usePlayContext()
+  const { onClickPlacementHex } = usePlacementContext()
+  const { onClickTurnHex, currentTurnGameCardID } = usePlayContext()
+  
   const {
     selectSpecialAttack,
     fireLineTargetableHexIDs,
@@ -96,59 +57,89 @@ const HexopolisHex3D = ({
    * - Deselect a previously selected unit or attack in the round of play phase.
    *
    * @param event The three.js event for the click.
-   * @param sourceHex The hex that was clicked.
+   * @param boardHex The hex that was clicked.
    */
-  const onClick = (event: ThreeEvent<MouseEvent>, sourceHex: BoardHex) => {
+  const onClick = (event: ThreeEvent<MouseEvent>, boardHex: BoardHex) => {
     event.stopPropagation()
     // if (isDraftPhase) {
     // TODO: Select Units: should be able to click around units on map as ppl draft them
     // onClickPlacementHex?.(event, sourceHex)
     // }
     if (isPlacementPhase) {
-      onClickPlacementHex?.(event, sourceHex)
+      onClickPlacementHex?.(event, boardHex)
     }
     // ROP
     if (isTheDropStage) {
-      onClickTurnHex?.(event, sourceHex)
+      onClickTurnHex?.(event, boardHex)
     }
 
     if (isFireLineSAStage) {
-      if (fireLineTargetableHexIDs.includes(sourceHex.id)) {
-        selectSpecialAttack(sourceHex.id)
+      if (fireLineTargetableHexIDs.includes(boardHex.id)) {
+        selectSpecialAttack(boardHex.id)
       }
     } else if (isMindShackleStage) {
-      if (mindShackleTargetableHexIDs.includes(sourceHex.id)) {
-        selectSpecialAttack(sourceHex.id)
+      if (mindShackleTargetableHexIDs.includes(boardHex.id)) {
+        selectSpecialAttack(boardHex.id)
       }
     } else if (isChompStage) {
-      if (chompableHexIDs.includes(sourceHex.id)) {
-        selectSpecialAttack(sourceHex.id)
+      if (chompableHexIDs.includes(boardHex.id)) {
+        selectSpecialAttack(boardHex.id)
       }
     } else if (isExplosionSAStage) {
-      if (explosionTargetableHexIDs.includes(sourceHex.id)) {
-        selectSpecialAttack(sourceHex.id)
+      if (explosionTargetableHexIDs.includes(boardHex.id)) {
+        selectSpecialAttack(boardHex.id)
       }
     } else if (isRoundOfPlayPhase) {
       if (
         // this is a weird splitting off to select a grenade hex, part of hacky GrenadeSA implementation
         isGrenadeSAStage &&
-        explosionTargetableHexIDs.includes(sourceHex.id)
+        explosionTargetableHexIDs.includes(boardHex.id)
       ) {
-        selectSpecialAttack(sourceHex.id)
+        selectSpecialAttack(boardHex.id)
       } else {
         // if we clicked a grenade unit, we need to deselect the attack (if any) of the previously selected grenade unit, but still let the onClick pass thru to select the new unit
         if (
           isGrenadeSAStage &&
-          sourceHex.occupyingUnitID !== selectedUnitID &&
-          gameUnits[sourceHex.occupyingUnitID]?.gameCardID ===
+          boardHex.occupyingUnitID !== selectedUnitID &&
+          gameUnits[boardHex.occupyingUnitID]?.gameCardID ===
             currentTurnGameCardID
         ) {
           selectSpecialAttack('')
         }
-        onClickTurnHex?.(event, sourceHex)
+        onClickTurnHex?.(event, boardHex)
       }
     }
   }
+  return (
+    <>
+      <InstanceSubTerrain boardHexes={boardHexes} />
+      <InstanceSolidHexCap boardHexes={boardHexes} onClick={onClick} />
+      <InstanceFluidHexCap boardHexes={boardHexes} onClick={onClick} />
+      {Object.values(boardHexes).map((bh: any) => {
+        return (
+          <HexopolisHex3D
+            cameraControlsRef={cameraControlsRef}
+            key={`${bh.id}-${bh.altitude}`}
+            boardHexID={bh.id}
+          />
+        )
+      })}
+    </>
+  )
+}
+const HexopolisHex3D = ({
+  boardHexID,
+  cameraControlsRef,
+}: {
+  boardHexID: string
+  cameraControlsRef: React.MutableRefObject<CameraControls>
+}) => {
+  const { playerID } = useBgioClientInfo()
+  const { boardHexes, gameUnits, hexMap } = useBgioG()
+  const boardHex = boardHexes[boardHexID]
+  const { isPlacementPhase, isTheDropStage } = useBgioCtx()
+  const { editingBoardHexes } = usePlacementContext()
+  const { selectedUnitMoveRange } = usePlayContext()
 
   // computed
   const isUnitTail = isPlacementPhase
@@ -168,6 +159,7 @@ const HexopolisHex3D = ({
         : isUnitTail
           ? ''
           : boardHex.occupyingUnitID
+
   const gameUnit = gameUnits?.[unitIdToShowOnHex]
 
   // we only show players their own units during placement phase
@@ -180,20 +172,13 @@ const HexopolisHex3D = ({
   //   gameUnitCard?.type.includes('hero') || (gameUnitCard?.life ?? 0) > 1
   // const unitLifePosition: Point = { x: hexSize * -0.6, y: 0 }
 
-  const { x: positionX, z: positionZ } = getBoardHex3DCoords(boardHex)
   return (
     <>
       <MapHex3D
         isEditor={false}
-        x={positionX}
-        z={positionZ}
         boardHex={boardHex}
         playerID={playerID}
-        onClick={onClick}
         glyphs={hexMap.glyphs}
-        isPlacementPhase={isPlacementPhase}
-        editingBoardHexes={editingBoardHexes}
-        selectedUnitID={selectedUnitID}
         selectedUnitMoveRange={selectedUnitMoveRange}
       />
       {gameUnit && isShowableUnit && !isUnitTail ? (
@@ -201,8 +186,6 @@ const HexopolisHex3D = ({
           cameraControlsRef={cameraControlsRef}
           gameUnit={gameUnit}
           boardHex={boardHex}
-          x={positionX}
-          z={positionZ}
         />
       ) : (
         <></>

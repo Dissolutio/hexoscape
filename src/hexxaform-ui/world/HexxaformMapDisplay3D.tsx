@@ -11,22 +11,13 @@ import { MapHex3D } from '../../shared/MapHex3D'
 import { useZoomCameraToMapCenter } from '../../hooks/useZoomCameraToMapCenter'
 import { HexxaformMoves, PenMode } from '../../game/hexxaform/hexxaform-types'
 import { useHexxaformContext } from '../useHexxaformContext'
-import { generateHexID } from '../../game/constants'
+import InstanceSubTerrain from '../../shared/world/InstanceSubTerrain'
+import InstanceSolidHexCap from '../../shared/world/InstanceSolidHexCap'
+import InstanceFluidHexCap from '../../shared/world/InstanceFluidHexCap'
 import { getFlatTileHexes } from '../virtualscape/flatTile'
-import { getBoardHex3DCoords } from '../../game/hex-utils'
+import { generateHexID } from '../../game/constants'
 
-/**
- * React component that renders the 3D hexmap.
- *
- * Takes a `cameraControlsRef` as a prop, which is a mutable ref to a
- * `react-three-fiber` `CameraControls` component.
- *
- * The component renders a collection of `Hex3D` components, one for each hex
- * in the game's `boardHexes` object. Each `Hex3D` is given the `cameraControlsRef`
- * and the `boardHexID` of the corresponding hex in the `boardHexes` object.
- *
- * The component returns a fragment containing all the `Hex3D` components.
- */
+
 export function HexxaformMapDisplay3D({
   boardHexes,
   hexMap,
@@ -45,53 +36,16 @@ export function HexxaformMapDisplay3D({
     boardHexes,
     mapID: hexMap.id,
   })
-  return (
-    <>
-      {Object.values(boardHexes).map((bh: any) => {
-        return (
-          <HexxaformHex3D
-            playerID="0"
-            boardHexID={bh.id}
-            boardHexes={boardHexes}
-            glyphs={glyphs}
-            moves={moves}
-            cameraControlsRef={cameraControlsRef}
-            key={`${bh.id}-${bh.altitude}`}
-          />
-        )
-      })}
-    </>
-  )
-}
-
-let ROTATION = 0
-const HexxaformHex3D = ({
-  playerID,
-  boardHexID,
-  boardHexes,
-  glyphs,
-  moves,
-  cameraControlsRef: _cameraControlsRef,
-}: {
-  playerID: string
-  boardHexID: string
-  boardHexes: BoardHexes
-  glyphs: Glyphs
-  moves: HexxaformMoves
-  cameraControlsRef: React.MutableRefObject<CameraControls>
-}) => {
   const {
     voidHex,
     voidStartZone,
     paintStartZone,
     paintWaterHex,
-    paintGrassHex,
     paintGrassTile,
     paintSandHex,
     paintRockHex,
   } = moves
   const { penMode, pieceSize } = useHexxaformContext()
-  const boardHex = boardHexes[boardHexID]
 
   const onClick = (event: ThreeEvent<MouseEvent>, hex: BoardHex) => {
     // Prevent this click from going through to other hexes
@@ -114,7 +68,9 @@ const HexxaformHex3D = ({
     if (penMode === PenMode.grass) {
       const hexIDArr = getFlatTileHexes({
         clickedHex: { q: hex.q, r: hex.r, s: hex.s },
-        rotation: ROTATION++ % 6,
+        // let ROTATION = 0
+        // rotation: ROTATION++ % 6,
+        rotation: 0,
         size: pieceSize,
       }).map((h) => generateHexID(h))
       paintGrassTile({ hexIDArr, altitude: hex.altitude })
@@ -127,23 +83,24 @@ const HexxaformHex3D = ({
     }
   }
 
-  const { x: positionX, z: positionZ } = getBoardHex3DCoords(boardHex)
-
   return (
     <>
-      <MapHex3D
-        x={positionX}
-        z={positionZ}
-        playerID={playerID}
-        boardHex={boardHex}
-        onClick={onClick}
-        glyphs={glyphs}
-        isPlacementPhase={false}
-        editingBoardHexes={{}}
-        selectedUnitID={''}
-        selectedUnitMoveRange={{}}
-        isEditor={true}
-      />
+      <InstanceSubTerrain boardHexes={boardHexes} />
+      <InstanceSolidHexCap boardHexes={boardHexes} onClick={onClick} />
+      <InstanceFluidHexCap boardHexes={boardHexes} onClick={onClick} />
+      {Object.values(boardHexes).map((bh: any) => {
+        return (
+          <MapHex3D
+            playerID={'0'}
+            boardHex={bh}
+            glyphs={glyphs}
+            selectedUnitMoveRange={{}}
+            isEditor={true}
+            key={`${bh.id}-${bh.altitude}`}
+          />
+        )
+      })}
     </>
   )
 }
+

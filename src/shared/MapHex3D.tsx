@@ -12,40 +12,26 @@ import { selectGlyphForHex } from '../game/selectors'
 import { powerGlyphs } from '../game/glyphs'
 import { HeightRings } from './HeightRings'
 import { MapHexGlyph } from './MapHexGlyph'
-import { hexTerrainColor } from '../hexxaform-ui/virtualscape/terrain'
-import HexCap from './world/HexCap'
-import HexSubTerrain from './world/HexSubTerrain'
 import { MapHexIDDisplay } from './MapHexIDDisplay'
+import { getBoardHex3DCoords } from '../game/hex-utils'
 
 
 export const MapHex3D = ({
-  x,
-  z,
   playerID,
   boardHex,
-  onClick,
   glyphs,
-  isPlacementPhase,
-  editingBoardHexes,
-  selectedUnitID,
   selectedUnitMoveRange,
   isEditor,
 }: {
-  x: number
-  z: number
   playerID: string
   boardHex: BoardHex
-  onClick?: (e: ThreeEvent<MouseEvent>, hex: BoardHex) => void
   glyphs: Glyphs
-  isPlacementPhase: boolean
-  editingBoardHexes: EditingBoardHexes
-  selectedUnitID: string
   selectedUnitMoveRange: MoveRange
   isEditor: boolean
 }) => {
+  const { x, z } = getBoardHex3DCoords(boardHex)
   // HOVERED STATE
-  const [isHovered, setIsHovered] = useState(false)
-
+  const [isHovered] = useState(false)
   const altitude = boardHex.altitude
   const isFluidHex = isFluidTerrainHex(boardHex.terrain)
   const hexYPosition = altitude / 4
@@ -55,17 +41,9 @@ export const MapHex3D = ({
     : hexYPosition
 
   const hexPosition = new Vector3(x, hexYPosition, z)
-  const heightScaleSubTerrain = isFluidHex
-    ? altitude - halfLevel
-    : altitude - quarterLevel
   const mysteryMathValueThatSeemsToWorkWell = quarterLevel / 4
   const yAdjustFluidCap = altitude / 2
   const yAdjustSolidCap = yAdjustFluidCap - mysteryMathValueThatSeemsToWorkWell
-  const subTerrain =
-    boardHex?.subTerrain ?? getDefaultSubTerrainForTerrain(boardHex.terrain)
-  const subTerrainYAdjust = (altitude - quarterLevel) / 4
-  const subTerrainPosition = new Vector3(x, subTerrainYAdjust, z)
-  const subTerrainColor = new Color(hexTerrainColor[subTerrain])
 
   /* GLYPHS */
   const glyphOnHex = selectGlyphForHex({ hexID: boardHex.id, glyphs })
@@ -106,23 +84,6 @@ export const MapHex3D = ({
         position={hexPosition}
         isHighlighted={isHovered}
         isEditor={isEditor}
-      />
-      <HexSubTerrain
-        subTerrainPosition={subTerrainPosition}
-        heightScaleSubTerrain={heightScaleSubTerrain}
-        subTerrainColor={subTerrainColor}
-      />
-
-      <HexCap
-        x={x}
-        z={z}
-        boardHex={boardHex}
-        editingBoardHexes={editingBoardHexes}
-        selectedUnitID={selectedUnitID}
-        isHovered={isHovered}
-        setIsHovered={setIsHovered}
-        isPlacementPhase={isPlacementPhase}
-        onClick={onClick}
       />
     </group>
   )
