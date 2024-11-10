@@ -19,8 +19,6 @@ import { useUIContext } from '../../hooks/ui-context'
 export type InstanceCapProps = {
   capHexesArray: BoardHex[]
   onClick: (e: ThreeEvent<MouseEvent>, hex: BoardHex) => void
-  handleHover: (id: string) => void
-  handleUnhover: () => void
 }
 const InstanceFluidHexCapCountWrapper = (props: InstanceCapProps) => {
   const fluidCapHexesArray = (props.capHexesArray).filter((bh) => {
@@ -35,8 +33,6 @@ const tempColor = new Color()
 const InstanceFluidHexCap = ({
   capHexesArray,
   onClick,
-  handleHover,
-  handleUnhover,
 }: InstanceCapProps) => {
   const instanceRef = useRef<
     InstancedMesh<
@@ -47,7 +43,7 @@ const InstanceFluidHexCap = ({
   >(undefined!)
   const capFluidOpacity = 0.85
   const countOfCapHexes = capHexesArray.length
-  const { isCameraActive } = useUIContext()
+  const { isCameraActive, handleHover, handleUnhover } = useUIContext()
   const colorArray = useMemo(
     () => Float32Array.from(new Array(capHexesArray.length).fill(0).flatMap((_, i) => tempColor.set(hexTerrainColor[capHexesArray[i].terrain]).toArray())),
     [capHexesArray]

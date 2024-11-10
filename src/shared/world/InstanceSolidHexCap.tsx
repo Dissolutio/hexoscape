@@ -31,8 +31,6 @@ const tempColor = new Color()
 const InstanceSolidHexCap = ({
   capHexesArray,
   onClick,
-  handleHover,
-  handleUnhover,
 }: InstanceCapProps) => {
   const instanceRef = useRef<
     InstancedMesh<
@@ -42,7 +40,7 @@ const InstanceSolidHexCap = ({
     >
   >(undefined!)
   const countOfCapHexes = capHexesArray.length
-  const { isCameraActive } = useUIContext()
+  const { isCameraActive, handleHover, handleUnhover } = useUIContext()
   const colorArray = useMemo(
     () => {
       return Float32Array.from(new Array(capHexesArray.length).fill(0).flatMap((_, i) => tempColor.set(hexTerrainColor[capHexesArray[i].terrain]).toArray()))

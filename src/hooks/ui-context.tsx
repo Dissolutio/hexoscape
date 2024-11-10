@@ -23,6 +23,9 @@ const UIContext = React.createContext<
     setSelectedUnitID: React.Dispatch<React.SetStateAction<string>>
     selectedGameCardID: string
     setSelectedGameCardID: React.Dispatch<React.SetStateAction<string>>
+    hoverID: string
+    handleHover: (id: string) => void
+    handleUnhover: () => void
     indexOfLastShownToast: number
     setIndexOfLastShownToast: React.Dispatch<React.SetStateAction<number>>
     isNavOpen: boolean
@@ -39,6 +42,15 @@ export function UIContextProvider({ children }: UIContextProviderProps) {
   const [indexOfLastShownToast, setIndexOfLastShownToast] = React.useState(0)
   const [selectedUnitID, setSelectedUnitID] = React.useState('')
   const [selectedGameCardID, setSelectedGameCardID] = React.useState('')
+  // hovered hexID
+  const [hoverID, setHoverID] = React.useState('')
+  const handleHover = (id: string) => {
+    setHoverID(id)
+  }
+  const handleUnhover = () => {
+    setHoverID('')
+  }
+
   // World Camera Controls lock (i.e. when click and dragging pieces)
   const [isCameraActive, setIsCameraActive] =
     React.useState(false)
@@ -93,6 +105,9 @@ export function UIContextProvider({ children }: UIContextProviderProps) {
         setSelectedUnitID,
         selectedGameCardID,
         setSelectedGameCardID,
+        hoverID,
+        handleHover,
+        handleUnhover,
         indexOfLastShownToast,
         setIndexOfLastShownToast,
         modalState: modalState.modalState,
