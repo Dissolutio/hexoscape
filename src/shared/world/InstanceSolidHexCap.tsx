@@ -22,16 +22,16 @@ import { hexTerrainColor } from '../../hexxaform-ui/virtualscape/terrain'
 type Props = {
   boardHexes: BoardHexes
   onClick: (e: ThreeEvent<MouseEvent>, hex: BoardHex) => void
-  // hoverID: string
-  // handleHover: (id: string) => void
-  // handleUnhover: (id: string) => void
+  hoverID: string
+  handleHover: (id: string) => void
+  handleUnhover: (id: string) => void
 }
 const InstanceSolidHexCap = ({
   boardHexes,
   onClick,
-  // hoverID,
-  // handleHover,
-  // handleUnhover,
+  hoverID,
+  handleHover,
+  handleUnhover,
 }: Props) => {
   const instanceRef = useRef<
     InstancedMesh<

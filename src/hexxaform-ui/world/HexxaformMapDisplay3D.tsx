@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { ThreeEvent } from '@react-three/fiber'
 import { CameraControls } from '@react-three/drei'
 import {
@@ -46,6 +47,16 @@ export function HexxaformMapDisplay3D({
     paintRockHex,
   } = moves
   const { penMode, pieceSize } = useHexxaformContext()
+  const [hoverID, setHoverID] = useState('')
+  const handleHover = (id: string) => {
+    setHoverID(id)
+  }
+  const handleUnhover = (id: string) => {
+    if (id === hoverID) {
+      setHoverID('')
+    }
+  }
+
 
   const onClick = (event: ThreeEvent<MouseEvent>, hex: BoardHex) => {
     // Prevent this click from going through to other hexes
@@ -68,8 +79,6 @@ export function HexxaformMapDisplay3D({
     if (penMode === PenMode.grass) {
       const hexIDArr = getFlatTileHexes({
         clickedHex: { q: hex.q, r: hex.r, s: hex.s },
-        // let ROTATION = 0
-        // rotation: ROTATION++ % 6,
         rotation: 0,
         size: pieceSize,
       }).map((h) => generateHexID(h))
@@ -86,7 +95,11 @@ export function HexxaformMapDisplay3D({
   return (
     <>
       <InstanceSubTerrain boardHexes={boardHexes} />
-      <InstanceSolidHexCap boardHexes={boardHexes} onClick={onClick} />
+      <InstanceSolidHexCap
+        hoverID={hoverID}
+        handleHover={handleHover}
+        handleUnhover={handleUnhover}
+        boardHexes={boardHexes} onClick={onClick} />
       <InstanceFluidHexCap boardHexes={boardHexes} onClick={onClick} />
       {Object.values(boardHexes).map((bh: any) => {
         return (
