@@ -46,7 +46,7 @@ export const World = ({
       <WorldOverheadLights />
       <TakeAPictureBox />
       {/* Stats displays the fps */}
-      <Stats />
+      <Stats className='stats-panel' />
       {isEditor ? (
         <HexxaformMapDisplay3D
           boardHexes={boardHexes}
