@@ -121,7 +121,7 @@ const terrainCodes = {
 }
 
 export const hexTerrainColor: Dictionary<string> = {
-  empty: '#faeff7',
+  empty: '#040404',
   water: '#3794fd',
   grass: '#60840d',
   rock: '#475776',

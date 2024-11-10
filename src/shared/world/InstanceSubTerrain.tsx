@@ -1,7 +1,7 @@
 import { useRef, useLayoutEffect } from 'react'
 import * as THREE from 'three'
 import { getBoardHex3DCoords } from '../../game/hex-utils'
-import { BoardHexes } from '../../game/types'
+import { BoardHex } from '../../game/types'
 import {
   getDefaultSubTerrainForTerrain,
   halfLevel,
@@ -11,20 +11,26 @@ import {
 } from '../../game/constants'
 import { hexTerrainColor } from '../../hexxaform-ui/virtualscape/terrain'
 
+
 type Props = {
-  boardHexes: BoardHexes
+  boardHexes: BoardHex[]
+}
+
+const InstanceSubTerrainCountWrapper = (props: Props) => {
+  const numInstances = props.boardHexes.length
+  if (numInstances < 1) return null
+  const key = 'InstanceSubTerrain-' + numInstances // IMPORTANT: to include numInstances in key, otherwise gl will crash on change
+  return <InstanceSubTerrain key={key} {...props} />
 }
 
 const InstanceSubTerrain = ({ boardHexes }: Props) => {
   const instanceRef = useRef<any>(undefined!)
-  const boardHexesArray = Object.values(boardHexes)
-  /* countOfSubTerrains: Right now, this is simply all boardHexes. But with overhangs, and "floaters", this would be calculated. */
-  const countOfSubTerrains = boardHexesArray.length
+  const countOfSubTerrains = boardHexes.length
 
   // effect where we create and update instance mesh for each subterrain mesh
   useLayoutEffect(() => {
     const placeholder = new THREE.Object3D()
-    boardHexesArray.forEach((boardHex, i) => {
+    boardHexes.forEach((boardHex, i) => {
       const altitude = boardHex.altitude
       const isFluidHex = isFluidTerrainHex(boardHex.terrain)
       const { x, z } = getBoardHex3DCoords(boardHex)
@@ -36,31 +42,19 @@ const InstanceSubTerrain = ({ boardHexes }: Props) => {
       const subTerrainYAdjust = (altitude - quarterLevel) / 4
       const subTerrainColor = new THREE.Color(hexTerrainColor[subTerrain])
       const subTerrainPosition = new THREE.Vector3(x, subTerrainYAdjust, z)
-      // set placeholder position
       placeholder.position.set(
         subTerrainPosition.x,
         subTerrainPosition.y,
         subTerrainPosition.z
       )
-      // set placeholder scale
       placeholder.scale.set(1, heightScaleSubTerrain, 1)
-      // update placeholder matrix
       placeholder.updateMatrix()
-      // update instance color
       instanceRef.current.setColorAt(i, subTerrainColor)
-      // update instance matrix
       instanceRef.current.setMatrixAt(i, placeholder.matrix)
     })
-    // update the instance once we've updated all the instances
     instanceRef.current.instanceMatrix.needsUpdate = true
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [boardHexes])
 
-  // https://threejs.org/docs/#api/en/objects/InstancedMesh
-  //   args:[geometry, material, count]
-  //     geometry - an instance of THREE.BufferGeometry
-  //     material - an instance of THREE.Material. Default is a new MeshBasicMaterial
-  //     count - the number of instances
   return (
     <instancedMesh
       ref={instanceRef}
@@ -71,4 +65,4 @@ const InstanceSubTerrain = ({ boardHexes }: Props) => {
     </instancedMesh>
   )
 }
-export default InstanceSubTerrain
+export default InstanceSubTerrainCountWrapper

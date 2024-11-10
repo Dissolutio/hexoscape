@@ -11,7 +11,7 @@ import {
   Vector3,
 } from 'three'
 import { BoardHex } from '../../game/types'
-import { halfLevel, isFluidTerrainHex } from '../../game/constants'
+import { halfLevel } from '../../game/constants'
 import { getBoardHex3DCoords } from '../../game/hex-utils'
 import { hexTerrainColor } from '../../hexxaform-ui/virtualscape/terrain'
 import { useUIContext } from '../../hooks/ui-context'
@@ -21,10 +21,7 @@ export type InstanceCapProps = {
   onClick: (e: ThreeEvent<MouseEvent>, hex: BoardHex) => void
 }
 const InstanceFluidHexCapCountWrapper = (props: InstanceCapProps) => {
-  const fluidCapHexesArray = (props.capHexesArray).filter((bh) => {
-    return isFluidTerrainHex(bh.terrain)
-  })
-  const numInstances = fluidCapHexesArray.length
+  const numInstances = props.capHexesArray.length
   if (numInstances < 1) return null
   const key = 'InstanceFluidHexCap-' + numInstances // IMPORTANT: to include numInstances in key, otherwise gl will crash on change
   return <InstanceFluidHexCap key={key} {...props} />
@@ -67,9 +64,7 @@ const InstanceFluidHexCap = ({
   const onPointerMove = (e: ThreeEvent<PointerEvent>) => {
     if (isCameraActive) return
     e.stopPropagation();
-    const hovered = capHexesArray[e.instanceId].id
-    if (hovered === hoverID) return // can skip if it's already hovered
-    handleHover(hovered)
+    handleHover(capHexesArray[e.instanceId].id)
     tempColor.set('#fff').toArray(colorArray, e.instanceId * 3)
     instanceRef.current.geometry.attributes.color.needsUpdate = true
   }

@@ -1,17 +1,17 @@
 import { ThreeEvent } from '@react-three/fiber'
 import { CameraControls } from '@react-three/drei'
 import { MapHex3D } from '../../shared/MapHex3D'
-import { BoardHex, BoardHexes } from '../../game/types'
+import { BoardHex, BoardHexes, HexTerrain } from '../../game/types'
 import { useBgioClientInfo, useBgioCtx, useBgioG } from '../../bgio-contexts'
 import { usePlacementContext, usePlayContext } from '../contexts'
 import { useSpecialAttackContext } from '../contexts/special-attack-context'
 import { GameUnit3D } from './GameUnit3D'
 import { useZoomCameraToMapCenter } from '../../hooks/useZoomCameraToMapCenter'
 import { useUIContext } from '../../hooks/ui-context'
-import InstanceSubTerrain from '../../shared/world/InstanceSubTerrain'
 import InstanceSolidHexCapCountWrapper from '../../shared/world/InstanceSolidHexCap'
 import { isFluidTerrainHex } from '../../game/constants'
 import InstanceFluidHexCapCountWrapper from '../../shared/world/InstanceFluidHexCap'
+import InstanceSubTerrainCountWrapper from '../../shared/world/InstanceSubTerrain'
 
 export function HexopolisMapDisplay3D({
   cameraControlsRef,
@@ -113,7 +113,7 @@ export function HexopolisMapDisplay3D({
   }
   return (
     <>
-      <InstanceSubTerrain boardHexes={boardHexes} />
+
       <InstanceSolidHexCapCountWrapper
         capHexesArray={Object.values(boardHexes).filter((bh) => {
           return !isFluidTerrainHex(bh.terrain)
@@ -126,6 +126,7 @@ export function HexopolisMapDisplay3D({
         })}
         onClick={onClick}
       />
+      <InstanceSubTerrainCountWrapper boardHexes={Object.values(boardHexes).filter(bh => !(bh.terrain === HexTerrain.empty))} />
       {Object.values(boardHexes).map((bh: any) => {
         return (
           <HexopolisHex3D

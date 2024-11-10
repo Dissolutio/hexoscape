@@ -1,3 +1,5 @@
+import { BoardHexes } from "../../game/types"
+
 /* 
 This function is designed to read a specific binary file format used by VirtualScape, 
 and to convert it into a JavaScript object.
@@ -108,6 +110,11 @@ export default function readVirtualscapeMapFile(file: File) {
       virtualScapeMap.tiles.sort((a, b) => {
         return a.posZ - b.posZ
       })
+      virtualScapeMap.tiles.map((t) => {
+        return {
+          ...t
+        }
+      })
       resolve(virtualScapeMap)
     }
     reader.onerror = () => {
@@ -176,4 +183,9 @@ function rtfToText(rtf: string) {
   return rtf
     .replace(/\{\*?\\[^{}]+}|[{}]|\\\n?[A-Za-z]+\n?(?:-?\d+)?[ ]?/g, '')
     .trim()
+}
+
+
+function transformVSTilesToBoardHexes(vsMap: any) {
+return {}
 }
