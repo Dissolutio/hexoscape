@@ -13,10 +13,10 @@ import { useZoomCameraToMapCenter } from '../../hooks/useZoomCameraToMapCenter'
 import { HexxaformMoves, PenMode } from '../../game/hexxaform/hexxaform-types'
 import { useHexxaformContext } from '../useHexxaformContext'
 import InstanceSubTerrain from '../../shared/world/InstanceSubTerrain'
-import InstanceSolidHexCap, { AnotherThing } from '../../shared/world/InstanceSolidHexCap'
-import InstanceFluidHexCap from '../../shared/world/InstanceFluidHexCap'
 import { getFlatTileHexes } from '../virtualscape/flatTile'
 import { generateHexID } from '../../game/constants'
+import InstanceSolidHexCapCountWrapper from '../../shared/world/InstanceSolidHexCap'
+import InstanceFluidHexCapCountWrapper from '../../shared/world/InstanceFluidHexCap'
 
 
 export function HexxaformMapDisplay3D({
@@ -95,12 +95,18 @@ export function HexxaformMapDisplay3D({
   return (
     <>
       <InstanceSubTerrain boardHexes={boardHexes} />
-      <AnotherThing
-        hoverID={hoverID}
+      <InstanceSolidHexCapCountWrapper
+        boardHexes={boardHexes}
+        onClick={onClick}
         handleHover={handleHover}
         handleUnhover={handleUnhover}
-        boardHexes={boardHexes} onClick={onClick} />
-      <InstanceFluidHexCap boardHexes={boardHexes} onClick={onClick} />
+      />
+      <InstanceFluidHexCapCountWrapper
+        boardHexes={boardHexes}
+        onClick={onClick}
+        handleHover={handleHover}
+        handleUnhover={handleUnhover}
+      />
       {Object.values(boardHexes).map((bh: any) => {
         return (
           <MapHex3D
