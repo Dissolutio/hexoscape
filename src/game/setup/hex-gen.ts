@@ -67,7 +67,7 @@ function hexesToBoardHexes(hexgridHexes: HexCoordinates[]): BoardHexes {
         occupyingUnitID: '',
         isUnitTail: false,
         altitude: 1,
-        terrain: HexTerrain.grass,
+        terrain: HexTerrain.empty,
         startzonePlayerIDs: [],
       }
       return {

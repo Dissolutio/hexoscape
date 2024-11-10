@@ -1,5 +1,5 @@
 import { Canvas } from '@react-three/fiber'
-import { Stars, PerspectiveCamera, CameraControls } from '@react-three/drei'
+import { Stars, PerspectiveCamera, CameraControls, Stats } from '@react-three/drei'
 
 import { useRef } from 'react'
 import { BoardHexes, Glyphs, HexMap } from '../game/types'
@@ -46,7 +46,7 @@ export const World = ({
       <WorldOverheadLights />
       <TakeAPictureBox />
       {/* Stats displays the fps */}
-      {/* <Stats /> */}
+      <Stats />
       {isEditor ? (
         <HexxaformMapDisplay3D
           boardHexes={boardHexes}
