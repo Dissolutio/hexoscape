@@ -1,5 +1,5 @@
 import { Canvas } from '@react-three/fiber'
-import { Stars, PerspectiveCamera, CameraControls } from '@react-three/drei'
+import { Stars, PerspectiveCamera, CameraControls, Stats } from '@react-three/drei'
 
 import { useRef } from 'react'
 import { BoardHexes, Glyphs, HexMap } from '../game/types'
@@ -32,7 +32,7 @@ export const World = ({
     to run frames when something is changing, like during mouse movement or camera motion.
     https://r3f.docs.pmnd.rs/advanced/scaling-performance#on-demand-rendering
     */
-    <Canvas frameloop="demand">
+    <Canvas >
       <Stars
         radius={100}
         depth={50}
@@ -46,7 +46,7 @@ export const World = ({
       <WorldOverheadLights />
       <TakeAPictureBox />
       {/* Stats displays the fps */}
-      {/* <Stats /> */}
+      <Stats />
       {isEditor ? (
         <HexxaformMapDisplay3D
           boardHexes={boardHexes}

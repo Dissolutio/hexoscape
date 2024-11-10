@@ -52,9 +52,9 @@ export function HexxaformMapDisplay3D({
     setHoverID(id)
   }
   const handleUnhover = (id: string) => {
-    if (id === hoverID) {
-      setHoverID('')
-    }
+    // if (id === hoverID) {
+    setHoverID('')
+    // }
   }
 
 
