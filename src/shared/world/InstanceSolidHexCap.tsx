@@ -10,23 +10,18 @@ import {
   Object3D,
   Vector3,
 } from 'three'
-import { BoardHex } from '../../game/types'
 import {
   eighthLevel,
   halfLevel,
 } from '../../game/constants'
 import { getBoardHex3DCoords } from '../../game/hex-utils'
 import { hexTerrainColor } from '../../hexxaform-ui/virtualscape/terrain'
+import { useUIContext } from '../../hooks/ui-context'
+import { InstanceCapProps } from './InstanceFluidHexCap'
 
-type Props = {
-  solidCapHexesArray: BoardHex[]
-  onClick: (e: ThreeEvent<MouseEvent>, hex: BoardHex) => void
-  handleHover: (id: string) => void
-  handleUnhover: (id: string) => void
-}
 
-const InstanceSolidHexCapCountWrapper = (props: Props) => {
-  const numInstances = props.solidCapHexesArray.length
+const InstanceSolidHexCapCountWrapper = (props: InstanceCapProps) => {
+  const numInstances = props.capHexesArray.length
   if (numInstances < 1) return null
   const key = 'InstanceSolidHexCap-' + numInstances // IMPORTANT: to include numInstances in key, otherwise gl will crash on change
   return <InstanceSolidHexCap key={key} {...props} />
@@ -34,11 +29,9 @@ const InstanceSolidHexCapCountWrapper = (props: Props) => {
 
 const tempColor = new Color()
 const InstanceSolidHexCap = ({
-  solidCapHexesArray,
+  capHexesArray,
   onClick,
-  handleHover,
-  handleUnhover,
-}: Props) => {
+}: InstanceCapProps) => {
   const instanceRef = useRef<
     InstancedMesh<
       BufferGeometry<NormalBufferAttributes>,
@@ -46,18 +39,19 @@ const InstanceSolidHexCap = ({
       InstancedMeshEventMap
     >
   >(undefined!)
-  const countOfCapHexes = solidCapHexesArray.length
+  const countOfCapHexes = capHexesArray.length
+  const { isCameraActive, hoverID, handleHover, handleUnhover, toggleIsCameraDisabled } = useUIContext()
   const colorArray = useMemo(
     () => {
-      return Float32Array.from(new Array(solidCapHexesArray.length).fill(0).flatMap((_, i) => tempColor.set(hexTerrainColor[solidCapHexesArray[i].terrain]).toArray()))
+      return Float32Array.from(new Array(capHexesArray.length).fill(0).flatMap((_, i) => tempColor.set(hexTerrainColor[capHexesArray[i].terrain]).toArray()))
     },
-    [solidCapHexesArray]
+    [capHexesArray]
   )
 
   // effect where we create and update instance position
   useLayoutEffect(() => {
     const placeholder = new Object3D()
-    solidCapHexesArray.forEach((boardHex, i) => {
+    capHexesArray.forEach((boardHex, i) => {
       const altitude = boardHex.altitude
       const yAdjustFluidCap = altitude / 2
       const yAdjustSolidCap =
@@ -72,29 +66,42 @@ const InstanceSolidHexCap = ({
     })
     instanceRef.current.instanceMatrix.needsUpdate = true
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [solidCapHexesArray])
+  }, [capHexesArray])
 
-  const onPointerMove = (e) => {
+  const onPointerMove = (e: ThreeEvent<PointerEvent>) => {
+    if (isCameraActive) return
     e.stopPropagation();
-    handleHover(solidCapHexesArray[e.instanceId].id)
+    const hovered = capHexesArray[e.instanceId].id
+    if (hovered === hoverID) return // can skip if it's already hovered
+    handleHover(hovered)
     tempColor.set('#fff').toArray(colorArray, e.instanceId * 3)
     instanceRef.current.geometry.attributes.color.needsUpdate = true
   }
-  const onPointerOut = (e) => {
-    handleUnhover(solidCapHexesArray[e.instanceId].id)
-    tempColor.set(hexTerrainColor[solidCapHexesArray[e.instanceId].terrain]).toArray(colorArray, e.instanceId * 3)
+  const onPointerOut = (e: ThreeEvent<PointerEvent>) => {
+    if (isCameraActive) return
+    handleUnhover()
+    tempColor.set(hexTerrainColor[capHexesArray[e.instanceId].terrain]).toArray(colorArray, e.instanceId * 3)
     instanceRef.current.geometry.attributes.color.needsUpdate = true
   }
 
-  const handleClick = (e: ThreeEvent<MouseEvent>) => {
-    onClick(e, solidCapHexesArray[e.instanceId])
+  const onPointerDown = (e: ThreeEvent<PointerEvent>) => {
+    if (e.button === 2) return // ignore right clicks
+    if (isCameraActive) return
+    e.stopPropagation();
+    toggleIsCameraDisabled(true)
+    onClick(e, capHexesArray[e.instanceId])
+  }
+  const onPointerUp = (e: ThreeEvent<PointerEvent>) => {
+    if (e.button === 2) return // ignore right clicks
+    toggleIsCameraDisabled(false)
   }
 
   return (
     <instancedMesh
       ref={instanceRef}
       args={[null, null, countOfCapHexes]} //args:[geometry, material, count]
-      onClick={handleClick}
+      onPointerDown={onPointerDown}
+      onPointerUp={onPointerUp}
       onPointerMove={onPointerMove}
       onPointerOut={onPointerOut}
     >

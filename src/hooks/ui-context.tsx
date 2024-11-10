@@ -15,23 +15,28 @@ export const modalStates = { off: 'off', ability: 'ability', card: 'card' }
 
 const UIContext = React.createContext<
   | (ModalState & {
-      closeModal: () => void
-      backModal: () => void
-      openModalAbility: (ability: CardAbility) => void
-      openModalCard: (card: GameArmyCard | ArmyCard) => void
-      selectedUnitID: string
-      setSelectedUnitID: React.Dispatch<React.SetStateAction<string>>
-      selectedGameCardID: string
-      setSelectedGameCardID: React.Dispatch<React.SetStateAction<string>>
-      indexOfLastShownToast: number
-      setIndexOfLastShownToast: React.Dispatch<React.SetStateAction<number>>
-      isNavOpen: boolean
-      toggleIsNavOpen: (s: boolean) => void
-      isTakingPicture: boolean
-      toggleIsTakingPicture: (s: boolean) => void
-      isCameraControlsLocked: boolean
-      toggleIsCameraControlsLocked: (s: boolean) => void
-    })
+    closeModal: () => void
+    backModal: () => void
+    openModalAbility: (ability: CardAbility) => void
+    openModalCard: (card: GameArmyCard | ArmyCard) => void
+    selectedUnitID: string
+    setSelectedUnitID: React.Dispatch<React.SetStateAction<string>>
+    selectedGameCardID: string
+    setSelectedGameCardID: React.Dispatch<React.SetStateAction<string>>
+    hoverID: string
+    handleHover: (id: string) => void
+    handleUnhover: () => void
+    indexOfLastShownToast: number
+    setIndexOfLastShownToast: React.Dispatch<React.SetStateAction<number>>
+    isNavOpen: boolean
+    toggleIsNavOpen: (s: boolean) => void
+    isTakingPicture: boolean
+    toggleIsTakingPicture: (s: boolean) => void
+    isCameraActive: boolean
+    toggleIsCameraActive: (s: boolean) => void
+    isCameraDisabled: boolean
+    toggleIsCameraDisabled: (s: boolean) => void
+  })
   | undefined
 >(undefined)
 
@@ -39,11 +44,25 @@ export function UIContextProvider({ children }: UIContextProviderProps) {
   const [indexOfLastShownToast, setIndexOfLastShownToast] = React.useState(0)
   const [selectedUnitID, setSelectedUnitID] = React.useState('')
   const [selectedGameCardID, setSelectedGameCardID] = React.useState('')
+  // hovered hexID
+  const [hoverID, setHoverID] = React.useState('')
+  const handleHover = (id: string) => {
+    setHoverID(id)
+  }
+  const handleUnhover = () => {
+    setHoverID('')
+  }
+
   // World Camera Controls lock (i.e. when click and dragging pieces)
-  const [isCameraControlsLocked, setIsCameraControlsLocked] =
+  const [isCameraActive, setIsCameraActive] =
     React.useState(false)
-  const toggleIsCameraControlsLocked = (s: boolean) => {
-    setIsCameraControlsLocked(s)
+  const toggleIsCameraActive = (s: boolean) => {
+    setIsCameraActive(s)
+  }
+  const [isCameraDisabled, setIsCameraDisabled] =
+    React.useState(false)
+  const toggleIsCameraDisabled = (s: boolean) => {
+    setIsCameraDisabled(s)
   }
   // navigation drawer state
   const [isNavOpen, setIsNavOpen] = React.useState(false)
@@ -93,6 +112,9 @@ export function UIContextProvider({ children }: UIContextProviderProps) {
         setSelectedUnitID,
         selectedGameCardID,
         setSelectedGameCardID,
+        hoverID,
+        handleHover,
+        handleUnhover,
         indexOfLastShownToast,
         setIndexOfLastShownToast,
         modalState: modalState.modalState,
@@ -106,8 +128,10 @@ export function UIContextProvider({ children }: UIContextProviderProps) {
         toggleIsNavOpen,
         isTakingPicture,
         toggleIsTakingPicture,
-        isCameraControlsLocked,
-        toggleIsCameraControlsLocked,
+        isCameraActive,
+        toggleIsCameraActive,
+        isCameraDisabled,
+        toggleIsCameraDisabled
       }}
     >
       {children}

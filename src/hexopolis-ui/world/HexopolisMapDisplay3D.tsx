@@ -10,7 +10,6 @@ import { useZoomCameraToMapCenter } from '../../hooks/useZoomCameraToMapCenter'
 import { useUIContext } from '../../hooks/ui-context'
 import InstanceSubTerrain from '../../shared/world/InstanceSubTerrain'
 import InstanceSolidHexCapCountWrapper from '../../shared/world/InstanceSolidHexCap'
-import { useState } from 'react'
 import { isFluidTerrainHex } from '../../game/constants'
 import InstanceFluidHexCapCountWrapper from '../../shared/world/InstanceFluidHexCap'
 
@@ -21,15 +20,6 @@ export function HexopolisMapDisplay3D({
   cameraControlsRef: React.MutableRefObject<CameraControls>
   boardHexes: BoardHexes
 }) {
-  const [hoverID, setHoverID] = useState('')
-  const handleHover = (id: string) => {
-    setHoverID(id)
-  }
-  const handleUnhover = (id: string) => {
-    // if (id === hoverID) {
-    setHoverID('')
-    // }
-  }
   useZoomCameraToMapCenter({
     cameraControlsRef,
     boardHexes,
@@ -125,20 +115,16 @@ export function HexopolisMapDisplay3D({
     <>
       <InstanceSubTerrain boardHexes={boardHexes} />
       <InstanceSolidHexCapCountWrapper
-        solidCapHexesArray={Object.values(boardHexes).filter((bh) => {
+        capHexesArray={Object.values(boardHexes).filter((bh) => {
           return !isFluidTerrainHex(bh.terrain)
         })}
         onClick={onClick}
-        handleHover={handleHover}
-        handleUnhover={handleUnhover}
       />
       <InstanceFluidHexCapCountWrapper
-        fluidCapHexesArray={Object.values(boardHexes).filter((bh) => {
+        capHexesArray={Object.values(boardHexes).filter((bh) => {
           return isFluidTerrainHex(bh.terrain)
         })}
         onClick={onClick}
-        handleHover={handleHover}
-        handleUnhover={handleUnhover}
       />
       {Object.values(boardHexes).map((bh: any) => {
         return (
