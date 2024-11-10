@@ -13,7 +13,7 @@ import { useZoomCameraToMapCenter } from '../../hooks/useZoomCameraToMapCenter'
 import { HexxaformMoves, PenMode } from '../../game/hexxaform/hexxaform-types'
 import { useHexxaformContext } from '../useHexxaformContext'
 import InstanceSubTerrain from '../../shared/world/InstanceSubTerrain'
-import InstanceSolidHexCap from '../../shared/world/InstanceSolidHexCap'
+import InstanceSolidHexCap, { AnotherThing } from '../../shared/world/InstanceSolidHexCap'
 import InstanceFluidHexCap from '../../shared/world/InstanceFluidHexCap'
 import { getFlatTileHexes } from '../virtualscape/flatTile'
 import { generateHexID } from '../../game/constants'
@@ -95,7 +95,7 @@ export function HexxaformMapDisplay3D({
   return (
     <>
       <InstanceSubTerrain boardHexes={boardHexes} />
-      <InstanceSolidHexCap
+      <AnotherThing
         hoverID={hoverID}
         handleHover={handleHover}
         handleUnhover={handleUnhover}
