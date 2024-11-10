@@ -1,6 +1,5 @@
 import * as THREE from 'three'
 import { useGLTF } from '@react-three/drei'
-import { GLTF } from 'three-stdlib'
 import { GameUnit } from '../../../game/types'
 import { playerColors } from '../../theme'
 import { OutlineHighlight } from './OutlineHighlight'
@@ -16,7 +15,7 @@ import { OutlineHighlight } from './OutlineHighlight'
 
  Instead of needing the lib, we could come with a system and a more general 3D model component instead of each ID getting its own model component
 */
-type GLTFResult = GLTF & {
+type GLTFResult = {
   nodes: {
     Izumi_Samurai_1?: THREE.Mesh
     Izumi_Samurai_2?: THREE.Mesh
