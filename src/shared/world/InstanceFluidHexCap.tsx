@@ -58,7 +58,6 @@ const InstanceFluidHexCap = ({
       instanceRef.current.setMatrixAt(i, placeholder.matrix)
     })
     instanceRef.current.instanceMatrix.needsUpdate = true
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [capHexesArray])
 
   const onPointerMove = (e: ThreeEvent<PointerEvent>) => {
