@@ -34,6 +34,8 @@ const UIContext = React.createContext<
     toggleIsTakingPicture: (s: boolean) => void
     isCameraActive: boolean
     toggleIsCameraActive: (s: boolean) => void
+    isCameraDisabled: boolean
+    toggleIsCameraDisabled: (s: boolean) => void
   })
   | undefined
 >(undefined)
@@ -56,6 +58,11 @@ export function UIContextProvider({ children }: UIContextProviderProps) {
     React.useState(false)
   const toggleIsCameraActive = (s: boolean) => {
     setIsCameraActive(s)
+  }
+  const [isCameraDisabled, setIsCameraDisabled] =
+    React.useState(false)
+  const toggleIsCameraDisabled = (s: boolean) => {
+    setIsCameraDisabled(s)
   }
   // navigation drawer state
   const [isNavOpen, setIsNavOpen] = React.useState(false)
@@ -123,6 +130,8 @@ export function UIContextProvider({ children }: UIContextProviderProps) {
         toggleIsTakingPicture,
         isCameraActive,
         toggleIsCameraActive,
+        isCameraDisabled,
+        toggleIsCameraDisabled
       }}
     >
       {children}

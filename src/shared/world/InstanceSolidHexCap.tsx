@@ -40,7 +40,7 @@ const InstanceSolidHexCap = ({
     >
   >(undefined!)
   const countOfCapHexes = capHexesArray.length
-  const { isCameraActive, handleHover, handleUnhover } = useUIContext()
+  const { isCameraActive, hoverID, handleHover, handleUnhover, toggleIsCameraDisabled } = useUIContext()
   const colorArray = useMemo(
     () => {
       return Float32Array.from(new Array(capHexesArray.length).fill(0).flatMap((_, i) => tempColor.set(hexTerrainColor[capHexesArray[i].terrain]).toArray()))
@@ -68,30 +68,40 @@ const InstanceSolidHexCap = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [capHexesArray])
 
-  const onPointerMove = (e) => {
+  const onPointerMove = (e: ThreeEvent<PointerEvent>) => {
     if (isCameraActive) return
     e.stopPropagation();
-    handleHover(capHexesArray[e.instanceId].id)
+    const hovered = capHexesArray[e.instanceId].id
+    if (hovered === hoverID) return // can skip if it's already hovered
+    handleHover(hovered)
     tempColor.set('#fff').toArray(colorArray, e.instanceId * 3)
     instanceRef.current.geometry.attributes.color.needsUpdate = true
   }
-  const onPointerOut = (e) => {
+  const onPointerOut = (e: ThreeEvent<PointerEvent>) => {
     if (isCameraActive) return
     handleUnhover()
     tempColor.set(hexTerrainColor[capHexesArray[e.instanceId].terrain]).toArray(colorArray, e.instanceId * 3)
     instanceRef.current.geometry.attributes.color.needsUpdate = true
   }
 
-  const handleClick = (e: ThreeEvent<MouseEvent>) => {
+  const onPointerDown = (e: ThreeEvent<PointerEvent>) => {
+    if (e.button === 2) return // ignore right clicks
     if (isCameraActive) return
+    e.stopPropagation();
+    toggleIsCameraDisabled(true)
     onClick(e, capHexesArray[e.instanceId])
+  }
+  const onPointerUp = (e: ThreeEvent<PointerEvent>) => {
+    if (e.button === 2) return // ignore right clicks
+    toggleIsCameraDisabled(false)
   }
 
   return (
     <instancedMesh
       ref={instanceRef}
       args={[null, null, countOfCapHexes]} //args:[geometry, material, count]
-      onClick={handleClick}
+      onPointerDown={onPointerDown}
+      onPointerUp={onPointerUp}
       onPointerMove={onPointerMove}
       onPointerOut={onPointerOut}
     >

@@ -43,7 +43,7 @@ const InstanceFluidHexCap = ({
   >(undefined!)
   const capFluidOpacity = 0.85
   const countOfCapHexes = capHexesArray.length
-  const { isCameraActive, handleHover, handleUnhover } = useUIContext()
+  const { isCameraActive, hoverID, handleHover, handleUnhover, toggleIsCameraDisabled } = useUIContext()
   const colorArray = useMemo(
     () => Float32Array.from(new Array(capHexesArray.length).fill(0).flatMap((_, i) => tempColor.set(hexTerrainColor[capHexesArray[i].terrain]).toArray())),
     [capHexesArray]
@@ -64,22 +64,31 @@ const InstanceFluidHexCap = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [capHexesArray])
 
-
-  const onPointerMove = (e) => {
+  const onPointerMove = (e: ThreeEvent<PointerEvent>) => {
     if (isCameraActive) return
     e.stopPropagation();
-    handleHover(capHexesArray[e.instanceId].id)
+    const hovered = capHexesArray[e.instanceId].id
+    if (hovered === hoverID) return // can skip if it's already hovered
+    handleHover(hovered)
     tempColor.set('#fff').toArray(colorArray, e.instanceId * 3)
     instanceRef.current.geometry.attributes.color.needsUpdate = true
   }
-  const onPointerOut = (e) => {
+  const onPointerOut = (e: ThreeEvent<PointerEvent>) => {
     if (isCameraActive) return
     handleUnhover()
     tempColor.set(hexTerrainColor[capHexesArray[e.instanceId].terrain]).toArray(colorArray, e.instanceId * 3)
     instanceRef.current.geometry.attributes.color.needsUpdate = true
   }
-  const handleClick = (event: ThreeEvent<MouseEvent>) => {
-    onClick(event, capHexesArray[event.instanceId])
+  const onPointerDown = (e: ThreeEvent<PointerEvent>) => {
+    if (e.button === 2) return // ignore right clicks
+    if (isCameraActive) return
+    e.stopPropagation();
+    toggleIsCameraDisabled(true)
+    onClick(e, capHexesArray[e.instanceId])
+  }
+  const onPointerUp = (e: ThreeEvent<PointerEvent>) => {
+    if (e.button === 2) return // ignore right clicks
+    toggleIsCameraDisabled(false)
   }
 
 
@@ -87,7 +96,8 @@ const InstanceFluidHexCap = ({
     <instancedMesh
       ref={instanceRef}
       args={[undefined, undefined, countOfCapHexes]} //args:[geometry, material, count]
-      onClick={handleClick}
+      onPointerDown={onPointerDown}
+      onPointerUp={onPointerUp}
       onPointerMove={onPointerMove}
       onPointerOut={onPointerOut}
     >
