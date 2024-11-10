@@ -11,11 +11,13 @@ import { MapHex3D } from '../../shared/MapHex3D'
 import { useZoomCameraToMapCenter } from '../../hooks/useZoomCameraToMapCenter'
 import { HexxaformMoves, PenMode } from '../../game/hexxaform/hexxaform-types'
 import { useHexxaformContext } from '../useHexxaformContext'
-import InstanceSubTerrain from '../../shared/world/InstanceSubTerrain'
 import { getFlatTileHexes } from '../virtualscape/flatTile'
 import { generateHexID, isFluidTerrainHex } from '../../game/constants'
 import InstanceSolidHexCapCountWrapper from '../../shared/world/InstanceSolidHexCap'
 import InstanceFluidHexCapCountWrapper from '../../shared/world/InstanceFluidHexCap'
+import InstanceEmptyHexCapCountWrapper from '../../shared/world/InstanceEmptyHexCap'
+import InstanceEmptySubTerrain from '../../shared/world/InstanceEmptySubTerrain'
+import InstanceSubTerrainCountWrapper from '../../shared/world/InstanceSubTerrain'
 
 
 export function HexxaformMapDisplay3D({
@@ -84,19 +86,28 @@ export function HexxaformMapDisplay3D({
 
   return (
     <>
-      <InstanceSubTerrain boardHexes={boardHexes} />
+      <InstanceEmptyHexCapCountWrapper
+        capHexesArray={Object.values(boardHexes).filter((bh) => {
+          return bh.terrain === HexTerrain.empty
+        })}
+        onClick={onClick}
+      />
+      <InstanceEmptySubTerrain boardHexes={Object.values(boardHexes).filter(bh => bh.terrain === HexTerrain.empty)} />
+
       <InstanceSolidHexCapCountWrapper
         capHexesArray={Object.values(boardHexes).filter((bh) => {
-          return !isFluidTerrainHex(bh.terrain)
+          return bh.terrain !== HexTerrain.empty && !isFluidTerrainHex(bh.terrain)
         })}
         onClick={onClick}
       />
       <InstanceFluidHexCapCountWrapper
         capHexesArray={Object.values(boardHexes).filter((bh) => {
-          return isFluidTerrainHex(bh.terrain)
+          return bh.terrain !== HexTerrain.empty && isFluidTerrainHex(bh.terrain)
         })}
         onClick={onClick}
       />
+      <InstanceSubTerrainCountWrapper boardHexes={Object.values(boardHexes).filter(bh => !(bh.terrain === HexTerrain.empty))} />
+
       {Object.values(boardHexes).map((bh: any) => {
         return (
           <MapHex3D

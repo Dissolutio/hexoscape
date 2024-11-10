@@ -64,9 +64,7 @@ const InstanceFluidHexCap = ({
   const onPointerMove = (e: ThreeEvent<PointerEvent>) => {
     if (isCameraActive) return
     e.stopPropagation();
-    const hovered = capHexesArray[e.instanceId].id
-    if (hovered === hoverID) return // can skip if it's already hovered
-    handleHover(hovered)
+    handleHover(capHexesArray[e.instanceId].id)
     tempColor.set('#fff').toArray(colorArray, e.instanceId * 3)
     instanceRef.current.geometry.attributes.color.needsUpdate = true
   }
