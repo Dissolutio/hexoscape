@@ -10,34 +10,31 @@ import {
   Object3D,
   Vector3,
 } from 'three'
-import { BoardHex, BoardHexes } from '../../game/types'
+import { BoardHex } from '../../game/types'
 import {
   eighthLevel,
   halfLevel,
-  isFluidTerrainHex,
 } from '../../game/constants'
 import { getBoardHex3DCoords } from '../../game/hex-utils'
 import { hexTerrainColor } from '../../hexxaform-ui/virtualscape/terrain'
 
 type Props = {
-  boardHexes: BoardHexes
+  solidCapHexesArray: BoardHex[]
   onClick: (e: ThreeEvent<MouseEvent>, hex: BoardHex) => void
   handleHover: (id: string) => void
   handleUnhover: (id: string) => void
 }
 
 const InstanceSolidHexCapCountWrapper = (props: Props) => {
-  const solidCapHexesArray = Object.values(props.boardHexes).filter((bh) => {
-    return !isFluidTerrainHex(bh.terrain)
-  })
-  const numInstances = solidCapHexesArray.length
+  const numInstances = props.solidCapHexesArray.length
   if (numInstances < 1) return null
   const key = 'InstanceSolidHexCap-' + numInstances // IMPORTANT: to include numInstances in key, otherwise gl will crash on change
   return <InstanceSolidHexCap key={key} {...props} />
 }
 
+const tempColor = new Color()
 const InstanceSolidHexCap = ({
-  boardHexes,
+  solidCapHexesArray,
   onClick,
   handleHover,
   handleUnhover,
@@ -49,14 +46,12 @@ const InstanceSolidHexCap = ({
       InstancedMeshEventMap
     >
   >(undefined!)
-  const solidCapHexesArray = Object.values(boardHexes).filter((bh) => {
-    return !isFluidTerrainHex(bh.terrain)
-  })
   const countOfCapHexes = solidCapHexesArray.length
-  const tempColor = new Color()
   const colorArray = useMemo(
-    () => Float32Array.from(new Array(solidCapHexesArray.length).fill(0).flatMap((_, i) => tempColor.set(hexTerrainColor[solidCapHexesArray[i].terrain]).toArray())),
-    []
+    () => {
+      return Float32Array.from(new Array(solidCapHexesArray.length).fill(0).flatMap((_, i) => tempColor.set(hexTerrainColor[solidCapHexesArray[i].terrain]).toArray()))
+    },
+    [solidCapHexesArray]
   )
 
   // effect where we create and update instance position
@@ -77,8 +72,7 @@ const InstanceSolidHexCap = ({
     })
     instanceRef.current.instanceMatrix.needsUpdate = true
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [boardHexes])
-
+  }, [solidCapHexesArray])
 
   const onPointerMove = (e) => {
     e.stopPropagation();
@@ -92,8 +86,8 @@ const InstanceSolidHexCap = ({
     instanceRef.current.geometry.attributes.color.needsUpdate = true
   }
 
-  const handleClick = (event: ThreeEvent<MouseEvent>) => {
-    onClick(event, solidCapHexesArray[event.instanceId])
+  const handleClick = (e: ThreeEvent<MouseEvent>) => {
+    onClick(e, solidCapHexesArray[e.instanceId])
   }
 
   return (

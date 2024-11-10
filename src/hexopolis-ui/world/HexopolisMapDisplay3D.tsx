@@ -9,8 +9,10 @@ import { GameUnit3D } from './GameUnit3D'
 import { useZoomCameraToMapCenter } from '../../hooks/useZoomCameraToMapCenter'
 import { useUIContext } from '../../hooks/ui-context'
 import InstanceSubTerrain from '../../shared/world/InstanceSubTerrain'
-import InstanceSolidHexCap from '../../shared/world/InstanceSolidHexCap'
-import InstanceFluidHexCap from '../../shared/world/InstanceFluidHexCap'
+import InstanceSolidHexCapCountWrapper from '../../shared/world/InstanceSolidHexCap'
+import { useState } from 'react'
+import { isFluidTerrainHex } from '../../game/constants'
+import InstanceFluidHexCapCountWrapper from '../../shared/world/InstanceFluidHexCap'
 
 export function HexopolisMapDisplay3D({
   cameraControlsRef,
@@ -19,6 +21,15 @@ export function HexopolisMapDisplay3D({
   cameraControlsRef: React.MutableRefObject<CameraControls>
   boardHexes: BoardHexes
 }) {
+  const [hoverID, setHoverID] = useState('')
+  const handleHover = (id: string) => {
+    setHoverID(id)
+  }
+  const handleUnhover = (id: string) => {
+    // if (id === hoverID) {
+    setHoverID('')
+    // }
+  }
   useZoomCameraToMapCenter({
     cameraControlsRef,
     boardHexes,
@@ -38,7 +49,7 @@ export function HexopolisMapDisplay3D({
   } = useBgioCtx()
   const { onClickPlacementHex } = usePlacementContext()
   const { onClickTurnHex, currentTurnGameCardID } = usePlayContext()
-  
+
   const {
     selectSpecialAttack,
     fireLineTargetableHexIDs,
@@ -102,7 +113,7 @@ export function HexopolisMapDisplay3D({
           isGrenadeSAStage &&
           boardHex.occupyingUnitID !== selectedUnitID &&
           gameUnits[boardHex.occupyingUnitID]?.gameCardID ===
-            currentTurnGameCardID
+          currentTurnGameCardID
         ) {
           selectSpecialAttack('')
         }
@@ -113,8 +124,22 @@ export function HexopolisMapDisplay3D({
   return (
     <>
       <InstanceSubTerrain boardHexes={boardHexes} />
-      <InstanceSolidHexCap boardHexes={boardHexes} onClick={onClick} />
-      <InstanceFluidHexCap boardHexes={boardHexes} onClick={onClick} />
+      <InstanceSolidHexCapCountWrapper
+        solidCapHexesArray={Object.values(boardHexes).filter((bh) => {
+          return !isFluidTerrainHex(bh.terrain)
+        })}
+        onClick={onClick}
+        handleHover={handleHover}
+        handleUnhover={handleUnhover}
+      />
+      <InstanceFluidHexCapCountWrapper
+        fluidCapHexesArray={Object.values(boardHexes).filter((bh) => {
+          return isFluidTerrainHex(bh.terrain)
+        })}
+        onClick={onClick}
+        handleHover={handleHover}
+        handleUnhover={handleUnhover}
+      />
       {Object.values(boardHexes).map((bh: any) => {
         return (
           <HexopolisHex3D
@@ -152,10 +177,10 @@ const HexopolisHex3D = ({
     // order matters here
     isTheDropStage
       ? //The Drop: uses the same editing state as placement phase, and player needs to see their Dropped units
-        boardHex.occupyingUnitID || editingBoardHexUnitID
+      boardHex.occupyingUnitID || editingBoardHexUnitID
       : isPlacementPhase
         ? // in placement phase, we only show each player their editing state
-          editingBoardHexUnitID
+        editingBoardHexUnitID
         : isUnitTail
           ? ''
           : boardHex.occupyingUnitID

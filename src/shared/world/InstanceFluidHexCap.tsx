@@ -10,19 +10,19 @@ import {
   Object3D,
   Vector3,
 } from 'three'
-import { BoardHex, BoardHexes } from '../../game/types'
+import { BoardHex } from '../../game/types'
 import { halfLevel, isFluidTerrainHex } from '../../game/constants'
 import { getBoardHex3DCoords } from '../../game/hex-utils'
 import { hexTerrainColor } from '../../hexxaform-ui/virtualscape/terrain'
 
 type Props = {
-  boardHexes: BoardHexes
+  fluidCapHexesArray: BoardHex[]
   onClick: (e: ThreeEvent<MouseEvent>, hex: BoardHex) => void
   handleHover: (id: string) => void
   handleUnhover: (id: string) => void
 }
 const InstanceFluidHexCapCountWrapper = (props: Props) => {
-  const fluidCapHexesArray = Object.values(props.boardHexes).filter((bh) => {
+  const fluidCapHexesArray = (props.fluidCapHexesArray).filter((bh) => {
     return isFluidTerrainHex(bh.terrain)
   })
   const numInstances = fluidCapHexesArray.length
@@ -30,8 +30,9 @@ const InstanceFluidHexCapCountWrapper = (props: Props) => {
   const key = 'InstanceFluidHexCap-' + numInstances // IMPORTANT: to include numInstances in key, otherwise gl will crash on change
   return <InstanceFluidHexCap key={key} {...props} />
 }
+const tempColor = new Color()
 const InstanceFluidHexCap = ({
-  boardHexes,
+  fluidCapHexesArray,
   onClick,
   handleHover,
   handleUnhover,
@@ -43,15 +44,11 @@ const InstanceFluidHexCap = ({
       InstancedMeshEventMap
     >
   >(undefined!)
-  const fluidCapHexesArray = Object.values(boardHexes).filter((bh) => {
-    return isFluidTerrainHex(bh.terrain)
-  })
   const capFluidOpacity = 0.85
   const countOfCapHexes = fluidCapHexesArray.length
-  const tempColor = new Color()
   const colorArray = useMemo(
     () => Float32Array.from(new Array(fluidCapHexesArray.length).fill(0).flatMap((_, i) => tempColor.set(hexTerrainColor[fluidCapHexesArray[i].terrain]).toArray())),
-    []
+    [fluidCapHexesArray]
   )
   useLayoutEffect(() => {
     const placeholder = new Object3D()
@@ -67,7 +64,7 @@ const InstanceFluidHexCap = ({
     })
     instanceRef.current.instanceMatrix.needsUpdate = true
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [boardHexes])
+  }, [fluidCapHexesArray])
 
 
   const onPointerMove = (e) => {

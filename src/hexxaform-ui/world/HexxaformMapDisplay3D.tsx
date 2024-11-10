@@ -14,7 +14,7 @@ import { HexxaformMoves, PenMode } from '../../game/hexxaform/hexxaform-types'
 import { useHexxaformContext } from '../useHexxaformContext'
 import InstanceSubTerrain from '../../shared/world/InstanceSubTerrain'
 import { getFlatTileHexes } from '../virtualscape/flatTile'
-import { generateHexID } from '../../game/constants'
+import { generateHexID, isFluidTerrainHex } from '../../game/constants'
 import InstanceSolidHexCapCountWrapper from '../../shared/world/InstanceSolidHexCap'
 import InstanceFluidHexCapCountWrapper from '../../shared/world/InstanceFluidHexCap'
 
@@ -96,13 +96,17 @@ export function HexxaformMapDisplay3D({
     <>
       <InstanceSubTerrain boardHexes={boardHexes} />
       <InstanceSolidHexCapCountWrapper
-        boardHexes={boardHexes}
+        solidCapHexesArray={Object.values(boardHexes).filter((bh) => {
+          return !isFluidTerrainHex(bh.terrain)
+        })}
         onClick={onClick}
         handleHover={handleHover}
         handleUnhover={handleUnhover}
       />
       <InstanceFluidHexCapCountWrapper
-        boardHexes={boardHexes}
+        fluidCapHexesArray={Object.values(boardHexes).filter((bh) => {
+          return isFluidTerrainHex(bh.terrain)
+        })}
         onClick={onClick}
         handleHover={handleHover}
         handleUnhover={handleUnhover}
