@@ -24,7 +24,7 @@ export const World = ({
   hexxaformMoves?: HexxaformMoves
 }) => {
   const cameraControlsRef = useRef(undefined!)
-  const { isCameraControlsLocked } = useUIContext()
+  const { toggleIsCameraActive } = useUIContext()
   return (
     /* 
     frameloop="demand"
@@ -64,7 +64,8 @@ export const World = ({
       <PerspectiveCamera fov={CAMERA_FOV} />
       <axesHelper scale={[100, 100, 100]} />
       <CameraControls
-        enabled={!isCameraControlsLocked}
+        onStart={() => toggleIsCameraActive(true)}
+        onEnd={() => toggleIsCameraActive(false)}
         maxPolarAngle={Math.PI / 2} // this keeps the camera on a half-sphere around the map, rather than allowing camera to go under the map
         maxDistance={100} // this prevents camera from dollying out too far
         minDistance={1} // this keeps the camera above ground and out of the board hexes nether region

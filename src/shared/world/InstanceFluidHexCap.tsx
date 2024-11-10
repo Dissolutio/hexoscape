@@ -14,6 +14,7 @@ import { BoardHex } from '../../game/types'
 import { halfLevel, isFluidTerrainHex } from '../../game/constants'
 import { getBoardHex3DCoords } from '../../game/hex-utils'
 import { hexTerrainColor } from '../../hexxaform-ui/virtualscape/terrain'
+import { useUIContext } from '../../hooks/ui-context'
 
 type Props = {
   fluidCapHexesArray: BoardHex[]
@@ -46,6 +47,7 @@ const InstanceFluidHexCap = ({
   >(undefined!)
   const capFluidOpacity = 0.85
   const countOfCapHexes = fluidCapHexesArray.length
+  const { isCameraActive } = useUIContext()
   const colorArray = useMemo(
     () => Float32Array.from(new Array(fluidCapHexesArray.length).fill(0).flatMap((_, i) => tempColor.set(hexTerrainColor[fluidCapHexesArray[i].terrain]).toArray())),
     [fluidCapHexesArray]
@@ -68,12 +70,14 @@ const InstanceFluidHexCap = ({
 
 
   const onPointerMove = (e) => {
+    if (isCameraActive) return
     e.stopPropagation();
     handleHover(fluidCapHexesArray[e.instanceId].id)
     tempColor.set('#fff').toArray(colorArray, e.instanceId * 3)
     instanceRef.current.geometry.attributes.color.needsUpdate = true
   }
   const onPointerOut = (e) => {
+    if (isCameraActive) return
     handleUnhover(fluidCapHexesArray[e.instanceId].id)
     tempColor.set(hexTerrainColor[fluidCapHexesArray[e.instanceId].terrain]).toArray(colorArray, e.instanceId * 3)
     instanceRef.current.geometry.attributes.color.needsUpdate = true
