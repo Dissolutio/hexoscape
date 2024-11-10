@@ -25,10 +25,8 @@ export function HexopolisMapDisplay3D({
   const handleHover = (id: string) => {
     setHoverID(id)
   }
-  const handleUnhover = (id: string) => {
-    // if (id === hoverID) {
+  const handleUnhover = () => {
     setHoverID('')
-    // }
   }
   useZoomCameraToMapCenter({
     cameraControlsRef,
@@ -125,7 +123,7 @@ export function HexopolisMapDisplay3D({
     <>
       <InstanceSubTerrain boardHexes={boardHexes} />
       <InstanceSolidHexCapCountWrapper
-        solidCapHexesArray={Object.values(boardHexes).filter((bh) => {
+        capHexesArray={Object.values(boardHexes).filter((bh) => {
           return !isFluidTerrainHex(bh.terrain)
         })}
         onClick={onClick}
@@ -133,7 +131,7 @@ export function HexopolisMapDisplay3D({
         handleUnhover={handleUnhover}
       />
       <InstanceFluidHexCapCountWrapper
-        fluidCapHexesArray={Object.values(boardHexes).filter((bh) => {
+        capHexesArray={Object.values(boardHexes).filter((bh) => {
           return isFluidTerrainHex(bh.terrain)
         })}
         onClick={onClick}
