@@ -31,12 +31,14 @@ export const getMapCenterCameraLookAt = (
   const heightCameraFitMapInFov = (width / 2) * Math.tan(beta)
   const centerOfMapCamera = {
     x: width / 2,
-    z: height / 2,
+    // z: height / 2,
+    z: height, // let's try looking more eschew
     y: heightCameraFitMapInFov,
   }
   const centerOfMapLookAt = {
     x: width / 2,
-    z: height / 2,
+    // z: height / 2,
+    z: height / 2, // let's try looking more eschew
     y: 0,
   }
   return [
