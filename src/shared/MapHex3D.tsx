@@ -1,10 +1,8 @@
 import { useState } from 'react'
-import { Vector3, Color } from 'three'
-import { ThreeEvent } from '@react-three/fiber'
-import { BoardHex, EditingBoardHexes, Glyphs, MoveRange } from '../game/types'
+import { Vector3, } from 'three'
+import { BoardHex, Glyphs, MoveRange } from '../game/types'
 import {
-  getDefaultSubTerrainForTerrain,
-  halfLevel,
+  eighthLevel,
   isFluidTerrainHex,
   quarterLevel,
 } from '../game/constants'
@@ -41,9 +39,8 @@ export const MapHex3D = ({
     : hexYPosition
 
   const hexPosition = new Vector3(x, hexYPosition, z)
-  const mysteryMathValueThatSeemsToWorkWell = quarterLevel / 4
   const yAdjustFluidCap = altitude / 2
-  const yAdjustSolidCap = yAdjustFluidCap - mysteryMathValueThatSeemsToWorkWell
+  const yAdjustSolidCap = yAdjustFluidCap - eighthLevel
 
   /* GLYPHS */
   const glyphOnHex = selectGlyphForHex({ hexID: boardHex.id, glyphs })
@@ -56,15 +53,16 @@ export const MapHex3D = ({
     ? yAdjustFluidCap + layerBetweenHexCapAndUnitFeet
     : yAdjustSolidCap + layerBetweenHexCapAndUnitFeet
   const sleightOffsetFromCenterOfHex = 0.2
+  const sleightLiftFromSurface = 0.15
   const glyphPosition = new Vector3(
     x,
-    glyphYAdjust + 0.15,
+    glyphYAdjust + sleightLiftFromSurface,
     z - sleightOffsetFromCenterOfHex
   )
 
   return (
     <group>
-      <MapHexIDDisplay boardHexID={boardHex.id} glyphPosition={glyphPosition} />
+      {/* <MapHexIDDisplay boardHexID={boardHex.id} glyphPosition={glyphPosition} /> */}
 
       <MapHexGlyph
         glyphOnHex={Boolean(glyphOnHex)}

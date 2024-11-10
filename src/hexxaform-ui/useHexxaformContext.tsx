@@ -42,7 +42,7 @@ export function HexxaformContextProvider({
     setFlatPieceSizes(flatPieceSizes)
   }
   // piece size
-  const [pieceSize, setPieceSize] = React.useState(4)
+  const [pieceSize, setPieceSize] = React.useState(1)
   const [flatPieceSizes, setFlatPieceSizes] = React.useState(
     terrain[penMode]?.flatPieceSizes ?? []
   )

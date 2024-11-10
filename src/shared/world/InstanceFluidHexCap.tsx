@@ -1,4 +1,4 @@
-import { useRef, useLayoutEffect } from 'react'
+import { useRef, useLayoutEffect, useMemo } from 'react'
 import { ThreeEvent } from '@react-three/fiber'
 import {
   BufferGeometry,
@@ -10,16 +10,33 @@ import {
   Object3D,
   Vector3,
 } from 'three'
-import { BoardHex, BoardHexes } from '../../game/types'
+import { BoardHex } from '../../game/types'
 import { halfLevel, isFluidTerrainHex } from '../../game/constants'
 import { getBoardHex3DCoords } from '../../game/hex-utils'
 import { hexTerrainColor } from '../../hexxaform-ui/virtualscape/terrain'
 
 type Props = {
-  boardHexes: BoardHexes
+  fluidCapHexesArray: BoardHex[]
   onClick: (e: ThreeEvent<MouseEvent>, hex: BoardHex) => void
+  handleHover: (id: string) => void
+  handleUnhover: (id: string) => void
 }
-const InstanceFluidHexCap = ({ boardHexes, onClick }: Props) => {
+const InstanceFluidHexCapCountWrapper = (props: Props) => {
+  const fluidCapHexesArray = (props.fluidCapHexesArray).filter((bh) => {
+    return isFluidTerrainHex(bh.terrain)
+  })
+  const numInstances = fluidCapHexesArray.length
+  if (numInstances < 1) return null
+  const key = 'InstanceFluidHexCap-' + numInstances // IMPORTANT: to include numInstances in key, otherwise gl will crash on change
+  return <InstanceFluidHexCap key={key} {...props} />
+}
+const tempColor = new Color()
+const InstanceFluidHexCap = ({
+  fluidCapHexesArray,
+  onClick,
+  handleHover,
+  handleUnhover,
+}: Props) => {
   const instanceRef = useRef<
     InstancedMesh<
       BufferGeometry<NormalBufferAttributes>,
@@ -27,68 +44,63 @@ const InstanceFluidHexCap = ({ boardHexes, onClick }: Props) => {
       InstancedMeshEventMap
     >
   >(undefined!)
-  const fluidCapHexesArray = Object.values(boardHexes).filter((bh) => {
-    return isFluidTerrainHex(bh.terrain)
-  })
-  /* countOfCapHexes: Right now, this is simply all solid terrain boardHexes. But with overhangs, and "floaters", this would be calculated. */
+  const capFluidOpacity = 0.85
   const countOfCapHexes = fluidCapHexesArray.length
-  // effect where we create and update instance mesh for each subterrain mesh
+  const colorArray = useMemo(
+    () => Float32Array.from(new Array(fluidCapHexesArray.length).fill(0).flatMap((_, i) => tempColor.set(hexTerrainColor[fluidCapHexesArray[i].terrain]).toArray())),
+    [fluidCapHexesArray]
+  )
   useLayoutEffect(() => {
     const placeholder = new Object3D()
     fluidCapHexesArray.forEach((boardHex, i) => {
       const altitude = boardHex.altitude
-      // as of yet, this just looks right, it's not mathematically sound
       const yAdjustFluidCap = altitude / 2
       const { x, z } = getBoardHex3DCoords(boardHex)
       const capPosition = new Vector3(x, yAdjustFluidCap, z)
-      const heightScaleSolidCap = halfLevel
-      const terrainColor = new Color(hexTerrainColor[boardHex.terrain])
-      //   const baseEmissivity = 0.2
-      //   const fluidEmissivity = 2 * baseEmissivity
-      //   const capFluidEmissiveIntensity = isHovered ? 8 : fluidEmissivity
-      // set placeholder position
       placeholder.position.set(capPosition.x, capPosition.y, capPosition.z)
-      // set placeholder scale
-      placeholder.scale.set(1, heightScaleSolidCap, 1)
-      // update placeholder matrix
+      placeholder.scale.set(1, halfLevel, 1)
       placeholder.updateMatrix()
-      // update instance color
-      instanceRef.current.setColorAt(i, terrainColor)
-      // update instance matrix
       instanceRef.current.setMatrixAt(i, placeholder.matrix)
     })
-    // update the instance once we've updated all the instances
     instanceRef.current.instanceMatrix.needsUpdate = true
-    // We only need to run this on init, until we ever have changing terrain
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [boardHexes])
+  }, [fluidCapHexesArray])
 
-  const capFluidOpacity = 0.85
-  const handleClick = (event: ThreeEvent<MouseEvent>) => {
-    const hex = fluidCapHexesArray[event.instanceId]
-    onClick(event, hex)
+
+  const onPointerMove = (e) => {
+    e.stopPropagation();
+    handleHover(fluidCapHexesArray[e.instanceId].id)
+    tempColor.set('#fff').toArray(colorArray, e.instanceId * 3)
+    instanceRef.current.geometry.attributes.color.needsUpdate = true
   }
+  const onPointerOut = (e) => {
+    handleUnhover(fluidCapHexesArray[e.instanceId].id)
+    tempColor.set(hexTerrainColor[fluidCapHexesArray[e.instanceId].terrain]).toArray(colorArray, e.instanceId * 3)
+    instanceRef.current.geometry.attributes.color.needsUpdate = true
+  }
+  const handleClick = (event: ThreeEvent<MouseEvent>) => {
+    onClick(event, fluidCapHexesArray[event.instanceId])
+  }
+
 
   return (
     <instancedMesh
       ref={instanceRef}
       args={[undefined, undefined, countOfCapHexes]} //args:[geometry, material, count]
       onClick={handleClick}
-      //   onPointerEnter={(e) => {
-      //     // this keeps the hover from penetrating to hoverable-hexes behind this one
-      //     e.stopPropagation()
-      //     setIsHovered(true)
-      //   }}
-      //   onPointerLeave={() => setIsHovered(false)}
+      onPointerMove={onPointerMove}
+      onPointerOut={onPointerOut}
     >
       <meshLambertMaterial
-        // emissive={capEmissiveColor}
-        // emissiveIntensity={capFluidEmissiveIntensity}
         transparent
         opacity={capFluidOpacity}
+        vertexColors
+        toneMapped={false}
       />
-      <cylinderGeometry args={[1, 1, halfLevel, 6]} />
+      <cylinderGeometry args={[1, 1, halfLevel, 6]}>
+        <instancedBufferAttribute attach="attributes-color" args={[colorArray, 3]} />
+      </cylinderGeometry>
     </instancedMesh>
   )
 }
-export default InstanceFluidHexCap
+export default InstanceFluidHexCapCountWrapper

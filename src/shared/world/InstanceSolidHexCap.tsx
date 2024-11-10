@@ -1,4 +1,4 @@
-import { useRef, useLayoutEffect } from 'react'
+import { useRef, useLayoutEffect, useMemo } from 'react'
 import { ThreeEvent } from '@react-three/fiber'
 import {
   BufferGeometry,
@@ -10,28 +10,34 @@ import {
   Object3D,
   Vector3,
 } from 'three'
-import { BoardHex, BoardHexes } from '../../game/types'
+import { BoardHex } from '../../game/types'
 import {
+  eighthLevel,
   halfLevel,
-  isFluidTerrainHex,
-  quarterLevel,
 } from '../../game/constants'
 import { getBoardHex3DCoords } from '../../game/hex-utils'
 import { hexTerrainColor } from '../../hexxaform-ui/virtualscape/terrain'
 
 type Props = {
-  boardHexes: BoardHexes
+  solidCapHexesArray: BoardHex[]
   onClick: (e: ThreeEvent<MouseEvent>, hex: BoardHex) => void
-  // hoverID: string
-  // handleHover: (id: string) => void
-  // handleUnhover: (id: string) => void
+  handleHover: (id: string) => void
+  handleUnhover: (id: string) => void
 }
+
+const InstanceSolidHexCapCountWrapper = (props: Props) => {
+  const numInstances = props.solidCapHexesArray.length
+  if (numInstances < 1) return null
+  const key = 'InstanceSolidHexCap-' + numInstances // IMPORTANT: to include numInstances in key, otherwise gl will crash on change
+  return <InstanceSolidHexCap key={key} {...props} />
+}
+
+const tempColor = new Color()
 const InstanceSolidHexCap = ({
-  boardHexes,
+  solidCapHexesArray,
   onClick,
-  // hoverID,
-  // handleHover,
-  // handleUnhover,
+  handleHover,
+  handleUnhover,
 }: Props) => {
   const instanceRef = useRef<
     InstancedMesh<
@@ -40,55 +46,64 @@ const InstanceSolidHexCap = ({
       InstancedMeshEventMap
     >
   >(undefined!)
-  const solidCapHexesArray = Object.values(boardHexes).filter((bh) => {
-    return !isFluidTerrainHex(bh.terrain)
-  })
-  /* countOfCapHexes: Right now, this is simply all solid terrain boardHexes. But with overhangs, and "floaters", this would be calculated. */
   const countOfCapHexes = solidCapHexesArray.length
-  // effect where we create and update instance mesh for each subterrain mesh
+  const colorArray = useMemo(
+    () => {
+      return Float32Array.from(new Array(solidCapHexesArray.length).fill(0).flatMap((_, i) => tempColor.set(hexTerrainColor[solidCapHexesArray[i].terrain]).toArray()))
+    },
+    [solidCapHexesArray]
+  )
+
+  // effect where we create and update instance position
   useLayoutEffect(() => {
     const placeholder = new Object3D()
     solidCapHexesArray.forEach((boardHex, i) => {
       const altitude = boardHex.altitude
-      // as of yet, this just looks right, it's not mathematically sound
-      const mysteryMathValueThatSeemsToWorkWell = quarterLevel / 4
       const yAdjustFluidCap = altitude / 2
       const yAdjustSolidCap =
-        yAdjustFluidCap - mysteryMathValueThatSeemsToWorkWell
+        yAdjustFluidCap - eighthLevel
       const { x, z } = getBoardHex3DCoords(boardHex)
       const capPosition = new Vector3(x, yAdjustSolidCap, z)
-      const heightScaleSolidCap = halfLevel
-      const terrainColor = new Color(hexTerrainColor[boardHex.terrain])
-      // set placeholder position
+
       placeholder.position.set(capPosition.x, capPosition.y, capPosition.z)
-      // set placeholder scale
-      placeholder.scale.set(1, heightScaleSolidCap, 1)
-      // update placeholder matrix
+      placeholder.scale.set(1, halfLevel, 1)
       placeholder.updateMatrix()
-      // update instance color
-      instanceRef.current.setColorAt(i, terrainColor)
-      // update instance matrix
       instanceRef.current.setMatrixAt(i, placeholder.matrix)
     })
-    // update the instance once we've updated all the instances
     instanceRef.current.instanceMatrix.needsUpdate = true
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [boardHexes])
+  }, [solidCapHexesArray])
 
-  const handleClick = (event: ThreeEvent<MouseEvent>) => {
-    const hex = solidCapHexesArray[event.instanceId]
-    onClick(event, hex)
+  const onPointerMove = (e) => {
+    e.stopPropagation();
+    handleHover(solidCapHexesArray[e.instanceId].id)
+    tempColor.set('#fff').toArray(colorArray, e.instanceId * 3)
+    instanceRef.current.geometry.attributes.color.needsUpdate = true
+  }
+  const onPointerOut = (e) => {
+    handleUnhover(solidCapHexesArray[e.instanceId].id)
+    tempColor.set(hexTerrainColor[solidCapHexesArray[e.instanceId].terrain]).toArray(colorArray, e.instanceId * 3)
+    instanceRef.current.geometry.attributes.color.needsUpdate = true
+  }
+
+  const handleClick = (e: ThreeEvent<MouseEvent>) => {
+    onClick(e, solidCapHexesArray[e.instanceId])
   }
 
   return (
     <instancedMesh
       ref={instanceRef}
-      args={[undefined, undefined, countOfCapHexes]} //args:[geometry, material, count]
+      args={[null, null, countOfCapHexes]} //args:[geometry, material, count]
       onClick={handleClick}
+      onPointerMove={onPointerMove}
+      onPointerOut={onPointerOut}
     >
-      <meshToonMaterial />
-      <cylinderGeometry args={[1, 1, halfLevel, 6]} />
+      <cylinderGeometry args={[1, 1, halfLevel, 6]}>
+        <instancedBufferAttribute attach="attributes-color" args={[colorArray, 3]} />
+      </cylinderGeometry>
+      <meshLambertMaterial toneMapped={false} vertexColors />
+
     </instancedMesh>
   )
 }
-export default InstanceSolidHexCap
+export default InstanceSolidHexCapCountWrapper
