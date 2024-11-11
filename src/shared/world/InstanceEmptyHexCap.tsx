@@ -1,4 +1,4 @@
-import { useRef, useLayoutEffect, useMemo } from 'react'
+import { useRef, useLayoutEffect, useMemo, useState } from 'react'
 import { ThreeEvent } from '@react-three/fiber'
 import {
     BufferGeometry,
@@ -18,14 +18,26 @@ import { InstanceCapProps } from './InstanceFluidHexCap'
 
 const InstanceEmptyHexCapCountWrapper = (props: InstanceCapProps) => {
     const numInstances = props.capHexesArray.length
-    if (numInstances < 1) return null
     const key = 'InstanceEmptyHexCap-' + numInstances // IMPORTANT: to include numInstances in key, otherwise gl will crash on change
-    return <InstanceEmptyHexCap key={key} {...props} />
+    const [hoverID, setHoverID] = useState('')
+
+    if (numInstances < 1) return null
+    return (
+        <InstanceEmptyHexCap
+            capHexesArray={props.capHexesArray}
+            onClick={props.onClick}
+            setHoverID={setHoverID}
+            hoverID={hoverID}
+            key={key}
+        />
+    )
 }
 
 const tempColor = new Color()
 
 const InstanceEmptyHexCap = ({
+    hoverID,
+    setHoverID,
     capHexesArray,
     onClick,
 }: InstanceCapProps) => {
@@ -37,19 +49,14 @@ const InstanceEmptyHexCap = ({
         >
     >(undefined!)
     const countOfCapHexes = capHexesArray.length
-    const { isCameraActive, hoverID, handleHover, handleUnhover, toggleIsCameraDisabled } = useUIContext()
+    const { isCameraActive, toggleIsCameraDisabled } = useUIContext()
+
     const colorArray = useMemo(
         () => {
-            console.log("🚀 ~ Float32Array:",)
             return Float32Array.from(new Array(capHexesArray.length).fill(0).flatMap((_, i) => {
-                return tempColor.set(
-                    (capHexesArray[i].id === hoverID ? "#fff" :
-                        hexTerrainColor[capHexesArray[i].terrain])
-                ).toArray()
+                return tempColor.set(hexTerrainColor[capHexesArray[i].terrain]).toArray()
             }))
-        },
-        [capHexesArray]
-    )
+        }, [capHexesArray])
     useLayoutEffect(() => {
         const placeholder = new Object3D()
         capHexesArray.forEach((boardHex, i) => {
@@ -67,18 +74,16 @@ const InstanceEmptyHexCap = ({
 
     const onPointerEnter = (e: ThreeEvent<PointerEvent>) => {
         if (isCameraActive) return
-        e.stopPropagation();
-        handleHover(capHexesArray[e.instanceId].id)
-        // tempColor.set('#fff').toArray(colorArray, e.instanceId * 3)
-        // instanceRef.current.geometry.attributes.color.needsUpdate = true
+        setHoverID(capHexesArray[e.instanceId].id)
+        tempColor.set('#fff').toArray(colorArray, e.instanceId * 3)
+        instanceRef.current.geometry.attributes.color.needsUpdate = true
     }
     const onPointerOut = (e: ThreeEvent<PointerEvent>) => {
         if (isCameraActive) return
         if (hoverID === capHexesArray[e.instanceId].id) {
-            handleUnhover()
-            // handleUnhover(capHexesArray[e.instanceId].id)
-            // tempColor.set(hexTerrainColor[capHexesArray[e.instanceId].terrain]).toArray(colorArray, e.instanceId * 3)
-            // instanceRef.current.geometry.attributes.color.needsUpdate = true
+            setHoverID('')
+            tempColor.set(hexTerrainColor[capHexesArray[e.instanceId].terrain]).toArray(colorArray, e.instanceId * 3)
+            instanceRef.current.geometry.attributes.color.needsUpdate = true
         }
     }
     const onPointerDown = (e: ThreeEvent<PointerEvent>) => {
@@ -100,7 +105,6 @@ const InstanceEmptyHexCap = ({
             args={[undefined, undefined, countOfCapHexes]} //args:[geometry, material, count]
             onPointerDown={onPointerDown}
             onPointerUp={onPointerUp}
-            // onPointerMove={onPointerMove}
             onPointerEnter={onPointerEnter}
             onPointerOut={onPointerOut}
         >
