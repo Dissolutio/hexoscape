@@ -24,6 +24,9 @@ export const gameSetupInitialGameState = ({
   if (scenarioName === scenarioNames.cirdanGardenWithoutTrees) {
     return makeCirdanGarden3PlayerScenario(numPlayers, withPrePlacedUnits)
   }
+  if (numPlayers === 3) {
+    return makeCirdanGarden3PlayerScenario(numPlayers, withPrePlacedUnits)
+  }
   // DEFAULT RETURN BELOW::
   return makeGiantsTable2PlayerScenario(numPlayers, withPrePlacedUnits)
 }
