@@ -2,6 +2,10 @@
   "name": "hexoscape",
   "private": true,
   "version": "0.0.0",
+  "engines": {
+    "node": "20.16",
+    "npm": "10.8.1"
+   },
   "scripts": {
     "dev": "vite --host",
     "server": "node -r esm server.js",
