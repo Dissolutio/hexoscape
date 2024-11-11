@@ -97,11 +97,11 @@ export const HexopolisHeightRing = ({
   const isOpponentsActiveUnitHex = activeEnemyUnitIDs?.includes(unitID)
   const { isUnitHasNoAttacksLeft, attacksUsedByThisFigure } = unitOnHex?.unitID
     ? selectAttackerHasAttacksAllowed({
-        attackingUnit: unitOnHex,
-        gameArmyCards,
-        unitsAttacked,
-        unitsMoved,
-      })
+      attackingUnit: unitOnHex,
+      gameArmyCards,
+      unitsAttacked,
+      unitsMoved,
+    })
     : { isUnitHasNoAttacksLeft: true, attacksUsedByThisFigure: 0 }
   const unitHasAttacksAndMoved =
     !isUnitHasNoAttacksLeft && unitsMoved.includes(unitID)
@@ -163,12 +163,12 @@ export const HexopolisHeightRing = ({
     opacity: 0.1,
     lineWidth: 1,
   })
-  const whiteStyle = { color: new Color('white'), opacity: 1, lineWidth: 5 }
-  const grayStyle = { color: new Color('gray'), opacity: 1, lineWidth: 5 }
-  const greenStyle = { color: new Color('#bad954'), opacity: 1, lineWidth: 5 }
-  // const yellowStyle = { color: new Color('#eac334'), opacity: 1, lineWidth: 5 }
-  const orangeStyle = { color: new Color('#e09628'), opacity: 1, lineWidth: 5 }
-  const redStyle = { color: new Color('#e25328'), opacity: 1, lineWidth: 5 }
+  const whiteStyle = { color: new Color('white'), opacity: 1, lineWidth: 2 }
+  const grayStyle = { color: new Color('gray'), opacity: 1, lineWidth: 2 }
+  const greenStyle = { color: new Color('#bad954'), opacity: 1, lineWidth: 2 }
+  // const yellowStyle = { color: new Color('#eac334'), opacity: 1, lineWidth: 2 }
+  const orangeStyle = { color: new Color('#e09628'), opacity: 1, lineWidth: 2 }
+  const redStyle = { color: new Color('#e25328'), opacity: 1, lineWidth: 2 }
   const highlightWhiteStyle = { color: 'white', opacity: 1, lineWidth: 2 }
   const nonTopRingGrayStyle = {
     color: new Color('#686868'),
