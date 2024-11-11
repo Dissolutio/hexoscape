@@ -137,11 +137,20 @@ const castle9 = [
   { q: 0, r: 4, s: -4 },
   { q: -4, r: 4, s: 0 },
 ]
+const marvel6 = [
+  { q: 0, r: 0, s: 0 },
+  { q: 0, r: 0, s: 0 },
+  { q: 1, r: 0, s: -1 },
+  { q: 3, r: 1, s: -4 },
+  { q: -1, r: 4, s: -3 },
+  { q: -4, r: 3, s: 1 },
+]
 const rotationTransforms = {
-  // order matters here, rotations go 0-5
-  // marvel wall 6
   ruins2: straight2,
   ruins3: straight3,
+  arch3: straight3,
+  door3: straight3,
+  6: marvel6,
   roadWall4,
   road5,
   glacier6,

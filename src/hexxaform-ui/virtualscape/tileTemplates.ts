@@ -202,6 +202,19 @@ const glacier6 = [
     s: -2,
   },
 ]
+const marvel6 = [
+  ...glacier4,
+  {
+    q: 2,
+    r: 1,
+    s: -3,
+  },
+  {
+    q: 3,
+    r: 1,
+    s: -4,
+  },
+]
 const wallWalk7 = [
   ...basic3,
   {
@@ -245,20 +258,19 @@ const vsTileTemplates: Dictionary<HexCoordinates[]> = {
   3: basic3,
   7: basic7,
   24: basic24,
-  ruins2: basic2,
-  ruins3: straight3,
   road5: straight5,
-  roadWall4: straight4,
-  glacier4,
-  glacier6,
-  hive6: glacier6,
   wallWalk7,
   wallWalk9,
-
-  outcrop1: [origin],
-  outcrop3: basic3,
-  glacier1: [origin],
-  glacier3: basic3,
+  // edge obstructions below
+  ruins2: basic2,
+  ruins3: straight3,
+  marvel6,
+  roadWall4: straight4,
+  ladder: [origin],
+  battlement: [origin],
+  flag: [origin],
+  // hex obstructions below
+  castle: [origin],
   tree10: [origin],
   tree11: [origin],
   tree12: [origin],
@@ -267,21 +279,12 @@ const vsTileTemplates: Dictionary<HexCoordinates[]> = {
   palm15: [origin],
   palm16: [origin],
   brush9: [origin],
+  outcrop1: [origin],
+  outcrop3: basic3,
+  glacier1: [origin],
+  glacier3: basic3,
+  glacier4,
+  glacier6,
+  hive6: glacier6,
 }
 
-
-/* 
-ROTATIONS (virtualscape)
-
-Long-hex 123-flip
-archway3/door3(connecting side down first),
- road5(either side),
-  roadwall4(connecting-side side down first, remember it is placed adjacent to the hexes it modifies):
-(start concave down)
-
-(flip main-hex with its mirror-hex, the other "most outside" hex from piece-center, and rotate 3 times each way)
-start out with next CW hex from main being to the right
-rot: 0,1,2 rotate CCW from going right, to right-down, to left-down
-rot: 3,4,5 rotate CCW the same, the main hex being the mirror hex 
-
-*/
