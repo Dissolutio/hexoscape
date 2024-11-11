@@ -13,7 +13,6 @@ import {
 import { halfLevel } from '../../game/constants'
 import { getBoardHex3DCoords } from '../../game/hex-utils'
 import { hexTerrainColor } from '../../hexxaform-ui/virtualscape/terrain'
-import { useUIContext } from '../../hooks/ui-context'
 import { InstanceCapProps } from './InstanceFluidHexCap'
 
 
@@ -21,9 +20,10 @@ import { InstanceCapProps } from './InstanceFluidHexCap'
 const tempColor = new Color()
 const InstanceEmptyHexCap = ({
     capHexesArray,
-    onClick,
-    hoverID,
-    setHoverID,
+    onPointerEnter,
+    onPointerOut,
+    onPointerDown,
+    onPointerUp,
 }: InstanceCapProps) => {
     const instanceRef = useRef<InstancedMesh<
         BufferGeometry<NormalBufferAttributes>,
@@ -32,7 +32,6 @@ const InstanceEmptyHexCap = ({
     >
     >(undefined)
     const countOfCapHexes = capHexesArray.length
-    const { isCameraActive, toggleIsCameraDisabled } = useUIContext()
 
     const colorArray = useMemo(() => {
         return Float32Array.from(new Array(capHexesArray.length).fill(0).flatMap((_, i) => {
@@ -54,30 +53,18 @@ const InstanceEmptyHexCap = ({
         instanceRef.current.instanceMatrix.needsUpdate = true
     }, [capHexesArray])
 
-    const onPointerEnter = (e: ThreeEvent<PointerEvent>) => {
-        if (isCameraActive) return
-        setHoverID(capHexesArray[e.instanceId].id)
+    const handleEnter = (e: ThreeEvent<PointerEvent>) => {
+        onPointerEnter(e, capHexesArray[e.instanceId])
         tempColor.set('#fff').toArray(colorArray, e.instanceId * 3)
         instanceRef.current.geometry.attributes.color.needsUpdate = true
     }
-    const onPointerOut = (e: ThreeEvent<PointerEvent>) => {
-        if (isCameraActive) return
-        if (hoverID === capHexesArray[e.instanceId].id) {
-            setHoverID('')
-            tempColor.set(hexTerrainColor[capHexesArray[e.instanceId].terrain]).toArray(colorArray, e.instanceId * 3)
-            instanceRef.current.geometry.attributes.color.needsUpdate = true
-        }
+    const handleOut = (e: ThreeEvent<PointerEvent>) => {
+        onPointerOut(e, capHexesArray[e.instanceId])
+        tempColor.set(hexTerrainColor[capHexesArray[e.instanceId].terrain]).toArray(colorArray, e.instanceId * 3)
+        instanceRef.current.geometry.attributes.color.needsUpdate = true
     }
-    const onPointerDown = (e: ThreeEvent<PointerEvent>) => {
-        if (e.button === 2) return // ignore right clicks
-        if (isCameraActive) return
-        e.stopPropagation();
-        toggleIsCameraDisabled(true)
-        onClick(e, capHexesArray[e.instanceId])
-    }
-    const onPointerUp = (e: ThreeEvent<PointerEvent>) => {
-        if (e.button === 2) return // ignore right clicks
-        toggleIsCameraDisabled(false)
+    const handleDown = (e: ThreeEvent<PointerEvent>) => {
+        onPointerDown(e, capHexesArray[e.instanceId])
     }
 
 
@@ -85,10 +72,10 @@ const InstanceEmptyHexCap = ({
         <instancedMesh
             ref={instanceRef}
             args={[undefined, undefined, countOfCapHexes]} //args:[geometry, material, count]
-            onPointerDown={onPointerDown}
+            onPointerDown={handleDown}
             onPointerUp={onPointerUp}
-            onPointerEnter={onPointerEnter}
-            onPointerOut={onPointerOut}
+            onPointerEnter={handleEnter}
+            onPointerOut={handleOut}
         >
             <cylinderGeometry args={[1, 1, halfLevel, 6]}>
                 <instancedBufferAttribute attach="attributes-color" args={[colorArray, 3]} />

@@ -5,10 +5,11 @@ import { InstanceCapProps } from "./InstanceFluidHexCap"
 
 type InstanceCapWrapperProps = {
   capHexesArray: BoardHex[]
-  onClick: (e: ThreeEvent<MouseEvent>, hex: BoardHex) => void
+  onPointerEnter: (e: ThreeEvent<PointerEvent>, hex: BoardHex) => void
+  onPointerOut: (e: ThreeEvent<PointerEvent>, hex: BoardHex) => void
+  onPointerDown: (e: ThreeEvent<PointerEvent>, hex: BoardHex) => void
+  onPointerUp: (e: ThreeEvent<PointerEvent>) => void
   component: JSXElementConstructor<InstanceCapProps>
-  hoverID: string
-  setHoverID: React.Dispatch<React.SetStateAction<string>>
   glKey: string
 }
 
@@ -21,9 +22,10 @@ export default function InstanceCapWrapper(props: InstanceCapWrapperProps) {
     <InstanceCap
       key={key}
       capHexesArray={props.capHexesArray}
-      onClick={props.onClick}
-      hoverID={props.hoverID}
-      setHoverID={props.setHoverID}
+      onPointerEnter={props.onPointerEnter}
+      onPointerOut={props.onPointerOut}
+      onPointerDown={props.onPointerDown}
+      onPointerUp={props.onPointerUp}
     />
   )
 }

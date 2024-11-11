@@ -87,34 +87,23 @@ export function HexxaformMapDisplay3D({
     }
 
   }, [paintGrassTile, paintStartZone, paintWaterHex, penMode, pieceSize, voidHex, voidStartZone])
-  const emptyHexCaps = useMemo(() =>
-    Object.values(boardHexes).filter((bh) => {
-      return bh.terrain === HexTerrain.empty
-    })
-    , [])
-  const fluidHexCaps = useMemo(() =>
-    Object.values(boardHexes).filter((bh) => {
-      return bh.terrain !== HexTerrain.empty && isFluidTerrainHex(bh.terrain)
-    })
-    , [])
-  const solidHexCaps = useMemo(() =>
-    Object.values(boardHexes).filter((bh) => {
-      return bh.terrain !== HexTerrain.empty && !isFluidTerrainHex(bh.terrain)
-    })
-    , [])
-  const onPointerEnter = (e: ThreeEvent<PointerEvent>, hex: BoardHex) => {
+
+  const emptyHexCaps = Object.values(boardHexes).filter((bh) => {
+    return bh.terrain === HexTerrain.empty
+  })
+  const fluidHexCaps = Object.values(boardHexes).filter((bh) => {
+    return bh.terrain !== HexTerrain.empty && isFluidTerrainHex(bh.terrain)
+  })
+  const solidHexCaps = Object.values(boardHexes).filter((bh) => {
+    return bh.terrain !== HexTerrain.empty && !isFluidTerrainHex(bh.terrain)
+  })
+  const onPointerEnter = (_e: ThreeEvent<PointerEvent>, hex: BoardHex) => {
     if (isCameraActive) return
     setHoverID(hex.id)
-    // tempColor1.set('#fff').toArray(colorArray, e.instanceId * 3)
-    // instanceRef.current.geometry.attributes.color.needsUpdate = true
   }
-  const onPointerOut = (e: ThreeEvent<PointerEvent>, hex: BoardHex) => {
+  const onPointerOut = (_e: ThreeEvent<PointerEvent>, hex: BoardHex) => {
     if (isCameraActive) return
-    if (hoverID === hex.id) {
-      setHoverID('')
-      // tempColor2.set(hexTerrainColor[capHexesArray[e.instanceId].terrain]).toArray(colorArray, e.instanceId * 3)
-      // instanceRef.current.geometry.attributes.color.needsUpdate = true
-    }
+    setHoverID('')
   }
 
   const onPointerDown = (e: ThreeEvent<PointerEvent>, hex: BoardHex) => {
@@ -132,36 +121,33 @@ export function HexxaformMapDisplay3D({
   return (
     <>
       <InstanceCapWrapper
-        capHexesArray={Object.values(boardHexes).filter((bh) => {
-          return bh.terrain === HexTerrain.empty
-        })}
-        onClick={onClick}
+        capHexesArray={emptyHexCaps}
         glKey={'InstanceEmptyHexCap-'}
         component={InstanceEmptyHexCap}
-        hoverID={hoverID}
-        setHoverID={setHoverID}
+        onPointerEnter={onPointerEnter}
+        onPointerOut={onPointerOut}
+        onPointerDown={onPointerDown}
+        onPointerUp={onPointerUp}
       />
 
       <InstanceCapWrapper
-        capHexesArray={Object.values(boardHexes).filter((bh) => {
-          return bh.terrain !== HexTerrain.empty && isFluidTerrainHex(bh.terrain)
-        })}
-        onClick={onClick}
+        capHexesArray={fluidHexCaps}
         glKey={'InstanceFluidHexCap-'}
         component={InstanceFluidHexCap}
-        hoverID={hoverID}
-        setHoverID={setHoverID}
+        onPointerEnter={onPointerEnter}
+        onPointerOut={onPointerOut}
+        onPointerDown={onPointerDown}
+        onPointerUp={onPointerUp}
       />
 
       <InstanceCapWrapper
-        capHexesArray={Object.values(boardHexes).filter((bh) => {
-          return bh.terrain !== HexTerrain.empty && !isFluidTerrainHex(bh.terrain)
-        })}
-        onClick={onClick}
+        capHexesArray={solidHexCaps}
         glKey={'InstanceSolidHexCap-'}
         component={InstanceSolidHexCap}
-        hoverID={hoverID}
-        setHoverID={setHoverID}
+        onPointerEnter={onPointerEnter}
+        onPointerOut={onPointerOut}
+        onPointerDown={onPointerDown}
+        onPointerUp={onPointerUp}
       />
 
       <InstanceSubTerrainWrapper glKey={'InstanceSubTerrain-'} boardHexes={Object.values(boardHexes).filter(bh => !(bh.terrain === HexTerrain.empty))} />

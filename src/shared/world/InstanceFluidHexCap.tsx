@@ -14,21 +14,23 @@ import { BoardHex } from '../../game/types'
 import { halfLevel } from '../../game/constants'
 import { getBoardHex3DCoords } from '../../game/hex-utils'
 import { hexTerrainColor } from '../../hexxaform-ui/virtualscape/terrain'
-import { useUIContext } from '../../hooks/ui-context'
 
 export type InstanceCapProps = {
   capHexesArray: BoardHex[]
-  onClick: (e: ThreeEvent<MouseEvent>, hex: BoardHex) => void
-  hoverID: string
-  setHoverID: React.Dispatch<React.SetStateAction<string>>
+  onPointerEnter: (e: ThreeEvent<PointerEvent>, hex: BoardHex) => void
+  onPointerOut: (e: ThreeEvent<PointerEvent>, hex: BoardHex) => void
+  onPointerDown: (e: ThreeEvent<PointerEvent>, hex: BoardHex) => void
+  onPointerUp: (e: ThreeEvent<PointerEvent>) => void
 }
 
 const tempColor = new Color()
+const capFluidOpacity = 0.85
 const InstanceFluidHexCap = ({
   capHexesArray,
-  onClick,
-  hoverID,
-  setHoverID
+  onPointerEnter,
+  onPointerOut,
+  onPointerDown,
+  onPointerUp,
 }: InstanceCapProps) => {
   const instanceRef = useRef<
     InstancedMesh<
@@ -37,9 +39,7 @@ const InstanceFluidHexCap = ({
       InstancedMeshEventMap
     >
   >(undefined)
-  const capFluidOpacity = 0.85
   const countOfCapHexes = capHexesArray.length
-  const { isCameraActive, toggleIsCameraDisabled } = useUIContext()
   const colorArray = useMemo(
     () => Float32Array.from(new Array(capHexesArray.length).fill(0).flatMap((_, i) => tempColor.set(hexTerrainColor[capHexesArray[i].terrain]).toArray())),
     [capHexesArray]
@@ -59,30 +59,18 @@ const InstanceFluidHexCap = ({
     instanceRef.current.instanceMatrix.needsUpdate = true
   }, [capHexesArray])
 
-  const onPointerEnter = (e: ThreeEvent<PointerEvent>) => {
-    if (isCameraActive) return
-    setHoverID(capHexesArray[e.instanceId].id)
+  const handleEnter = (e: ThreeEvent<PointerEvent>) => {
+    onPointerEnter(e, capHexesArray[e.instanceId])
     tempColor.set('#fff').toArray(colorArray, e.instanceId * 3)
     instanceRef.current.geometry.attributes.color.needsUpdate = true
   }
-  const onPointerOut = (e: ThreeEvent<PointerEvent>) => {
-    if (isCameraActive) return
-    if (hoverID === capHexesArray[e.instanceId].id) {
-      setHoverID('')
-      tempColor.set(hexTerrainColor[capHexesArray[e.instanceId].terrain]).toArray(colorArray, e.instanceId * 3)
-      instanceRef.current.geometry.attributes.color.needsUpdate = true
-    }
+  const handleOut = (e: ThreeEvent<PointerEvent>) => {
+    onPointerOut(e, capHexesArray[e.instanceId])
+    tempColor.set(hexTerrainColor[capHexesArray[e.instanceId].terrain]).toArray(colorArray, e.instanceId * 3)
+    instanceRef.current.geometry.attributes.color.needsUpdate = true
   }
-  const onPointerDown = (e: ThreeEvent<PointerEvent>) => {
-    if (e.button === 2) return // ignore right clicks
-    if (isCameraActive) return
-    e.stopPropagation();
-    toggleIsCameraDisabled(true)
-    onClick(e, capHexesArray[e.instanceId])
-  }
-  const onPointerUp = (e: ThreeEvent<PointerEvent>) => {
-    if (e.button === 2) return // ignore right clicks
-    toggleIsCameraDisabled(false)
+  const handleDown = (e: ThreeEvent<PointerEvent>) => {
+    onPointerDown(e, capHexesArray[e.instanceId])
   }
 
 
@@ -90,11 +78,10 @@ const InstanceFluidHexCap = ({
     <instancedMesh
       ref={instanceRef}
       args={[undefined, undefined, countOfCapHexes]} //args:[geometry, material, count]
-      onPointerDown={onPointerDown}
+      onPointerEnter={handleEnter}
+      onPointerOut={handleOut}
+      onPointerDown={handleDown}
       onPointerUp={onPointerUp}
-      // onPointerMove={onPointerMove}
-      onPointerEnter={onPointerEnter}
-      onPointerOut={onPointerOut}
     >
       <meshLambertMaterial
         transparent
@@ -108,4 +95,20 @@ const InstanceFluidHexCap = ({
     </instancedMesh>
   )
 }
+const FluidInstance = (colorArray) => {
+  return (
+    <>
+      <meshLambertMaterial
+        transparent
+        opacity={capFluidOpacity}
+        vertexColors
+        toneMapped={false}
+      />
+      <cylinderGeometry args={[1, 1, halfLevel, 6]}>
+        <instancedBufferAttribute attach="attributes-color" args={[colorArray, 3]} />
+      </cylinderGeometry>
+    </>
+  )
+}
+
 export default InstanceFluidHexCap
