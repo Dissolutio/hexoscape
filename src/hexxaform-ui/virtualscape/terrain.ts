@@ -91,31 +91,39 @@ const terrainSubcodes = {
   startArea: '01',
 }
 const terrainCodes = {
+  // Solid
   [typeCodes.TYPE_GRASS]: 'grass',
   [typeCodes.TYPE_ROCK]: 'rock',
   [typeCodes.TYPE_SAND]: 'sand',
   [typeCodes.TYPE_ROAD]: 'road',
+  [typeCodes.TYPE_SNOW]: 'snow',
   [typeCodes.TYPE_LAVAFIELD]: 'lavaField',
-  [typeCodes.TYPE_SWAMPWATER]: 'swampWater',
   [typeCodes.TYPE_SWAMP]: 'swamp',
   [typeCodes.TYPE_CONCRETE]: 'concrete',
   [typeCodes.TYPE_ASPHALT]: 'asphalt',
-  [typeCodes.TYPE_SHADOW]: 'shadow',
   [typeCodes.TYPE_DUNGEON]: 'dungeon',
-  [typeCodes.TYPE_SNOW]: 'snow',
+  // Fluid
   [typeCodes.TYPE_WATER]: 'water',
+  [typeCodes.TYPE_SWAMPWATER]: 'swampWater',
   [typeCodes.TYPE_ICE]: 'ice',
   [typeCodes.TYPE_LAVA]: 'lava',
+  [typeCodes.TYPE_SHADOW]: 'shadow',
+  // Obstructions
   [typeCodes.TYPE_TREE]: 'tree',
+  [typeCodes.TYPE_TICALLA]: 'ticalla',
+  [typeCodes.TYPE_GLACIER]: 'glacier',
+  [typeCodes.TYPE_OUTCROP]: 'outcrop',
+  [typeCodes.TYPE_HIVE]: 'hive',
+  // Edge pieces
   [typeCodes.TYPE_RUIN]: 'ruin',
   [typeCodes.TYPE_ROADWALL]: 'roadWall',
-  [typeCodes.TYPE_GLACIER]: 'glacier',
-  [typeCodes.TYPE_GLYPH]: 'glyph',
+  // Castle are many
   [typeCodes.TYPE_CASTLE]: 'castle',
-  [typeCodes.TYPE_HIVE]: 'hive',
-  [typeCodes.TYPE_TICALLA]: 'ticalla',
-  [typeCodes.TYPE_OUTCROP]: 'outcrop',
+  // startZones are a special case
   [typeCodes.TYPE_STARTAREA]: 'startzone',
+  // glyphs are their own special case
+  [typeCodes.TYPE_GLYPH]: 'glyph',
+  // ignoring these below for now
   [typeCodes.TYPE_PERSONAL]: 'personal',
   [typeCodes.TYPE_FIGURE]: 'figure',
 }
@@ -128,20 +136,44 @@ export const hexTerrainColor: Dictionary<string> = {
   sand: '#ab8e10',
   road: '#868686',
 }
-export const terrain = {
-  grass: { flatPieceSizes: [1, 2, 3, 4, 6, 7, 9, 24] },
-  rock: { flatPieceSizes: [1, 2, 3, 7, 24] },
-  sand: { flatPieceSizes: [1, 2, 3, 7, 24] },
-  water: { flatPieceSizes: [1] },
-  // dungeon: {flatPieceSizes: [1, 2, 3, 7, 24]},
-  // lavaField: {flatPieceSizes: [1, 2, 7]},
-  // swamp: {flatPieceSizes: [1, 2, 3, 7, 24]},
-  // concrete: {flatPieceSizes: [1, 2, 7]},
-  // asphalt: {flatPieceSizes: [1, 2, 7]},
-  // snow: {flatPieceSizes: [1, 2]},
-  // road: {flatPieceSizes: [1, 2]},
-  // swampWater: {flatPieceSizes: [1]},
-  // lava: {flatPieceSizes: [1]},
-  // ice: {flatPieceSizes: [1]},
-  // shadow: {flatPieceSizes: [1]},
+
+// This is used in Hexxaform context
+export const landSizes = {
+  // solid terrain below
+  grass: [1, 2, 3, 7, 24],
+  rock: [1, 2, 3, 7, 24],
+  sand: [1, 2, 3, 7, 24],
+  swamp: [1, 2, 3, 7, 24],
+  dungeon: [1, 2, 3, 7, 24],
+  lavaField: [1, 2, 7],
+  concrete: [1, 2, 7],
+  asphalt: [1, 2, 7],
+  road: [1, 2],
+  snow: [1, 2],
+  // fluid terrain below
+  water: [1, 3],
+  swampWater: [1],
+  lava: [1],
+  ice: [1],
+  shadow: [1],
+}
+
+const obstructionSizes = {
+  outcrop1: { sizes: [1] },
+  outcrop3: { sizes: [3] },
+  glacier1: { sizes: [1] },
+  glacier3: { sizes: [3] },
+  glacier4: { sizes: ['glacier4'] },
+  glacier6: { sizes: ['glacier6'] },
+  hive6: { sizes: ['hive6'] },
+  ruins2: { sizes: ['ruins2'] },
+  ruins3: { sizes: ['ruins3'] },
+  tree10: { sizes: [1] },
+  tree11: { sizes: [1] },
+  tree12: { sizes: [1] },
+  tree04: { sizes: ['glacier4'] },
+  palm14: { sizes: [1] },
+  palm15: { sizes: [1] },
+  palm16: { sizes: [1] },
+  brush9: { sizes: [1] },
 }

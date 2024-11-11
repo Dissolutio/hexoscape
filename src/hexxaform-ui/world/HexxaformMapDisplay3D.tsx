@@ -11,7 +11,7 @@ import { MapHex3D } from '../../shared/MapHex3D'
 import { useZoomCameraToMapCenter } from '../../hooks/useZoomCameraToMapCenter'
 import { HexxaformMoves, PenMode } from '../../game/hexxaform/hexxaform-types'
 import { useHexxaformContext } from '../useHexxaformContext'
-import { getFlatTileHexes } from '../virtualscape/flatTile'
+import getVSTileTemplate from '../virtualscape/tileTemplates'
 import { generateHexID, isFluidTerrainHex } from '../../game/constants'
 import InstanceSolidHexCapCountWrapper from '../../shared/world/InstanceSolidHexCap'
 import InstanceFluidHexCapCountWrapper from '../../shared/world/InstanceFluidHexCap'
@@ -19,7 +19,7 @@ import InstanceEmptyHexCapCountWrapper from '../../shared/world/InstanceEmptyHex
 import InstanceEmptySubTerrain from '../../shared/world/InstanceEmptySubTerrain'
 import InstanceSubTerrainCountWrapper from '../../shared/world/InstanceSubTerrain'
 
-
+let rotation = 0
 export function HexxaformMapDisplay3D({
   boardHexes,
   hexMap,
@@ -69,9 +69,9 @@ export function HexxaformMapDisplay3D({
       paintWaterHex({ hexID: hex.id })
     }
     if (penMode === PenMode.grass) {
-      const hexIDArr = getFlatTileHexes({
+      const hexIDArr = getVSTileTemplate({
         clickedHex: { q: hex.q, r: hex.r, s: hex.s },
-        rotation: 0,
+        rotation: rotation++ % 6,
         size: pieceSize,
       }).map((h) => generateHexID(h))
       paintGrassTile({ hexIDArr, altitude: hex.altitude })

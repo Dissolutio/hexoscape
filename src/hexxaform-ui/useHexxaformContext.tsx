@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { GType, PenMode } from '../game/hexxaform/hexxaform-types'
 import { BoardHexes, HexMap } from '../game/types'
-import { terrain } from './virtualscape/terrain'
+import { landSizes } from './virtualscape/terrain'
 
 type HexxaformContextProviderProps = {
   children: React.ReactNode
@@ -10,18 +10,18 @@ type HexxaformContextProviderProps = {
 
 const HexxaformContext = React.createContext<
   | {
-      boardHexes: BoardHexes
-      hexMap: HexMap
-      selectedMapHex: string
-      selectMapHex: (hexID: string) => void
-      penMode: PenMode
-      togglePenMode: (mode: PenMode) => void
-      pieceSize: number
-      togglePieceSize: (s: number) => void
-      flatPieceSizes: number[]
-      isShowStartZones: boolean
-      toggleIsShowStartZones: () => void
-    }
+    boardHexes: BoardHexes
+    hexMap: HexMap
+    selectedMapHex: string
+    selectMapHex: (hexID: string) => void
+    penMode: PenMode
+    togglePenMode: (mode: PenMode) => void
+    pieceSize: number
+    togglePieceSize: (s: number) => void
+    flatPieceSizes: number[]
+    isShowStartZones: boolean
+    toggleIsShowStartZones: () => void
+  }
   | undefined
 >(undefined)
 export function HexxaformContextProvider({
@@ -44,7 +44,7 @@ export function HexxaformContextProvider({
   // piece size
   const [pieceSize, setPieceSize] = React.useState(1)
   const [flatPieceSizes, setFlatPieceSizes] = React.useState(
-    terrain[penMode]?.flatPieceSizes ?? []
+    landSizes[penMode] ?? []
   )
   const togglePieceSize = (s: number) => {
     setPieceSize(s)
@@ -54,11 +54,11 @@ export function HexxaformContextProvider({
     oldMode: string,
     oldPieceSize: number
   ): { newSize: number; flatPieceSizes: number[] } => {
-    const terrainsWithFlatPieceSizes = Object.keys(terrain).filter((t) => {
-      return terrain[t].flatPieceSizes.length > 0
+    const terrainsWithFlatPieceSizes = Object.keys(landSizes).filter((t) => {
+      return landSizes[t].length > 0
     })
     const newPieceSizes = terrainsWithFlatPieceSizes.includes(newMode)
-      ? terrain[newMode].flatPieceSizes
+      ? landSizes[newMode]
       : []
     if (!(newPieceSizes.length > 0)) {
       return { newSize: 1, flatPieceSizes: [] }
@@ -66,7 +66,7 @@ export function HexxaformContextProvider({
     if (newPieceSizes.includes(oldPieceSize)) {
       return { newSize: oldPieceSize, flatPieceSizes: newPieceSizes }
     } else {
-      const oldIndex = terrain[oldMode].flatPieceSizes.indexOf(oldPieceSize)
+      const oldIndex = landSizes[oldMode].indexOf(oldPieceSize)
       return {
         newSize: newPieceSizes?.[oldIndex] ?? newPieceSizes[0],
         flatPieceSizes: newPieceSizes,

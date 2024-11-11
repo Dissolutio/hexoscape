@@ -55,6 +55,10 @@ export const hexUtilsNeighbors = (hex: HexCoordinates): HexCoordinates[] => {
   }
   return array
 }
+
+const hexUtilsGetID = (hex: HexCoordinates): string => {
+  return `${hex.q},${hex.r},${hex.s}`
+}
 export const hexUtilsNeighborsWithDirections = (
   hex: HexCoordinates
 ): HexNeighborsWithDirections => {
@@ -66,6 +70,7 @@ export const hexUtilsNeighborsWithDirections = (
   }
   return obj
 }
+
 export const cubeToPixel = (hex: HexCoordinates) => {
   const x =
     HEXGRID_HEX_RADIUS * (Math.sqrt(3) * hex.q + (Math.sqrt(3) / 2) * hex.r)
@@ -76,13 +81,9 @@ export const getBoardHex3DCoords = (hex: BoardHex) => {
   const { x, y } = cubeToPixel(hex)
   // DEV NOTE: THIS IS WHERE WE SWITCH Y AND Z (And I am not 100% certain I did it to maintain "y" as altitude, I may have just goofed up and covered it up with this)
   // I think I did it so that in our quadrant, all axes are positive in handy directions
-
-  // ALSO: We scootch the map to the right one apothem so that X=0 aligns with the left edge of hexes, not the center. This makes width calculation easier, keeps things neat
-  // ALSO: We scootch the map down one radius so that Y=0 aligns with the top edge of hexes, not the center. This makes height calculation easier, keeps things neat
-
   return {
-    x: (x + HEXGRID_HEX_APOTHEM) * HEXGRID_SPACING,
-    z: (y + HEXGRID_HEX_RADIUS) * HEXGRID_SPACING,
+    x: (x + HEXGRID_HEX_APOTHEM) * HEXGRID_SPACING, // Scootch map right one apothem so that X=0 aligns with the left edge of hexes, not the center. Perhaps unnecessary.
+    z: (y + HEXGRID_HEX_RADIUS) * HEXGRID_SPACING, // Scootch map down one radius so that Y=0 aligns with the top edge of hexes, not the center. Perhaps unnecessary.
   }
 }
 function hexUtilsRotateVector(
@@ -160,15 +161,6 @@ export const getDirectionOfNeighbor = (
   if (matchedDir === 2) return 5 // SE
 }
 
-/** Return a string ID from Hex Coordinates.
- * Example: Hex Coordinates of {q: 1, r: 2, s: 3} is returned
- * as string "1,2,3"
- * @param {HexCoordinates} hex - target Hex
- * @returns {string} an ID string in the form `{q},{r},{s}`
- */
-const hexUtilsGetID = (hex: HexCoordinates): string => {
-  return `${hex.q},${hex.r},${hex.s}`
-}
 export const generateHexagonHexas = (mapRadius: number): HexCoordinates[] => {
   const hexas: HexCoordinates[] = []
   for (let q = -mapRadius; q <= mapRadius; q++) {
