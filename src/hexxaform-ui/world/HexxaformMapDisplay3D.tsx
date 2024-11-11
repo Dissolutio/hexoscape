@@ -16,7 +16,6 @@ import { generateHexID, isFluidTerrainHex } from '../../game/constants'
 import InstanceSolidHexCapCountWrapper from '../../shared/world/InstanceSolidHexCap'
 import InstanceFluidHexCapCountWrapper from '../../shared/world/InstanceFluidHexCap'
 import InstanceEmptyHexCapCountWrapper from '../../shared/world/InstanceEmptyHexCap'
-import InstanceEmptySubTerrain from '../../shared/world/InstanceEmptySubTerrain'
 import InstanceSubTerrainCountWrapper from '../../shared/world/InstanceSubTerrain'
 
 let rotation = 0
@@ -92,7 +91,6 @@ export function HexxaformMapDisplay3D({
         })}
         onClick={onClick}
       />
-      <InstanceEmptySubTerrain boardHexes={Object.values(boardHexes).filter(bh => bh.terrain === HexTerrain.empty)} />
 
       <InstanceSolidHexCapCountWrapper
         capHexesArray={Object.values(boardHexes).filter((bh) => {
