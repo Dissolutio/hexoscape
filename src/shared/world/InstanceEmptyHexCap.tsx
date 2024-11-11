@@ -39,7 +39,15 @@ const InstanceEmptyHexCap = ({
     const countOfCapHexes = capHexesArray.length
     const { isCameraActive, hoverID, handleHover, handleUnhover, toggleIsCameraDisabled } = useUIContext()
     const colorArray = useMemo(
-        () => Float32Array.from(new Array(capHexesArray.length).fill(0).flatMap((_, i) => tempColor.set(hexTerrainColor[capHexesArray[i].terrain]).toArray())),
+        () => {
+            console.log("🚀 ~ Float32Array:",)
+            return Float32Array.from(new Array(capHexesArray.length).fill(0).flatMap((_, i) => {
+                return tempColor.set(
+                    (capHexesArray[i].id === hoverID ? "#fff" :
+                        hexTerrainColor[capHexesArray[i].terrain])
+                ).toArray()
+            }))
+        },
         [capHexesArray]
     )
     useLayoutEffect(() => {
@@ -57,18 +65,21 @@ const InstanceEmptyHexCap = ({
         instanceRef.current.instanceMatrix.needsUpdate = true
     }, [capHexesArray])
 
-    const onPointerMove = (e: ThreeEvent<PointerEvent>) => {
+    const onPointerEnter = (e: ThreeEvent<PointerEvent>) => {
         if (isCameraActive) return
         e.stopPropagation();
         handleHover(capHexesArray[e.instanceId].id)
-        tempColor.set('#fff').toArray(colorArray, e.instanceId * 3)
-        instanceRef.current.geometry.attributes.color.needsUpdate = true
+        // tempColor.set('#fff').toArray(colorArray, e.instanceId * 3)
+        // instanceRef.current.geometry.attributes.color.needsUpdate = true
     }
     const onPointerOut = (e: ThreeEvent<PointerEvent>) => {
         if (isCameraActive) return
-        handleUnhover()
-        tempColor.set(hexTerrainColor[capHexesArray[e.instanceId].terrain]).toArray(colorArray, e.instanceId * 3)
-        instanceRef.current.geometry.attributes.color.needsUpdate = true
+        if (hoverID === capHexesArray[e.instanceId].id) {
+            handleUnhover()
+            // handleUnhover(capHexesArray[e.instanceId].id)
+            // tempColor.set(hexTerrainColor[capHexesArray[e.instanceId].terrain]).toArray(colorArray, e.instanceId * 3)
+            // instanceRef.current.geometry.attributes.color.needsUpdate = true
+        }
     }
     const onPointerDown = (e: ThreeEvent<PointerEvent>) => {
         if (e.button === 2) return // ignore right clicks
@@ -89,7 +100,8 @@ const InstanceEmptyHexCap = ({
             args={[undefined, undefined, countOfCapHexes]} //args:[geometry, material, count]
             onPointerDown={onPointerDown}
             onPointerUp={onPointerUp}
-            onPointerMove={onPointerMove}
+            // onPointerMove={onPointerMove}
+            onPointerEnter={onPointerEnter}
             onPointerOut={onPointerOut}
         >
             <cylinderGeometry args={[1, 1, halfLevel, 6]}>
