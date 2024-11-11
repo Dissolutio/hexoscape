@@ -138,24 +138,24 @@ export const hexTerrainColor: Dictionary<string> = {
 }
 
 // This is used in Hexxaform context
-export const terrain = {
+export const landSizes = {
   // solid terrain below
-  grass: { flatPieceSizes: [1, 2, 3, 5, 6, 7, 24] },
-  rock: { flatPieceSizes: [1, 2, 3, 7, 24] },
-  sand: { flatPieceSizes: [1, 2, 3, 7, 24] },
-  swamp: { flatPieceSizes: [1, 2, 3, 7, 24] },
-  dungeon: { flatPieceSizes: [1, 2, 3, 7, 24] },
-  lavaField: { flatPieceSizes: [1, 2, 7] },
-  concrete: { flatPieceSizes: [1, 2, 7] },
-  asphalt: { flatPieceSizes: [1, 2, 7] },
-  road: { flatPieceSizes: [1, 2] },
-  snow: { flatPieceSizes: [1, 2] },
+  grass: [1, 2, 3, 7, 24],
+  rock: [1, 2, 3, 7, 24],
+  sand: [1, 2, 3, 7, 24],
+  swamp: [1, 2, 3, 7, 24],
+  dungeon: [1, 2, 3, 7, 24],
+  lavaField: [1, 2, 7],
+  concrete: [1, 2, 7],
+  asphalt: [1, 2, 7],
+  road: [1, 2],
+  snow: [1, 2],
   // fluid terrain below
-  water: { flatPieceSizes: [1, 3] },
-  swampWater: { flatPieceSizes: [1] },
-  lava: { flatPieceSizes: [1] },
-  ice: { flatPieceSizes: [1] },
-  shadow: { flatPieceSizes: [1] },
+  water: [1, 3],
+  swampWater: [1],
+  lava: [1],
+  ice: [1],
+  shadow: [1],
 }
 
 const obstructionSizes = {

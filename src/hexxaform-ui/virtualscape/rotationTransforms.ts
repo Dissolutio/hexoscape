@@ -150,7 +150,7 @@ const rotationTransforms = {
   ruins3: straight3,
   arch3: straight3,
   door3: straight3,
-  6: marvel6,
+  marvel6,
   roadWall4,
   road5,
   glacier6,
