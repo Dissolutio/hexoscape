@@ -62,7 +62,7 @@ export const MapHex3D = ({
 
   return (
     <group>
-      {/* <MapHexIDDisplay boardHexID={boardHex.id} glyphPosition={glyphPosition} /> */}
+      <MapHexIDDisplay boardHexID={boardHex.id} glyphPosition={glyphPosition} />
 
       <MapHexGlyph
         glyphOnHex={Boolean(glyphOnHex)}

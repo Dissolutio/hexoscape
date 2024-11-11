@@ -14,7 +14,7 @@ export const MapHexIDDisplay = ({
 }) => {
   return (
     <Billboard position={glyphPosition}>
-      <Text fontSize={0.3} color={new Color('black')}>
+      <Text fontSize={0.3} color={new Color('white')}>
         {boardHexID}
       </Text>
     </Billboard>

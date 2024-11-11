@@ -33,7 +33,7 @@ export const World = ({
     https://r3f.docs.pmnd.rs/advanced/scaling-performance#on-demand-rendering
     */
     <Canvas frameloop="demand">
-      <Stars
+      {/* <Stars
         radius={100}
         depth={50}
         count={5000}
@@ -41,7 +41,7 @@ export const World = ({
         saturation={0}
         fade
         speed={0.1}
-      />
+      /> */}
       {/* <color attach="background" args={[150, 150, 150]} /> */}
       <WorldOverheadLights />
       <TakeAPictureBox />
