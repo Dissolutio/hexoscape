@@ -18,7 +18,6 @@ import { stageNames } from '../../../game/constants'
 import { GreenButton } from '../../../hexopolis-ui/layout/buttons'
 import { selectIfGameArmyCardHasFlying } from '../../../game/selector/card-selectors'
 import { AbilityReadout } from './FireLineSAControls'
-import { AnimatePresence, motion } from 'framer-motion'
 import { omToString } from '../../../game/transformers'
 import { selectHexForUnit, selectTailHexForUnit } from '../../../game/selectors'
 import { useEffect } from 'react'
@@ -97,17 +96,9 @@ export const RopMoveControls = () => {
             revealedGameCardName={revealedGameCardName}
           />
           <GrappleGunTextAndToggle revealedGameCard={revealedGameCard} />
-          <AnimatePresence>
-            {isGrappleGun && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-              >
-                <AbilityReadout cardAbility={revealedGameCard?.abilities[1]} />
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {isGrappleGun && (
+            <AbilityReadout cardAbility={revealedGameCard?.abilities[1]} />
+          )}
           <StyledControlsP>
             Selected unit move points remaining:{' '}
             {/* grapple gun is just 0 or 1, but otherwise show the normal move point */}
@@ -189,9 +180,8 @@ export const RopMoveControls = () => {
       ) : (
         <ConfirmOrResetButtons
           reset={handleEndMovementClick}
-          resetText={`End Move, skip ${movesAvailable} available move${
-            movesAvailable > 1 ? 's' : ''
-          }, begin attack`}
+          resetText={`End Move, skip ${movesAvailable} available move${movesAvailable > 1 ? 's' : ''
+            }, begin attack`}
           noConfirmButton
         />
       )}

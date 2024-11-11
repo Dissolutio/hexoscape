@@ -1,6 +1,3 @@
-import React from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-
 import { usePlayContext } from '../contexts'
 import {
   useBgioClientInfo,
@@ -190,9 +187,8 @@ const RopIdleControls = () => {
   return (
     <>
       <StyledControlsHeaderH2 style={{ color: 'var(--muted-text)' }}>
-        {`${playerIDDisplay(currentPlayer)} order #${currentOrderMarker + 1}: ${
-          revealedGameCard?.name ?? '...'
-        }`}
+        {`${playerIDDisplay(currentPlayer)} order #${currentOrderMarker + 1}: ${revealedGameCard?.name ?? '...'
+          }`}
       </StyledControlsHeaderH2>
     </>
   )
@@ -222,9 +218,8 @@ const RopConfirmDisengageAttemptControls = () => {
   return (
     <>
       <StyledControlsHeaderH2>
-        {`Confirm you want ${myUnitName} to disengage ${
-          unitsThatGetASwipe.length
-        } units? (${unitsThatGetASwipe.map((u) => u.singleName).join(', ')})`}
+        {`Confirm you want ${myUnitName} to disengage ${unitsThatGetASwipe.length
+          } units? (${unitsThatGetASwipe.map((u) => u.singleName).join(', ')})`}
         {fallDamage > 0 && ` and risk ${fallDamage} wounds from fall damage?`}
       </StyledControlsHeaderH2>
       <StyledControlsP>
@@ -235,11 +230,10 @@ const RopConfirmDisengageAttemptControls = () => {
         confirm={cancelDisengageAttempt}
         confirmText={`No, we will find another way...`}
         reset={confirmDisengageAttempt}
-        resetText={`Yes, disengage them! ${
-          fallDamage > 0
+        resetText={`Yes, disengage them! ${fallDamage > 0
             ? `And risk ${fallDamage} wounds from fall damage!`
             : ''
-        }`}
+          }`}
       />
     </>
   )
@@ -257,9 +251,8 @@ const RopConfirmFallDamageControls = () => {
   return (
     <>
       <StyledControlsHeaderH2>
-        {`Confirm you want to risk ${fallDamage} wound${
-          fallDamage === 1 ? '' : 's'
-        } from fall damage?`}
+        {`Confirm you want to risk ${fallDamage} wound${fallDamage === 1 ? '' : 's'
+          } from fall damage?`}
       </StyledControlsHeaderH2>
       <StyledControlsP>
         You will have {selectedUnitMoveRange[fallHexID].movePointsLeft} move
@@ -269,9 +262,8 @@ const RopConfirmFallDamageControls = () => {
         confirm={cancelFallDamageMove}
         confirmText={`No, we will find another way...`}
         reset={confirmFallDamageMove}
-        resetText={`It's not that high! (Confirm risk of ${fallDamage} wound${
-          fallDamage === 1 ? '' : 's'
-        })`}
+        resetText={`It's not that high! (Confirm risk of ${fallDamage} wound${fallDamage === 1 ? '' : 's'
+          })`}
       />
     </>
   )
@@ -294,25 +286,21 @@ const RopConfirmActionGlyphMoveControls = () => {
   return (
     <>
       <StyledControlsHeaderH2>
-        {`Confirm you want to move onto the unrevealed and potentially dangerous glyph? ${
-          fallDamage > 0
-            ? `AND risk ${fallDamage} wound${
-                fallDamage === 1 ? '' : 's'
-              } from fall damage?`
+        {`Confirm you want to move onto the unrevealed and potentially dangerous glyph? ${fallDamage > 0
+            ? `AND risk ${fallDamage} wound${fallDamage === 1 ? '' : 's'
+            } from fall damage?`
             : ''
-        }`}
+          }`}
       </StyledControlsHeaderH2>
       <ConfirmOrResetButtons
         confirm={cancelGlyphMove}
         confirmText={`No, do not move onto the glyph`}
         reset={confirmGlyphMove}
-        resetText={`Yes, move onto the glyph! ${
-          fallDamage > 0
-            ? `(Confirm risk of ${fallDamage} wound${
-                fallDamage === 1 ? '' : 's'
-              })`
+        resetText={`Yes, move onto the glyph! ${fallDamage > 0
+            ? `(Confirm risk of ${fallDamage} wound${fallDamage === 1 ? '' : 's'
+            })`
             : ''
-        }`}
+          }`}
       />
     </>
   )
@@ -346,11 +334,9 @@ const RopWaitingForDisengageControls = () => {
           <StyledControlsP key={playerID}>
             {`${playerIDDisplay(
               playerID
-            )} gets to swipe your ${unitSingleName} as it attempts to disengage their ${
-              swipingPlayerIdsToUnitsMap[playerID].length
-            } unit${
-              swipingPlayerIdsToUnitsMap[playerID].length !== 1 ? 's' : ''
-            }`}
+            )} gets to swipe your ${unitSingleName} as it attempts to disengage their ${swipingPlayerIdsToUnitsMap[playerID].length
+              } unit${swipingPlayerIdsToUnitsMap[playerID].length !== 1 ? 's' : ''
+              }`}
           </StyledControlsP>
         )
       })}
@@ -402,49 +388,35 @@ const RopDisengagementSwipeControls = () => {
          to wound them as they disengage. For each unit below, either confirm or deny your attacks, until 
          they are all done or ${unitAttemptingCard?.singleName} is destroyed`}
       </StyledControlsP>
-      <AnimatePresence>
-        {transformedMyFiguresThatGetASwipe
-          .filter((u) => !disengagedUnitIds.includes(u.unitID))
-          .map((unit) => {
-            return (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                key={unit.unitID}
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  margin: '0.5rem',
-                }}
+      {transformedMyFiguresThatGetASwipe
+        .filter((u) => !disengagedUnitIds.includes(u.unitID))
+        .map((unit) => {
+          return (
+            <>
+              <h5>Unit: {unit.singleName}</h5>
+              <GreenButton
+                onClick={() =>
+                  takeDisengagementSwipe({
+                    unitID: unit.unitID,
+                    isTaking: true,
+                  })
+                }
               >
-                <h5>Unit: {unit.singleName}</h5>
-                <GreenButton
-                  onClick={() =>
-                    takeDisengagementSwipe({
-                      unitID: unit.unitID,
-                      isTaking: true,
-                    })
-                  }
-                >
-                  Swipe them!
-                </GreenButton>
-                <RedButton
-                  onClick={() =>
-                    takeDisengagementSwipe({
-                      unitID: unit.unitID,
-                      isTaking: false,
-                    })
-                  }
-                >
-                  Let them go...
-                </RedButton>
-              </motion.div>
-            )
-          })}
-      </AnimatePresence>
+                Swipe them!
+              </GreenButton>
+              <RedButton
+                onClick={() =>
+                  takeDisengagementSwipe({
+                    unitID: unit.unitID,
+                    isTaking: false,
+                  })
+                }
+              >
+                Let them go...
+              </RedButton>
+            </>
+          )
+        })}
     </>
   )
 }

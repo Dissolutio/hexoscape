@@ -1,7 +1,4 @@
-import { motion, AnimatePresence } from 'framer-motion'
-
 import styled from 'styled-components'
-
 import { useBgioClientInfo, useBgioG, useBgioMoves } from '../../bgio-contexts'
 import { usePlacementContext } from '../contexts'
 import { PlacementCardUnitIcon } from '../unit-icons'
@@ -49,68 +46,50 @@ export const PlacementControls = () => {
   // once player has placed and confirmed, show waiting
   if (isReady) {
     return (
-      <AnimatePresence>
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        >
-          <StyledControlsHeaderH2>
-            Waiting for opponents to finish placing armies...
-          </StyledControlsHeaderH2>
-          <StyledButtonWrapper>
-            <RedButton onClick={() => deconfirmPlacementReady({ playerID })}>
-              Wait, go back!
-            </RedButton>
-          </StyledButtonWrapper>
-        </motion.div>
-      </AnimatePresence>
+      <>
+        <StyledControlsHeaderH2>
+          Waiting for opponents to finish placing armies...
+        </StyledControlsHeaderH2>
+        <StyledButtonWrapper>
+          <RedButton onClick={() => deconfirmPlacementReady({ playerID })}>
+            Wait, go back!
+          </RedButton>
+        </StyledButtonWrapper>
+      </>
     )
   }
   // if player has placed a unit that is a 2-spacer, then we show UI for tail-placement
   if (activeTailPlacementUnitID) {
     return (
-      <AnimatePresence>
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        >
-          {/* <StyledControlsHeaderH2>Phase: Placement</StyledControlsHeaderH2> */}
-          {/* Keeping the UI bare here so the user does not get trapped by the limited interaction available in tail-placement */}
-          <StyledControlsHeaderH2>
-            Place the tail of your {tailUnitName} unit.
-          </StyledControlsHeaderH2>
-          {/* <PlacementUnitTiles /> */}
-        </motion.div>
-      </AnimatePresence>
+      <>
+        {/* <StyledControlsHeaderH2>Phase: Placement</StyledControlsHeaderH2> */}
+        {/* Keeping the UI bare here so the user does not get trapped by the limited interaction available in tail-placement */}
+        <StyledControlsHeaderH2>
+          Place the tail of your {tailUnitName} unit.
+        </StyledControlsHeaderH2>
+        {/* <PlacementUnitTiles /> */}
+      </>
     )
   }
   // return UI
   return (
-    <AnimatePresence>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-      >
-        <StyledControlsHeaderH2>Phase: Placement</StyledControlsHeaderH2>
-        <StyledControlsP>
-          Your units have been placed in your start zone. You can select your
-          units and move them to empty hexes, or replace other units. Players
-          cannot see each others' units at this time. Once all players are
-          ready, the game will begin!
-        </StyledControlsP>
-        {isShowingConfirm && (
-          <ConfirmReady
-            makeReady={makeReady}
-            isNoMoreEmptyStartZoneHexes={isNoMoreEmptyStartZoneHexes}
-            isAllPlacementUnitsPlaced={isAllPlacementUnitsPlaced}
-          />
-        )}
-        <PlacementUnitTiles />
-      </motion.div>
-    </AnimatePresence>
+    <>
+      <StyledControlsHeaderH2>Phase: Placement</StyledControlsHeaderH2>
+      <StyledControlsP>
+        Your units have been placed in your start zone. You can select your
+        units and move them to empty hexes, or replace other units. Players
+        cannot see each others' units at this time. Once all players are
+        ready, the game will begin!
+      </StyledControlsP>
+      {isShowingConfirm && (
+        <ConfirmReady
+          makeReady={makeReady}
+          isNoMoreEmptyStartZoneHexes={isNoMoreEmptyStartZoneHexes}
+          isAllPlacementUnitsPlaced={isAllPlacementUnitsPlaced}
+        />
+      )}
+      <PlacementUnitTiles />
+    </>
   )
 }
 
@@ -167,19 +146,10 @@ const PlacementUnitTiles = () => {
     >
       <StyledControlsH3>Unplaced Units</StyledControlsH3>
       <StyledUl>
-        <AnimatePresence>
-          {inflatedPlacementUnits &&
-            inflatedPlacementUnits.map((unit) => (
-              <motion.li
-                key={unit.unitID}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-              >
-                <PlacementUnitTile key={unit.unitID} unit={unit} />
-              </motion.li>
-            ))}
-        </AnimatePresence>
+        {inflatedPlacementUnits &&
+          inflatedPlacementUnits.map((unit) => (
+            <PlacementUnitTile key={unit.unitID} unit={unit} />
+          ))}
       </StyledUl>
     </div>
   )
