@@ -97,18 +97,23 @@ export type HexCoordinates = {
 }
 export enum HexTerrain {
   empty = 'empty',
+  // solid
+  grass = 'grass',
+  rock = 'rock',
+  sand = 'sand',
+  road = 'road',
+  snow = 'snow',
+  lavaField = 'lavaField',
+  swamp = 'swamp',
+  asphalt = 'asphalt',
+  concrete = 'concrete',
+  dungeon = 'dungeon',
+  // fluid
   water = 'water',
   lava = 'lava',
   ice = 'ice',
   swampWater = 'swampWater',
   shadow = 'shadow',
-  grass = 'grass',
-  sand = 'sand',
-  rock = 'rock',
-  dungeon = 'dungeon',
-  lavaField = 'lavaField',
-  swamp = 'swamp',
-  snow = 'snow',
 }
 export interface BoardHex extends HexCoordinates {
   id: string
@@ -117,7 +122,7 @@ export interface BoardHex extends HexCoordinates {
   altitude: number
   startzonePlayerIDs: string[]
   terrain: string
-  subTerrain?: string // this is the same as terrain for solid terrain (grass, rock, sand) but separate for fluid terrains (water, lava, shadow)
+  subTerrain?: string
 }
 export type BoardHexes = {
   [key: string]: BoardHex
@@ -150,13 +155,13 @@ export interface ICoreHeroscapeCard {
   image: string
   portraitPattern: string
   general:
-    | 'jandar'
-    | 'utgar'
-    | 'ullar'
-    | 'vydar'
-    | 'einar'
-    | 'aquilla'
-    | 'valkrill'
+  | 'jandar'
+  | 'utgar'
+  | 'ullar'
+  | 'vydar'
+  | 'einar'
+  | 'aquilla'
+  | 'valkrill'
   type: string
   cardClass: string
   personality: string

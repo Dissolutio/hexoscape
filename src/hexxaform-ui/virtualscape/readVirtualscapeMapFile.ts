@@ -1,4 +1,4 @@
-import { BoardHexes } from "../../game/types"
+import { VirtualScapeMap, VirtualScapeTile } from "../../game/hexxaform/hexxaform-types"
 
 /* 
 This function is designed to read a specific binary file format used by VirtualScape, 
@@ -17,20 +17,7 @@ export default function readVirtualscapeMapFile(file: File) {
       const arrayBuffer = reader.result
       const dataView = new DataView(arrayBuffer as ArrayBuffer)
       offset = 0
-      const virtualScapeMap = {
-        version: 0,
-        name: '',
-        author: '',
-        playerNumber: '',
-        scenario: '',
-        levelPerPage: 0,
-        printingTransparency: 0,
-        printingGrid: false,
-        printTileNumber: false,
-        printStartAreaAsLevel: false,
-        tileCount: 0,
-        tiles: [],
-      }
+      let virtualScapeMap: VirtualScapeMap
 
       virtualScapeMap.version = getFloat64(dataView)
       virtualScapeMap.name = readCString(dataView)
@@ -50,32 +37,7 @@ export default function readVirtualscapeMapFile(file: File) {
       virtualScapeMap.tileCount = getInt32(dataView)
 
       for (let i = 0; i < virtualScapeMap.tileCount; i++) {
-        const tile = {
-          type: 0,
-          version: 0,
-          rotation: 0,
-          posX: 0,
-          posY: 0,
-          posZ: 0,
-          glyphLetter: '',
-          glyphName: '',
-          startName: '',
-          colorf: 0,
-          isFigureTile: false,
-          figure: {
-            name: '',
-            name2: '',
-          },
-          isPersonalTile: false,
-          personal: {
-            pieceSize: 0,
-            textureTop: '',
-            textureSide: '',
-            letter: '',
-            name: '',
-          },
-        }
-
+        let tile: VirtualScapeTile
         const tileType = getInt32(dataView)
         tile.type = tileType
         tile.version = getFloat64(dataView)
@@ -187,5 +149,5 @@ function rtfToText(rtf: string) {
 
 
 function transformVSTilesToBoardHexes(vsMap: any) {
-return {}
+  return {}
 }
