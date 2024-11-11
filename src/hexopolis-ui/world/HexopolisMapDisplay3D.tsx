@@ -11,7 +11,7 @@ import { useUIContext } from '../../hooks/ui-context'
 import InstanceSolidHexCapCountWrapper from '../../shared/world/InstanceSolidHexCap'
 import { isFluidTerrainHex } from '../../game/constants'
 import InstanceFluidHexCapCountWrapper from '../../shared/world/InstanceFluidHexCap'
-import InstanceSubTerrainCountWrapper from '../../shared/world/InstanceSubTerrain'
+import InstanceSubTerrainWrapper from '../../shared/world/InstanceSubTerrain'
 
 export function HexopolisMapDisplay3D({
   cameraControlsRef,
@@ -126,7 +126,7 @@ export function HexopolisMapDisplay3D({
         })}
         onClick={onClick}
       />
-      <InstanceSubTerrainCountWrapper boardHexes={Object.values(boardHexes).filter(bh => !(bh.terrain === HexTerrain.empty))} />
+      <InstanceSubTerrainWrapper boardHexes={Object.values(boardHexes).filter(bh => !(bh.terrain === HexTerrain.empty))} />
       {Object.values(boardHexes).map((bh: any) => {
         return (
           <HexopolisHex3D

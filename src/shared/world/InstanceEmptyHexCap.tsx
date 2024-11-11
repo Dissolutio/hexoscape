@@ -1,4 +1,4 @@
-import { useRef, useLayoutEffect, useMemo, useState } from 'react'
+import { useRef, useLayoutEffect, useMemo } from 'react'
 import { ThreeEvent } from '@react-three/fiber'
 import {
     BufferGeometry,
@@ -16,47 +16,29 @@ import { hexTerrainColor } from '../../hexxaform-ui/virtualscape/terrain'
 import { useUIContext } from '../../hooks/ui-context'
 import { InstanceCapProps } from './InstanceFluidHexCap'
 
-const InstanceEmptyHexCapCountWrapper = (props: InstanceCapProps) => {
-    const numInstances = props.capHexesArray.length
-    const key = 'InstanceEmptyHexCap-' + numInstances // IMPORTANT: to include numInstances in key, otherwise gl will crash on change
-    const [hoverID, setHoverID] = useState('')
 
-    if (numInstances < 1) return null
-    return (
-        <InstanceEmptyHexCap
-            capHexesArray={props.capHexesArray}
-            onClick={props.onClick}
-            setHoverID={setHoverID}
-            hoverID={hoverID}
-            key={key}
-        />
-    )
-}
 
 const tempColor = new Color()
-
 const InstanceEmptyHexCap = ({
-    hoverID,
-    setHoverID,
     capHexesArray,
     onClick,
+    hoverID,
+    setHoverID,
 }: InstanceCapProps) => {
-    const instanceRef = useRef<
-        InstancedMesh<
-            BufferGeometry<NormalBufferAttributes>,
-            Material | Material[],
-            InstancedMeshEventMap
-        >
-    >(undefined!)
+    const instanceRef = useRef<InstancedMesh<
+        BufferGeometry<NormalBufferAttributes>,
+        Material | Material[],
+        InstancedMeshEventMap
+    >
+    >(undefined)
     const countOfCapHexes = capHexesArray.length
     const { isCameraActive, toggleIsCameraDisabled } = useUIContext()
 
-    const colorArray = useMemo(
-        () => {
-            return Float32Array.from(new Array(capHexesArray.length).fill(0).flatMap((_, i) => {
-                return tempColor.set(hexTerrainColor[capHexesArray[i].terrain]).toArray()
-            }))
-        }, [capHexesArray])
+    const colorArray = useMemo(() => {
+        return Float32Array.from(new Array(capHexesArray.length).fill(0).flatMap((_, i) => {
+            return tempColor.set(hexTerrainColor[capHexesArray[i].terrain]).toArray()
+        }))
+    }, [capHexesArray])
     useLayoutEffect(() => {
         const placeholder = new Object3D()
         capHexesArray.forEach((boardHex, i) => {
@@ -119,4 +101,4 @@ const InstanceEmptyHexCap = ({
         </instancedMesh>
     )
 }
-export default InstanceEmptyHexCapCountWrapper
+export default InstanceEmptyHexCap

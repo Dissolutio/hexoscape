@@ -2,6 +2,19 @@ import { Dictionary } from 'lodash'
 import { HexTerrain } from '../../game/types'
 
 function getTerrain(type: number) {
+  const piece = {
+    terrain: '',
+    template: '',
+    isSolid: false,
+    isFluid: false,
+    isHexObstacle: false,
+    isEdgeObstacle: false,
+    isStartZone: false,
+    isFigure: false,
+    isGlyph: false,
+    isPersonalTile: false,
+  }
+
   const str = type.toString()
   let terrainCode = str.substring(0, str.length - 2)
   let terrainSubcode = Number(str.substring(str.length - 2)).toString()
@@ -10,7 +23,6 @@ function getTerrain(type: number) {
     terrainCode = '16'
     terrainSubcode = Number(str.substring(str.length - 3)).toString()
   }
-  return { terrain: terrainCodes[terrainCode], hexCount: terrainSubcode }
 }
 const typeCodes = {
   // Solid
@@ -173,7 +185,10 @@ export const landSizes = {
   shadow: [1],
 }
 
-const obstructionSizes = {
+const edgeObstacles = {
+
+}
+const hexObstacles = {
   outcrop1: { sizes: [1] },
   outcrop3: { sizes: [3] },
   glacier1: { sizes: [1] },
