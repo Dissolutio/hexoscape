@@ -109,11 +109,27 @@ export default function MyCameraControls({
     return (
         <CameraControls
             ref={cameraControlsRef}
-            maxPolarAngle={Math.PI / 2} // this keeps the camera on a half-sphere around the map, rather than allowing camera to go under the map
-            maxDistance={100} // this prevents camera from dollying out too far
-            minDistance={1} // this keeps the camera above ground and out of the board hexes nether region
             makeDefault
-            smoothTime={1}
+            // camera: Persp | Ortho
+            // domElement: HTML element
+            // onStart
+            // onEnd
+            // onChange
+            // events: boolean
+            // regress: boolean
+
+            // minPolarAngle={Math.PI / 2}
+            maxPolarAngle={Math.PI / 2} // this keeps the camera on a half-sphere around the map, rather than allowing camera to go under the map
+            // minAzimuthAngle={}
+            // maxAzimuthAngle={}
+            minDistance={1} // this keeps the camera above ground and out of the board hexes nether region
+            maxDistance={100} // this prevents camera from dollying out too far
+            // infinityDolly={false}
+            // minZoom={}
+            // maxZoom={}
+            smoothTime={0.3}
+
+
 
         // LEVA EXPLORE
         // minDistance={minDistance}

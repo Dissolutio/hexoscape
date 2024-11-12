@@ -48,7 +48,6 @@ export function HexxaformMapDisplay3D({
     paintWaterHex,
     paintGrassTile,
   } = moves
-
   const { penMode, pieceSize } = useHexxaformContext()
   const hoverID = useRef('')
 
@@ -56,6 +55,8 @@ export function HexxaformMapDisplay3D({
     return (event: ThreeEvent<MouseEvent>, hex: BoardHex) => {
       // Prevent this click from going through to other hexes
       event.stopPropagation()
+      // Early out if camera is active
+      if (cameraControlsRef.current.active) return
       // const isVoidTerrainHex = hex.terrain === HexTerrain.empty
       const isVoidTerrainHex = hex.terrain === HexTerrain.empty
       if (penMode === PenMode.eraser && !isVoidTerrainHex) {
