@@ -1,13 +1,15 @@
-import { Canvas } from '@react-three/fiber'
-import { Stars, PerspectiveCamera, CameraControls, Stats } from '@react-three/drei'
-
 import { useRef } from 'react'
+import { Canvas } from '@react-three/fiber'
+import { Stars, Stats } from '@react-three/drei'
+
 import { BoardHexes, Glyphs, HexMap } from '../game/types'
 import { HexopolisMapDisplay3D } from '../hexopolis-ui/world/HexopolisMapDisplay3D'
 import { HexxaformMapDisplay3D } from '../hexxaform-ui/world/HexxaformMapDisplay3D'
 import { CAMERA_FOV } from '../game/constants'
 import { HexxaformMoves } from '../game/hexxaform/hexxaform-types'
 import TakeAPictureBox from './TakeAPictureBox'
+import MyCameraControls from './world/MyCameraControls'
+
 
 export const World = ({
   boardHexes,
@@ -22,10 +24,12 @@ export const World = ({
   isEditor?: boolean
   hexxaformMoves?: HexxaformMoves
 }) => {
-  const cameraControlsRef = useRef(undefined!)
-
+  const cameraControlsRef = useRef(undefined)
   return (
-    <Canvas>
+    <Canvas camera={{
+      // position: [10, 10, 10],
+      fov: CAMERA_FOV,
+    }}>
       <Stars
         radius={100}
         depth={50}
@@ -53,16 +57,8 @@ export const World = ({
           cameraControlsRef={cameraControlsRef}
         />
       )}
-      <PerspectiveCamera fov={CAMERA_FOV} />
       <axesHelper scale={[100, 100, 100]} />
-      <CameraControls
-        ref={cameraControlsRef}
-        maxPolarAngle={Math.PI / 2} // this keeps the camera on a half-sphere around the map, rather than allowing camera to go under the map
-        maxDistance={100} // this prevents camera from dollying out too far
-        minDistance={1} // this keeps the camera above ground and out of the board hexes nether region
-        makeDefault
-        smoothTime={1}
-      />
+      <MyCameraControls cameraControlsRef={cameraControlsRef} />
     </Canvas>
   )
 }
