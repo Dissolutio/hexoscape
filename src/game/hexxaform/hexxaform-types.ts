@@ -1,4 +1,4 @@
-import { BoardHexes, HexMap } from '../types'
+import { BoardHexes, HexMap, HexTerrain } from '../types'
 
 export type GType = {
   hexMap: HexMap
@@ -13,12 +13,12 @@ export type BgioProps = {
 }
 export enum PenMode {
   none = 'none',
-  eraser = 'empty',
   eraserStartZone = 'eraserStartZone',
-  water = 'water',
-  grass = 'grass',
-  sand = 'sand',
-  rock = 'rock',
+  eraser = HexTerrain.empty,
+  water = HexTerrain.water,
+  grass = HexTerrain.grass,
+  sand = HexTerrain.sand,
+  rock = HexTerrain.rock,
   startZone0 = 'startZone0',
   startZone1 = 'startZone1',
   startZone2 = 'startZone2',
