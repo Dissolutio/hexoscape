@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import { ThreeEvent } from '@react-three/fiber'
 import { CameraControls } from '@react-three/drei'
 import { MapHex3D } from '../../shared/MapHex3D'
@@ -12,7 +13,6 @@ import InstanceSubTerrainWrapper from '../../shared/world/InstanceSubTerrain'
 import InstanceCapWrapper from '../../shared/world/InstanceCapWrapper'
 import InstanceSolidHexCap from '../../shared/world/InstanceSolidHexCap'
 import InstanceFluidHexCap from '../../shared/world/InstanceFluidHexCap'
-import { useRef } from 'react'
 import { useZoomCameraToMapCenter } from '../../hooks/useZoomCameraToMapCenter'
 
 export function HexopolisMapDisplay3D({

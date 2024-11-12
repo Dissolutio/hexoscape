@@ -1,4 +1,7 @@
+import { useMemo, useRef } from 'react'
 import { ThreeEvent } from '@react-three/fiber'
+import { CameraControls } from '@react-three/drei'
+
 import {
   BoardHex,
   BoardHexes,
@@ -11,13 +14,11 @@ import { useHexxaformContext } from '../useHexxaformContext'
 import getVSTileTemplate from '../virtualscape/tileTemplates'
 import { generateHexID, isFluidTerrainHex } from '../../game/constants'
 import InstanceSubTerrainWrapper from '../../shared/world/InstanceSubTerrain'
-import { useMemo, useRef } from 'react'
 import InstanceCapWrapper from '../../shared/world/InstanceCapWrapper'
 import InstanceEmptyHexCap from '../../shared/world/InstanceEmptyHexCap'
 import InstanceFluidHexCap from '../../shared/world/InstanceFluidHexCap'
 import InstanceSolidHexCap from '../../shared/world/InstanceSolidHexCap'
 import { useZoomCameraToMapCenter } from '../../hooks/useZoomCameraToMapCenter'
-import { CameraControls } from '@react-three/drei'
 
 
 let rotation = 0
@@ -47,6 +48,7 @@ export function HexxaformMapDisplay3D({
     paintWaterHex,
     paintGrassTile,
   } = moves
+
   const { penMode, pieceSize } = useHexxaformContext()
   const hoverID = useRef('')
 
