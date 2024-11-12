@@ -1,3 +1,5 @@
+import { generateHexID } from "../../game/constants"
+import { hexUtilsOddRToCube } from "../../game/hex-utils"
 import { VirtualScapeMap, VirtualScapeTile } from "../../game/hexxaform/hexxaform-types"
 
 /* 
@@ -105,6 +107,14 @@ export default function readVirtualscapeMapFile(file: File) {
       virtualScapeMap.tiles.sort((a, b) => {
         return a.posZ - b.posZ
       })
+      const newTiles = virtualScapeMap.tiles.map(t => {
+        const cubeCoords = hexUtilsOddRToCube(t.posX, t.posY)
+        const id = generateHexID(cubeCoords)
+        console.log("🚀 ~ newTiles ~ id:", id)
+        // const terrain = 
+        return { ...t, cubeCoords }
+      })
+      console.log("🚀 ~ readVSFile ~ newTiles:", newTiles)
       resolve(virtualScapeMap)
     }
     reader.onerror = () => {
