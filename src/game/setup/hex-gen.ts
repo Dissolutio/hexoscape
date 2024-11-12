@@ -1,6 +1,5 @@
 import { BoardHex, BoardHexes, HexCoordinates, HexTerrain } from '../types'
 import { generateHexID } from '../constants'
-import { generateHexagonHexas, generateRectangleHexas } from '../hex-utils'
 
 export const generateHexagon = (mapSize: number): BoardHexes => {
   const hexgridHexes = generateHexagonHexas(mapSize)
@@ -49,6 +48,7 @@ export const translateHexagonBoardHexesToNormal = (
     return prev
   }, {} as BoardHexes)
 }
+
 export const generateRectangle = (
   mapWidth: number,
   mapHeight: number
@@ -77,4 +77,28 @@ function hexesToBoardHexes(hexgridHexes: HexCoordinates[]): BoardHexes {
     },
     {}
   )
+}
+function generateHexagonHexas(mapRadius: number): HexCoordinates[] {
+  const hexas: HexCoordinates[] = []
+  for (let q = -mapRadius; q <= mapRadius; q++) {
+    const r1 = Math.max(-mapRadius, -q - mapRadius)
+    const r2 = Math.min(mapRadius, -q + mapRadius)
+    for (let r = r1; r <= r2; r++) {
+      hexas.push({ q, r, s: -q - r })
+    }
+  }
+  return hexas
+}
+function generateRectangleHexas(
+  mapWidth: number,
+  mapHeight: number
+): HexCoordinates[] {
+  const hexas: HexCoordinates[] = []
+  for (let r = 0; r < mapHeight; r++) {
+    const offset = Math.floor(r / 2) // or r>>1
+    for (let q = -offset; q < mapWidth - offset; q++) {
+      hexas.push({ q, r, s: -q - r })
+    }
+  }
+  return hexas
 }
