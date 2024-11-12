@@ -5,7 +5,7 @@
   "engines": {
     "node": "20.16",
     "npm": "10.8.1"
-   },
+  },
   "scripts": {
     "dev": "vite --host",
     "server": "node -r esm server.js",
@@ -28,6 +28,7 @@
     "boardgame.io": "^0.50.2",
     "esm": "^3.2.25",
     "koa-static": "^5.0.0",
+    "leva": "^0.9.35",
     "lodash": "^4.17.21",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -40,7 +41,6 @@
     "three": "^0.167.1"
   },
   "devDependencies": {
-    "prettier": "^3.3.3",
     "@types/jest": "^29.5.12",
     "@types/koa-static": "^4.0.4",
     "@types/lodash": "^4.17.7",
@@ -56,6 +56,7 @@
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",
+    "prettier": "^3.3.3",
     "typescript": "^5.2.2",
     "vite": "^5.3.4"
   }
