@@ -1,4 +1,4 @@
-import { useMemo, useRef } from 'react'
+import { useRef } from 'react'
 import { ThreeEvent } from '@react-three/fiber'
 import { CameraControls } from '@react-three/drei'
 
@@ -51,38 +51,35 @@ export function HexxaformMapDisplay3D({
   const { penMode, pieceSize } = useHexxaformContext()
   const hoverID = useRef('')
 
-  const onClick = useMemo(() => {
-    return (event: ThreeEvent<MouseEvent>, hex: BoardHex) => {
-      // Prevent this click from going through to other hexes
-      event.stopPropagation()
-      // Early out if camera is active
-      if (cameraControlsRef.current.active) return
-      // const isVoidTerrainHex = hex.terrain === HexTerrain.empty
-      const isVoidTerrainHex = hex.terrain === HexTerrain.empty
-      if (penMode === PenMode.eraser && !isVoidTerrainHex) {
-        voidHex({ hexID: hex.id })
-      }
-      if (penMode === PenMode.eraserStartZone) {
-        voidStartZone({ hexID: hex.id })
-      }
-      if (penMode === PenMode.grass) {
-        const hexIDArr = getVSTileTemplate({
-          clickedHex: { q: hex.q, r: hex.r, s: hex.s },
-          rotation: rotation++ % 6,
-          size: pieceSize,
-        }).map((h) => generateHexID(h))
-        paintGrassTile({ hexIDArr, altitude: hex.altitude })
-      }
-      // last letter in string is playerID, but this seems inelegant
-      if (penMode.slice(0, -1) === 'startZone') {
-        paintStartZone({ hexID: hex.id, playerID: penMode.slice(-1) })
-      }
-      if (penMode === PenMode.water) {
-        paintWaterHex({ hexID: hex.id })
-      }
+  const onPointerDown = (event: ThreeEvent<PointerEvent>, hex: BoardHex) => {
+    if (event.button === 2) return // ignore right clicks
+    event.stopPropagation()
+    // Early out if camera is active
+    if (cameraControlsRef.current.active) return
+    cameraControlsRef.current
+    const isVoidTerrainHex = hex.terrain === HexTerrain.empty
+    if (penMode === PenMode.eraser && !isVoidTerrainHex) {
+      voidHex({ hexID: hex.id })
     }
-
-  }, [paintGrassTile, paintStartZone, paintWaterHex, penMode, pieceSize, voidHex, voidStartZone])
+    if (penMode === PenMode.eraserStartZone) {
+      voidStartZone({ hexID: hex.id })
+    }
+    if (penMode === PenMode.grass) {
+      const hexIDArr = getVSTileTemplate({
+        clickedHex: { q: hex.q, r: hex.r, s: hex.s },
+        rotation: rotation++ % 6,
+        size: pieceSize,
+      }).map((h) => generateHexID(h))
+      paintGrassTile({ hexIDArr, altitude: hex.altitude })
+    }
+    // last letter in string is playerID, but this seems inelegant
+    if (penMode.slice(0, -1) === 'startZone') {
+      paintStartZone({ hexID: hex.id, playerID: penMode.slice(-1) })
+    }
+    if (penMode === PenMode.water) {
+      paintWaterHex({ hexID: hex.id })
+    }
+  }
 
   const emptyHexCaps = Object.values(boardHexes).filter((bh) => {
     return bh.terrain === HexTerrain.empty
@@ -98,12 +95,6 @@ export function HexxaformMapDisplay3D({
   }
   const onPointerOut = (_e: ThreeEvent<PointerEvent>) => {
     hoverID.current = ''
-  }
-
-  const onPointerDown = (e: ThreeEvent<PointerEvent>, hex: BoardHex) => {
-    if (e.button === 2) return // ignore right clicks
-    e.stopPropagation();
-    onClick(e, hex)
   }
 
   return (
