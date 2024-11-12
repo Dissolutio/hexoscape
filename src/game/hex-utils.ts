@@ -76,6 +76,11 @@ export const cubeToPixel = (hex: HexCoordinates) => {
   const y = HEXGRID_HEX_RADIUS * ((3 / 2) * hex.r)
   return { x: x, y: y }
 }
+export function oddr_to_cube(x: number, y: number) {
+  const q = x - (y - (y & 1)) / 2
+  const r = y
+  return { q, r, s: -q - r }
+}
 function hexUtilsRotateVector(
   v: HexCoordinates,
   rotation: number
