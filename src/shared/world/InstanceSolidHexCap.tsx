@@ -24,7 +24,6 @@ const InstanceSolidHexCap = ({
   onPointerEnter,
   onPointerOut,
   onPointerDown,
-  onPointerUp,
 }: InstanceCapProps) => {
   const instanceRef = useRef<
     InstancedMesh<
@@ -79,7 +78,6 @@ const InstanceSolidHexCap = ({
       ref={instanceRef}
       args={[null, null, countOfCapHexes]} //args:[geometry, material, count]
       onPointerDown={handleDown}
-      onPointerUp={onPointerUp}
       onPointerEnter={handleEnter}
       onPointerOut={handleOut}
     >

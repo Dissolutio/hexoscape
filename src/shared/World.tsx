@@ -8,7 +8,6 @@ import { HexxaformMapDisplay3D } from '../hexxaform-ui/world/HexxaformMapDisplay
 import { CAMERA_FOV } from '../game/constants'
 import { HexxaformMoves } from '../game/hexxaform/hexxaform-types'
 import TakeAPictureBox from './TakeAPictureBox'
-import { useUIContext } from '../hooks/ui-context'
 
 export const World = ({
   boardHexes,
@@ -24,7 +23,6 @@ export const World = ({
   hexxaformMoves?: HexxaformMoves
 }) => {
   const cameraControlsRef = useRef(undefined!)
-  const { toggleIsCameraActive, isCameraDisabled } = useUIContext()
   return (
     /* 
     frameloop="demand"
@@ -50,7 +48,7 @@ export const World = ({
       {isEditor ? (
         <HexxaformMapDisplay3D
           boardHexes={boardHexes}
-          hexMap={hexMap}
+          hexMapID={hexMap.id}
           moves={hexxaformMoves}
           glyphs={glyphs}
           cameraControlsRef={cameraControlsRef}
@@ -64,13 +62,10 @@ export const World = ({
       <PerspectiveCamera fov={CAMERA_FOV} />
       <axesHelper scale={[100, 100, 100]} />
       <CameraControls
-        enabled={!isCameraDisabled}
-        onStart={() => toggleIsCameraActive(true)}
-        onEnd={() => toggleIsCameraActive(false)}
+        ref={cameraControlsRef}
         maxPolarAngle={Math.PI / 2} // this keeps the camera on a half-sphere around the map, rather than allowing camera to go under the map
         maxDistance={100} // this prevents camera from dollying out too far
         minDistance={1} // this keeps the camera above ground and out of the board hexes nether region
-        ref={cameraControlsRef}
         makeDefault
         smoothTime={1}
       />

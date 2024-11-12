@@ -23,7 +23,6 @@ const InstanceEmptyHexCap = ({
     onPointerEnter,
     onPointerOut,
     onPointerDown,
-    onPointerUp,
 }: InstanceCapProps) => {
     const instanceRef = useRef<InstancedMesh<
         BufferGeometry<NormalBufferAttributes>,
@@ -73,7 +72,6 @@ const InstanceEmptyHexCap = ({
             ref={instanceRef}
             args={[undefined, undefined, countOfCapHexes]} //args:[geometry, material, count]
             onPointerDown={handleDown}
-            onPointerUp={onPointerUp}
             onPointerEnter={handleEnter}
             onPointerOut={handleOut}
         >

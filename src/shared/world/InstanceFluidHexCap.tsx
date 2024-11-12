@@ -20,7 +20,6 @@ export type InstanceCapProps = {
   onPointerEnter: (e: ThreeEvent<PointerEvent>, hex: BoardHex) => void
   onPointerOut: (e: ThreeEvent<PointerEvent>, hex: BoardHex) => void
   onPointerDown: (e: ThreeEvent<PointerEvent>, hex: BoardHex) => void
-  onPointerUp: (e: ThreeEvent<PointerEvent>) => void
 }
 
 const tempColor = new Color()
@@ -30,7 +29,6 @@ const InstanceFluidHexCap = ({
   onPointerEnter,
   onPointerOut,
   onPointerDown,
-  onPointerUp,
 }: InstanceCapProps) => {
   const instanceRef = useRef<
     InstancedMesh<
@@ -81,7 +79,6 @@ const InstanceFluidHexCap = ({
       onPointerEnter={handleEnter}
       onPointerOut={handleOut}
       onPointerDown={handleDown}
-      onPointerUp={onPointerUp}
     >
       <meshLambertMaterial
         transparent
@@ -93,21 +90,6 @@ const InstanceFluidHexCap = ({
         <instancedBufferAttribute attach="attributes-color" args={[colorArray, 3]} />
       </cylinderGeometry>
     </instancedMesh>
-  )
-}
-const FluidInstance = (colorArray) => {
-  return (
-    <>
-      <meshLambertMaterial
-        transparent
-        opacity={capFluidOpacity}
-        vertexColors
-        toneMapped={false}
-      />
-      <cylinderGeometry args={[1, 1, halfLevel, 6]}>
-        <instancedBufferAttribute attach="attributes-color" args={[colorArray, 3]} />
-      </cylinderGeometry>
-    </>
   )
 }
 

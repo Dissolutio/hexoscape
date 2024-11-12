@@ -1,14 +1,11 @@
 import { ThreeEvent } from '@react-three/fiber'
-import { CameraControls } from '@react-three/drei'
 import {
   BoardHex,
   BoardHexes,
   Glyphs,
-  HexMap,
   HexTerrain,
 } from '../../game/types'
 import { MapHex3D } from '../../shared/MapHex3D'
-import { useZoomCameraToMapCenter } from '../../hooks/useZoomCameraToMapCenter'
 import { HexxaformMoves, PenMode } from '../../game/hexxaform/hexxaform-types'
 import { useHexxaformContext } from '../useHexxaformContext'
 import getVSTileTemplate from '../virtualscape/tileTemplates'
@@ -19,32 +16,29 @@ import InstanceCapWrapper from '../../shared/world/InstanceCapWrapper'
 import InstanceEmptyHexCap from '../../shared/world/InstanceEmptyHexCap'
 import InstanceFluidHexCap from '../../shared/world/InstanceFluidHexCap'
 import InstanceSolidHexCap from '../../shared/world/InstanceSolidHexCap'
-import { useUIContext } from '../../hooks/ui-context'
-import { BufferGeometry, Color, InstancedMesh, InstancedMeshEventMap, Material, NormalBufferAttributes } from 'three'
+import { useZoomCameraToMapCenter } from '../../hooks/useZoomCameraToMapCenter'
+import { CameraControls } from '@react-three/drei'
 
-type InstanceRef = React.MutableRefObject<InstancedMesh<BufferGeometry<NormalBufferAttributes>, Material | Material[], InstancedMeshEventMap>>
 
 let rotation = 0
-const tempColor1 = new Color()
-const tempColor2 = new Color()
 
 export function HexxaformMapDisplay3D({
   boardHexes,
-  hexMap,
+  hexMapID,
   moves,
-  cameraControlsRef,
   glyphs,
+  cameraControlsRef,
 }: {
   boardHexes: BoardHexes
-  hexMap: HexMap
+  hexMapID: string
   moves: HexxaformMoves
-  cameraControlsRef: React.MutableRefObject<CameraControls>
   glyphs: Glyphs
+  cameraControlsRef: React.MutableRefObject<CameraControls>
 }) {
   useZoomCameraToMapCenter({
     cameraControlsRef,
     boardHexes,
-    mapID: hexMap.id,
+    mapID: hexMapID,
   })
   const {
     voidHex,
@@ -54,7 +48,6 @@ export function HexxaformMapDisplay3D({
     paintGrassTile,
   } = moves
   const { penMode, pieceSize } = useHexxaformContext()
-  const { isCameraActive, toggleIsCameraDisabled } = useUIContext()
   const [hoverID, setHoverID] = useState('')
 
   const onClick = useMemo(() => {
@@ -98,24 +91,16 @@ export function HexxaformMapDisplay3D({
     return bh.terrain !== HexTerrain.empty && !isFluidTerrainHex(bh.terrain)
   })
   const onPointerEnter = (_e: ThreeEvent<PointerEvent>, hex: BoardHex) => {
-    if (isCameraActive) return
     setHoverID(hex.id)
   }
   const onPointerOut = (_e: ThreeEvent<PointerEvent>, hex: BoardHex) => {
-    if (isCameraActive) return
     setHoverID('')
   }
 
   const onPointerDown = (e: ThreeEvent<PointerEvent>, hex: BoardHex) => {
     if (e.button === 2) return // ignore right clicks
-    if (isCameraActive) return
     e.stopPropagation();
-    toggleIsCameraDisabled(true)
     onClick(e, hex)
-  }
-  const onPointerUp = (e: ThreeEvent<PointerEvent>) => {
-    if (e.button === 2) return // ignore right clicks
-    toggleIsCameraDisabled(false)
   }
 
   return (
@@ -127,7 +112,6 @@ export function HexxaformMapDisplay3D({
         onPointerEnter={onPointerEnter}
         onPointerOut={onPointerOut}
         onPointerDown={onPointerDown}
-        onPointerUp={onPointerUp}
       />
 
       <InstanceCapWrapper
@@ -137,7 +121,6 @@ export function HexxaformMapDisplay3D({
         onPointerEnter={onPointerEnter}
         onPointerOut={onPointerOut}
         onPointerDown={onPointerDown}
-        onPointerUp={onPointerUp}
       />
 
       <InstanceCapWrapper
@@ -147,7 +130,6 @@ export function HexxaformMapDisplay3D({
         onPointerEnter={onPointerEnter}
         onPointerOut={onPointerOut}
         onPointerDown={onPointerDown}
-        onPointerUp={onPointerUp}
       />
 
       <InstanceSubTerrainWrapper glKey={'InstanceSubTerrain-'} boardHexes={Object.values(boardHexes).filter(bh => !(bh.terrain === HexTerrain.empty))} />

@@ -8,7 +8,6 @@ type InstanceCapWrapperProps = {
   onPointerEnter: (e: ThreeEvent<PointerEvent>, hex: BoardHex) => void
   onPointerOut: (e: ThreeEvent<PointerEvent>, hex: BoardHex) => void
   onPointerDown: (e: ThreeEvent<PointerEvent>, hex: BoardHex) => void
-  onPointerUp: (e: ThreeEvent<PointerEvent>) => void
   component: JSXElementConstructor<InstanceCapProps>
   glKey: string
 }
@@ -25,7 +24,6 @@ export default function InstanceCapWrapper(props: InstanceCapWrapperProps) {
       onPointerEnter={props.onPointerEnter}
       onPointerOut={props.onPointerOut}
       onPointerDown={props.onPointerDown}
-      onPointerUp={props.onPointerUp}
     />
   )
 }
