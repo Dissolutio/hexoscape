@@ -27,7 +27,6 @@ export const World = ({
   const cameraControlsRef = useRef(undefined)
   return (
     <Canvas camera={{
-      // position: [10, 10, 10],
       fov: CAMERA_FOV,
     }}>
       <Stars
