@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import { ThreeEvent } from '@react-three/fiber'
 import { CameraControls } from '@react-three/drei'
 import { MapHex3D } from '../../shared/MapHex3D'
@@ -6,12 +7,13 @@ import { useBgioClientInfo, useBgioCtx, useBgioG } from '../../bgio-contexts'
 import { usePlacementContext, usePlayContext } from '../contexts'
 import { useSpecialAttackContext } from '../contexts/special-attack-context'
 import { GameUnit3D } from './GameUnit3D'
-import { useZoomCameraToMapCenter } from '../../hooks/useZoomCameraToMapCenter'
 import { useUIContext } from '../../hooks/ui-context'
-import InstanceSolidHexCapCountWrapper from '../../shared/world/InstanceSolidHexCap'
 import { isFluidTerrainHex } from '../../game/constants'
-import InstanceFluidHexCapCountWrapper from '../../shared/world/InstanceFluidHexCap'
-import InstanceSubTerrainCountWrapper from '../../shared/world/InstanceSubTerrain'
+import InstanceSubTerrainWrapper from '../../shared/world/InstanceSubTerrain'
+import InstanceCapWrapper from '../../shared/world/InstanceCapWrapper'
+import InstanceSolidHexCap from '../../shared/world/InstanceSolidHexCap'
+import InstanceFluidHexCap from '../../shared/world/InstanceFluidHexCap'
+import { useZoomCameraToMapCenter } from '../../hooks/useZoomCameraToMapCenter'
 
 export function HexopolisMapDisplay3D({
   cameraControlsRef,
@@ -25,6 +27,7 @@ export function HexopolisMapDisplay3D({
     boardHexes,
     mapID: 'hexopolis', // currently, hexopolis does not switch maps, thus map.id does not need to trigger re-zoom to middle
   })
+  const hoverID = useRef('')
   const { gameUnits } = useBgioG()
   const { selectedUnitID } = useUIContext()
   const {
@@ -111,27 +114,52 @@ export function HexopolisMapDisplay3D({
       }
     }
   }
+
+  const fluidHexCaps = Object.values(boardHexes).filter((bh) => {
+    return bh.terrain !== HexTerrain.empty && isFluidTerrainHex(bh.terrain)
+  })
+  const solidHexCaps = Object.values(boardHexes).filter((bh) => {
+    return bh.terrain !== HexTerrain.empty && !isFluidTerrainHex(bh.terrain)
+  })
+  const onPointerEnter = (_e: ThreeEvent<PointerEvent>, hex: BoardHex) => {
+    hoverID.current = hex.id
+  }
+  const onPointerOut = (_e: ThreeEvent<PointerEvent>) => {
+    hoverID.current = ''
+  }
+
+  const onPointerDown = (e: ThreeEvent<PointerEvent>, hex: BoardHex) => {
+    if (e.button === 2) return // ignore right clicks
+    e.stopPropagation();
+    onClick(e, hex)
+  }
   return (
     <>
+      <InstanceCapWrapper
+        capHexesArray={fluidHexCaps}
+        glKey={'InstanceFluidHexCap-'}
+        component={InstanceFluidHexCap}
+        onPointerEnter={onPointerEnter}
+        onPointerOut={onPointerOut}
+        onPointerDown={onPointerDown}
+      />
 
-      <InstanceSolidHexCapCountWrapper
-        capHexesArray={Object.values(boardHexes).filter((bh) => {
-          return !isFluidTerrainHex(bh.terrain)
-        })}
-        onClick={onClick}
+      <InstanceCapWrapper
+        capHexesArray={solidHexCaps}
+        glKey={'InstanceSolidHexCap-'}
+        component={InstanceSolidHexCap}
+        onPointerEnter={onPointerEnter}
+        onPointerOut={onPointerOut}
+        onPointerDown={onPointerDown}
       />
-      <InstanceFluidHexCapCountWrapper
-        capHexesArray={Object.values(boardHexes).filter((bh) => {
-          return isFluidTerrainHex(bh.terrain)
-        })}
-        onClick={onClick}
-      />
-      <InstanceSubTerrainCountWrapper boardHexes={Object.values(boardHexes).filter(bh => !(bh.terrain === HexTerrain.empty))} />
+
+      <InstanceSubTerrainWrapper glKey={'InstanceSubTerrain-'} boardHexes={Object.values(boardHexes).filter(bh => !(bh.terrain === HexTerrain.empty))} />
+
       {Object.values(boardHexes).map((bh: any) => {
         return (
           <HexopolisHex3D
-            cameraControlsRef={cameraControlsRef}
             key={`${bh.id}-${bh.altitude}`}
+            cameraControlsRef={cameraControlsRef}
             boardHexID={bh.id}
           />
         )

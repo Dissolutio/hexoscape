@@ -96,11 +96,11 @@ const genPointsForHeightRing = (height: number) => {
 const genHeightRings = (top: number, bottom: number) => {
   const rings: number[] = [top] // no need to show bottom rings
   for (
-    let index = bottom + HEXGRID_HEX_HEIGHT;
-    index < top;
-    index += HEXGRID_HEX_HEIGHT
+    let i = bottom + HEXGRID_HEX_HEIGHT;
+    i < top;
+    i += HEXGRID_HEX_HEIGHT
   ) {
-    rings.push(index)
+    rings.push(i)
   }
   return rings
 }

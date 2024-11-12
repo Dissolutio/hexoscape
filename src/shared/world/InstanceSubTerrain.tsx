@@ -1,6 +1,6 @@
 import { useRef, useLayoutEffect } from 'react'
 import * as THREE from 'three'
-import { getBoardHex3DCoords } from '../../game/hex-utils'
+import { getBoardHex3DCoords } from '../../game/map-utils'
 import { BoardHex } from '../../game/types'
 import {
   getDefaultSubTerrainForTerrain,
@@ -12,18 +12,19 @@ import {
 import { hexTerrainColor } from '../../hexxaform-ui/virtualscape/terrain'
 
 
-type Props = {
-  boardHexes: BoardHex[]
+type InstanceSubTerrainWrapperProps = {
+  boardHexes: BoardHex[] // OVERHANGS will change this, somehow
+  glKey: string
 }
 
-const InstanceSubTerrainCountWrapper = (props: Props) => {
+const InstanceSubTerrainWrapper = (props: InstanceSubTerrainWrapperProps) => {
   const numInstances = props.boardHexes.length
   if (numInstances < 1) return null
-  const key = 'InstanceSubTerrain-' + numInstances // IMPORTANT: to include numInstances in key, otherwise gl will crash on change
-  return <InstanceSubTerrain key={key} {...props} />
+  const key = `${props.glKey}${numInstances}` // IMPORTANT: to include numInstances in key, otherwise gl will crash on change
+  return <InstanceSubTerrain key={key} boardHexes={props.boardHexes} />
 }
 
-const InstanceSubTerrain = ({ boardHexes }: Props) => {
+const InstanceSubTerrain = ({ boardHexes }: { boardHexes: BoardHex[] }) => {
   const instanceRef = useRef<any>(undefined!)
   const countOfSubTerrains = boardHexes.length
 
@@ -65,4 +66,4 @@ const InstanceSubTerrain = ({ boardHexes }: Props) => {
     </instancedMesh>
   )
 }
-export default InstanceSubTerrainCountWrapper
+export default InstanceSubTerrainWrapper

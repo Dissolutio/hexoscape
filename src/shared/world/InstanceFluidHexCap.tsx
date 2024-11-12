@@ -12,24 +12,23 @@ import {
 } from 'three'
 import { BoardHex } from '../../game/types'
 import { halfLevel } from '../../game/constants'
-import { getBoardHex3DCoords } from '../../game/hex-utils'
+import { getBoardHex3DCoords } from '../../game/map-utils'
 import { hexTerrainColor } from '../../hexxaform-ui/virtualscape/terrain'
-import { useUIContext } from '../../hooks/ui-context'
 
 export type InstanceCapProps = {
   capHexesArray: BoardHex[]
-  onClick: (e: ThreeEvent<MouseEvent>, hex: BoardHex) => void
+  onPointerEnter: (e: ThreeEvent<PointerEvent>, hex: BoardHex) => void
+  onPointerOut: (e: ThreeEvent<PointerEvent>) => void
+  onPointerDown: (e: ThreeEvent<PointerEvent>, hex: BoardHex) => void
 }
-const InstanceFluidHexCapCountWrapper = (props: InstanceCapProps) => {
-  const numInstances = props.capHexesArray.length
-  if (numInstances < 1) return null
-  const key = 'InstanceFluidHexCap-' + numInstances // IMPORTANT: to include numInstances in key, otherwise gl will crash on change
-  return <InstanceFluidHexCap key={key} {...props} />
-}
+
 const tempColor = new Color()
+const capFluidOpacity = 0.85
 const InstanceFluidHexCap = ({
   capHexesArray,
-  onClick,
+  onPointerEnter,
+  onPointerOut,
+  onPointerDown,
 }: InstanceCapProps) => {
   const instanceRef = useRef<
     InstancedMesh<
@@ -37,10 +36,8 @@ const InstanceFluidHexCap = ({
       Material | Material[],
       InstancedMeshEventMap
     >
-  >(undefined!)
-  const capFluidOpacity = 0.85
+  >(undefined)
   const countOfCapHexes = capHexesArray.length
-  const { isCameraActive, hoverID, handleHover, handleUnhover, toggleIsCameraDisabled } = useUIContext()
   const colorArray = useMemo(
     () => Float32Array.from(new Array(capHexesArray.length).fill(0).flatMap((_, i) => tempColor.set(hexTerrainColor[capHexesArray[i].terrain]).toArray())),
     [capHexesArray]
@@ -60,29 +57,18 @@ const InstanceFluidHexCap = ({
     instanceRef.current.instanceMatrix.needsUpdate = true
   }, [capHexesArray])
 
-  const onPointerMove = (e: ThreeEvent<PointerEvent>) => {
-    if (isCameraActive) return
-    e.stopPropagation();
-    handleHover(capHexesArray[e.instanceId].id)
+  const handleEnter = (e: ThreeEvent<PointerEvent>) => {
+    onPointerEnter(e, capHexesArray[e.instanceId])
     tempColor.set('#fff').toArray(colorArray, e.instanceId * 3)
     instanceRef.current.geometry.attributes.color.needsUpdate = true
   }
-  const onPointerOut = (e: ThreeEvent<PointerEvent>) => {
-    if (isCameraActive) return
-    handleUnhover()
+  const handleOut = (e: ThreeEvent<PointerEvent>) => {
+    onPointerOut(e)
     tempColor.set(hexTerrainColor[capHexesArray[e.instanceId].terrain]).toArray(colorArray, e.instanceId * 3)
     instanceRef.current.geometry.attributes.color.needsUpdate = true
   }
-  const onPointerDown = (e: ThreeEvent<PointerEvent>) => {
-    if (e.button === 2) return // ignore right clicks
-    if (isCameraActive) return
-    e.stopPropagation();
-    toggleIsCameraDisabled(true)
-    onClick(e, capHexesArray[e.instanceId])
-  }
-  const onPointerUp = (e: ThreeEvent<PointerEvent>) => {
-    if (e.button === 2) return // ignore right clicks
-    toggleIsCameraDisabled(false)
+  const handleDown = (e: ThreeEvent<PointerEvent>) => {
+    onPointerDown(e, capHexesArray[e.instanceId])
   }
 
 
@@ -90,10 +76,9 @@ const InstanceFluidHexCap = ({
     <instancedMesh
       ref={instanceRef}
       args={[undefined, undefined, countOfCapHexes]} //args:[geometry, material, count]
-      onPointerDown={onPointerDown}
-      onPointerUp={onPointerUp}
-      onPointerMove={onPointerMove}
-      onPointerOut={onPointerOut}
+      onPointerEnter={handleEnter}
+      onPointerOut={handleOut}
+      onPointerDown={handleDown}
     >
       <meshLambertMaterial
         transparent
@@ -107,4 +92,5 @@ const InstanceFluidHexCap = ({
     </instancedMesh>
   )
 }
-export default InstanceFluidHexCapCountWrapper
+
+export default InstanceFluidHexCap

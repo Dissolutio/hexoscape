@@ -41,6 +41,7 @@ const paintGrassTile = (
   hexIDArr.forEach((hexID) => {
     if (G.boardHexes[hexID]) {
       G.boardHexes[hexID].terrain = HexTerrain.grass
+      G.boardHexes[hexID].subTerrain = HexTerrain.grass
       G.boardHexes[hexID].altitude = altitude + 1
     }
   })

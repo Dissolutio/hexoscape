@@ -1,42 +1,45 @@
+import { useRef } from 'react'
 import { ThreeEvent } from '@react-three/fiber'
 import { CameraControls } from '@react-three/drei'
+
 import {
   BoardHex,
   BoardHexes,
   Glyphs,
-  HexMap,
   HexTerrain,
 } from '../../game/types'
 import { MapHex3D } from '../../shared/MapHex3D'
-import { useZoomCameraToMapCenter } from '../../hooks/useZoomCameraToMapCenter'
 import { HexxaformMoves, PenMode } from '../../game/hexxaform/hexxaform-types'
 import { useHexxaformContext } from '../useHexxaformContext'
 import getVSTileTemplate from '../virtualscape/tileTemplates'
 import { generateHexID, isFluidTerrainHex } from '../../game/constants'
-import InstanceSolidHexCapCountWrapper from '../../shared/world/InstanceSolidHexCap'
-import InstanceFluidHexCapCountWrapper from '../../shared/world/InstanceFluidHexCap'
-import InstanceEmptyHexCapCountWrapper from '../../shared/world/InstanceEmptyHexCap'
-import InstanceEmptySubTerrain from '../../shared/world/InstanceEmptySubTerrain'
-import InstanceSubTerrainCountWrapper from '../../shared/world/InstanceSubTerrain'
+import InstanceSubTerrainWrapper from '../../shared/world/InstanceSubTerrain'
+import InstanceCapWrapper from '../../shared/world/InstanceCapWrapper'
+import InstanceEmptyHexCap from '../../shared/world/InstanceEmptyHexCap'
+import InstanceFluidHexCap from '../../shared/world/InstanceFluidHexCap'
+import InstanceSolidHexCap from '../../shared/world/InstanceSolidHexCap'
+import { useZoomCameraToMapCenter } from '../../hooks/useZoomCameraToMapCenter'
+
 
 let rotation = 0
+
 export function HexxaformMapDisplay3D({
   boardHexes,
-  hexMap,
+  hexMapID,
   moves,
-  cameraControlsRef,
   glyphs,
+  cameraControlsRef,
 }: {
   boardHexes: BoardHexes
-  hexMap: HexMap
+  hexMapID: string
   moves: HexxaformMoves
-  cameraControlsRef: React.MutableRefObject<CameraControls>
   glyphs: Glyphs
+  cameraControlsRef: React.MutableRefObject<CameraControls>
 }) {
   useZoomCameraToMapCenter({
     cameraControlsRef,
     boardHexes,
-    mapID: hexMap.id,
+    mapID: hexMapID,
   })
   const {
     voidHex,
@@ -44,29 +47,22 @@ export function HexxaformMapDisplay3D({
     paintStartZone,
     paintWaterHex,
     paintGrassTile,
-    paintSandHex,
-    paintRockHex,
   } = moves
   const { penMode, pieceSize } = useHexxaformContext()
+  const hoverID = useRef('')
 
-
-  const onClick = (event: ThreeEvent<MouseEvent>, hex: BoardHex) => {
-    // Prevent this click from going through to other hexes
+  const onPointerDown = (event: ThreeEvent<PointerEvent>, hex: BoardHex) => {
+    if (event.button === 2) return // ignore right clicks
     event.stopPropagation()
-    // const isVoidTerrainHex = hex.terrain === HexTerrain.empty
+    // Early out if camera is active
+    if (cameraControlsRef.current.active) return
+    cameraControlsRef.current
     const isVoidTerrainHex = hex.terrain === HexTerrain.empty
     if (penMode === PenMode.eraser && !isVoidTerrainHex) {
       voidHex({ hexID: hex.id })
     }
     if (penMode === PenMode.eraserStartZone) {
       voidStartZone({ hexID: hex.id })
-    }
-    // last letter in string is playerID, but this seems inelegant
-    if (penMode.slice(0, -1) === 'startZone') {
-      paintStartZone({ hexID: hex.id, playerID: penMode.slice(-1) })
-    }
-    if (penMode === PenMode.water) {
-      paintWaterHex({ hexID: hex.id })
     }
     if (penMode === PenMode.grass) {
       const hexIDArr = getVSTileTemplate({
@@ -76,37 +72,61 @@ export function HexxaformMapDisplay3D({
       }).map((h) => generateHexID(h))
       paintGrassTile({ hexIDArr, altitude: hex.altitude })
     }
-    if (penMode === PenMode.sand) {
-      paintSandHex({ hexID: hex.id, thickness: 1 })
+    // last letter in string is playerID, but this seems inelegant
+    if (penMode.slice(0, -1) === 'startZone') {
+      paintStartZone({ hexID: hex.id, playerID: penMode.slice(-1) })
     }
-    if (penMode === PenMode.rock) {
-      paintRockHex({ hexID: hex.id, thickness: 1 })
+    if (penMode === PenMode.water) {
+      paintWaterHex({ hexID: hex.id })
     }
+  }
+
+  const emptyHexCaps = Object.values(boardHexes).filter((bh) => {
+    return bh.terrain === HexTerrain.empty
+  })
+  const fluidHexCaps = Object.values(boardHexes).filter((bh) => {
+    return bh.terrain !== HexTerrain.empty && isFluidTerrainHex(bh.terrain)
+  })
+  const solidHexCaps = Object.values(boardHexes).filter((bh) => {
+    return bh.terrain !== HexTerrain.empty && !isFluidTerrainHex(bh.terrain)
+  })
+  const onPointerEnter = (_e: ThreeEvent<PointerEvent>, hex: BoardHex) => {
+    hoverID.current = hex.id
+  }
+  const onPointerOut = (_e: ThreeEvent<PointerEvent>) => {
+    hoverID.current = ''
   }
 
   return (
     <>
-      <InstanceEmptyHexCapCountWrapper
-        capHexesArray={Object.values(boardHexes).filter((bh) => {
-          return bh.terrain === HexTerrain.empty
-        })}
-        onClick={onClick}
+      <InstanceCapWrapper
+        capHexesArray={emptyHexCaps}
+        glKey={'InstanceEmptyHexCap-'}
+        component={InstanceEmptyHexCap}
+        onPointerEnter={onPointerEnter}
+        onPointerOut={onPointerOut}
+        onPointerDown={onPointerDown}
       />
-      <InstanceEmptySubTerrain boardHexes={Object.values(boardHexes).filter(bh => bh.terrain === HexTerrain.empty)} />
 
-      <InstanceSolidHexCapCountWrapper
-        capHexesArray={Object.values(boardHexes).filter((bh) => {
-          return bh.terrain !== HexTerrain.empty && !isFluidTerrainHex(bh.terrain)
-        })}
-        onClick={onClick}
+      <InstanceCapWrapper
+        capHexesArray={fluidHexCaps}
+        glKey={'InstanceFluidHexCap-'}
+        component={InstanceFluidHexCap}
+        onPointerEnter={onPointerEnter}
+        onPointerOut={onPointerOut}
+        onPointerDown={onPointerDown}
       />
-      <InstanceFluidHexCapCountWrapper
-        capHexesArray={Object.values(boardHexes).filter((bh) => {
-          return bh.terrain !== HexTerrain.empty && isFluidTerrainHex(bh.terrain)
-        })}
-        onClick={onClick}
+
+      <InstanceCapWrapper
+        capHexesArray={solidHexCaps}
+        glKey={'InstanceSolidHexCap-'}
+        component={InstanceSolidHexCap}
+        onPointerEnter={onPointerEnter}
+        onPointerOut={onPointerOut}
+        onPointerDown={onPointerDown}
       />
-      <InstanceSubTerrainCountWrapper boardHexes={Object.values(boardHexes).filter(bh => !(bh.terrain === HexTerrain.empty))} />
+
+      <InstanceSubTerrainWrapper glKey={'InstanceSubTerrain-'} boardHexes={Object.values(boardHexes).filter(bh => !(bh.terrain === HexTerrain.empty))} />
 
       {Object.values(boardHexes).map((bh: any) => {
         return (

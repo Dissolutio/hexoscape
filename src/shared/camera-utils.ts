@@ -1,8 +1,8 @@
 import { CAMERA_FOV, HEXGRID_HEX_HEIGHT } from '../game/constants'
 import {
   getBoardHex3DCoords,
-  getBoardHexesRectangularMapDimensions,
 } from '../game/hex-utils'
+import { getBoardHexesRectangularMapDimensions } from '../game/map-utils'
 import { BoardHex, BoardHexes } from '../game/types'
 
 type CameraLookAtArgs = [

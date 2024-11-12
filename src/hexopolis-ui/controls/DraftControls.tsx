@@ -1,4 +1,3 @@
-import { AnimatePresence, motion } from 'framer-motion'
 import {
   useBgioClientInfo,
   useBgioCtx,
@@ -8,7 +7,6 @@ import {
 } from '../../bgio-contexts'
 import styled from 'styled-components'
 import { StyledControlsHeaderH2 } from '../../hexopolis-ui/layout/Typography'
-import React from 'react'
 import { MS1Cards } from '../../game/coreHeroscapeCards'
 import {
   playerIDDisplay,
@@ -50,17 +48,9 @@ export const DraftControls = () => {
   const isReady = draftReady[playerID] === true
   if (isReady) {
     return (
-      <AnimatePresence>
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        >
-          <StyledControlsHeaderH2>
-            Waiting for opponents to finish Draft Phase...
-          </StyledControlsHeaderH2>
-        </motion.div>
-      </AnimatePresence>
+      <StyledControlsHeaderH2>
+        Waiting for opponents to finish Draft Phase...
+      </StyledControlsHeaderH2>
     )
   }
   if (isCouldBeDone && !isPickedCardThisTurn) {

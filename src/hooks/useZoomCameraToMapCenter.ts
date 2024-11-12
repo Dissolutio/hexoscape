@@ -14,7 +14,7 @@ export const useZoomCameraToMapCenter = ({
 }) => {
   useEffect(() => {
     const cameraArgs = getMapCenterCameraLookAt(boardHexes)
-    cameraControlsRef.current.setLookAt(...cameraArgs)
+    cameraControlsRef?.current?.setLookAt?.(...cameraArgs)
     // only run on render and load-new-map
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mapID])

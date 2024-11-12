@@ -5,7 +5,6 @@ import {
 } from './constants'
 import {
   BoardHex,
-  BoardHexes,
   HexCoordinates,
   HexNeighborsWithDirections,
 } from './types'
@@ -77,14 +76,10 @@ export const cubeToPixel = (hex: HexCoordinates) => {
   const y = HEXGRID_HEX_RADIUS * ((3 / 2) * hex.r)
   return { x: x, y: y }
 }
-export const getBoardHex3DCoords = (hex: BoardHex) => {
-  const { x, y } = cubeToPixel(hex)
-  // DEV NOTE: THIS IS WHERE WE SWITCH Y AND Z (And I am not 100% certain I did it to maintain "y" as altitude, I may have just goofed up and covered it up with this)
-  // I think I did it so that in our quadrant, all axes are positive in handy directions
-  return {
-    x: (x + HEXGRID_HEX_APOTHEM) * HEXGRID_SPACING, // Scootch map right one apothem so that X=0 aligns with the left edge of hexes, not the center. Perhaps unnecessary.
-    z: (y + HEXGRID_HEX_RADIUS) * HEXGRID_SPACING, // Scootch map down one radius so that Y=0 aligns with the top edge of hexes, not the center. Perhaps unnecessary.
-  }
+export function oddr_to_cube(x: number, y: number) {
+  const q = x - (y - (y & 1)) / 2
+  const r = y
+  return { q, r, s: -q - r }
 }
 function hexUtilsRotateVector(
   v: HexCoordinates,
@@ -92,35 +87,30 @@ function hexUtilsRotateVector(
 ): HexCoordinates {
   switch (rotation % 6) {
     case 1:
-    case -5:
       return {
         q: -v.r,
         r: -v.s,
         s: -v.q,
       }
     case 2:
-    case -4:
       return {
         q: v.s,
         r: v.q,
         s: v.r,
       }
     case 3:
-    case -3:
       return {
         q: -v.q,
         r: -v.r,
         s: -v.s,
       }
     case 4:
-    case -2:
       return {
         q: v.r,
         r: v.s,
         s: v.q,
       }
     case 5:
-    case -1:
       return {
         q: -v.s,
         r: -v.q,
@@ -159,65 +149,4 @@ export const getDirectionOfNeighbor = (
   if (matchedDir === 4) return 3 // W
   if (matchedDir === 3) return 4 // SW
   if (matchedDir === 2) return 5 // SE
-}
-
-export const generateHexagonHexas = (mapRadius: number): HexCoordinates[] => {
-  const hexas: HexCoordinates[] = []
-  for (let q = -mapRadius; q <= mapRadius; q++) {
-    const r1 = Math.max(-mapRadius, -q - mapRadius)
-    const r2 = Math.min(mapRadius, -q + mapRadius)
-    for (let r = r1; r <= r2; r++) {
-      hexas.push({ q, r, s: -q - r })
-    }
-  }
-  return hexas
-}
-export const generateRectangleHexas = (
-  mapWidth: number,
-  mapHeight: number
-): HexCoordinates[] => {
-  const hexas: HexCoordinates[] = []
-  for (let r = 0; r < mapHeight; r++) {
-    const offset = Math.floor(r / 2) // or r>>1
-    for (let q = -offset; q < mapWidth - offset; q++) {
-      hexas.push({ q, r, s: -q - r })
-    }
-  }
-  return hexas
-}
-type MapDimensions = {
-  width: number
-  height: number
-}
-export const getBoardHexesRectangularMapDimensions = (
-  boardHexes: BoardHexes
-): MapDimensions => {
-  // Gets the top-most, bottom-most, left-most, and right-most hexes, then calculates the difference for the map width and height
-  const qPlusSMax = Math.max(
-    ...Object.keys(boardHexes).map(
-      (hexID) => boardHexes[hexID].q + boardHexes[hexID].s
-    )
-  )
-  const qPlusSMin = Math.min(
-    ...Object.keys(boardHexes).map(
-      (hexID) => boardHexes[hexID].q + boardHexes[hexID].s
-    )
-  )
-  const sMinusQMax = Math.max(
-    ...Object.keys(boardHexes).map(
-      (hexID) => boardHexes[hexID].s - boardHexes[hexID].q
-    )
-  )
-  const sMinusQMin = Math.min(
-    ...Object.keys(boardHexes).map(
-      (hexID) => boardHexes[hexID].s - boardHexes[hexID].q
-    )
-  )
-  const hexHeight = qPlusSMax - qPlusSMin
-  const height = (hexHeight * 1.5 + 2 * HEXGRID_HEX_RADIUS) * HEXGRID_SPACING
-  const hexWidth = sMinusQMax - sMinusQMin
-  const width =
-    (hexWidth * HEXGRID_HEX_APOTHEM + 2 * HEXGRID_HEX_APOTHEM) * HEXGRID_SPACING
-  // const maxAltitude = Math.max(...Object.keys(boardHexes).map((hexID) => boardHexes[hexID].altitude))
-  return { height, width }
 }

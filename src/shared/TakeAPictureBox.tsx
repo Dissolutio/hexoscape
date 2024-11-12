@@ -14,7 +14,7 @@ const TakeAPictureBox = () => {
       gl.render(scene, camera)
       const screenshot = gl.domElement.toDataURL()
       const link = document.createElement('a')
-      link.download = `image.png`
+      link.download = `hexmap.png`
       link.href = screenshot
       // document.body.appendChild(link)
       link.click()
@@ -25,7 +25,7 @@ const TakeAPictureBox = () => {
       gl.render(scene, camera)
       const screenshot = gl.domElement.toDataURL()
       const link = document.createElement('a')
-      link.download = `image.jpg`
+      link.download = `hexmap.jpg`
       link.href = screenshot
       // document.body.appendChild(link)
       link.click()

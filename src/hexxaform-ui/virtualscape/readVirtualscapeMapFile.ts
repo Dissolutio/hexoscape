@@ -1,14 +1,10 @@
-import { BoardHexes } from "../../game/types"
+import { VirtualScapeMap, VirtualScapeTile } from "../../game/hexxaform/hexxaform-types"
 
 /* 
-This function is designed to read a specific binary file format used by VirtualScape, 
-and to convert it into a JavaScript object.
-
-Huge applause for Didiers! For his amazing and free VirtualScape map editor: https://github.com/didiers/virtualscape
-15 years later, Virtualscape is still going strong!
-
-Great thanks to Lyrgard! They originally decoded virtualscape files in their own astounding project, HexScape: https://github.com/lyrgard/HexScape
+This function reads a specific binary file format used by VirtualScape.
+VirtualScape map editor: https://github.com/didiers/virtualscape
 */
+const isLittleEndian = true
 let offset = 0
 export default function readVirtualscapeMapFile(file: File) {
   return new Promise((resolve, reject) => {
@@ -17,20 +13,7 @@ export default function readVirtualscapeMapFile(file: File) {
       const arrayBuffer = reader.result
       const dataView = new DataView(arrayBuffer as ArrayBuffer)
       offset = 0
-      const virtualScapeMap = {
-        version: 0,
-        name: '',
-        author: '',
-        playerNumber: '',
-        scenario: '',
-        levelPerPage: 0,
-        printingTransparency: 0,
-        printingGrid: false,
-        printTileNumber: false,
-        printStartAreaAsLevel: false,
-        tileCount: 0,
-        tiles: [],
-      }
+      let virtualScapeMap: VirtualScapeMap
 
       virtualScapeMap.version = getFloat64(dataView)
       virtualScapeMap.name = readCString(dataView)
@@ -50,32 +33,7 @@ export default function readVirtualscapeMapFile(file: File) {
       virtualScapeMap.tileCount = getInt32(dataView)
 
       for (let i = 0; i < virtualScapeMap.tileCount; i++) {
-        const tile = {
-          type: 0,
-          version: 0,
-          rotation: 0,
-          posX: 0,
-          posY: 0,
-          posZ: 0,
-          glyphLetter: '',
-          glyphName: '',
-          startName: '',
-          colorf: 0,
-          isFigureTile: false,
-          figure: {
-            name: '',
-            name2: '',
-          },
-          isPersonalTile: false,
-          personal: {
-            pieceSize: 0,
-            textureTop: '',
-            textureSide: '',
-            letter: '',
-            name: '',
-          },
-        }
-
+        let tile: VirtualScapeTile
         const tileType = getInt32(dataView)
         tile.type = tileType
         tile.version = getFloat64(dataView)
@@ -124,7 +82,6 @@ export default function readVirtualscapeMapFile(file: File) {
   })
 }
 
-const isLittleEndian = true
 function getFloat64(dataView: DataView): number {
   const val = dataView.getFloat64(offset, isLittleEndian)
   const BYTES_PER_FLOAT = 8
@@ -183,9 +140,4 @@ function rtfToText(rtf: string) {
   return rtf
     .replace(/\{\*?\\[^{}]+}|[{}]|\\\n?[A-Za-z]+\n?(?:-?\d+)?[ ]?/g, '')
     .trim()
-}
-
-
-function transformVSTilesToBoardHexes(vsMap: any) {
-return {}
 }

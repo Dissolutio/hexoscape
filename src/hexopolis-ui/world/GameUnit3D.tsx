@@ -3,7 +3,6 @@ import { CameraControls } from '@react-three/drei'
 
 import { BoardHex, GameUnit } from '../../game/types'
 import {
-  getBoardHex3DCoords,
   getDirectionOfNeighbor,
 } from '../../game/hex-utils'
 import { usePlacementContext } from '../contexts'
@@ -12,6 +11,7 @@ import { selectTailHexForUnit } from '../../game/selectors'
 import { UnitModelByID } from './models/UnitModelByID'
 import { getUnitDefaultCameraLookAt } from '../../shared/camera-utils'
 import { HEXGRID_HEX_HEIGHT } from '../../game/constants'
+import { getBoardHex3DCoords } from '../../game/map-utils'
 
 export const GameUnit3D = ({
   gameUnit,

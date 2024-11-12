@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
 import { startsWith } from 'lodash'
 import {
   useBgioClientInfo,
@@ -53,21 +52,13 @@ export const PlaceArmorSpiritControls = () => {
         Your unique army cards are below, select one to give the Armor Spirit
         (+1 defense)
       </StyledControlsP>
-      <AnimatePresence initial={false}>
-        {receiverGameCard && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            <StyledButtonWrapper>
-              <GreenButton onClick={onClickConfirm}>
-                {`Confirm: ${receiverGameCard.name} shall inherit the Armor Spirit`}
-              </GreenButton>
-            </StyledButtonWrapper>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {receiverGameCard && (
+        <StyledButtonWrapper>
+          <GreenButton onClick={onClickConfirm}>
+            {`Confirm: ${receiverGameCard.name} shall inherit the Armor Spirit`}
+          </GreenButton>
+        </StyledButtonWrapper>
+      )}
       <Army
         playerID={playerID}
         cards={myAliveUniqueCards}

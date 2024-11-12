@@ -1,14 +1,15 @@
-import { Canvas } from '@react-three/fiber'
-import { Stars, PerspectiveCamera, CameraControls, Stats } from '@react-three/drei'
-
 import { useRef } from 'react'
+import { Canvas } from '@react-three/fiber'
+import { Stars, Stats } from '@react-three/drei'
+
 import { BoardHexes, Glyphs, HexMap } from '../game/types'
 import { HexopolisMapDisplay3D } from '../hexopolis-ui/world/HexopolisMapDisplay3D'
 import { HexxaformMapDisplay3D } from '../hexxaform-ui/world/HexxaformMapDisplay3D'
 import { CAMERA_FOV } from '../game/constants'
 import { HexxaformMoves } from '../game/hexxaform/hexxaform-types'
 import TakeAPictureBox from './TakeAPictureBox'
-import { useUIContext } from '../hooks/ui-context'
+import MyCameraControls from './world/MyCameraControls'
+
 
 export const World = ({
   boardHexes,
@@ -23,16 +24,11 @@ export const World = ({
   isEditor?: boolean
   hexxaformMoves?: HexxaformMoves
 }) => {
-  const cameraControlsRef = useRef(undefined!)
-  const { toggleIsCameraActive, isCameraDisabled } = useUIContext()
+  const cameraControlsRef = useRef(undefined)
   return (
-    /* 
-    frameloop="demand"
-    Since our app does not have any animations, it uses static elements, we only need
-    to run frames when something is changing, like during mouse movement or camera motion.
-    https://r3f.docs.pmnd.rs/advanced/scaling-performance#on-demand-rendering
-    */
-    <Canvas frameloop="demand">
+    <Canvas camera={{
+      fov: CAMERA_FOV,
+    }}>
       <Stars
         radius={100}
         depth={50}
@@ -42,7 +38,6 @@ export const World = ({
         fade
         speed={0.1}
       />
-      {/* <color attach="background" args={[150, 150, 150]} /> */}
       <WorldOverheadLights />
       <TakeAPictureBox />
       {/* Stats displays the fps */}
@@ -50,7 +45,7 @@ export const World = ({
       {isEditor ? (
         <HexxaformMapDisplay3D
           boardHexes={boardHexes}
-          hexMap={hexMap}
+          hexMapID={hexMap.id}
           moves={hexxaformMoves}
           glyphs={glyphs}
           cameraControlsRef={cameraControlsRef}
@@ -61,19 +56,8 @@ export const World = ({
           cameraControlsRef={cameraControlsRef}
         />
       )}
-      <PerspectiveCamera fov={CAMERA_FOV} />
       <axesHelper scale={[100, 100, 100]} />
-      <CameraControls
-        enabled={!isCameraDisabled}
-        onStart={() => toggleIsCameraActive(true)}
-        onEnd={() => toggleIsCameraActive(false)}
-        maxPolarAngle={Math.PI / 2} // this keeps the camera on a half-sphere around the map, rather than allowing camera to go under the map
-        maxDistance={100} // this prevents camera from dollying out too far
-        minDistance={1} // this keeps the camera above ground and out of the board hexes nether region
-        ref={cameraControlsRef}
-        makeDefault
-        smoothTime={1}
-      />
+      <MyCameraControls cameraControlsRef={cameraControlsRef} />
     </Canvas>
   )
 }
@@ -83,16 +67,19 @@ const WorldOverheadLights = () => {
     <>
       <ambientLight intensity={1} />
       {/* 4 in rectangle over top, shop-light style */}
-      <directionalLight position={[50, 50, 50]} intensity={0.65} />
+      {/* <directionalLight position={[50, 50, 50]} intensity={0.65} />
       <directionalLight position={[50, 50, -50]} intensity={0.65} />
       <directionalLight position={[-50, 50, 50]} intensity={0.65} />
-      <directionalLight position={[-50, 50, -50]} intensity={0.65} />
-
+      <directionalLight position={[-50, 50, -50]} intensity={0.65} /> */}
+      <hemisphereLight args={['rgb(255, 245, 177)', 'rgb(255, 205, 66)', 2]} />
+      {/* scene.add(new THREE.HemisphereLight(0xffffbb, 0x080820, 1))
+        scene.add(new THREE.AmbientLight(0x666666))
+        const light = new THREE.DirectionalLight(0xdfebff, 1) */}
       {/* 4 on sides, picture-day style */}
-      <directionalLight position={[-50, 0, 0]} intensity={0.65} />
+      {/* <directionalLight position={[-50, 0, 0]} intensity={0.65} />
       <directionalLight position={[-50, 0, -50]} intensity={0.65} />
       <directionalLight position={[0, 0, 0]} intensity={0.65} />
-      <directionalLight position={[0, 0, -50]} intensity={0.65} />
+      <directionalLight position={[0, 0, -50]} intensity={0.65} /> */}
     </>
   )
 }

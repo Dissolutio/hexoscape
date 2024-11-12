@@ -40,7 +40,7 @@
     3   2                         6   5
 
 */
-
+const origin = { q: 0, r: 0, s: 0 }
 const t1 = [origin, origin, origin, origin, origin, origin]
 const straight2 = [
   { q: 0, r: 0, s: 0 },

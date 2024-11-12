@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import styled from 'styled-components'
-import { motion } from 'framer-motion'
 
 import {
   GiBookPile,
@@ -46,49 +45,6 @@ const tabs: Tab[] = [
   // },
 ]
 
-enum tabVariantNames {
-  active = 'active',
-  inactive = 'inactive',
-}
-const tabVariant = {
-  [tabVariantNames.active]: {
-    width: '55%',
-    transition: {
-      type: 'tween',
-      duration: 0.4,
-    },
-  },
-  [tabVariantNames.inactive]: {
-    width: '15%',
-    transition: {
-      type: 'tween',
-      duration: 0.4,
-    },
-  },
-}
-const tabTextVariant = {
-  [tabVariantNames.active]: {
-    opacity: 1,
-    x: 0,
-    display: 'block',
-    transition: {
-      type: 'tween',
-      duration: 0.3,
-      delay: 0.3,
-    },
-  },
-  [tabVariantNames.inactive]: {
-    opacity: 0,
-    x: -30,
-    transition: {
-      type: 'tween',
-      duration: 0.3,
-      delay: 0.1,
-    },
-    transitionEnd: { display: 'none' },
-  },
-}
-
 const ActiveTabView = ({ activeTabIndex }: { activeTabIndex: number }) => {
   return (
     <>
@@ -107,25 +63,19 @@ export const TabsComponent = () => {
     <StyledTabsComponent>
       <StyledLinkList role="tablist">
         {tabs.map((tab, index) => (
-          <StyledMotionLi
+          <StyledLi
             key={tab.id}
             className={`tab ${activeTabIndex === index ? 'active' : ''}`}
             role="presentation"
-            variants={tabVariant}
-            animate={
-              activeTabIndex === index
-                ? tabVariantNames.active
-                : tabVariantNames.inactive
-            }
           >
             <StyledClickableButtonThing
               onClick={() => setActiveTabIndex(index)}
               title={tab.title}
             >
               {tab.icon}
-              <motion.span variants={tabTextVariant}>{tab.title}</motion.span>
+              <span>{tab.title}</span>
             </StyledClickableButtonThing>
-          </StyledMotionLi>
+          </StyledLi>
         ))}
       </StyledLinkList>
       <ActiveTabView activeTabIndex={activeTabIndex} />
@@ -137,7 +87,7 @@ const StyledTabsComponent = styled.div`
     background: var(--success-green);
   }
 `
-const StyledMotionLi = styled(motion.li)`
+const StyledLi = styled.li`
   position: relative;
   &::before {
     content: '';

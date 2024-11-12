@@ -1,5 +1,20 @@
 import { Dictionary } from 'lodash'
+import { HexTerrain } from '../../game/types'
+
 function getTerrain(type: number) {
+  const piece = {
+    terrain: '',
+    template: '',
+    isSolid: false,
+    isFluid: false,
+    isHexObstacle: false,
+    isEdgeObstacle: false,
+    isStartZone: false,
+    isFigure: false,
+    isGlyph: false,
+    isPersonalTile: false,
+  }
+
   const str = type.toString()
   let terrainCode = str.substring(0, str.length - 2)
   let terrainSubcode = Number(str.substring(str.length - 2)).toString()
@@ -8,10 +23,9 @@ function getTerrain(type: number) {
     terrainCode = '16'
     terrainSubcode = Number(str.substring(str.length - 3)).toString()
   }
-  return { terrain: terrainCodes[terrainCode], hexCount: terrainSubcode }
 }
 const typeCodes = {
-  // Solid terrain types
+  // Solid
   TYPE_GRASS: '10',
   TYPE_ROCK: '20',
   TYPE_SAND: '30',
@@ -22,27 +36,31 @@ const typeCodes = {
   TYPE_ASPHALT: '220',
   TYPE_SWAMP: '200',
   TYPE_DUNGEON: '260',
-  // Fluid terrain types
+  // Fluid
   TYPE_WATER: '40',
   TYPE_ICE: '50',
   TYPE_LAVA: '60',
   TYPE_SWAMPWATER: '190',
   TYPE_SHADOW: '250',
-  // Start zones
-  TYPE_STARTAREA: '150',
-  // Glyphs
-  TYPE_GLYPH: '140',
-  // Hex Tile Obstacles
+
+  // Hex Obstacles
   TYPE_TREE: '100',
   TYPE_TICALLA: '240',
   TYPE_GLACIER: '130',
   TYPE_OUTCROP: '270',
   TYPE_HIVE: '230',
-  // Castle: Walls, Ladders, a lot
-  TYPE_CASTLE: '16',
-  // Hex-Edge Obstacles
+  // Edge Obstacles
   TYPE_RUIN: '110',
   TYPE_ROADWALL: '120',
+
+  // Castle
+  TYPE_CASTLE: '16',
+
+
+  // Start zones
+  TYPE_STARTAREA: '150',
+  // Glyphs
+  TYPE_GLYPH: '140',
   // Tiles that people could customize in Virtualscape:
   TYPE_PERSONAL: '170',
   // The MasterSet 1 figures (colored/textured too!), and Wave 1 figures (unpainted & incomplete but most of the meshes)
@@ -60,19 +78,18 @@ const startAreaColorsToPlayerID = {
   16711808: '8', // purple
 }
 const terrainSubcodes = {
+  // hex obstacles
   palm14: '014',
   palm15: '015',
   palm16: '016',
   brush9: '002',
-  ruin2: '02',
-  ruin3: '03',
-  marvelWallIntact: '06',
-  marvelWallDestroyed: '07',
   ffTree10: '11',
   ffTree11: '12',
   ffTree12: '13',
   ffTree415: '04',
   hive: '006',
+
+  // castle
   wallWalk1: '001',
   wallWalk7: '007',
   wallWalk9: '009',
@@ -84,30 +101,40 @@ const terrainSubcodes = {
   castleWallEnd: '203',
   archDoor: '401',
   archOpen: '404',
+
+  // edge obstacles
+  ruin2: '02',
+  ruin3: '03',
   battlement: '301',
   ladder: '402',
   flag: '403',
   roadWall4: '04',
+
+  // edge/hex obstacle
+  marvelWallIntact: '06',
+  marvelWallDestroyed: '07',
+
+  // startzone
   startArea: '01',
 }
 const terrainCodes = {
   // Solid
-  [typeCodes.TYPE_GRASS]: 'grass',
-  [typeCodes.TYPE_ROCK]: 'rock',
-  [typeCodes.TYPE_SAND]: 'sand',
-  [typeCodes.TYPE_ROAD]: 'road',
-  [typeCodes.TYPE_SNOW]: 'snow',
-  [typeCodes.TYPE_LAVAFIELD]: 'lavaField',
-  [typeCodes.TYPE_SWAMP]: 'swamp',
-  [typeCodes.TYPE_CONCRETE]: 'concrete',
-  [typeCodes.TYPE_ASPHALT]: 'asphalt',
-  [typeCodes.TYPE_DUNGEON]: 'dungeon',
+  [typeCodes.TYPE_GRASS]: HexTerrain.grass,
+  [typeCodes.TYPE_ROCK]: HexTerrain.rock,
+  [typeCodes.TYPE_SAND]: HexTerrain.sand,
+  [typeCodes.TYPE_ROAD]: HexTerrain.road,
+  [typeCodes.TYPE_SNOW]: HexTerrain.snow,
+  [typeCodes.TYPE_LAVAFIELD]: HexTerrain.lavaField,
+  [typeCodes.TYPE_SWAMP]: HexTerrain.swamp,
+  [typeCodes.TYPE_CONCRETE]: HexTerrain.concrete,
+  [typeCodes.TYPE_ASPHALT]: HexTerrain.asphalt,
+  [typeCodes.TYPE_DUNGEON]: HexTerrain.dungeon,
   // Fluid
-  [typeCodes.TYPE_WATER]: 'water',
-  [typeCodes.TYPE_SWAMPWATER]: 'swampWater',
-  [typeCodes.TYPE_ICE]: 'ice',
-  [typeCodes.TYPE_LAVA]: 'lava',
-  [typeCodes.TYPE_SHADOW]: 'shadow',
+  [typeCodes.TYPE_WATER]: HexTerrain.water,
+  [typeCodes.TYPE_SWAMPWATER]: HexTerrain.swampWater,
+  [typeCodes.TYPE_ICE]: HexTerrain.ice,
+  [typeCodes.TYPE_LAVA]: HexTerrain.lava,
+  [typeCodes.TYPE_SHADOW]: HexTerrain.shadow,
   // Obstructions
   [typeCodes.TYPE_TREE]: 'tree',
   [typeCodes.TYPE_TICALLA]: 'ticalla',
@@ -129,12 +156,12 @@ const terrainCodes = {
 }
 
 export const hexTerrainColor: Dictionary<string> = {
-  empty: '#040404',
-  water: '#3794fd',
-  grass: '#60840d',
-  rock: '#475776',
-  sand: '#ab8e10',
-  road: '#868686',
+  [HexTerrain.empty]: '#040404',
+  [HexTerrain.grass]: '#60840d',
+  [HexTerrain.rock]: '#475776',
+  [HexTerrain.sand]: '#ab8e10',
+  [HexTerrain.road]: '#868686',
+  [HexTerrain.water]: '#3794fd',
 }
 
 // This is used in Hexxaform context
@@ -158,7 +185,10 @@ export const landSizes = {
   shadow: [1],
 }
 
-const obstructionSizes = {
+const edgeObstacles = {
+
+}
+const hexObstacles = {
   outcrop1: { sizes: [1] },
   outcrop3: { sizes: [3] },
   glacier1: { sizes: [1] },

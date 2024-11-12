@@ -4,7 +4,7 @@ import {
   StyledControlsHeaderH2,
   StyledControlsP,
 } from '../../hexopolis-ui/layout/Typography'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import styled from 'styled-components'
 import { OrderMarkerArmyCards } from './order-markers/OrderMarkerArmyCards'
 import { selectedTileStyle } from '../../hexopolis-ui/layout/styles'
@@ -12,14 +12,12 @@ import {
   ConfirmOrResetButtons,
   StyledButtonWrapper,
 } from './ConfirmOrResetButtons'
-import { motion, AnimatePresence } from 'framer-motion'
-
 import { RedButton } from '../../hexopolis-ui/layout/buttons'
 import {
-  generateBlankOrderMarkersForNumPlayers,
   generateBlankPlayersOrderMarkers,
 } from '../../game/constants'
 import { omToString } from '../../game/transformers'
+
 const selectedOrderMarkerStyle = (
   activeMarker: string,
   orderMarker: string
@@ -168,30 +166,23 @@ export const OMButtonList = ({
     selectOrderMarker(om)
   }
   return (
-    <AnimatePresence>
+    <>
       <StyledOrderMarkersUl>
         {toBePlacedOrderMarkers.map((om) => (
-          <motion.li
-            key={om}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+          <button
+            disabled={isReady}
+            onClick={() => onClick(om)}
+            style={{
+              ...selectedOrderMarkerStyle(activeMarker, om),
+              ...orderMarkerButtonStyle,
+            }}
           >
-            <button
-              disabled={isReady}
-              onClick={() => onClick(om)}
-              style={{
-                ...selectedOrderMarkerStyle(activeMarker, om),
-                ...orderMarkerButtonStyle,
-              }}
-            >
-              {omToString(om)}
-            </button>
-          </motion.li>
+            {omToString(om)}
+          </button>
         ))}
         {extraButton}
       </StyledOrderMarkersUl>
-    </AnimatePresence>
+    </>
   )
 }
 const StyledOrderMarkersUl = styled.ul`
