@@ -76,15 +76,6 @@ export const cubeToPixel = (hex: HexCoordinates) => {
   const y = HEXGRID_HEX_RADIUS * ((3 / 2) * hex.r)
   return { x: x, y: y }
 }
-export const getBoardHex3DCoords = (hex: BoardHex) => {
-  const { x, y } = cubeToPixel(hex)
-  // DEV NOTE: THIS IS WHERE WE SWITCH Y AND Z (And I am not 100% certain I did it to maintain "y" as altitude, I may have just goofed up and covered it up with this)
-  // I think I did it so that in our quadrant, all axes are positive in handy directions
-  return {
-    x: (x + HEXGRID_HEX_APOTHEM) * HEXGRID_SPACING, // Scootch map right one apothem so that X=0 aligns with the left edge of hexes, not the center. Perhaps unnecessary.
-    z: (y + HEXGRID_HEX_RADIUS) * HEXGRID_SPACING, // Scootch map down one radius so that Y=0 aligns with the top edge of hexes, not the center. Perhaps unnecessary.
-  }
-}
 function hexUtilsRotateVector(
   v: HexCoordinates,
   rotation: number

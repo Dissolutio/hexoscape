@@ -14,7 +14,7 @@ import {
   eighthLevel,
   halfLevel,
 } from '../../game/constants'
-import { getBoardHex3DCoords } from '../../game/hex-utils'
+import { getBoardHex3DCoords } from '../../game/map-utils'
 import { hexTerrainColor } from '../../hexxaform-ui/virtualscape/terrain'
 import { InstanceCapProps } from './InstanceFluidHexCap'
 

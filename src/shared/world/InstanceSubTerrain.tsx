@@ -1,6 +1,6 @@
 import { useRef, useLayoutEffect } from 'react'
 import * as THREE from 'three'
-import { getBoardHex3DCoords } from '../../game/hex-utils'
+import { getBoardHex3DCoords } from '../../game/map-utils'
 import { BoardHex } from '../../game/types'
 import {
   getDefaultSubTerrainForTerrain,

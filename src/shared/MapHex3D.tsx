@@ -11,7 +11,7 @@ import { powerGlyphs } from '../game/glyphs'
 import { HeightRings } from './HeightRings'
 import { MapHexGlyph } from './MapHexGlyph'
 import { MapHexIDDisplay } from './MapHexIDDisplay'
-import { getBoardHex3DCoords } from '../game/hex-utils'
+import { getBoardHex3DCoords } from '../game/map-utils'
 
 
 export const MapHex3D = ({
