@@ -1,4 +1,4 @@
-import {  translateHexagonBoardHexesToNormal } from './hex-gen'
+import { translateHexagonBoardHexesToNormal } from './hex-gen'
 import {
   BoardHexes,
   GameMap,
@@ -54,14 +54,7 @@ export function makeCirdanGardenMap(
     preNormalizedBoardHexes,
     cirdanGardenMap.hexMap.size
   )
-  for (const hex in boardHexes) {
-    if (Object.prototype.hasOwnProperty.call(boardHexes, hex)) {
-      const element = boardHexes[hex]
-      if (element.terrain === HexTerrain.empty) {
-        delete boardHexes[hex]
-      }
-    }
-  }
+  deleteEmptyHexesFromBoardHexes(boardHexes)
   const startZones = getStartZonesFromBoardHexes(boardHexes)
   if (withPrePlacedUnits) {
     transformBoardHexesWithPrePlacedUnits(
@@ -87,14 +80,7 @@ export function makeGiantsTableMap({
   if (!boardHexes) {
     throw new Error('giantsTable.boardHexes is not defined')
   }
-  for (const hex in boardHexes) {
-    if (Object.prototype.hasOwnProperty.call(boardHexes, hex)) {
-      const element = boardHexes[hex]
-      if (element.terrain === HexTerrain.empty) {
-        delete boardHexes[hex]
-      }
-    }
-  }
+  deleteEmptyHexesFromBoardHexes(boardHexes)
   const startZones = getStartZonesFromBoardHexes(boardHexes)
   if (withPrePlacedUnits) {
     transformBoardHexesWithPrePlacedUnits(
@@ -113,12 +99,17 @@ export const getStartZonesFromBoardHexes = (
   boardHexes: BoardHexes
 ): StartZones => {
   const result: StartZones = {}
-  for (const boardHex in boardHexes) {
-    if (Object.prototype.hasOwnProperty.call(boardHexes, boardHex)) {
-      boardHexes[boardHex].startzonePlayerIDs.forEach((id) => {
-        result[id] = [...(result?.[id] ?? []), boardHexes[boardHex].id]
-      })
+  deleteEmptyHexesFromBoardHexes(boardHexes)
+  return result
+}
+
+const deleteEmptyHexesFromBoardHexes = (boardHexes: BoardHexes) => {
+  for (const hex in boardHexes) {
+    if (Object.prototype.hasOwnProperty.call(boardHexes, hex)) {
+      const element = boardHexes[hex]
+      if (element.terrain === HexTerrain.empty) {
+        delete boardHexes[hex]
+      }
     }
   }
-  return result
 }
