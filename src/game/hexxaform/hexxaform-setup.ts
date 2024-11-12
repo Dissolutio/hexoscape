@@ -4,10 +4,10 @@ import { GType } from './hexxaform-types'
 import { generateTimestampID } from '../constants'
 
 /* 
-MAX_DIMENSION this will limit hexes to 576 board hexes, a good limit for now on desktop
+MAX_DIMENSION this will limit hexes to about 900 board hexes, a good limit for now on desktop
 */
-const MAX_RECTANGLE_DIMENSION = 24
-const MAX_HEXAGON_DIMENSION = 12
+const MAX_RECTANGLE_DIMENSION = 30
+const MAX_HEXAGON_DIMENSION = 17 // 921
 type RectangleScenarioOptions = {
   mapWidth?: number
   mapLength?: number
