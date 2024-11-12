@@ -65,7 +65,7 @@ const InstanceSolidHexCap = ({
     instanceRef.current.geometry.attributes.color.needsUpdate = true
   }
   const handleOut = (e: ThreeEvent<PointerEvent>) => {
-    onPointerOut(e, capHexesArray[e.instanceId])
+    onPointerOut(e)
     tempColor.set(hexTerrainColor[capHexesArray[e.instanceId].terrain]).toArray(colorArray, e.instanceId * 3)
     instanceRef.current.geometry.attributes.color.needsUpdate = true
   }

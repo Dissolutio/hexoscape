@@ -11,7 +11,7 @@ import { useHexxaformContext } from '../useHexxaformContext'
 import getVSTileTemplate from '../virtualscape/tileTemplates'
 import { generateHexID, isFluidTerrainHex } from '../../game/constants'
 import InstanceSubTerrainWrapper from '../../shared/world/InstanceSubTerrain'
-import { useMemo, useState } from 'react'
+import { useMemo, useRef } from 'react'
 import InstanceCapWrapper from '../../shared/world/InstanceCapWrapper'
 import InstanceEmptyHexCap from '../../shared/world/InstanceEmptyHexCap'
 import InstanceFluidHexCap from '../../shared/world/InstanceFluidHexCap'
@@ -48,7 +48,7 @@ export function HexxaformMapDisplay3D({
     paintGrassTile,
   } = moves
   const { penMode, pieceSize } = useHexxaformContext()
-  const [hoverID, setHoverID] = useState('')
+  const hoverID = useRef('')
 
   const onClick = useMemo(() => {
     return (event: ThreeEvent<MouseEvent>, hex: BoardHex) => {
@@ -91,10 +91,10 @@ export function HexxaformMapDisplay3D({
     return bh.terrain !== HexTerrain.empty && !isFluidTerrainHex(bh.terrain)
   })
   const onPointerEnter = (_e: ThreeEvent<PointerEvent>, hex: BoardHex) => {
-    setHoverID(hex.id)
+    hoverID.current = hex.id
   }
-  const onPointerOut = (_e: ThreeEvent<PointerEvent>, hex: BoardHex) => {
-    setHoverID('')
+  const onPointerOut = (_e: ThreeEvent<PointerEvent>) => {
+    hoverID.current = ''
   }
 
   const onPointerDown = (e: ThreeEvent<PointerEvent>, hex: BoardHex) => {

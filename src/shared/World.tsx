@@ -23,15 +23,10 @@ export const World = ({
   hexxaformMoves?: HexxaformMoves
 }) => {
   const cameraControlsRef = useRef(undefined!)
+
   return (
-    /* 
-    frameloop="demand"
-    Since our app does not have any animations, it uses static elements, we only need
-    to run frames when something is changing, like during mouse movement or camera motion.
-    https://r3f.docs.pmnd.rs/advanced/scaling-performance#on-demand-rendering
-    */
-    <Canvas frameloop="demand">
-      {/* <Stars
+    <Canvas>
+      <Stars
         radius={100}
         depth={50}
         count={5000}
@@ -39,8 +34,7 @@ export const World = ({
         saturation={0}
         fade
         speed={0.1}
-      /> */}
-      {/* <color attach="background" args={[150, 150, 150]} /> */}
+      />
       <WorldOverheadLights />
       <TakeAPictureBox />
       {/* Stats displays the fps */}

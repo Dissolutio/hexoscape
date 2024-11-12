@@ -12,7 +12,7 @@ import InstanceSubTerrainWrapper from '../../shared/world/InstanceSubTerrain'
 import InstanceCapWrapper from '../../shared/world/InstanceCapWrapper'
 import InstanceSolidHexCap from '../../shared/world/InstanceSolidHexCap'
 import InstanceFluidHexCap from '../../shared/world/InstanceFluidHexCap'
-import { useState } from 'react'
+import { useRef } from 'react'
 import { useZoomCameraToMapCenter } from '../../hooks/useZoomCameraToMapCenter'
 
 export function HexopolisMapDisplay3D({
@@ -27,8 +27,7 @@ export function HexopolisMapDisplay3D({
     boardHexes,
     mapID: 'hexopolis', // currently, hexopolis does not switch maps, thus map.id does not need to trigger re-zoom to middle
   })
-
-  const [hoverID, setHoverID] = useState('')
+  const hoverID = useRef('')
   const { gameUnits } = useBgioG()
   const { selectedUnitID } = useUIContext()
   const {
@@ -123,10 +122,10 @@ export function HexopolisMapDisplay3D({
     return bh.terrain !== HexTerrain.empty && !isFluidTerrainHex(bh.terrain)
   })
   const onPointerEnter = (_e: ThreeEvent<PointerEvent>, hex: BoardHex) => {
-    setHoverID(hex.id)
+    hoverID.current = hex.id
   }
-  const onPointerOut = (_e: ThreeEvent<PointerEvent>, hex: BoardHex) => {
-    setHoverID('')
+  const onPointerOut = (_e: ThreeEvent<PointerEvent>) => {
+    hoverID.current = ''
   }
 
   const onPointerDown = (e: ThreeEvent<PointerEvent>, hex: BoardHex) => {

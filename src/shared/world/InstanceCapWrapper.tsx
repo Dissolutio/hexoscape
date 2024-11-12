@@ -6,7 +6,7 @@ import { InstanceCapProps } from "./InstanceFluidHexCap"
 type InstanceCapWrapperProps = {
   capHexesArray: BoardHex[]
   onPointerEnter: (e: ThreeEvent<PointerEvent>, hex: BoardHex) => void
-  onPointerOut: (e: ThreeEvent<PointerEvent>, hex: BoardHex) => void
+  onPointerOut: (e: ThreeEvent<PointerEvent>) => void
   onPointerDown: (e: ThreeEvent<PointerEvent>, hex: BoardHex) => void
   component: JSXElementConstructor<InstanceCapProps>
   glKey: string
