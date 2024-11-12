@@ -91,35 +91,30 @@ function hexUtilsRotateVector(
 ): HexCoordinates {
   switch (rotation % 6) {
     case 1:
-    case -5:
       return {
         q: -v.r,
         r: -v.s,
         s: -v.q,
       }
     case 2:
-    case -4:
       return {
         q: v.s,
         r: v.q,
         s: v.r,
       }
     case 3:
-    case -3:
       return {
         q: -v.q,
         r: -v.r,
         s: -v.s,
       }
     case 4:
-    case -2:
       return {
         q: v.r,
         r: v.s,
         s: v.q,
       }
     case 5:
-    case -1:
       return {
         q: -v.s,
         r: -v.q,
