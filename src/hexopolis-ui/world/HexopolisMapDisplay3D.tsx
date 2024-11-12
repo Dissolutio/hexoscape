@@ -157,13 +157,11 @@ export function HexopolisMapDisplay3D({
 
       {Object.values(boardHexes).map((bh: any) => {
         return (
-          <>
-            <HexopolisHex3D
-              cameraControlsRef={cameraControlsRef}
-              key={`${bh.id}-${bh.altitude}`}
-              boardHexID={bh.id}
-            />
-          </>
+          <HexopolisHex3D
+            key={`${bh.id}-${bh.altitude}`}
+            cameraControlsRef={cameraControlsRef}
+            boardHexID={bh.id}
+          />
         )
       })}
     </>
