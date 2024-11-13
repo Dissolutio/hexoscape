@@ -140,8 +140,12 @@ export enum EdgeObstacles {
 }
 export enum EdgeAddons {
   roadWall4 = 'roadWall4',
+  battlement = 'battlement',
+  flag = 'castleFlag',
+  ladder = 'ladder',
 }
 export enum CastleObstacles {
+  wallWalk1 = 'wallWalk1',
   wallWalk7 = 'wallWalk7',
   wallWalk9 = 'wallWalk9',
   archDoor3 = 'archDoor3',

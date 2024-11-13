@@ -1,5 +1,5 @@
 import { Dictionary } from 'lodash'
-import { HexObstacles, HexTerrain } from '../../game/types'
+import { CastleObstacles, EdgeAddons, EdgeObstacles, HexObstacles, HexTerrain } from '../../game/types'
 import { VirtualScapeTile } from '../../game/hexxaform/hexxaform-types'
 
 export const hexTerrainColor: Dictionary<string> = {
@@ -65,13 +65,13 @@ function getPiece(tile: VirtualScapeTile) {
     piece.isSolid = true
     piece.terrain = solidLandCodes[terrainCode]
     piece.hexSize = Number(terrainSubcode)
-    piece.template = terrainSubcode
+    piece.template = terrainSubcode // land tiles have their size as their subcode
     piece.height = 1
   } else if (isFluid) {
     piece.isFluid = true
     piece.terrain = fluidLandCodes[terrainCode]
     piece.hexSize = Number(terrainSubcode)
-    piece.template = terrainSubcode
+    piece.template = terrainSubcode // land tiles have their size as their subcode
     piece.height = 1
   }
 
@@ -83,6 +83,15 @@ function getPiece(tile: VirtualScapeTile) {
     piece.template = terrainSubcode
     piece.height = 1
   }
+
+  // const isHexObstacle = Boolean(fluidLandCodes[terrainCode])
+  // if (isHexObstacle) {
+  //   piece.isHexObstacle = true
+  //   piece.terrain = fluidLandCodes[terrainCode]
+  //   piece.hexSize = Number(terrainSubcode)
+  //   piece.template = terrainSubcode
+  //   piece.height = 1
+  // }
 
 
 }
@@ -105,23 +114,6 @@ const fluidLandCodes = {
   '190': HexTerrain.swampWater,
   '250': HexTerrain.shadow,
 }
-const personalAndFigureTypeCodes = {
-  // Tiles that people could customize in Virtualscape:
-  '170': 'TYPE_PERSONAL',
-  // The MasterSet 1 figures (colored/textured too!), and Wave 1 figures (unpainted & incomplete but most of the meshes)
-  '180': 'TYPE_FIGURE',
-}
-const startAreaColorsToPlayerID = {
-  // Keys are the colorf values of StartAreaTiles from virtualscape (the colorf values are these tiles only differentiating property)
-  255: '1', // red
-  65280: '2', // green
-  16711680: '3', // blue
-  65535: '4', // yellow
-  16711935: '5', // violet
-  16776960: '6', // cyan
-  33023: '7', // orange
-  16711808: '8', // purple
-}
 const hexObstacleCodes = {
   '240014': HexObstacles.palm14,
   '240015': HexObstacles.palm15,
@@ -139,40 +131,174 @@ const hexObstacleCodes = {
   '27003': HexObstacles.outcrop1,
   '27001': HexObstacles.outcrop3,
 }
-const edgeObstacleCodes = {
-  '11002': 'ruin2',
-  '11003': 'ruin3',
+const pieces = {
+  [HexObstacles.palm14]: {
+    height: 14,
+    size: 1,
+  },
+  [HexObstacles.palm15]: {
+    height: 15,
+    size: 1,
+  },
+  [HexObstacles.palm16]: {
+    height: 16,
+    size: 1,
+
+  },
+  [HexObstacles.brush9]: {
+    height: 9,
+    size: 1,
+
+  },
+  [HexObstacles.tree10]: {
+    height: 10,
+    size: 1,
+
+  },
+  [HexObstacles.tree11]: {
+    height: 11,
+    size: 1,
+
+  },
+  [HexObstacles.tree12]: {
+    height: 12,
+    size: 1,
+
+  },
+  [HexObstacles.tree415]: {
+    height: 15,
+    size: 1,
+
+  },
+  [HexObstacles.hive6]: {
+    height: 17,
+    size: 1,
+
+  },
+  [HexObstacles.glacier1]: {
+    height: 7,
+    size: 1,
+
+  },
+  [HexObstacles.glacier3]: {
+    height: 9,
+    size: 1,
+
+  },
+  [HexObstacles.glacier4]: {
+    height: 11,
+    size: 1,
+
+  },
+  [HexObstacles.glacier6]: {
+    height: 17,
+    size: 1,
+
+  },
+  [HexObstacles.outcrop1]: {
+    height: 7,
+    size: 1,
+
+  },
+  [HexObstacles.outcrop3]: {
+    height: 9,
+    size: 1,
+
+  },
+  /* CASTLE CASTLE CASTLE */
+  [CastleObstacles.wallWalk1]: {
+    height: 1,
+    size: 1,
+  },
+  [CastleObstacles.wallWalk7]: {
+    height: 1,
+    size: 1,
+  },
+  [CastleObstacles.wallWalk9]: {
+    height: 1,
+    size: 1,
+  },
+  [CastleObstacles.archDoor3]: {
+    height: 10,
+    size: 1,
+  },
+  [CastleObstacles.archNoDoor3]: {
+    height: 10,
+    size: 1,
+  },
+  [CastleObstacles.castleBaseCorner]: {
+    height: 1,
+    size: 1,
+  },
+  [CastleObstacles.castleBaseStraight]: {
+    height: 1,
+    size: 1,
+  },
+  [CastleObstacles.castleBaseEnd]: {
+    height: 1,
+    size: 1,
+  },
+  [CastleObstacles.castleWallCorner]: {
+    height: 9,
+    size: 1,
+  },
+  [CastleObstacles.castleWallStraight]: {
+    height: 9,
+    size: 1,
+  },
+  [CastleObstacles.castleWallEnd]: {
+    height: 9,
+    size: 1,
+  },
 }
-const hexEdgeObstacleCodes = {
+const edgeObstacleCodes = {
+  '11002': EdgeObstacles.ruins2,
+  '11003': EdgeObstacles.ruins3,
   // edge/hex obstacle
-  '11006': 'marvelIntact6',
-  '11007': 'marvelDestroyed6',
+  '11006': EdgeObstacles.marvel6, // marvel ruins also create two elevated spaces/boardHexes
+  '11007': EdgeObstacles.marvelBroken6, // marvel ruins also create two elevated spaces/boardHexes
 }
 const edgeAddonCodes = {
   // edge add-ons
-  '16301': 'battlement',
-  '16403': 'flag',
-  '12004': 'roadWall4',
+  '12004': EdgeAddons.roadWall4,
+  '16301': EdgeAddons.battlement,
+  '16402': EdgeAddons.ladder,
+  '16403': EdgeAddons.flag,
 }
 const castleCodes = {
   // castle
-  '16001': 'wallWalk1',
-  '16007': 'wallWalk7',
-  '16009': 'wallWalk9',
-  '16101': 'castleBaseCorner',
-  '16102': 'castleBaseStraight',
-  '16103': 'castleBaseEnd',
-  '16201': 'castleWallCorner',
-  '16202': 'castleWallStraight',
-  '16203': 'castleWallEnd',
-  '16401': 'archDoor',
-  '16404': 'archNoDoor',
+  '16001': CastleObstacles.wallWalk1,
+  '16007': CastleObstacles.wallWalk7,
+  '16009': CastleObstacles.wallWalk9,
+  '16101': CastleObstacles.castleBaseCorner,
+  '16102': CastleObstacles.castleBaseStraight,
+  '16103': CastleObstacles.castleBaseEnd,
+  '16201': CastleObstacles.castleWallCorner,
+  '16202': CastleObstacles.castleWallStraight,
+  '16203': CastleObstacles.castleWallEnd,
+  '16401': CastleObstacles.archDoor3,
+  '16404': CastleObstacles.archNoDoor3,
 }
-const otherCodes = {
+const personalAndFigureTypeCodes = {
+  // Tiles that people could customize in Virtualscape:
+  '170': 'TYPE_PERSONAL',
+  // The MasterSet 1 figures (colored/textured too!), and Wave 1 figures (unpainted & incomplete but most of the meshes)
+  '180': 'TYPE_FIGURE',
+}
+const startAreaColorsToPlayerID = {
+  // Keys are the colorf values of StartAreaTiles from virtualscape (the colorf values are these tiles only differentiating property)
+  255: '1', // red
+  65280: '2', // green
+  16711680: '3', // blue
+  65535: '4', // yellow
+  16711935: '5', // violet
+  16776960: '6', // cyan
+  33023: '7', // orange
+  16711808: '8', // purple
+}
+const startAreaCodes = {
   // startzone
   '15001': 'startArea',
-  // LADDERS (big concept, like overhangs)
-  '16402': 'ladder',
   // // ignoring these below for now
   // [typeCodes.TYPE_PERSONAL]: 'personal',
   // [typeCodes.TYPE_FIGURE]: 'figure',

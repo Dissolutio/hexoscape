@@ -283,6 +283,7 @@ const vsTileTemplates: Dictionary<HexCoordinates[]> = {
   [EdgeObstacles.marvel6]: marvel6,
   [EdgeObstacles.marvelBroken6]: marvel6,
   // castle
+  [CastleObstacles.wallWalk1]: basic1,
   [CastleObstacles.wallWalk7]: wallWalk7,
   [CastleObstacles.wallWalk9]: wallWalk9,
   [CastleObstacles.archDoor3]: straight3,

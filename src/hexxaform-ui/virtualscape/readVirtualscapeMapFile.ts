@@ -80,8 +80,10 @@ export default function readVirtualscapeMapFile(file: File) {
         tile.posX = getInt32(dataView)
         tile.posY = getInt32(dataView)
         tile.posZ = getInt32(dataView)
-        tile.glyphLetter = String.fromCharCode(getUint8(dataView))
+        const glyphCode = getUint8(dataView)
+        tile.glyphLetter = String.fromCharCode(glyphCode)
         tile.glyphName = readCString(dataView)
+        console.log("🚀 ~ returnnewPromise ~ glyphCode:", { glyphCode, glyphLetter: tile.glyphLetter, glyphName: tile.glyphName, type: tile.type })
         tile.startName = readCString(dataView)
         tile.colorf = getInt32(dataView)
 
@@ -110,11 +112,8 @@ export default function readVirtualscapeMapFile(file: File) {
       const newTiles = virtualScapeMap.tiles.map(t => {
         const cubeCoords = hexUtilsOddRToCube(t.posX, t.posY)
         const id = generateHexID(cubeCoords)
-        console.log("🚀 ~ newTiles ~ id:", id)
-        // const terrain = 
         return { ...t, cubeCoords }
       })
-      console.log("🚀 ~ readVSFile ~ newTiles:", newTiles)
       resolve(virtualScapeMap)
     }
     reader.onerror = () => {
