@@ -1,10 +1,44 @@
 import { Dictionary } from 'lodash'
-import { HexTerrain } from '../../game/types'
+import { HexObstacles, HexTerrain } from '../../game/types'
+import { VirtualScapeTile } from '../../game/hexxaform/hexxaform-types'
 
-function getTerrain(type: number) {
+export const hexTerrainColor: Dictionary<string> = {
+  [HexTerrain.empty]: '#040404',
+  [HexTerrain.grass]: '#60840d',
+  [HexTerrain.rock]: '#475776',
+  [HexTerrain.sand]: '#ab8e10',
+  [HexTerrain.road]: '#868686',
+  [HexTerrain.water]: '#3794fd',
+}
+// This is used in Hexxaform context
+export const landSizes = {
+  // solid terrain below
+  [HexTerrain.grass]: [1, 2, 3, 7, 24],
+  [HexTerrain.rock]: [1, 2, 3, 7, 24],
+  [HexTerrain.sand]: [1, 2, 3, 7, 24],
+  [HexTerrain.swamp]: [1, 2, 3, 7, 24],
+  [HexTerrain.dungeon]: [1, 2, 3, 7, 24],
+  [HexTerrain.lavaField]: [1, 2, 7],
+  [HexTerrain.concrete]: [1, 2, 7],
+  [HexTerrain.asphalt]: [1, 2, 7],
+  [HexTerrain.road]: [1, 2],
+  [HexTerrain.snow]: [1, 2],
+  // fluid terrain below
+  [HexTerrain.water]: [1],
+  [HexTerrain.swampWater]: [1],
+  [HexTerrain.lava]: [1],
+  [HexTerrain.ice]: [1],
+  [HexTerrain.shadow]: [1],
+}
+
+function getPiece(tile: VirtualScapeTile) {
   const piece = {
     terrain: '',
+    vsType: tile.type,
+    vsColor: '',
+    hexSize: 0,
     template: '',
+    height: 0,
     isSolid: false,
     isFluid: false,
     isHexObstacle: false,
@@ -15,7 +49,7 @@ function getTerrain(type: number) {
     isPersonalTile: false,
   }
 
-  const str = type.toString()
+  const str = tile.type.toString()
   let terrainCode = str.substring(0, str.length - 2)
   let terrainSubcode = Number(str.substring(str.length - 2)).toString()
   if (terrainCode.startsWith('16')) {
@@ -23,48 +57,59 @@ function getTerrain(type: number) {
     terrainCode = '16'
     terrainSubcode = Number(str.substring(str.length - 3)).toString()
   }
+
+  /* LAND */
+  const isSolid = Boolean(solidLandCodes[terrainCode])
+  const isFluid = Boolean(fluidLandCodes[terrainCode])
+  if (isSolid) {
+    piece.isSolid = true
+    piece.terrain = solidLandCodes[terrainCode]
+    piece.hexSize = Number(terrainSubcode)
+    piece.template = terrainSubcode
+    piece.height = 1
+  } else if (isFluid) {
+    piece.isFluid = true
+    piece.terrain = fluidLandCodes[terrainCode]
+    piece.hexSize = Number(terrainSubcode)
+    piece.template = terrainSubcode
+    piece.height = 1
+  }
+
+  const isHexObstacle = Boolean(fluidLandCodes[terrainCode])
+  if (isHexObstacle) {
+    piece.isHexObstacle = true
+    piece.terrain = fluidLandCodes[terrainCode]
+    piece.hexSize = Number(terrainSubcode)
+    piece.template = terrainSubcode
+    piece.height = 1
+  }
+
+
 }
-const typeCodes = {
-  // Solid
-  TYPE_GRASS: '10',
-  TYPE_ROCK: '20',
-  TYPE_SAND: '30',
-  TYPE_ROAD: '80',
-  TYPE_SNOW: '90',
-  TYPE_LAVAFIELD: '70',
-  TYPE_CONCRETE: '210',
-  TYPE_ASPHALT: '220',
-  TYPE_SWAMP: '200',
-  TYPE_DUNGEON: '260',
-  // Fluid
-  TYPE_WATER: '40',
-  TYPE_ICE: '50',
-  TYPE_LAVA: '60',
-  TYPE_SWAMPWATER: '190',
-  TYPE_SHADOW: '250',
-
-  // Hex Obstacles
-  TYPE_TREE: '100',
-  TYPE_TICALLA: '240',
-  TYPE_GLACIER: '130',
-  TYPE_OUTCROP: '270',
-  TYPE_HIVE: '230',
-  // Edge Obstacles
-  TYPE_RUIN: '110',
-  TYPE_ROADWALL: '120',
-
-  // Castle
-  TYPE_CASTLE: '16',
-
-
-  // Start zones
-  TYPE_STARTAREA: '150',
-  // Glyphs
-  TYPE_GLYPH: '140',
+const solidLandCodes = {
+  '10': HexTerrain.grass,
+  '20': HexTerrain.rock,
+  '30': HexTerrain.sand,
+  '80': HexTerrain.road,
+  '90': HexTerrain.snow,
+  '70': HexTerrain.lavaField,
+  '210': HexTerrain.concrete,
+  '220': HexTerrain.asphalt,
+  '200': HexTerrain.swamp,
+  '260': HexTerrain.dungeon,
+}
+const fluidLandCodes = {
+  '40': HexTerrain.water,
+  '50': HexTerrain.ice,
+  '60': HexTerrain.lava,
+  '190': HexTerrain.swampWater,
+  '250': HexTerrain.shadow,
+}
+const personalAndFigureTypeCodes = {
   // Tiles that people could customize in Virtualscape:
-  TYPE_PERSONAL: '170',
+  '170': 'TYPE_PERSONAL',
   // The MasterSet 1 figures (colored/textured too!), and Wave 1 figures (unpainted & incomplete but most of the meshes)
-  TYPE_FIGURE: '180',
+  '180': 'TYPE_FIGURE',
 }
 const startAreaColorsToPlayerID = {
   // Keys are the colorf values of StartAreaTiles from virtualscape (the colorf values are these tiles only differentiating property)
@@ -77,133 +122,59 @@ const startAreaColorsToPlayerID = {
   33023: '7', // orange
   16711808: '8', // purple
 }
-const terrainSubcodes = {
-  // hex obstacles
-  palm14: '014',
-  palm15: '015',
-  palm16: '016',
-  brush9: '002',
-  ffTree10: '11',
-  ffTree11: '12',
-  ffTree12: '13',
-  ffTree415: '04',
-  hive: '006',
-
-  // castle
-  wallWalk1: '001',
-  wallWalk7: '007',
-  wallWalk9: '009',
-  castleBaseCorner: '101',
-  castleBaseStraight: '102',
-  castleBaseEnd: '103',
-  castleWallCorner: '201',
-  castleWallStraight: '202',
-  castleWallEnd: '203',
-  archDoor: '401',
-  archOpen: '404',
-
-  // edge obstacles
-  ruin2: '02',
-  ruin3: '03',
-  battlement: '301',
-  ladder: '402',
-  flag: '403',
-  roadWall4: '04',
-
+const hexObstacleCodes = {
+  '240014': HexObstacles.palm14,
+  '240015': HexObstacles.palm15,
+  '240016': HexObstacles.palm16,
+  '240002': HexObstacles.brush9,
+  '10011': HexObstacles.tree10,
+  '10012': HexObstacles.tree11,
+  '10013': HexObstacles.tree12,
+  '10004': HexObstacles.tree415,
+  '230006': HexObstacles.hive6,
+  '13001': HexObstacles.glacier1,
+  '13003': HexObstacles.glacier3,
+  '13004': HexObstacles.glacier4,
+  '13006': HexObstacles.glacier6,
+  '27003': HexObstacles.outcrop1,
+  '27001': HexObstacles.outcrop3,
+}
+const edgeObstacleCodes = {
+  '11002': 'ruin2',
+  '11003': 'ruin3',
+}
+const hexEdgeObstacleCodes = {
   // edge/hex obstacle
-  marvelWallIntact: '06',
-  marvelWallDestroyed: '07',
-
+  '11006': 'marvelIntact6',
+  '11007': 'marvelDestroyed6',
+}
+const edgeAddonCodes = {
+  // edge add-ons
+  '16301': 'battlement',
+  '16403': 'flag',
+  '12004': 'roadWall4',
+}
+const castleCodes = {
+  // castle
+  '16001': 'wallWalk1',
+  '16007': 'wallWalk7',
+  '16009': 'wallWalk9',
+  '16101': 'castleBaseCorner',
+  '16102': 'castleBaseStraight',
+  '16103': 'castleBaseEnd',
+  '16201': 'castleWallCorner',
+  '16202': 'castleWallStraight',
+  '16203': 'castleWallEnd',
+  '16401': 'archDoor',
+  '16404': 'archNoDoor',
+}
+const otherCodes = {
   // startzone
-  startArea: '01',
-}
-const terrainCodes = {
-  // Solid
-  [typeCodes.TYPE_GRASS]: HexTerrain.grass,
-  [typeCodes.TYPE_ROCK]: HexTerrain.rock,
-  [typeCodes.TYPE_SAND]: HexTerrain.sand,
-  [typeCodes.TYPE_ROAD]: HexTerrain.road,
-  [typeCodes.TYPE_SNOW]: HexTerrain.snow,
-  [typeCodes.TYPE_LAVAFIELD]: HexTerrain.lavaField,
-  [typeCodes.TYPE_SWAMP]: HexTerrain.swamp,
-  [typeCodes.TYPE_CONCRETE]: HexTerrain.concrete,
-  [typeCodes.TYPE_ASPHALT]: HexTerrain.asphalt,
-  [typeCodes.TYPE_DUNGEON]: HexTerrain.dungeon,
-  // Fluid
-  [typeCodes.TYPE_WATER]: HexTerrain.water,
-  [typeCodes.TYPE_SWAMPWATER]: HexTerrain.swampWater,
-  [typeCodes.TYPE_ICE]: HexTerrain.ice,
-  [typeCodes.TYPE_LAVA]: HexTerrain.lava,
-  [typeCodes.TYPE_SHADOW]: HexTerrain.shadow,
-  // Obstructions
-  [typeCodes.TYPE_TREE]: 'tree',
-  [typeCodes.TYPE_TICALLA]: 'ticalla',
-  [typeCodes.TYPE_GLACIER]: 'glacier',
-  [typeCodes.TYPE_OUTCROP]: 'outcrop',
-  [typeCodes.TYPE_HIVE]: 'hive',
-  // Edge pieces
-  [typeCodes.TYPE_RUIN]: 'ruin',
-  [typeCodes.TYPE_ROADWALL]: 'roadWall',
-  // Castle are many
-  [typeCodes.TYPE_CASTLE]: 'castle',
-  // startZones are a special case
-  [typeCodes.TYPE_STARTAREA]: 'startzone',
-  // glyphs are their own special case
-  [typeCodes.TYPE_GLYPH]: 'glyph',
-  // ignoring these below for now
-  [typeCodes.TYPE_PERSONAL]: 'personal',
-  [typeCodes.TYPE_FIGURE]: 'figure',
+  '15001': 'startArea',
+  // LADDERS (big concept, like overhangs)
+  '16402': 'ladder',
+  // // ignoring these below for now
+  // [typeCodes.TYPE_PERSONAL]: 'personal',
+  // [typeCodes.TYPE_FIGURE]: 'figure',
 }
 
-export const hexTerrainColor: Dictionary<string> = {
-  [HexTerrain.empty]: '#040404',
-  [HexTerrain.grass]: '#60840d',
-  [HexTerrain.rock]: '#475776',
-  [HexTerrain.sand]: '#ab8e10',
-  [HexTerrain.road]: '#868686',
-  [HexTerrain.water]: '#3794fd',
-}
-
-// This is used in Hexxaform context
-export const landSizes = {
-  // solid terrain below
-  grass: [1, 2, 3, 7, 24],
-  rock: [1, 2, 3, 7, 24],
-  sand: [1, 2, 3, 7, 24],
-  swamp: [1, 2, 3, 7, 24],
-  dungeon: [1, 2, 3, 7, 24],
-  lavaField: [1, 2, 7],
-  concrete: [1, 2, 7],
-  asphalt: [1, 2, 7],
-  road: [1, 2],
-  snow: [1, 2],
-  // fluid terrain below
-  water: [1, 3],
-  swampWater: [1],
-  lava: [1],
-  ice: [1],
-  shadow: [1],
-}
-
-const edgeObstacles = {
-
-}
-const hexObstacles = {
-  outcrop1: { sizes: [1] },
-  outcrop3: { sizes: [3] },
-  glacier1: { sizes: [1] },
-  glacier3: { sizes: [3] },
-  glacier4: { sizes: ['glacier4'] },
-  glacier6: { sizes: ['glacier6'] },
-  hive6: { sizes: ['hive6'] },
-  ruins2: { sizes: ['ruins2'] },
-  ruins3: { sizes: ['ruins3'] },
-  tree10: { sizes: [1] },
-  tree11: { sizes: [1] },
-  tree12: { sizes: [1] },
-  tree04: { sizes: ['glacier4'] },
-  palm14: { sizes: [1] },
-  palm15: { sizes: [1] },
-  palm16: { sizes: [1] },
-  brush9: { sizes: [1] },
-}

@@ -1,21 +1,21 @@
 import { Dictionary } from 'lodash'
 import { hexUtilsAdd, hexUtilsRotate } from '../../game/hex-utils'
-import { HexCoordinates } from '../../game/types'
+import { CastleObstacles, EdgeAddons, EdgeObstacles, HexCoordinates, HexObstacles } from '../../game/types'
 import rotationTransforms from './rotationTransforms'
 
 export default function getVSTileTemplate({
   clickedHex,
   rotation,
-  size,
+  template,
 }: {
   clickedHex: HexCoordinates
-  size: number
   rotation: number
+  template: string
 }): HexCoordinates[] {
   const originOfTileTransform =
-    rotationTransforms[size][rotation]
+    rotationTransforms[template][rotation]
   const originOfTile = hexUtilsAdd(clickedHex, originOfTileTransform)
-  return vsTileTemplates[size]
+  return vsTileTemplates[template]
     .map((t) => {
       return hexUtilsRotate(t, origin, rotation)
     })
@@ -23,6 +23,7 @@ export default function getVSTileTemplate({
 }
 
 const origin = { q: 0, r: 0, s: 0 }
+const basic1 = [origin]
 const basic2 = [
   origin,
   {
@@ -253,38 +254,52 @@ const wallWalk9 = [
 ]
 
 const vsTileTemplates: Dictionary<HexCoordinates[]> = {
-  1: [origin],
+  1: basic1,
   2: basic2,
   3: basic3,
+  5: straight5, // currently, road is only land with a 5-hex
   7: basic7,
   24: basic24,
-  road5: straight5,
-  wallWalk7,
-  wallWalk9,
-  // edge obstructions below
-  ruins2: basic2,
-  ruins3: straight3,
-  marvel6,
-  roadWall4: straight4,
-  ladder: [origin],
-  battlement: [origin],
-  flag: [origin],
   // hex obstructions below
-  castle: [origin],
-  tree10: [origin],
-  tree11: [origin],
-  tree12: [origin],
-  tree4: glacier4,
-  palm14: [origin],
-  palm15: [origin],
-  palm16: [origin],
-  brush9: [origin],
-  outcrop1: [origin],
-  outcrop3: basic3,
-  glacier1: [origin],
-  glacier3: basic3,
-  glacier4,
-  glacier6,
-  hive6: glacier6,
+  [HexObstacles.tree10]: basic1,
+  [HexObstacles.tree11]: basic1,
+  [HexObstacles.tree12]: basic1,
+  [HexObstacles.tree415]: glacier4,
+  [HexObstacles.palm14]: basic1,
+  [HexObstacles.palm15]: basic1,
+  [HexObstacles.palm16]: basic1,
+  [HexObstacles.brush9]: basic1,
+  [HexObstacles.outcrop1]: basic1,
+  [HexObstacles.outcrop3]: basic3,
+  [HexObstacles.glacier1]: basic1,
+  [HexObstacles.glacier3]: basic3,
+  [HexObstacles.glacier4]: glacier4,
+  [HexObstacles.glacier6]: glacier6,
+  [HexObstacles.hive6]: glacier6,
+
+  // edge stuff below
+  [EdgeObstacles.ruins2]: basic2,
+  [EdgeObstacles.ruins3]: straight3,
+  [EdgeObstacles.marvel6]: marvel6,
+  [EdgeObstacles.marvelBroken6]: marvel6,
+  // castle
+  [CastleObstacles.wallWalk7]: wallWalk7,
+  [CastleObstacles.wallWalk9]: wallWalk9,
+  [CastleObstacles.archDoor3]: straight3,
+  [CastleObstacles.archNoDoor3]: straight3,
+  [CastleObstacles.castleBaseCorner]: basic1,
+  [CastleObstacles.castleBaseStraight]: basic1,
+  [CastleObstacles.castleBaseEnd]: basic1,
+  [CastleObstacles.castleWallCorner]: basic1,
+  [CastleObstacles.castleWallStraight]: basic1,
+  [CastleObstacles.castleWallEnd]: basic1,
+
+  [EdgeAddons.roadWall4]: straight4,
+  // TODO
+  // start zone
+  // glyph
+  // ladder: basic1,
+  // battlement: basic1,
+  // flag: basic1,
 }
 

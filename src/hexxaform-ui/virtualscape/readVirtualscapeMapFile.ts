@@ -1,3 +1,5 @@
+import { generateHexID } from "../../game/constants"
+import { hexUtilsOddRToCube } from "../../game/hex-utils"
 import { VirtualScapeMap, VirtualScapeTile } from "../../game/hexxaform/hexxaform-types"
 
 /* 
@@ -13,7 +15,20 @@ export default function readVirtualscapeMapFile(file: File) {
       const arrayBuffer = reader.result
       const dataView = new DataView(arrayBuffer as ArrayBuffer)
       offset = 0
-      let virtualScapeMap: VirtualScapeMap
+      const virtualScapeMap: VirtualScapeMap = {
+        version: 0,
+        name: '',
+        author: '',
+        playerNumber: '',
+        scenario: '',
+        levelPerPage: 0,
+        printingTransparency: 0,
+        printingGrid: false,
+        printTileNumber: false,
+        printStartAreaAsLevel: true,
+        tileCount: 0,
+        tiles: [],
+      }
 
       virtualScapeMap.version = getFloat64(dataView)
       virtualScapeMap.name = readCString(dataView)
@@ -33,7 +48,31 @@ export default function readVirtualscapeMapFile(file: File) {
       virtualScapeMap.tileCount = getInt32(dataView)
 
       for (let i = 0; i < virtualScapeMap.tileCount; i++) {
-        let tile: VirtualScapeTile
+        const tile: VirtualScapeTile = {
+          type: 0,
+          version: 0,
+          rotation: 0,
+          posX: 0,
+          posY: 0,
+          posZ: 0,
+          glyphLetter: '',
+          glyphName: '',
+          startName: '',
+          colorf: 0,
+          isFigureTile: false,
+          figure: {
+            name: '',
+            name2: '',
+          },
+          isPersonalTile: false,
+          personal: {
+            pieceSize: 0,
+            textureTop: '',
+            textureSide: '',
+            letter: '',
+            name: '',
+          },
+        }
         const tileType = getInt32(dataView)
         tile.type = tileType
         tile.version = getFloat64(dataView)
@@ -68,11 +107,14 @@ export default function readVirtualscapeMapFile(file: File) {
       virtualScapeMap.tiles.sort((a, b) => {
         return a.posZ - b.posZ
       })
-      virtualScapeMap.tiles.map((t) => {
-        return {
-          ...t
-        }
+      const newTiles = virtualScapeMap.tiles.map(t => {
+        const cubeCoords = hexUtilsOddRToCube(t.posX, t.posY)
+        const id = generateHexID(cubeCoords)
+        console.log("🚀 ~ newTiles ~ id:", id)
+        // const terrain = 
+        return { ...t, cubeCoords }
       })
+      console.log("🚀 ~ readVSFile ~ newTiles:", newTiles)
       resolve(virtualScapeMap)
     }
     reader.onerror = () => {

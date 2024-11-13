@@ -68,7 +68,7 @@ export function HexxaformMapDisplay3D({
       const hexIDArr = getVSTileTemplate({
         clickedHex: { q: hex.q, r: hex.r, s: hex.s },
         rotation: rotation++ % 6,
-        size: pieceSize,
+        template: `${pieceSize}`, // DEV: Only land pieces will have their size as their template name, future things will have a string
       }).map((h) => generateHexID(h))
       paintGrassTile({ hexIDArr, altitude: hex.altitude })
     }

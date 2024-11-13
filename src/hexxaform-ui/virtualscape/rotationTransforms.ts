@@ -1,3 +1,5 @@
+import { CastleObstacles, EdgeAddons, EdgeObstacles, HexObstacles } from "../../game/types"
+
 /* 
     WHAT/WHY
     These were mapped out by placing a tile down in virtualscape 6 times on known hexes. 1 for each rotation.
@@ -11,8 +13,8 @@
   
     Here were my findings for all the pieces that are in Virtualscape:
   
-    1-hex tiles rotation matters little.
-    1-hex Obstructions: It will affect their display.
+    1-hex land tiles: rotation matters little.
+    1-hex obstructions: affects model display.
   
     1-hex castle walls/bases: 
     END(=>), STRAIGHT(=) connections to left 
@@ -85,7 +87,7 @@ const straight3 = [
   { q: 0, r: 2, s: -2 },
   { q: -2, r: 2, s: 0 },
 ]
-const roadWall4 = [
+const straight4 = [
   // straight4, roadWall4
   { q: 0, r: 0, s: 0 },
   { q: 0, r: 0, s: 0 },
@@ -94,8 +96,8 @@ const roadWall4 = [
   { q: 0, r: 3, s: -3 },
   { q: -3, r: 3, s: 0 },
 ]
-const road5 = [
-  // straight5, road5
+const straight5 = [
+  //  road5: road is the only land tile with a 5-hex piece
   { q: 0, r: 0, s: 0 },
   { q: 0, r: 0, s: 0 },
   { q: 0, r: 0, s: 0 },
@@ -146,22 +148,48 @@ const marvel6 = [
   { q: -4, r: 3, s: 1 },
 ]
 const rotationTransforms = {
-  ruins2: straight2,
-  ruins3: straight3,
-  arch3: straight3,
-  door3: straight3,
-  marvel6,
-  roadWall4,
-  road5,
-  glacier6,
-  glacier4,
-  castle7,
-  castle9,
-  1: t1,
-  2: straight2,
-  3: t3,
-  7: t7,
-  24: t24,
+  // land tiles (solid and fluid) will use their size to lookup their rotations
+  '1': t1,
+  '2': straight2,
+  '3': t3,
+  '5': straight5,
+  '7': t7,
+  '24': t24,
+  // obstacles will use their template name to lookup their rotations
+  [HexObstacles.tree10]: t1,
+  [HexObstacles.tree11]: t1,
+  [HexObstacles.tree12]: t1,
+  [HexObstacles.tree415]: glacier4,
+  [HexObstacles.palm14]: t1,
+  [HexObstacles.palm15]: t1,
+  [HexObstacles.palm16]: t1,
+  [HexObstacles.brush9]: t1,
+  [HexObstacles.outcrop1]: t1,
+  [HexObstacles.outcrop3]: t3,
+  [HexObstacles.glacier1]: t1,
+  [HexObstacles.glacier3]: t3,
+  [HexObstacles.glacier4]: glacier4,
+  [HexObstacles.glacier6]: glacier6,
+  [HexObstacles.hive6]: glacier6,
+  // EDGE OBSTACLES
+  [EdgeObstacles.ruins2]: straight2,
+  [EdgeObstacles.ruins3]: straight3,
+  // HEX/EDGE
+  [EdgeObstacles.marvel6]: marvel6,
+  [EdgeObstacles.marvelBroken6]: marvel6,
+  // ADDONS
+  [EdgeAddons.roadWall4]: straight4,
+  // CASTLE
+  [CastleObstacles.archDoor3]: straight3,
+  [CastleObstacles.archNoDoor3]: straight3,
+  [CastleObstacles.wallWalk7]: castle7,
+  [CastleObstacles.wallWalk9]: castle9,
+  [CastleObstacles.castleBaseCorner]: t1, // THESE FACE LEFT THOUGH!
+  [CastleObstacles.castleBaseStraight]: t1, // THESE FACE LEFT THOUGH!
+  [CastleObstacles.castleBaseEnd]: t1, // THESE FACE LEFT THOUGH!
+  [CastleObstacles.castleWallCorner]: t1, // THESE FACE LEFT THOUGH!
+  [CastleObstacles.castleWallStraight]: t1, // THESE FACE LEFT THOUGH!
+  [CastleObstacles.castleWallEnd]: t1, // THESE FACE LEFT THOUGH!
 }
 
 export default rotationTransforms

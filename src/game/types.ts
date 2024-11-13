@@ -115,6 +115,44 @@ export enum HexTerrain {
   swampWater = 'swampWater',
   shadow = 'shadow',
 }
+export enum HexObstacles {
+  tree10 = 'tree10',
+  tree11 = 'tree11',
+  tree12 = 'tree12',
+  tree415 = 'tree415',
+  palm14 = 'palm14',
+  palm15 = 'palm15',
+  palm16 = 'palm16',
+  brush9 = 'brush9',
+  outcrop1 = 'outcrop1',
+  outcrop3 = 'outcrop3',
+  glacier1 = 'glacier1',
+  glacier3 = 'glacier3',
+  glacier4 = 'glacier4',
+  glacier6 = 'glacier6',
+  hive6 = 'hive6',
+}
+export enum EdgeObstacles {
+  ruins2 = 'ruins2',
+  ruins3 = 'ruins3',
+  marvel6 = 'marvel6',
+  marvelBroken6 = 'marvelBroken6',
+}
+export enum EdgeAddons {
+  roadWall4 = 'roadWall4',
+}
+export enum CastleObstacles {
+  wallWalk7 = 'wallWalk7',
+  wallWalk9 = 'wallWalk9',
+  archDoor3 = 'archDoor3',
+  archNoDoor3 = 'archNoDoor3',
+  castleBaseCorner = 'castleBaseCorner',
+  castleBaseStraight = 'castleBaseStraight',
+  castleBaseEnd = 'castleBaseEnd',
+  castleWallCorner = 'castleWallCorner',
+  castleWallStraight = 'castleWallStraight',
+  castleWallEnd = 'castleWallEnd',
+}
 export interface BoardHex extends HexCoordinates {
   id: string
   occupyingUnitID: string

@@ -1,3 +1,26 @@
+
+// // Create an array of bytes (e.g., representing an image)
+// const byteArray = [0x48, 0x65, 0x6c, 0x6c, 0x6f, 0x20, 0x57, 0x6f, 0x72, 0x6c, 0x64];
+
+// // Create a Blob from the array
+// const blob = new Blob([new Uint8Array(byteArray)], { type: 'application/octet-stream' });
+
+// // Create a URL for the Blob
+// const url = URL.createObjectURL(blob);
+
+// // Create a link element
+// const link = document.createElement('a');
+// link.href = url;
+// link.download = 'binary_file.bin'; // Set the desired file name
+
+// // Append the link to the DOM and trigger a click event
+// document.body.appendChild(link);
+// link.click();
+
+// // Clean up
+// document.body.removeChild(link);
+// URL.revokeObjectURL(url);
+
 const myFile = {
   version: 0.0007,
   name: '',
