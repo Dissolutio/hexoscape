@@ -4,11 +4,12 @@ import { HexTerrain } from '../game/types'
 
 const DEVLogSomethingCoolButton = ({
   boardHexes,
-  //   hexMap,
+  hexMap,
 }: BgioProps) => {
   const onClick = () => {
-    const myArr = Object.values(boardHexes)
-    console.log('🚀 ~ boardHexes:', boardHexes)
+    console.log("🚀 ~ hexMap:", hexMap)
+    // const myArr = Object.values(boardHexes)
+    // console.log('🚀 ~ boardHexes:', boardHexes)
   }
   return (
     <Button variant="contained" onClick={onClick}>

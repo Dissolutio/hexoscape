@@ -10,7 +10,7 @@ import { selectGlyphForHex } from '../game/selectors'
 import { powerGlyphs } from '../game/glyphs'
 import { HeightRings } from './HeightRings'
 import { MapHexGlyph } from './MapHexGlyph'
-import { MapHexIDDisplay } from './MapHexIDDisplay'
+// import { MapHexIDDisplay } from './MapHexIDDisplay'
 import { getBoardHex3DCoords } from '../game/map-utils'
 
 

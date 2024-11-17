@@ -70,26 +70,70 @@ export const powerGlyphs: HexoscapeGlyphs = {
     description:
       'Add 8 to your Initiative Roll at the beginning of the next Round.',
   },
-  // {
-  //   name: 'Glyph of Jalgard',
-  //   effect: "Defense +2",
-  //   description: "Add two dice to your Defense Roll when any figure in your army is attacked."
-  // },
-  // {
-  //   name: 'Glyph of Lodin',
-  //   effect: "Lucky 20-Sider",
-  //   description: "Whenever you roll the 20 sided die, you may add one to your die roll."
-  // },
-  // {
-  //   name: 'Glyph of Rannveig',
-  //   effect: "Wind",
-  //   description: "When a figure is on this Glyph, no figure may use the 'Flying' power. This includes figures in your own army was well as figures on the other player's team."
-  // },
-  // {
-  //   name: 'Glyph of Crevcor',
-  //   effect: "Common Attack +1",
-  //   description: "All Common Figures in your army may add one additional attack die when attacking normally."
-  // },
+  defense2: {
+    id: 'defense2',
+    name: 'Glyph of Jalgard',
+    shortName: 'Defense +2',
+    type: 'power',
+    effect: "Defense +2",
+    description: "Add two dice to your Defense Roll when any figure in your army is attacked.",
+  },
+  lucky1: {
+    id: 'lucky1',
+    name: 'Glyph of Lodin',
+    shortName: 'Lucky 20-Sider',
+    type: 'power',
+    effect: "Lucky 20-Sider",
+    description: "Whenever you roll the 20 sided die, you may add one to your die roll."
+  },
+  wind: {
+    id: 'wind',
+    name: 'Glyph of Rannveig',
+    shortName: 'Wind',
+    type: 'power',
+    effect: "Wind",
+    description: "When a figure is on this Glyph, no figure may use the 'Flying' power. This includes figures in your own army was well as figures on the other player's team."
+  },
+  commonAttack: {
+    id: 'commonAttack',
+    name: 'Glyph of Crevcor',
+    shortName: 'Common Attack +1',
+    type: 'power',
+    effect: "Common Attack +1",
+    description: "All Common Figures in your army may add one additional attack die when attacking normally."
+  },
+  thorian: {
+    id: 'thorian',
+    name: 'Glyph of Thorian',
+    shortName: 'Thorian',
+    type: 'power',
+    effect: "Common Attack +1",
+    description: "All opponents' figures must be adjacent to your figures to attack your figures with a normal attack."
+  },
+  pitTrap: {
+    id: 'pitTrap',
+    name: 'Glyph of Proftaka',
+    shortName: 'Pit Trap',
+    type: 'power',
+    effect: "Trapped Figure",
+    description: "Your figure is trapped. The trapped figure cannot move from this space. The figure can move off the Glyph of Proftaka only if a friendly figure occupies an adjacent space."
+  },
+  uniqueAttack: {
+    id: 'uniqueAttack',
+    name: 'Glyph of Ulaniva',
+    shortName: 'Unique Attack +1',
+    type: 'power',
+    effect: "Unique Attack +1",
+    description: "All Unique Figures in your army may add one extra attack die when attacking normally."
+  },
+  wound: {
+    id: 'wound',
+    name: 'Glyph of Wannok',
+    shortName: 'Wound',
+    type: 'power',
+    effect: "Wound",
+    description: "At the end of every round, roll the 20-sided die. If you roll a 1, the figure on the Glyph receives one wound. If you roll a 2 or higher, you may choose an opponent who must give one wound to any figure he or she controls on the battlefield."
+  },
 }
 
 const _temporaryGlyphs: HexoscapeGlyphs = {
@@ -120,25 +164,6 @@ const _temporaryGlyphs: HexoscapeGlyphs = {
   },
 }
 
-// Permanent Glyphs
-// These Glyphs remain active until the figure moves off of it. Once the figure (or the front of the figure for large creatures) moves off of the Glyph, any other person can use that Glyph, and so on.
-// Rise of the Valkyrie
-// Glyph of Astrid (Attack +1): Add one die to your attack roll when any figure in your army uses a Normal Attack
-// Glyph of Brandar (Artifact): The rules for this Glyph changes for each scenario.
-// Glyph of Dagmar (Initiative +8): Add 8 to your Initiative Roll at the beginning of the next Round.
-// Glyph of Gerda (Defense +1): Add one die to your Defense Roll when any figure in your army is attacked.
-// Glyph of Ivor (Range +4): Add 4 to the Range limit of every Army Card in your army which already had a Range of 4 or more.
-// Glyph of Valda (Move +2): Add 2 to the Move Number stated on every Army Card in your army.
-// Malliddon's Prophecy
-// Glyph of Jalgard (Defense +2): Add two dice to your Defense Roll when any figure in your army is attacked.
-// Glyph of Lodin (Lucky 20-Sider): Whenever you roll the 20 sided die, you may add one to your die roll.
-// Glyph of Rannveig (Wind): When a figure is on this Glyph, no figure may use the "Flying" power. This includes figures in your own army was well as figures on the other player's team.
-// Swarm of the Marro
-// Glyph of Crevcor (Common Attack +1): All Common Figures in your army may add one additional attack die when attacking normally.
-// Glyph of Thorian (Thorian): All opponents' figures must be adjacent to your figures to attack your figures with a normal attack.
-// Glyph of Proftaka (Pit Trap): Your figure is trapped. The trapped figure cannot move from this space. The figure can move off the Glyph of Proftaka only if a friendly figure occupies an adjacent space.
-// Glyph of Ulaniva (Unique Attack +1): All Unique Figures in your army may add one extra attack die when attacking normally.
-// Glyph of Wannok (Wound): At the end of every round, roll the 20-sided die. If you roll a 1, the figure on the Glyph receives one wound. If you roll a 2 or higher, you may choose an opponent who must give one wound to any figure he or she controls on the battlefield.
 
 // Temporary Glyphs
 // Remove these Glyphs from the board upon landing on them.
