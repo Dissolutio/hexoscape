@@ -469,7 +469,7 @@ const coreHeroscapeCards: ICoreHeroscapeCard[] = [
     height: '5',
     heightClass: 'medium',
     life: '5',
-    move: '5',
+    move: '7',
     range: '1',
     attack: '3',
     defense: '6',

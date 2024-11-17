@@ -1,7 +1,6 @@
 import React, {
   createContext,
   PropsWithChildren,
-  SyntheticEvent,
   useContext,
   useEffect,
   useState,
@@ -20,7 +19,6 @@ import {
   selectIsInRangeOfAttack,
   selectHexNeighbors,
   selectGlyphForHex,
-  selectHexForUnit,
   selectTailHexForUnit,
   selectEditingHexForUnit,
 } from '../../game/selectors'
@@ -35,7 +33,7 @@ import {
   useBgioG,
   useBgioMoves,
 } from '../../bgio-contexts'
-import { computeUnitMoveRange } from '../../game/computeUnitMoveRange'
+import { computeUnitMoveRange, MoveRangeArgs } from '../../game/computeUnitMoveRange'
 import {
   selectGameArmyCardAttacksAllowed,
   selectIfGameArmyCardHasAbility,
@@ -45,15 +43,12 @@ import { ThreeEvent } from '@react-three/fiber'
 import { generateHexID } from '../../game/constants'
 import { useUIContext } from '../../hooks/ui-context'
 
+
 type TargetsInRange = {
   [gameUnitID: string]: string[] // hexIDs
 }
 
 const PlayContext = createContext<PlayContextValue | undefined>(undefined)
-const initialMoveRangeState = {
-  unitID: '',
-  moveRange: generateBlankMoveRange(),
-}
 
 type PlayContextValue = {
   // state
@@ -361,40 +356,57 @@ export const PlayContextProvider = ({ children }: PropsWithChildren) => {
   const { safeMoves, engageMoves, dangerousMoves } =
     transformMoveRangeToArraysOfIds(selectedUnitMoveRange)
   selectIfGameArmyCardHasFlying
+  const workerRef = React.useRef<Worker>();
+  // effect: start/terminate worker for move range
+  useEffect(() => {
+    const worker = new Worker(new URL('../../moveRangeWorker.js', import.meta.url), { type: 'module' });
+    workerRef.current = worker
+    workerRef.current.onmessage = (event) => {
+      const moveRange = event.data
+      setSelectedUnitMoveRange(moveRange)
+    };
+    return () => {
+      workerRef.current.terminate();
+    };
+  }, []);
 
-  // selectIfGameArmyCardHasDisengage
-  // selectHexForUnit
-  // selectTailHexForUnit
-  // selectEngagementsForHex
-  // mergeTwoMoveRanges
-  // selectHexNeighbors
-  // selectValidTailHexes
-  // selectMoveCostBetweenNeighbors
-  // selectMoveDisengagedUnitIDs
-  // selectMoveEngagedUnitIDs
-  // selectIsClimbable
-  // selectIsFallDamage
-
+  function runWorker(data: MoveRangeArgs) {
+    workerRef?.current?.postMessage?.(data);
+  }
   // effect: update moverange when selected unit changes (only necessary in movement stage)
   useEffect(() => {
     if (isMovementStage) {
       if (selectedUnitID && selectedUnit) {
-        setSelectedUnitMoveRange(() =>
-          computeUnitMoveRange({
-            unit: selectedUnit,
-            isFlying,
-            isGrappleGun,
-            hasMoved: uniqUnitsMoved.length > 0,
-            boardHexes,
-            gameUnits,
-            armyCards: gameArmyCards,
-            glyphs,
-          })
-        )
+        const timeA = performance.now();
+        const moveRange = computeUnitMoveRange({
+          boardHexes,
+          gameUnits,
+          armyCards: gameArmyCards,
+          unit: selectedUnit,
+          glyphs,
+          isFlying,
+          isGrappleGun,
+          hasMoved: uniqUnitsMoved.length > 0,
+        })
+        const timeB = performance.now();
+        console.log(`TOOK: ${timeA - timeB} ms`);
+
+        setSelectedUnitMoveRange(moveRange)
+        // runWorker({
+        //   boardHexes,
+        //   gameUnits,
+        //   armyCards: gameArmyCards,
+        //   unit: selectedUnit,
+        //   glyphs,
+        //   isFlying,
+        //   isGrappleGun,
+        //   hasMoved: uniqUnitsMoved.length > 0,
+        // });
       } else {
         setSelectedUnitMoveRange(generateBlankMoveRange())
       }
     }
+
   }, [
     isMovementStage,
     gameArmyCards,
@@ -407,6 +419,7 @@ export const PlayContextProvider = ({ children }: PropsWithChildren) => {
     uniqUnitsMoved.length,
     glyphs,
   ])
+
 
   // WATER CLONE
   const cloningsWon = Object.values(waterCloneRoll?.placements ?? {}).length
@@ -422,13 +435,13 @@ export const PlayContextProvider = ({ children }: PropsWithChildren) => {
   const clonePlaceableHexIDs = isAllClonesPlaced
     ? []
     : Object.values(waterCloneRoll?.placements ?? {})
-        .filter(
-          (placement) =>
-            !waterClonesPlacedClonerIDs.includes(placement.clonerID)
-        )
-        .reduce((result: string[], placement) => {
-          return [...result, ...placement.tails]
-        }, [])
+      .filter(
+        (placement) =>
+          !waterClonesPlacedClonerIDs.includes(placement.clonerID)
+      )
+      .reduce((result: string[], placement) => {
+        return [...result, ...placement.tails]
+      }, [])
 
   const onClickClonePlaceableHex = (hex: BoardHex) => {
     const hexID = hex.id
@@ -443,8 +456,8 @@ export const PlayContextProvider = ({ children }: PropsWithChildren) => {
     const secondIndex =
       firstIndex > -1
         ? validPlacements
-            .slice(firstIndex)
-            .findIndex((p) => p.tails.includes(hexID))
+          .slice(firstIndex)
+          .findIndex((p) => p.tails.includes(hexID))
         : 0
     // the number of placements should always be >= number of killed units, so accessing the first element is safe
     const clonedID = revealedGameCardKilledUnits.map((u) => u.unitID)[0]
@@ -500,30 +513,30 @@ export const PlayContextProvider = ({ children }: PropsWithChildren) => {
     (toBeDroppedUnitIDs.length <= 0 && !selectedUnitID) || !isTheDropStage
       ? []
       : Object.values(boardHexes)
-          .filter((hex) => {
-            const editingHexesToUse = selectedUnitID
-              ? {
-                  ...editingBoardHexes,
-                  // overwrite the selected unit (which is a The-Drop-unit), as if our selected unit is not there, so we can Drop it 1 hex over if we want
-                  [selectedUnitEditingHexID]: undefined,
-                }
-              : editingBoardHexes
-            const isHexUnoccupied =
-              !hex.occupyingUnitID && !editingHexesToUse[hex.id]
-            const isAllHexNeighborsUnoccupied = !selectHexNeighbors(
-              hex.id,
-              boardHexes
-            ).some(
-              (h) =>
-                h.occupyingUnitID || editingHexesToUse[h.id]?.occupyingUnitID
-            )
-            const glyphOnHex = selectGlyphForHex({
-              hexID: hex.id,
-              glyphs,
-            })
-            return isHexUnoccupied && isAllHexNeighborsUnoccupied && !glyphOnHex
+        .filter((hex) => {
+          const editingHexesToUse = selectedUnitID
+            ? {
+              ...editingBoardHexes,
+              // overwrite the selected unit (which is a The-Drop-unit), as if our selected unit is not there, so we can Drop it 1 hex over if we want
+              [selectedUnitEditingHexID]: undefined,
+            }
+            : editingBoardHexes
+          const isHexUnoccupied =
+            !hex.occupyingUnitID && !editingHexesToUse[hex.id]
+          const isAllHexNeighborsUnoccupied = !selectHexNeighbors(
+            hex.id,
+            boardHexes
+          ).some(
+            (h) =>
+              h.occupyingUnitID || editingHexesToUse[h.id]?.occupyingUnitID
+          )
+          const glyphOnHex = selectGlyphForHex({
+            hexID: hex.id,
+            glyphs,
           })
-          .map((hex) => hex.id)
+          return isHexUnoccupied && isAllHexNeighborsUnoccupied && !glyphOnHex
+        })
+        .map((hex) => hex.id)
   function onConfirmDropPlacement() {
     dropInUnits({
       isAccepting: true,
