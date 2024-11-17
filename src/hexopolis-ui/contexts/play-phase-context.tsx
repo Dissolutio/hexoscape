@@ -360,6 +360,21 @@ export const PlayContextProvider = ({ children }: PropsWithChildren) => {
 
   const { safeMoves, engageMoves, dangerousMoves } =
     transformMoveRangeToArraysOfIds(selectedUnitMoveRange)
+  selectIfGameArmyCardHasFlying
+
+  // selectIfGameArmyCardHasDisengage
+  // selectHexForUnit
+  // selectTailHexForUnit
+  // selectEngagementsForHex
+  // mergeTwoMoveRanges
+  // selectHexNeighbors
+  // selectValidTailHexes
+  // selectMoveCostBetweenNeighbors
+  // selectMoveDisengagedUnitIDs
+  // selectMoveEngagedUnitIDs
+  // selectIsClimbable
+  // selectIsFallDamage
+
   // effect: update moverange when selected unit changes (only necessary in movement stage)
   useEffect(() => {
     if (isMovementStage) {
@@ -605,10 +620,8 @@ export const PlayContextProvider = ({ children }: PropsWithChildren) => {
         // deselect unit
         if (isUnitOnHexSelected) {
           setSelectedUnitID('')
-          // setSelectedUnitMoveRange(generateBlankMoveRange())
         } else if (isUnitOnHexReadyToSelect) {
           setSelectedUnitID(unitOnHex.unitID)
-          // setSelectedUnitMoveRange(generateBlankMoveRange())
         }
       }
     }
