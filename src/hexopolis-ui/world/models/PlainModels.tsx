@@ -67,7 +67,7 @@ export function Airborn1PlainModel({
         receiveShadow
         geometry={nodes?.Airborn_Elite_1?.geometry}
       >
-        <meshLambertMaterial color={playerColor} />
+        <meshMatcapMaterial color={playerColor} />
         <OutlineHighlight gameUnit={gameUnit} isHovered={isHovered} />
       </mesh>
     </>
@@ -90,7 +90,7 @@ export function Airborn2PlainModel({
         receiveShadow
         geometry={nodes?.Airborn_Elite_2?.geometry}
       >
-        <meshLambertMaterial color={playerColor} />
+        <meshMatcapMaterial color={playerColor} />
         <OutlineHighlight gameUnit={gameUnit} isHovered={isHovered} />
       </mesh>
     </>
@@ -112,7 +112,7 @@ export function Airborn3PlainModel({
         receiveShadow
         geometry={nodes?.Airborn_Elite_3?.geometry}
       >
-        <meshLambertMaterial color={playerColor} />
+        <meshMatcapMaterial color={playerColor} />
         <OutlineHighlight gameUnit={gameUnit} isHovered={isHovered} />
       </mesh>
     </>
@@ -134,7 +134,7 @@ export function Airborn4PlainModel({
         receiveShadow
         geometry={nodes?.Airborn_Elite_4?.geometry}
       >
-        <meshLambertMaterial color={playerColor} />
+        <meshMatcapMaterial color={playerColor} />
         <OutlineHighlight gameUnit={gameUnit} isHovered={isHovered} />
       </mesh>
     </>
@@ -158,7 +158,7 @@ export function MarroWarriors1PlainModel({
         receiveShadow
         geometry={nodes?.Marro_Warriors_1?.geometry}
       >
-        <meshLambertMaterial color={playerColor} />
+        <meshMatcapMaterial color={playerColor} />
         <OutlineHighlight gameUnit={gameUnit} isHovered={isHovered} />
       </mesh>
     </>
@@ -180,7 +180,7 @@ export function MarroWarriors2PlainModel({
         receiveShadow
         geometry={nodes?.Marro_Warriors_2?.geometry}
       >
-        <meshLambertMaterial color={playerColor} />
+        <meshMatcapMaterial color={playerColor} />
         <OutlineHighlight gameUnit={gameUnit} isHovered={isHovered} />
       </mesh>
     </>
@@ -202,7 +202,7 @@ export function MarroWarriors3PlainModel({
         receiveShadow
         geometry={nodes?.Marro_Warriors_3?.geometry}
       >
-        <meshLambertMaterial color={playerColor} />
+        <meshMatcapMaterial color={playerColor} />
         <OutlineHighlight gameUnit={gameUnit} isHovered={isHovered} />
       </mesh>
     </>
@@ -224,7 +224,7 @@ export function MarroWarriors4PlainModel({
         receiveShadow
         geometry={nodes?.Marro_Warriors_4?.geometry}
       >
-        <meshLambertMaterial color={playerColor} />
+        <meshMatcapMaterial color={playerColor} />
         <OutlineHighlight gameUnit={gameUnit} isHovered={isHovered} />
       </mesh>
     </>
@@ -247,7 +247,7 @@ export function Tarn1PlainModel({
         receiveShadow
         geometry={nodes?.Tarn_Viking_Warriors_1?.geometry}
       >
-        <meshLambertMaterial color={playerColor} />
+        <meshMatcapMaterial color={playerColor} />
         <OutlineHighlight gameUnit={gameUnit} isHovered={isHovered} />
       </mesh>
     </>
@@ -269,7 +269,7 @@ export function Tarn2PlainModel({
         receiveShadow
         geometry={nodes?.Tarn_Viking_Warriors_2?.geometry}
       >
-        <meshLambertMaterial color={playerColor} />
+        <meshMatcapMaterial color={playerColor} />
         <OutlineHighlight gameUnit={gameUnit} isHovered={isHovered} />
       </mesh>
     </>
@@ -291,7 +291,7 @@ export function Tarn3PlainModel({
         receiveShadow
         geometry={nodes?.Tarn_Viking_Warriors_3?.geometry}
       >
-        <meshLambertMaterial color={playerColor} />
+        <meshMatcapMaterial color={playerColor} />
         <OutlineHighlight gameUnit={gameUnit} isHovered={isHovered} />
       </mesh>
     </>
@@ -313,7 +313,7 @@ export function Tarn4PlainModel({
         receiveShadow
         geometry={nodes?.Tarn_Viking_Warriors_4?.geometry}
       >
-        <meshLambertMaterial color={playerColor} />
+        <meshMatcapMaterial color={playerColor} />
         <OutlineHighlight gameUnit={gameUnit} isHovered={isHovered} />
       </mesh>
     </>
@@ -337,7 +337,7 @@ export function Izumi1PlainModel({
         receiveShadow
         geometry={nodes?.Izumi_Samurai_1?.geometry}
       >
-        <meshLambertMaterial color={playerColor} />
+        <meshMatcapMaterial color={playerColor} />
         <OutlineHighlight gameUnit={gameUnit} isHovered={isHovered} />
       </mesh>
     </>
@@ -359,7 +359,7 @@ export function Izumi2PlainModel({
         receiveShadow
         geometry={nodes?.Izumi_Samurai_2?.geometry}
       >
-        <meshLambertMaterial color={playerColor} />
+        <meshMatcapMaterial color={playerColor} />
         <OutlineHighlight gameUnit={gameUnit} isHovered={isHovered} />
       </mesh>
     </>
@@ -381,7 +381,7 @@ export function Izumi3PlainModel({
         receiveShadow
         geometry={nodes?.Izumi_Samurai_3?.geometry}
       >
-        <meshLambertMaterial color={playerColor} />
+        <meshMatcapMaterial color={playerColor} />
         <OutlineHighlight gameUnit={gameUnit} isHovered={isHovered} />
       </mesh>
     </>
@@ -400,7 +400,7 @@ export function GrimnakPlainModel({
   return (
     <>
       <mesh castShadow receiveShadow geometry={nodes?.Grimnak?.geometry}>
-        <meshLambertMaterial color={playerColor} />
+        <meshMatcapMaterial color={playerColor} />
         <OutlineHighlight gameUnit={gameUnit} isHovered={isHovered} />
       </mesh>
     </>
@@ -419,7 +419,7 @@ export function Raelin1PlainModel({
   return (
     <>
       <mesh castShadow receiveShadow geometry={nodes?.Raelin1?.geometry}>
-        <meshLambertMaterial color={playerColor} />
+        <meshMatcapMaterial color={playerColor} />
         <OutlineHighlight gameUnit={gameUnit} isHovered={isHovered} />
       </mesh>
     </>
@@ -438,7 +438,7 @@ export function NeGokSaPlainModel({
   return (
     <>
       <mesh castShadow receiveShadow geometry={nodes?.Negoksa?.geometry}>
-        <meshLambertMaterial color={playerColor} />
+        <meshMatcapMaterial color={playerColor} />
         <OutlineHighlight gameUnit={gameUnit} isHovered={isHovered} />
       </mesh>
     </>
@@ -457,7 +457,7 @@ export function D9000PlainModel({
   return (
     <>
       <mesh castShadow receiveShadow geometry={nodes?.D9000?.geometry}>
-        <meshLambertMaterial color={playerColor} />
+        <meshMatcapMaterial color={playerColor} />
         <OutlineHighlight gameUnit={gameUnit} isHovered={isHovered} />
       </mesh>
     </>
@@ -482,7 +482,7 @@ export function Zettian1PlainModel({
         receiveShadow
         geometry={nodes?.Zettian_Guards_2?.geometry}
       >
-        <meshLambertMaterial color={playerColor} />
+        <meshMatcapMaterial color={playerColor} />
         <OutlineHighlight gameUnit={gameUnit} isHovered={isHovered} />
       </mesh>
     </>
@@ -506,7 +506,7 @@ export function Zettian2PlainModel({
         receiveShadow
         geometry={nodes?.Zettian_Guards_1?.geometry}
       >
-        <meshLambertMaterial color={playerColor} />
+        <meshMatcapMaterial color={playerColor} />
         <OutlineHighlight gameUnit={gameUnit} isHovered={isHovered} />
       </mesh>
     </>
@@ -528,7 +528,7 @@ export function Krav1PlainModel({
         receiveShadow
         geometry={nodes?.Krav_Maga_Agent_1?.geometry}
       >
-        <meshLambertMaterial color={playerColor} />
+        <meshMatcapMaterial color={playerColor} />
         <OutlineHighlight gameUnit={gameUnit} isHovered={isHovered} />
       </mesh>
     </>
@@ -546,7 +546,7 @@ export function Krav2PlainModel({
   return (
     <>
       <mesh castShadow receiveShadow geometry={nodes?.Krav_Maga_2?.geometry}>
-        <meshLambertMaterial color={playerColor} />
+        <meshMatcapMaterial color={playerColor} />
         <OutlineHighlight gameUnit={gameUnit} isHovered={isHovered} />
       </mesh>
     </>
@@ -564,7 +564,7 @@ export function Krav3PlainModel({
   return (
     <>
       <mesh castShadow receiveShadow geometry={nodes?.Krav_Maga_3?.geometry}>
-        <meshLambertMaterial color={playerColor} />
+        <meshMatcapMaterial color={playerColor} />
         <OutlineHighlight gameUnit={gameUnit} isHovered={isHovered} />
       </mesh>
     </>
@@ -586,7 +586,7 @@ export function FinnPlainModel({
         receiveShadow
         geometry={nodes?.Finn_the_Viking_Champion_Scanned?.geometry}
       >
-        <meshLambertMaterial color={playerColor} />
+        <meshMatcapMaterial color={playerColor} />
         <OutlineHighlight gameUnit={gameUnit} isHovered={isHovered} />
       </mesh>
     </>
@@ -608,7 +608,7 @@ export function ThorgrimPlainModel({
         receiveShadow
         geometry={nodes?.Thorgrim_the_Viking_Champion_Scanned?.geometry}
       >
-        <meshLambertMaterial color={playerColor} />
+        <meshMatcapMaterial color={playerColor} />
         <OutlineHighlight gameUnit={gameUnit} isHovered={isHovered} />
       </mesh>
     </>
@@ -626,7 +626,7 @@ export function AgentCarrPlainModel({
   return (
     <>
       <mesh castShadow receiveShadow geometry={nodes?.AgentCarr?.geometry}>
-        <meshLambertMaterial color={playerColor} />
+        <meshMatcapMaterial color={playerColor} />
         <OutlineHighlight gameUnit={gameUnit} isHovered={isHovered} />
       </mesh>
     </>
@@ -644,7 +644,7 @@ export function SyvarrisPlainModel({
   return (
     <>
       <mesh castShadow receiveShadow geometry={nodes?.Syvarris?.geometry}>
-        <meshLambertMaterial color={playerColor} />
+        <meshMatcapMaterial color={playerColor} />
         <OutlineHighlight gameUnit={gameUnit} isHovered={isHovered} />
       </mesh>
     </>
@@ -662,7 +662,7 @@ export function MimringPlainModel({
   return (
     <>
       <mesh castShadow receiveShadow geometry={nodes?.Mimring?.geometry}>
-        <meshLambertMaterial color={playerColor} />
+        <meshMatcapMaterial color={playerColor} />
         <OutlineHighlight gameUnit={gameUnit} isHovered={isHovered} />
       </mesh>
     </>
@@ -680,7 +680,7 @@ export function SgtDrakePlainModel({
   return (
     <>
       <mesh castShadow receiveShadow geometry={nodes?.Sgt_Drake_1?.geometry}>
-        <meshLambertMaterial color={playerColor} />
+        <meshMatcapMaterial color={playerColor} />
         <OutlineHighlight gameUnit={gameUnit} isHovered={isHovered} />
       </mesh>
     </>
