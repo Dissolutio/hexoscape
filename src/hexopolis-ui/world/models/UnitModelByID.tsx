@@ -352,110 +352,152 @@ const Zettian2PlainModel = lazy(() =>
 )
 const MarroWarrior1 = lazy(() =>
   // named export
-  import('./unique-squad/marro-warriors/MarroWarrior1').then((module) => ({
-    default: module.MarroWarrior1,
+  // import('./unique-squad/marro-warriors/MarroWarrior1').then((module) => ({
+  //   default: module.MarroWarrior1,
+  // }))
+  import('./PlainModels').then((module) => ({
+    default: module.MarroWarriors1PlainModel,
   }))
 )
 const MarroWarrior2 = lazy(() =>
   // named export
-  import('./unique-squad/marro-warriors/MarroWarrior2').then((module) => ({
-    default: module.MarroWarrior2,
+  // import('./unique-squad/marro-warriors/MarroWarrior2').then((module) => ({
+  //   default: module.MarroWarrior2,
+  // }))
+  import('./PlainModels').then((module) => ({
+    default: module.MarroWarriors2PlainModel,
   }))
 )
 const MarroWarrior3 = lazy(() =>
   // named export
-  import('./unique-squad/marro-warriors/MarroWarrior3').then((module) => ({
-    default: module.MarroWarrior3,
+  // import('./unique-squad/marro-warriors/MarroWarrior3').then((module) => ({
+  //   default: module.MarroWarrior3,
+  // }))
+  import('./PlainModels').then((module) => ({
+    default: module.MarroWarriors3PlainModel,
   }))
 )
 const MarroWarrior4 = lazy(() =>
   // named export
-  import('./unique-squad/marro-warriors/MarroWarrior4').then((module) => ({
-    default: module.MarroWarrior4,
+  // import('./unique-squad/marro-warriors/MarroWarrior4').then((module) => ({
+  //   default: module.MarroWarrior4,
+  // }))
+  import('./PlainModels').then((module) => ({
+    default: module.MarroWarriors4PlainModel,
   }))
 )
 const Deathwalker9000Model = lazy(() =>
   // named export
-  import('./unique-hero/Deathwalker9000Model').then((module) => ({
-    default: module.Deathwalker9000Model,
+  // import('./unique-hero/Deathwalker9000Model').then((module) => ({
+  //   default: module.Deathwalker9000Model,
+  // }))
+  import('./PlainModels').then((module) => ({
+    default: module.D9000PlainModel,
   }))
 )
 const SgtDrakeModel = lazy(() =>
   // named export
-  import('./unique-hero/SgtDrakeModel').then((module) => ({
-    default: module.SgtDrakeModel,
+  // import('./unique-hero/SgtDrakeModel').then((module) => ({
+  //   default: module.SgtDrakeModel,
+  // }))
+  import('./PlainModels').then((module) => ({
+    default: module.SgtDrakePlainModel,
   }))
 )
 const SyvarrisModel = lazy(() =>
   // named export
-  import('./unique-hero/SyvarrisModel').then((module) => ({
-    default: module.SyvarrisModel,
+  // import('./unique-hero/SyvarrisModel').then((module) => ({
+  //   default: module.SyvarrisModel,
+  // }))
+  import('./PlainModels').then((module) => ({
+    default: module.SyvarrisPlainModel,
   }))
 )
 const AgentCarrModel = lazy(() =>
   // named export
-  import('./unique-hero/AgentCarrModel').then((module) => ({
-    default: module.AgentCarrModel,
+  // import('./unique-hero/AgentCarrModel').then((module) => ({
+  //   default: module.AgentCarrModel,
+  // }))
+  import('./PlainModels').then((module) => ({
+    default: module.AgentCarrPlainModel,
   }))
 )
 const AirbornElite1 = lazy(() =>
   // named export
-  import('./unique-squad/airborn-elite/AirbornElite1').then((module) => ({
-    default: module.AirbornElite1,
+  // import('./unique-squad/airborn-elite/AirbornElite1').then((module) => ({
+  //   default: module.AirbornElite1,
+  // }))
+  import('./PlainModels').then((module) => ({
+    default: module.Airborn1PlainModel,
   }))
 )
 const AirbornElite2 = lazy(() =>
   // named export
-  import('./unique-squad/airborn-elite/AirbornElite2').then((module) => ({
-    default: module.AirbornElite2,
+  // import('./unique-squad/airborn-elite/AirbornElite2').then((module) => ({
+  //   default: module.AirbornElite2,
+  // }))
+  import('./PlainModels').then((module) => ({
+    default: module.Airborn2PlainModel,
   }))
 )
 const AirbornElite3 = lazy(() =>
   // named export
-  import('./unique-squad/airborn-elite/AirbornElite3').then((module) => ({
-    default: module.AirbornElite3,
+  import('./PlainModels').then((module) => ({
+    default: module.Airborn3PlainModel,
   }))
 )
 const AirbornElite4 = lazy(() =>
   // named export
-  import('./unique-squad/airborn-elite/AirbornElite4').then((module) => ({
-    default: module.AirbornElite4,
+  // import('./unique-squad/airborn-elite/AirbornElite4').then((module) => ({
+  //   default: module.AirbornElite4,
+  // }))
+  import('./PlainModels').then((module) => ({
+    default: module.Airborn4PlainModel,
   }))
 )
 const RaelinRotvModel = lazy(() =>
   // named export
-  import('./unique-hero/RaelinRotvModel').then((module) => ({
-    default: module.RaelinRotvModel,
+  // import('./unique-hero/RaelinRotvModel').then((module) => ({
+  //   default: module.RaelinRotvModel,
+  // }))
+  import('./PlainModels').then((module) => ({
+    default: module.Raelin1PlainModel,
   }))
 )
 const MimringModel = lazy(() =>
   // named export
-  import('./unique-hero/Mimring').then((module) => ({
-    default: module.MimringModel,
+  // import('./unique-hero/Mimring').then((module) => ({
+  //   default: module.MimringModel,
+  // }))
+  import('./PlainModels').then((module) => ({
+    default: module.MimringPlainModel,
   }))
 )
 const Krav1Model = lazy(() =>
   // named export
-  import('./unique-squad/krav-maga-agents/Krav1Model').then((module) => ({
-    default: module.Krav1Model,
+  import('./PlainModels').then((module) => ({
+    default: module.Krav1PlainModel,
   }))
 )
 const Krav2Model = lazy(() =>
   // named export
-  import('./unique-squad/krav-maga-agents/Krav2Model').then((module) => ({
-    default: module.Krav2Model,
+  import('./PlainModels').then((module) => ({
+    default: module.Krav2PlainModel,
   }))
 )
 const Krav3Model = lazy(() =>
   // named export
-  import('./unique-squad/krav-maga-agents/Krav3Model').then((module) => ({
-    default: module.Krav3Model,
+  import('./PlainModels').then((module) => ({
+    default: module.Krav3PlainModel,
   }))
 )
 const ThorgrimModel = lazy(() =>
   // named export
-  import('./unique-hero/ThorgrimModel').then((module) => ({
-    default: module.ThorgrimModel,
+  // import('./unique-hero/ThorgrimModel').then((module) => ({
+  //   default: module.ThorgrimModel,
+  // }))
+  import('./PlainModels').then((module) => ({
+    default: module.ThorgrimPlainModel,
   }))
 )
 
